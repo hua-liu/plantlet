@@ -1,0 +1,79 @@
+.imgMenu {
+	position: absolute;
+	cursor: pointer;
+	z-index:200;
+	font-size:50px;
+}
+.imgTop {
+	background: url(../img/top1.png);
+	height: 78px;
+	width: 189px;
+	top: -5px;
+	left:34px;
+}
+.imgTop i{
+	position:absolute;
+	top:-18px;left:40%;
+}
+.imgLeft {
+	background-image: url(../img/left1.png);
+	height: 159px;
+	width: 65px;
+	left: 5px;
+	top:41px;
+	padding:60px 15px;
+}
+.imgLeft i{
+	position:absolute;
+	top:25%;left:5px;
+}
+.imgRight {
+	background: url(../img/right1.png);
+	height: 161px;
+	width: 66px;
+	right: -4px;
+	top:40px;
+	padding:65px 30px;
+}
+.imgRight i{
+	position:absolute;
+	top:25%;right:5px;
+}
+.imgBottom {
+	background: url(../img/bottom1.png);
+	height: 77px;
+	width: 188px;
+	bottom: 3px;
+	left:35px;
+	padding:25px 70px;
+}
+.imgBottom i{
+	position:absolute;
+	bottom:-20px;left:40%;
+}
+.imgLeft:hover {
+	background-image: url(../img/left2.png);
+	color:#FFF;
+}
+
+.imgRight:hover {
+	background-image: url(../img/right2.png);
+	color:#FFF;
+}
+
+.imgTop:hover {
+	background-image: url(../img/top2.png);
+	color:#FFF;
+}
+
+.imgBottom:hover {
+	background-image: url(../img/bottom2.png);
+	color:#FFF;
+}
+.div-p{
+	width:150px;height:150px;border-radius:75px;
+	position:absolute;
+	left:55px;top:45px;
+	z-index:150px;
+	cursor:pointer;
+}

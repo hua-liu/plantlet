@@ -1,0 +1,70 @@
+.goodsPicture tr td:first-child img{
+	width: 50px;
+	height:50px;
+	cursor: pointer;
+}
+
+.goodsPicture tr:first-child td:last-child img {
+	width: 500px;
+	height: 500px;
+	cursor: pointer;
+}
+.goodsPicture tr{
+	margin:0;
+	mapping:0;
+}
+.goodsPicture tr td {
+	padding:0;
+	margin:0;
+	padding-left:10px;
+}
+.goodsPicture tr td div{
+	position:relative;
+}
+
+.goodsPicture tr td:first-child .checked {
+	background: GREEN;
+}
+
+#file,#htmlfile {
+	display: none;
+}
+.goodsInformation tr td:first-child{
+	text-align:right;
+	vertical-align: middle;
+}
+.goodsInformation tr td:last-child{
+}
+#add-img{
+	padding:0;
+	width:40px;height:40px;
+	vertical-align:middle;
+	margin:0 5px;	
+}
+#addGoodsButton{
+	width:150px;
+	height:35px;
+}
+.clickUploadHtml{
+	float:right;
+	height:40px;
+}
+.deleteImg{
+	position:absolute;
+	right:0;top:0;
+	color:#Fff;
+	cursor:pointer;
+	display:none;
+	background:#F00;
+}
+tr td{
+	margin:0;padding:0;
+}
+/* .selectKind {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.selectKind>li {
+	float: left;
+} */

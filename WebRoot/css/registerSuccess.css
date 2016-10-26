@@ -1,0 +1,14 @@
+.box {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.box>span {
+	font-size: 30px;
+}
+
+.box p {
+	font-size: 15px;
+	margin: 10px 0;
+}
+

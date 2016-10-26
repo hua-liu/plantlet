@@ -1,0 +1,84 @@
+li{
+	list-style:none;
+}
+.provinesBox{
+	width:80%;
+	border:1px solid #A0A0A0;
+	min-height:50px;
+	display:none;
+	top:35px;
+	background:#FFF;
+	position:absolute;
+	z-index:9999999;
+}
+.selectArea:hover{
+	cursor:pointer;
+}
+.provinesMenu{
+	height:30px;
+}
+.provinesMenu li{
+	width:25%;
+	border-right:1px solid #A0A0A0;
+	border-bottom:1px solid #A0A0A0;
+	background:#F0F0F0;
+	float:left;
+	text-align:center;
+	height:30px;
+	line-height:30px;
+	cursor:pointer;
+}
+.provinesMenu li:last-child{
+	border-right:none;
+}
+.provinesMenu .active{
+	background:none;
+	border-bottom:none;
+	color:#e00;
+}
+.provinesContent>div{
+	display:none;
+}
+.provinesContent .active{
+	display:block;
+}
+.provinesContent{
+	padding:10px;
+}
+.city-group tr{
+	background:rgba(0,0,0,0.05);
+	border-bottom:1px solid #FFF;
+}
+.city-group tr td ul{
+}
+.city-group tr td:first-child{
+	text-align:center;
+	width:100px;
+}
+.city-group tr td:last-child li{
+	float:left;
+}
+.provinesContent ul .active{
+	background:#FF6600;
+	border-radius:5px;
+	color:#fff;
+}
+.provinesContent ul .active:hover{
+	color:#FFF;
+}
+.provinesContent ul li{
+	padding:5px;
+	cursor:pointer;
+}
+.provinesContent ul li:hover{
+	color:#f00;
+}
+.city-city tr,.city-district tr,.city-street tr{
+	display:none;
+}
+.city-group li{
+	float:left;
+}
+.initArea{
+	color:#888;
+}

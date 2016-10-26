@@ -1,0 +1,52 @@
+.box{
+    margin-top:20px;
+    padding:0;
+    border-radius: 5px;
+    background:rgba(0,0,0,0.02);
+}
+.loginImg{
+    padding-left:0;
+    height:400px;
+   
+}
+@media ( max-width :1000px) {
+	.loginImg{
+		display:none;
+	}
+	.logoImg{
+		position:absolute;
+		left:30%;top:0;
+	}
+}
+@media ( max-width :500px) {
+	.logoImg{
+		position:absolute;
+		left:20%;top:0;
+	}
+}
+.logoImg{
+    margin-top:40px;
+}
+.loginButton {
+    width: 120px;
+}
+.checkbox{
+    padding-left:0;
+}
+.footer{
+    position:absolute;
+    bottom:0;
+}
+.loginT2 a{
+    margin:0 20px;
+}
+.form-horizontal{
+    padding-top:50px;
+}
+.otherLogin img{
+    width:30px;
+    margin-right:10px;
+}
+.errorT1{
+	text-align:center;
+}

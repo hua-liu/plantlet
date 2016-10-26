@@ -1,0 +1,3 @@
+/*function reloadSubWin(){
+	$("").location.reload();
+}*/

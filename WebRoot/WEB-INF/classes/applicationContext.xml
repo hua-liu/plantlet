@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<context:annotation-config />
+	<context:component-scan base-package="cn.hua" />
+	<bean id="service" class="cn.hua.service.impl.ServiceImpl"></bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<value>cn.hua.model</value>
+		</property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<aop:config>
+		<aop:pointcut id="productServiceMethods"
+			expression="execution(* cn.hua.service.impl.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods" />
+		<!-- <aop:aspect ref="logging"> <aop:around method="saveLogging" pointcut-ref="productServiceMethods"/> 
+			</aop:aspect> -->
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- <bean id="employeeDao" class="cn.hua.ssh.dao.impl.EmployeeDaoImpl"> 
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property> </bean> 
+		<bean name="employeeService" class="cn.hua.ssh.service.EmployeeService"> 
+		<property name="employeeDao" ref="employeeDao"></property> </bean> <bean 
+		id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="${jdbc.driverClassName}" /> <property 
+		name="url" value="${jdbc.url}" /> <property name="username" value="${jdbc.username}" 
+		/> <property name="password" value="${jdbc.password}" /> </bean> <context:property-placeholder 
+		location="classpath:jdbc.properties" /> <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> <property name="mappingLocations" 
+		value="classpath:*.hbm.xml" /> <property name="packagesToScan"> <value>cn.hua.model</value> 
+		//自动实体类 </property> <property name="configLocation" value="classpath:hibernate.cfg.xml" 
+		/> </bean> <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory" /> </bean> <aop:config> 
+		<aop:pointcut id="productServiceMethods" expression="execution(* cn.hua.ssh.service.*.*(..))" 
+		/> <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods" 
+		/> </aop:config> <tx:advice id="txAdvice" transaction-manager="transactionManager"> 
+		<tx:attributes> <tx:method name="get*" read-only="true" /> <tx:method name="*" 
+		/> </tx:attributes> </tx:advice> <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate"> 
+		<property name="sessionFactory" ref="sessionFactory"></property> </bean> -->
+</beans>

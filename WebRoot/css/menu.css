@@ -1,0 +1,56 @@
+.minMenu {
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: #fff;
+	font-size: 30px;
+	padding: 10px 5px;
+	cursor: pointer;
+	display: none;
+}
+.minMenu>ul {
+	background: rgba(0, 0, 0, 9);
+	left: -80px;
+	text-align:left;
+}
+.minMenu>ul>li button{
+	width:120px;
+	text-align: left;
+}
+@media ( max-width :768px) {
+	.minMenu {
+		display: block;
+	}
+	.mynav-right {
+		display: none;
+	}
+}
+.footer {
+	display: block;
+	position: absolute;
+	bottom: 0;
+}
+@media ( max-width :768px) {
+	@media ( max-height : 560px) {
+		.footer {
+			display: none;
+		}
+	}
+}
+
+/*左侧操作菜单*/
+.nav-sidebar li{
+	cursor:pointer;
+}
+.nav-sidebar li:hover{
+	background:rgba(0,0,0,0.05);
+}
+.userManageUl,.goodsManageUl,.permissionUl,.goodsKinidUl{
+	display:none;
+}
+.currentChecked>a{
+	font-weight: bold;
+}
+.manageMenu li i{
+	margin-right:2px;
+}

@@ -1,0 +1,58 @@
+*{
+    list-style: none;
+}
+.mycontainer{
+    margin-top:50px;
+    min-width:900px;
+}
+.navbar-brand{
+    padding:0;
+}
+.helpimg{
+    width:40px;
+    padding:2px;
+    border-radius: 10px;
+}
+.navbar{
+    height:40px;
+}
+.mynav{
+    padding-top:2px;
+}
+.myphoto img{
+    width:40px;
+    border-radius: 40px;
+    border:1px solid #555;
+}
+.nav-pills{
+   padding:0;
+}
+.nav-pills .myphoto{
+    margin:5px 3px;
+}
+.mycollapse{
+    padding-top:8px;
+}
+.kind li{
+    float:left;
+    margin:10px;
+    font-size:15px;
+}
+.kind li span{
+    font-size:10px;
+}
+.search{
+    float:right;
+}
+.search li{
+    float:left;
+    margin-left:10px;
+}
+.search li input{
+    border-radius: 5px;
+    border:1px solid #555;
+}
+.top5{
+    border:1px solid red;
+    width:100%;height:300px;
+}

@@ -1,0 +1,104 @@
+.register tr {
+	margin: 10px;
+}
+
+.register caption {
+	font-size: 25px;
+}
+
+.register th {
+	padding: 0 15px;
+}
+
+.treaty {
+	float: right;
+}
+
+.modal-body {
+	height: 500px;
+	overflow: auto;
+}
+
+.loginT2 {
+	vertical-align: bottom;
+}
+
+.footer {
+	display: none;
+	position: absolute;
+	bottom: 0;
+}
+
+.form-control-feedback {
+	right: -12px;
+}
+
+.errorT1 {
+	padding: 0;
+	line-height: 35px;
+	color: #e00;
+}
+
+.mynav-right {
+	display: none;
+}
+
+.emailPrompt {
+	position: absolute;
+	z-index: 10;
+}
+
+.emailPrompt .list-group-item:hover {
+	cursor: pointer;
+}
+
+.btn-group-justified {
+	padding: 0;
+}
+
+@media ( min-width : 1000px) {
+	.btn-group-justified {
+		padding: 0 200px;
+	}
+}
+
+@media ( min-width : 768px) {
+	.mynav-right {
+		display: block;
+	}
+}
+
+@media ( min-width :768px) {
+	@media ( min-height : 560px) {
+		.footer {
+			display: block;
+		}
+	}
+}
+
+@media(max-width:768px){
+	.btn-group-justified .btn-group{
+	overflow:hidden;
+	height:50px;
+	}
+	.btn-group-justified .btn-group .btn{
+		text-align: center;
+		padding:0;
+		height:50px;
+		line-height:50px;
+	}
+	
+}
+/* .waringT1{
+	height:30px;
+	margin:0;
+	padding:0;
+}
+.waringT1 span{
+	font-size:30px;
+	text-align: left;
+	vertical-align: middle;
+	float:left;
+	margin:0;
+	line-height:30px;
+} */
