@@ -1,7 +1,5 @@
 package cn.hua.action;
 
-import java.util.List;
-
 import cn.hua.model.OrderForm;
 import cn.hua.model.State;
 import cn.hua.model.User;

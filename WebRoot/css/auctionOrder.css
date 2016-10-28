@@ -82,3 +82,39 @@ li{
 .initArea{
 	color:#888;
 }
+/* <!-- 区域选择结束  --> */
+.addr tr td label{
+	cursor:pointer;
+}
+.addr tr td>span{
+	cursor:pointer;
+	display:none;
+}
+.addr tr td>span:last-child{
+	color:#F00;
+	margin-left:10px;
+}
+.mini-cart-item-pic{
+	margin:0 20px;
+	float:left;
+	text-align:left;
+}
+.mini-cart-item-info{
+	text-align:left;
+	float:left;
+	overflow:hidde;
+	min-width:250px;
+}
+#buyNumMade{
+	margin:0 auto;
+	max-width:150px;
+}
+#buyNumMade span:hover{
+	cursor:pointer;
+}
+.orderForm tr td{
+	vertical-align: middle;
+}
+#exampleInputAmount{
+	width:450px;
+}

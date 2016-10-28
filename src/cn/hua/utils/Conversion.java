@@ -18,7 +18,7 @@ public class Conversion<T, K>{
 			if(i%2==0){
 				json.append("'"+newArray[i]+"':");
 			}else{
-				if(newArray[i].equals("true")||newArray[i].equals("false")){
+				if(newArray[i].equals("true")||newArray[i].equals("false")||newArray[i].equals("null")){
 					json.append(newArray[i]+",");
 				}else{
 					json.append("'"+newArray[i]+"',");

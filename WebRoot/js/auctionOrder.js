@@ -21,12 +21,72 @@ $(function() {
 	/*上面为选择地址*/
 	//手机号码与电话号码控制
 	$("input[name=phone]").keyup(function(){
-		
+		if(/^[0-9]{0,11}$/.test(this.value)){
+			$(this).attr("resource_data",this.value);
+		}else{
+			$(this).val($(this).attr("resource_data")!=null?$(this).attr("resource_data"):'');
+		}
+	})
+	$("input[name=telephone]").keyup(function(){
+		if(/^[0-9-]{0,22}$/.test(this.value)){
+			$(this).attr("resource_data",this.value);
+		}else{
+			$(this).val($(this).attr("resource_data")!=null?$(this).attr("resource_data"):'');
+		}
 	})
 	//提交添加地址表单按钮事件
-	$(".submitAddAddress").click(function(){
-		
+	$("#submitAddAddress").click(function(){
+		submitForm();
 	})
+	//添加收货地址修改事件
+	changeAddrShow();
+	$("#addAddrModalButton").click(function(){
+		$(".selectedArea").html("选择省/市/区...");
+		$(".selectedArea").addClass("initArea");
+		$(".city-provinces").trigger("click");
+		$(".city-group").find("li").removeClass("active");
+		$("textarea[name=moreAddress]").val("");
+		$("input[name=name]").val("");
+		$("input[name=postcode]").val("");
+		$("input[name=phone]").val("");
+		$("input[name=telephone]").val("");
+		$("#submitAddAddress").html("添加地址并选择");
+		$("#id").val("");
+	})
+	
+	//购买数量变更
+	$("#buyNumMade input").keyup(function(e){
+		if(/[0-9]{1,4}/.test(this.value)){
+			var maxValue=parseInt($(this).attr("maxValue"));
+			if(this.value>maxValue){
+				$(this).val(maxValue);
+				$(this).attr("sourceValue",this.value);
+			}else if(this.value<1){
+				$(this).val(1);
+				$(this).attr("sourceValue",this.value);
+			}
+			changePrice(this);
+		}else{
+			$(this).val($(this).attr("sourceValue"));
+		}
+	})
+	//减少控制
+	$("#buyNumMade .minus").click(function(){
+		var val = parseInt($(this).siblings(".buyNum").val())-1;
+		if(val<1)val=1;
+		$(this).siblings(".buyNum").val(val);
+		changePrice($(this).next());
+	})
+	//增加控制
+	$("#buyNumMade .add").click(function(){
+		var maxValue=$(this).siblings(".buyNum").attr("maxValue");
+		var val = parseInt($(this).siblings(".buyNum").val())+1;
+		if(val>maxValue)val=maxValue;
+		$(this).siblings(".buyNum").val(val);
+		changePrice($(this).prev());
+	})
+	//总价格控制
+	changeSumPrice();
 })
 //li点击事件重绑定
 var selectedArea=['','','',''];
@@ -57,9 +117,12 @@ function setSelectArea(el){
 		if(i==ci){
 			text += selectedArea[i]
 		}else
-		text += selectedArea[i]+"/"
+		text += selectedArea[i]+"--"
 	}
 	$(".selectedArea").html(text)
+	setTimeout(function(){	//设置个延时，以保证能顺利设置值
+		$("#address").val($(".selectedArea").html())
+	},500)
 }
 //填充li元素
 function addProvinesNode(ul,id,name){
@@ -128,7 +191,161 @@ function getArea(code,className){
 	$(".provinesContent .city-group").eq(nextIndex).addClass("active");
 }
 /*前面多数为地址选择*/
-
-function numberControl(){
-	
+function submitForm(){
+	var isPass=true;
+	if($("#address").val()==''){
+		$(".selectArea").popover("show");
+		setTimeout(function() {
+			$(".selectArea").popover("destroy");
+		}, 3000)
+		return;
+	}
+	if($("textarea[name=moreAddress]").val()==''){
+		$("textarea[name=moreAddress]").popover("show");
+		setTimeout(function() {
+			$("textarea[name=moreAddress]").popover("destroy");
+		}, 3000)
+		return;
+	}
+	if($("input[name=name]").val()==''){
+		$("input[name=name]").popover("show");
+		setTimeout(function() {
+			$("input[name=name]").popover("destroy");
+		}, 3000)
+		return;
+	}
+	if($("input[name=phone]").val()==''&&$("input[name=telephone]").val()==''){
+		if($("input[name=phone]").val()!=''&&/^[1][3-8][0-9]{9}$/.test($("input[name=phone]").val())){
+			$("input[name=phone]").attr("data-content","手机号码格式错误");
+			$("input[name=phone]").popover("show");
+		}
+		$("input[name=phone]").attr("data-content","货到你身边了却不知怎么告诉你");
+		$("input[name=phone]").popover("show");
+		setTimeout(function() {
+			$("input[name=phone]").popover("destroy");
+		}, 3000)
+		return;
+	}
+	if (isPass) {
+		$.ajax({
+			type : "POST",
+			url : "json/address_add",
+			data : $('#addressForm').serialize(),
+			dataType : 'json',
+			success : function(data) {
+				if(data!=null){
+					if(data=='input'){
+						window.location.href="loginUi?url="+window.location.href.substr(7);
+						return;
+					}
+					data = eval("("+data+")");
+					if(data.message){
+						$("#addAddrModal").modal("hide");
+						var addrInput = $(".addr input[value="+data.id+"]");
+						if(addrInput.length>0){
+							$(addrInput).parents("tr").remove();
+						}
+						//添加成功后动态添加与
+						$(".addr tbody tr:eq(0)").after($('<tr><td style="padding-left:100px;"><label><input checked type="radio" value="'+data.id+'"name="addr"> '
+							+$("#address").val()+'--'+$("textarea[name=moreAddress]").val()+'（'+$("input[name=name]").val()+' 收）'
+							+($("input[name=phone]").val()!=''?$("input[name=phone]").val():$("input[name=telephone]").val())+
+							'</label><span class="glyphicon glyphicon-pencil changeAddress" title="修改"></span><span class="glyphicon glyphicon-remove deleteAddress" title="删除"></span></td></tr>'))
+							//添加收货地址修改事件
+							changeAddrShow();
+					}else{
+						$("#submitAddAddress").attr("data-content",data.cause);
+						$("#submitAddAddress").popover("show");
+						setTimeout(function() {
+							$("#submitAddAddress").popover("destroy");
+						}, 5000)
+					}
+				}
+			}
+		});
+	}
+}
+//修改地址事件
+function changeAddrShow(){
+	$(".addr tr td").unbind();
+	$(".changeAddress").unbind();
+	$(".addr tr td").bind("mouseover",function(){
+		$(this).find("span").show();
+	})
+	$(".addr tr td").bind("mouseout",function(){
+		$(this).find("span").hide();
+	})
+	$(".changeAddress").bind("click",function(){
+		changeAddrData($(this).siblings("label").find("input").val());
+	})
+	$(".deleteAddress").bind("click",function(){
+		if(confirm("是否确认删除当前收货地址？")){
+			deleteAddress(this);
+		}
+	})
+}
+//更改地址
+function changeAddrData(id){
+	if(id==null)return;
+	$.post("json/address_get","id="+id,function(data){
+		if(data!=null){
+			data = eval("("+data+")");
+			if(data.message){
+				$("#address").val(data.address);
+				/*$(".selectedArea").removeClass("initArea");
+				$(".selectedArea").html(data.address);*/
+				$("textarea[name=moreAddress]").val(data.moreAddress);
+				$("input[name=name]").val(data.name);
+				$("input[name=postcode]").val(data.postcode);
+				$("input[name=phone]").val(data.phone==null?'':data.phone);
+				$("input[name=telephone]").val(data.telephone==null?'':data.telephone);
+				$("#submitAddAddress").html("更新地址并选择");
+				$("#id").val(data.id);
+				$("#addAddrModal").modal("show");
+				//此处为了保证修改地址时向数据库请求数据延时，设置定时器
+				var i=0;
+				var addressTimer = setInterval(function() {
+					var addressArray = data.address.split("--");
+					if(i==addressArray.length)clearInterval(addressTimer);//当下标等于长度时清除定时器
+					$(".city-group:eq("+i+") li[title="+addressArray[i++]+"]").trigger("click");//招待点击请求
+					$(".selectedArea").html(data.address);	//每次点击后设置最终值
+				}, 500)
+			}else{
+				alert(data.cause)
+			}
+		}
+	})
+}
+//删除地址
+function deleteAddress(el){
+	var id = $(el).siblings("label").find("input").val();
+	if(id==null)return;
+	$.post("json/address_delete","id="+id,function(data){
+		if(data!=null){
+			data = eval("("+data+")");
+			if(data.message){
+				$(el).parent().parent().hide(500);
+				setTimeout(function(){
+					$(el).parent().parent().remove();
+				},1000)
+			}else{
+				alert(data.cause)
+			}
+		}
+	})
+}
+//更改单价
+function changePrice(el){
+	var price = $(el).parents("tr").find(".singlePrice");
+	$(price).find("span").html(($(price).attr("singleprice")*$(el).val()).toFixed(2));
+	alert(2)
+	changeSumPrice();
+}
+//更改总价
+function changeSumPrice(){
+	var sumPrice=0;
+	var prices = $(".singlePrice span");
+	for(var i=0;i<prices.length;i++){
+		sumPrice += parseFloat($(prices).html());
+	}
+	$(".sumPrice").html(sumPrice);
 }

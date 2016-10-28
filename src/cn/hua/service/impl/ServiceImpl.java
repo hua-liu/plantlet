@@ -317,5 +317,9 @@ public class ServiceImpl implements Service {
 	public void deleteTakedelivery(Takedelivery take) {
 		orderFormDao.deleteTakedelivery(take);
 	}
+	@Override
+	public void updateTakedelivery(Takedelivery take) {
+		orderFormDao.updateTakedelivery(take);
+	}
 
 }

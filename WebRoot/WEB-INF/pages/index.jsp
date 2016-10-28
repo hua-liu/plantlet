@@ -159,7 +159,13 @@
 											<div class="mini-cart-item-info">
 												<div class="mini-cart-item-title">${goods.name}</div>
 												<div class="mini-cart-item-price">
-													<i class="fa fa-rmb"></i><span class="cart-price">${Math.floor(goods.price*buyNum)}</span>
+													<i class="fa fa-rmb"></i><span class="cart-price">
+														<s:i18n name="format">
+															<s:text name="struts.percent">
+																<s:param value="goods.price*buyNum"/>
+															</s:text>
+														</s:i18n>
+													</span>
 												</div>
 												<a class="mini-cart-item-del" href="#"><i
 													class="fa fa-times"></i></a>

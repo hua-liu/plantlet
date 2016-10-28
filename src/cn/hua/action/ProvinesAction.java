@@ -28,7 +28,6 @@ public class ProvinesAction extends ActionSupport{
 	public String execute(){
 		List<Area> list = service.getAreas(id);
 		for(Area area : list){
-			System.out.println(area.getName());
 			this.result += "id,"+area.getId()+","+"name,"+area.getName()+",";
 		}
 		if(!result.equals("")){

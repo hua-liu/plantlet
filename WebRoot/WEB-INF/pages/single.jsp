@@ -12,25 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
-<%-- <script type="application/x-javascript">
-	
-	
-	
-	
-	
-	
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } 
-
-
-
-
-
-
-
-</script> --%>
-<!-- Custom Theme files -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -187,7 +168,13 @@ a:hover {
 									<li data-id="${id}"><div class="mini-cart-item">
 									<div class="mini-cart-item-pic"><img src="json/download_file?isBreviary=1&id=${goods.breviaryPicture.id}"></div>
 									<div class="mini-cart-item-info"><div class="mini-cart-item-title">${goods.name}</div>
-									<div class="mini-cart-item-price"><i class="fa fa-rmb"></i><span class="cart-price">${Math.floor(goods.price*buyNum)}</span></div>
+									<div class="mini-cart-item-price"><i class="fa fa-rmb"></i><span class="cart-price">
+									<s:i18n name="format">
+										<s:text name="struts.percent">
+											<s:param value="goods.price*buyNum"/>
+										</s:text>
+									</s:i18n>
+									</span></div>
 									<a class="mini-cart-item-del" href="#"><i class="fa fa-times"></i></a></div></div></li>
 								</s:iterator>
 							</s:if>

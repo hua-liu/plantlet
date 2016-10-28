@@ -67,4 +67,9 @@ public class OrderFormDaoImpl implements OrderFormDao {
 		hibernateTemplate.delete(take);
 	}
 
+	@Override
+	public void updateTakedelivery(Takedelivery take) {
+		hibernateTemplate.update(take);
+	}
+
 }

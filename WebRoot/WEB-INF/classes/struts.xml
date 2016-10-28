@@ -16,7 +16,9 @@
 		<interceptor name="loginInterceptor" class="cn.hua.aop.LoginInterceptor"></interceptor>
 	</interceptors>
 		<default-action-ref name="index" />
-
+	<global-results>
+		<result name="input" type="redirectAction">loginUi</result>
+	</global-results>
 		<!-- <global-results> <result name="error">/WEB-INF/jsp/error.jsp</result> 
 			</global-results> <global-exception-mappings> <exception-mapping exception="java.lang.Exception" 
 			result="error"/> </global-exception-mappings> -->
@@ -35,7 +37,7 @@
 			<result>WEB-INF/pages/single.jsp</result>
 		</action>
 		<!-- 提交订单-->
-		<action name="auctionOrder">
+		<action name="auctionOrder" class="cn.hua.action.AuctionOrderAction">
 			<result>/WEB-INF/pages/auctionOrder.jsp</result>
 		</action>
 		<!-- 用户页面请求 -->
@@ -193,9 +195,12 @@
 			<interceptor-ref name="loginInterceptor" />
 			<interceptor-ref name="defaultStack" />
 		</action>
-
+		<!--  用于跳转至登陆 -->
 		<action name="ajaxInput" class="cn.hua.action.AjaxInputAction"></action>
+		<!-- 省级联动  -->
 		<action name="provines" class="cn.hua.action.ProvinesAction"></action>
+		<!-- 收货地址  -->
+		<action name="address_*" class="cn.hua.action.AddressAction" method="{1}"></action>
 	</package>
 	<!-- Add packages here -->
 

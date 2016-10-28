@@ -12,7 +12,10 @@ $(function(){
 		
 	});
 	$(".mini-cart-items-list>li").bind("click",function(){
-		window.location.href="single?goodsId="+$(this).attr("data-id");
+		window.location.href="auctionOrder?id="+$(this).attr("data-id");
+	})
+	$(".goBuy").bind("click",function(){
+		window.location.href="auctionOrder";
 	})
 })
 function removeOrderForm(el){

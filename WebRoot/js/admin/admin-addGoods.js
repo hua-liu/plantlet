@@ -1,3 +1,4 @@
+
 $(function() {
 	$(".goodsPicture tr td:first-child img").bind("click", function() {
 		switchBigPicture(this);

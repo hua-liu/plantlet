@@ -6,6 +6,7 @@ import cn.hua.formBean.UserLogin;
 import cn.hua.formBean.UserRegister;
 import cn.hua.model.OrderForm;
 import cn.hua.model.Safe;
+import cn.hua.model.Takedelivery;
 import cn.hua.model.User;
 import cn.hua.service.Service;
 
@@ -287,4 +288,34 @@ public class Verification {
 		}
 		return null;
 	}
+	public static String[] address(Takedelivery take){
+		String[] error = new String[1];
+		int i=0;
+		if(take==null){
+			error[i++]="发生错误";
+			return error;
+		}
+		if(take.getAddress()==null){
+			error[i++]="地址不能为空";
+			return error;
+		}
+		if(take.getMoreAddress()==null){
+			error[i++]="详细地址不能为空";
+			return error;
+		}
+		if(take.getPhone()==null&&take.getTelephone()==null){
+			error[i++]="手机号与电话号码必需填写一项";
+			return error;
+		}
+		System.out.println(take.getPhone());
+		if(take.getPhone()!=null&&!take.getPhone().trim().matches("^[1][3-8][0-9]{9}$")){
+			error[i++]="手机号码格式错误";
+			return error;
+		}
+		if(take.getTelephone()!=null&&!take.getTelephone().trim().matches("^[0-9]{0,22}$")){
+			error[i++]="电话号码格式错误";
+			return error;
+		}
+		return null;
+		}
 }

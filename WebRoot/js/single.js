@@ -5,11 +5,7 @@ $(function(){
 	})
 	$("#buyNumMade input").keyup(function(e){
 		if(/^[0-9]{1,4}$/.test(this.value)){
-			var maxValue=$(this).attr("maxValue");
-			if(maxValue<999&&this.value>999){	//直接判断最大值，是打死都不行，没办法只能加这个判断了
-				$(this).val(maxValue);
-				$(this).attr("sourceValue",this.value);
-			}
+			var maxValue=parseInt($(this).attr("maxValue"));
 			if(this.value>maxValue){
 				$(this).val(maxValue);
 				$(this).attr("sourceValue",this.value);
