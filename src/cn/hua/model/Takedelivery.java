@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 import java.io.Serializable;
 
 @Entity
@@ -22,6 +23,10 @@ public class Takedelivery implements Serializable {
 	private String postcode;
 	private String telephone;
 	private User user;
+	public Takedelivery(){}
+	public Takedelivery(String addr) {
+		this.id = addr;
+	}
 	@Id
 	@GeneratedValue(generator="uuid")
 	@GenericGenerator(name="uuid",strategy="uuid2")

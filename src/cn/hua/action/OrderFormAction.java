@@ -43,7 +43,7 @@ public class OrderFormAction extends ActionSupport implements ModelDriven<OrderF
 			orderForm.setUser(user);
 			orderForm.setState(new State(10));
 			service.addOrderForm(orderForm);
-			this.result = Conversion.stringToJson("message,true");
+			this.result = Conversion.stringToJson("message,true,id,"+orderForm.getId());
 		}catch(Exception e){
 			e.printStackTrace();
 			this.result = Conversion.stringToJson("message,false,cause,服务器繁忙");

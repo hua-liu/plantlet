@@ -27,6 +27,7 @@ public class OrderForm implements Serializable {
 	private Goods goods;
 	private User user;
 	private int buyNum;
+	private Takedelivery takedelivery;
 	public OrderForm(){}
 	public OrderForm(String ofId) {
 		this.id = ofId;
@@ -40,20 +41,21 @@ public class OrderForm implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	/*public String getExpgname() {
-		return expgname;
-	}
-	public void setExpgname(String expgname) {
-		this.expgname = expgname;
-	}*/
 	public Date getBuytime() {
 		return buytime;
 	}
-	public void setBuytime(Date buytime) {
-		this.buytime = buytime;
-	}
 	public Date getPaytime() {
 		return paytime;
+	}
+	@ManyToOne
+	public Takedelivery getTakedelivery() {
+		return takedelivery;
+	}
+	public void setTakedelivery(Takedelivery takedelivery) {
+		this.takedelivery = takedelivery;
+	}
+	public void setBuytime(Date buytime) {
+		this.buytime = buytime;
 	}
 	public void setPaytime(Date paytime) {
 		this.paytime = paytime;

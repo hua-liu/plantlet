@@ -10,7 +10,7 @@ import cn.hua.utils.Conversion;
 
 public class ProvinesAction extends ActionSupport{
 	/**
-	 * 
+	 *省级联动
 	 */
 	private static final long serialVersionUID = 1L;
 	private String result="";

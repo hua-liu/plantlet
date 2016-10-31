@@ -47,12 +47,7 @@ function createCartItim(id,img,name,price,num){
 	$("#cart-item-num").html(parseInt($("#cart-item-num").html())+1)
 	$(".mini-cart-item-del").unbind();
 	$(".mini-cart-item-del").bind("click",function(){
-		$(this).parent().parent().remove();
-		isColse=false;
-		$("#cart-item-num").html(parseInt($("#cart-item-num").html())-1)
-		window.setTimeout(function() {
-			isColse=true;
-		}, 1000)
+		delEvent(this);
 	});
 }
 //向数据库发送添加购物车请求
@@ -72,9 +67,12 @@ function addOrderForm(id,num){
 		}else{
 			data = eval("("+data+")");
 			if(data.message){
-				createCartItim($(this).attr("data-id"),$(".big-img .MagicZoom img").attr("src"),$(".product_name").html(),$(".price").html(),$(".buyNum").val())
+				createCartItim(data.id,$(".big-img .MagicZoom img").attr("src"),$(".product_name").html(),$(".price").html(),$(".buyNum").val())
 				$(".intoCart").attr("data-content","加入购物车成功");
 				$(".intoCart").popover("show");
+				if($(".goBuy").is(":hidden")){//判断结算按钮是否显示
+					$(".goBuy").css("display","block");
+				}
 				window.setTimeout(function() {$(".intoCart").popover("destroy");}, 2000)
 			}else{
 				$(".intoCart").attr("data-content","加入购物车失败:原因："+data.cause);

@@ -95,15 +95,15 @@ li{
 	margin-left:10px;
 }
 .mini-cart-item-pic{
-	margin:0 20px;
+	margin-right:20px;
 	float:left;
 	text-align:left;
 }
 .mini-cart-item-info{
 	text-align:left;
 	float:left;
-	overflow:hidde;
-	min-width:250px;
+	overflow:hidden;
+	width:250px;
 }
 #buyNumMade{
 	margin:0 auto;
@@ -117,4 +117,13 @@ li{
 }
 #exampleInputAmount{
 	width:450px;
+}
+.selectAll{
+	cursor:pointer;
+}
+.selectAll:hover{
+	color:#090;
+}
+input[type=checkbox]:hover{
+	cursor:pointer;
 }

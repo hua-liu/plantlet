@@ -114,6 +114,9 @@
 		<action name="go_*">
 			<result>WEB-INF/pages/{1}.jsp</result>
 		</action>
+		<action name="pay_payUi" class="cn.hua.action.PayAction" method="payUi">
+			<result>WEB-INF/pages/payUi.jsp</result>
+		</action>
 		<!-- 通配网页跳转 -->
 		<!-- <action name="*"> <result>/WEB-INF/pages/{1}.jsp</result> </action> -->
 	</package>
@@ -201,6 +204,7 @@
 		<action name="provines" class="cn.hua.action.ProvinesAction"></action>
 		<!-- 收货地址  -->
 		<action name="address_*" class="cn.hua.action.AddressAction" method="{1}"></action>
+		<action name="pay_pay" class="cn.hua.action.PayAction" method="pay"></action>
 	</package>
 	<!-- Add packages here -->
 

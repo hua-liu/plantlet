@@ -71,10 +71,6 @@ public class GoodsAction extends ActionSupport implements
 		// 表单转换到商品BEAN
 		new Conversion<Goods, GoodsForm>().beanToBean(
 				goods, goodsForm);
-		if (goods == null) {
-			this.result = Conversion.stringToJson("cause,未知错误");
-			return ERROR;
-		}
 		goods.setGoodsKind(new GoodsKind(goodsForm.getGoodsKindTemp()));
 		/*
 		 * Set<GoodsKind> set = new HashSet<GoodsKind>(); for(int

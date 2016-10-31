@@ -61,4 +61,5 @@ public interface Service {
 	void saveTakedelivery(Takedelivery take);
 	void deleteTakedelivery(Takedelivery take);
 	void updateTakedelivery(Takedelivery take);
+	void updateSafe(Safe safe);
 }

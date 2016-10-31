@@ -151,6 +151,7 @@ a:hover {
 <body>
 	<!-- 购物车开始  -->
 	<div id="st-container" class="st-container">
+	<s:if test="#session.user!=null">
 		<nav class="st-menu st-effect-13" id="menu-13"> 
 		<div class="toolbar-main toolbar-mini-cart-main">
 			<div class="toolbar-hd">
@@ -181,19 +182,27 @@ a:hover {
 						</ul>
 					</div>
 					<button class="goBuy btn btn-danger">去购物车结算</button>
+					<script type="text/javascript">
+							if($(".mini-cart-item").length<1){
+								$(".goBuy").css("display","none");
+							}
+						</script>
 				</div>
 			</div>
 		</div>
 		</nav>
+			</s:if>
 		<!--购物车影响的内容  -->
 		<div class="st-pusher">
 			<div class="st-content" style="background: none">
 			<!-- 购物车图标 -->
+			<s:if test="#session.user!=null">
 			<div class="cartButton" id="st-trigger-effects">
 				<button data-effect="st-effect-13" class="btn btn-danger st-effect" style="width:30px;height:150px;text-align:center;padding:0;"><span class="badge" id="cart-item-num">
 				<s:property value="#session.orderForms.size"></s:property>
 				</span><br/>我<br/>的<br/>购<br/>物<br/>车</button>
 			</div>
+			</s:if>
 			<!-- 购物车图标  -->
 				<!-- header -->
 				<div class="header">
@@ -222,6 +231,7 @@ a:hover {
 											<li><a href="loginUi">登陆</a></li>
 										</s:else>
 									</ul></li>
+										<s:if test="#session.user!=null">
 								<li class="dropdown head-dpdn"><a href="#"
 									class="dropdown-toggle" data-toggle="dropdown"><i
 										class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
@@ -231,6 +241,7 @@ a:hover {
 											data-effect="st-effect-13" class="st-effect">查看购物车</a></li>
 										<li><a>清空购物车</a></li>
 									</ul></li>
+									</s:if>
 								<li class="dropdown head-dpdn"><a href="card.html"
 									class="dropdown-toggle"><i class="fa fa-star"
 										aria-hidden="true"></i>收藏夹</a></li>

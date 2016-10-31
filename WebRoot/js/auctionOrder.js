@@ -87,6 +87,45 @@ $(function() {
 	})
 	//总价格控制
 	changeSumPrice();
+	//选中调价
+	$("input[name=isSelect]").bind("change",function(){
+		if($(this).is(":checked")){
+			$(this).parents("tr").css("opacity","1");
+			$(this).parents("tr").find(".leaveMessage").attr("name","leaveMessage");
+			$(this).parents("tr").find(".buyNum").attr("name","buyNum");
+			$(this).parents("tr").next().find("input").attr("name","id");
+		}else{
+			$(this).parents("tr").css("opacity","0.3");
+			$(this).parents("tr").find(".leaveMessage").removeAttr("name");
+			$(this).parents("tr").find(".buyNum").removeAttr("name");
+			$(this).parents("tr").next().find("input").removeAttr("name");
+		}
+		changeSumPrice();
+	})
+	//全选与反选
+	$(".selectAll").click(function(){
+		if($(".orderForm input[type=checkbox]").length==$(".orderForm input[type=checkbox]:checked").length){
+			$(".orderForm input[type=checkbox]").removeAttr("checked");
+			$(".orderForm tbody tr").css("opacity","0.3");
+			$(".leaveMessage").removeAttr("name");
+			$(".buyNum").removeAttr("name");
+			$("input[type=hidden]").removeAttr("name");
+		}else{
+			$(".orderForm input[type=checkbox]").prop("checked",true);
+			$(".orderForm tbody tr").css("opacity","1");
+			$(".leaveMessage").attr("name","leaveMessage");
+			$(".buyNum").attr("name","buyNum");
+			$("input[type=hidden]").attr("name","id");
+		}
+		changeSumPrice();
+	})
+	$("#buyForm").submit(function(){
+		var isSelectedInput = $(".orderForm input[type=checkbox]:checked");
+		if(isSelectedInput.length<1){
+			alert("您还未选择需要购买的商品！");
+			return false;
+		}
+	})
 })
 //li点击事件重绑定
 var selectedArea=['','','',''];
@@ -337,15 +376,15 @@ function deleteAddress(el){
 function changePrice(el){
 	var price = $(el).parents("tr").find(".singlePrice");
 	$(price).find("span").html(($(price).attr("singleprice")*$(el).val()).toFixed(2));
-	alert(2)
 	changeSumPrice();
 }
 //更改总价
 function changeSumPrice(){
 	var sumPrice=0;
-	var prices = $(".singlePrice span");
+	//选择所有已选中的商品并计算总价
+	var prices = $(".orderForm input[type=checkbox]:checked").parents("tr").find(".singlePrice").find("span");
 	for(var i=0;i<prices.length;i++){
-		sumPrice += parseFloat($(prices).html());
+		sumPrice += parseFloat($(prices[i]).html());
 	}
-	$(".sumPrice").html(sumPrice);
+	$(".sumPrice").html(sumPrice.toFixed(2));
 }

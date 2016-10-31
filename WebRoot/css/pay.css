@@ -1,0 +1,114 @@
+/*快捷支付*/
+li{list-style:none;}
+.kjzf_head{ height:100px; overflow:hidden;}
+.kjzf_head .topqj{ width:1200px; margin:0 auto; overflow:hidden;}
+.kjzf_head .topqj .yhlogo{ width:116px; height:41px; float:left; margin:30px 20px 0 0;}
+.kjzf_head .topqj .yhmc{ width:300px; float:left; font-size:32px; color:#0951a8; height:100px; line-height:100px;}
+.kjzf_head .topqj .denglzc{ width:150px; float:right; height:20px; line-height:20px; margin:40px 0 0 0;}
+.kjzf_head .topqj .denglzc a{ margin:0 15px; font-size:14px;}
+
+
+.kjzf_usermes{ background:#fff;  overflow:hidden; width:1200px; margin:15px auto 0; padding:60px 0;}
+.kjzf_usermes .touxiang{ width:103px; height:103px; float:left; margin:0 70px;}
+.kjzf_usermes .usermes{ width:800px; float:left; margin:0; padding:0 0 10px 70px; border-left:1px solid #ddd;}
+.kjzf_usermes .usermes h2{ font-size:24px; height:40px; line-height:40px; color:#666; overflow:hidden;}
+.kjzf_usermes .usermes h2 a{ margin:0 0 0 20px; text-decoration:underline; color:#06C; font-size:14px;}
+.kjzf_usermes .usermes h2 strong{ color:#f60;}
+.kjzf_usermes .usermes .xxlist{ overflow:hidden; display:block; margin:10px 0 0 0;}
+.kjzf_usermes .usermes .xxlist .mests{color:#f60; margin-right:50px;}
+.kjzf_usermes .usermes .xxlist .jinge{color:#f60;font-size:24px;}
+.kjzf_usermes .usermes .shangcsyzhiffs{ overflow:hidden;}
+
+
+
+
+.kjzf_zhifufangs{ background:#fff; overflow:hidden; width:1200px; margin:15px auto 0; padding:50px;font-size:18px;font-weight:bold;}
+.kjzf_zhifufangs .wenzxx{ width:200px; line-height:52px; font-size:16px; float:left; display:block; height:52px; }
+.kjzf_zhifufangs .mrxzf{height:50px; width:160px; overflow:hidden; float:left; margin:0 10px; color:#666; cursor:pointer;border:1px solid #ef7e00; float:left; display:block;}
+.kjzf_zhifufangs .mrxzf .imgtb{ width:40px; height:40px; overflow:hidden; float:left; margin:5px 0 0 10px; display:block;}
+.kjzf_zhifufangs .mrxzf .imgtb img{width:40px; height:40px; }
+.kjzf_zhifufangs .mrxzf .wenz{ width:80px; float:left; overflow:hidden; line-height:50px; font-size:16px; display:block; padding-left:10px;}
+.kjzf_zhifufangs .cjzhifanniu{ width:160px; float:left;}
+.kjzf_zhifufangs .cjzhifanniu a{ display:block; width:100%; height:52px; line-height:52px; background:#f60; color:#fff; text-align:center;}
+
+
+.kjzf_zhifufangs2{ background:#fff; border-bottom:0px solid #ebebeb; overflow:hidden; width:1100px; margin:15px auto 0;padding:20px 50px;}
+.kjzf_zhifufangs2 .biaotixx{height:70px; line-height:70px; overflow:hidden; font-size:16px; border-bottom:1px solid #ddd; font-weight:bold;}
+.kjzf_zhifufangs2 .biaotixx .tsxx{ color:#d00; margin-left:30px;}
+.kjzf_zhifufangs2 .biaotixx input{ margin:0 5px 0 30px;}
+.kjzf_zhifufangs2 .xuanxiangklist{ overflow:hidden; margin:30px 0;}
+.kjzf_zhifufangs2 .xuanxiangklist ul{ display:block; margin:0; padding:0;}
+.kjzf_zhifufangs2 .xuanxiangklist ul li{ height:67px; width:160px; overflow:hidden; float:left; margin:10px; color:#666; cursor:pointer;border:1px solid #F1F1F1}
+.kjzf_zhifufangs2 .xuanxiangklist ul .onmenu{border:1px solid #ef7e00; background:url(../images/tisgg.png) no-repeat right bottom;}
+.kjzf_zhifufangs2 .xuanxiangklist ul li .imgtb{ width:47px; height:47px; overflow:hidden; float:left; margin:10px 0 0 15px; display:block;}
+.kjzf_zhifufangs2 .xuanxiangklist ul li .imgtb img{width:47px; height:47px; }
+.kjzf_zhifufangs2 .xuanxiangklist ul li .wenz{ width:80px; float:left; overflow:hidden; line-height:67px; font-size:16px; display:block; padding-left:10px;}
+
+.cztjanniu{ width:1200px; margin:0 auto; padding:30px 0;}
+.cztjanniu a{ display:block; width:250px; height:52px; line-height:52px; background:#f60; color:#fff; text-align:center; margin:0 auto;font-size:18px;font-weight:bold;}
+.footbox{ width:1200px; margin:0 auto; padding:50px 0; line-height:180%; text-align:center; color:#999; font-size:12px;}
+/*
+
+
+
+.quick{border:1px solid #dbdbdb;width:1198px;margin:0 auto;height:auto;border-top:none;border-bottom:none;}
+.logo{height:80px;width:100%;}
+.logo p{float:left;width:270px;height:30px;margin-top:25px;margin-left:22px;}
+.Log_register{float:right;margin-right:54px;margin-top:25px;}
+.Log_register img{float:left;width:1px;height:31px;display:block;margin:0 12px;}
+.Log_register a{display:inline-block;float:left;color:#777;line-height:31px;height:31px;}
+.nav{background:#fff;overflow:hidden;}
+.nav_center{width:820px;margin:40px auto 16px;overflow:hidden;}
+.nav_details{float:left;width:400px;}
+.nav_center h2{color:#ff8202;}
+.nav_center ul{margin-top:24px;}
+.nav_center ul li{color:#777;line-height:24px;margin:8px 0;}
+.nav_center p{float:left;margin-left:24px;margin-top:80px;}
+.nav_center p span{font-weight:bold;font-size:30px;color:#ff8202;}
+.nav_fgx{width:1110px;margin:0 auto 24px;background:url(../images/tip_bg.png) repeat-x;height:6px;}
+.Method_payment{width:820px;margin:0 auto;overflow:hidden;color:#777;}
+.payment{overflow:hidden;margin-bottom:18px;}
+.payment p{float:left;line-height:30px;width:84px;text-align:right;}
+.payment a{display:inline-block;float:left;padding:0 12px;height:30px;border:1px solid #777;line-height:30px;color:#777;margin-left:12px;}
+.payment .selected{color:#ff8202;border:1px solid #ff8202;}
+.Payment_card{float:left;width:735px;overflow:hidden;}
+.Payment_card li{float:left;border:1px solid #777;margin-left:12px;width:160px;height:40px;cursor:pointer;margin-bottom:12px;}
+.Payment_card li img{width:144px;height:31px;margin:4px auto;display:block;}
+.Payment_P{display:none;}
+.Payment_P p{line-height:40px;}
+.payment_img{display:none;}
+.payment_img img{width:166px;height:160px;float:left;display:inline-block;}
+.Payment_card .selected{border:2px solid #ff8202;width:158px;height:38px;}
+.payment_img span{display:inline-block;float:left;width:218px;margin-top:50px;margin-left:12px;}
+.go-pay{margin-top:0;}
+.payment_div{color:#fe0202;float:left;margin-left:12px;margin-top:12px;}
+.Pay_personal{display:none;}
+.divimg{margin-bottom:0;}
+.Payment_card .picture img{width:29px;height:10px;margin:15px auto;}
+.picture_hine{display:none;}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.Float_box{position:fixed;right:120px;top:25%;}
+.Float_box a img{width:107px;height:121px;}

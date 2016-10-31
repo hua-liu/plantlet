@@ -44,7 +44,7 @@ public class OrderFormDaoImpl implements OrderFormDao {
 	@Override
 	public List<OrderForm> getOrderFormByUserId(String id) {
 		return hibernateTemplate.getSessionFactory().getCurrentSession()
-				.createQuery("from OrderForm where user.id=? order by buyTime").setParameter(0, id).list();
+				.createQuery("from OrderForm where state.id=10 and user.id=? order by buyTime").setParameter(0, id).list();
 	}
 
 	@Override

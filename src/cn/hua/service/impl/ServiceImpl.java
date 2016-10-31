@@ -321,5 +321,9 @@ public class ServiceImpl implements Service {
 	public void updateTakedelivery(Takedelivery take) {
 		orderFormDao.updateTakedelivery(take);
 	}
-
+	@Override
+	public void updateSafe(Safe safe) {
+		userDao.updateSafe(safe);
+	}
+	
 }

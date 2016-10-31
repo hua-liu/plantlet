@@ -26,7 +26,6 @@ public class IndexAction extends ActionSupport implements RequestAware{
 	public String execute(){
 		Paging paging = new Paging();
 		paging.setSize(15);
-		System.out.println(paging);
 		paging.setScene("new");
 		request.put("newGoodsList", service.getGoodsPaging(paging));
 		paging.setScene("recommend");

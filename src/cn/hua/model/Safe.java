@@ -18,6 +18,7 @@ public class Safe implements Serializable {
 	private String id;
 	private String loginPassword;
 	private String payPassword;
+	private double balance;
 	@Id
 	@GeneratedValue(generator="uuid")
 	@GenericGenerator(name="uuid",strategy="uuid2")
@@ -39,5 +40,10 @@ public class Safe implements Serializable {
 	public void setPayPassword(String payPassword) {
 		this.payPassword = payPassword;
 	}
-	
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
 }

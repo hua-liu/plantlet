@@ -2,13 +2,16 @@ package cn.hua.dao.impl;
 
 import cn.hua.dao.UserDao;
 import cn.hua.formBean.Paging;
+import cn.hua.model.Safe;
 import cn.hua.model.User;
+
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 
 @Component
@@ -87,5 +90,9 @@ public class UserDaoImpl implements UserDao {
 		return query.setFirstResult(paging.getCurrentRow())
 				.setMaxResults(paging.getSize()).list();
 }
+	@Override
+	public void updateSafe(Safe safe) {
+		hibernateTemplate.update(safe);
+	}
 
 }

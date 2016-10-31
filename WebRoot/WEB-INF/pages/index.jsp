@@ -137,61 +137,71 @@
 <body style="min-width:1200px;">
 	<!-- 购物车开始  -->
 	<div id="st-container" class="st-container">
-		<nav class="st-menu st-effect-13" id="menu-13">
-		<div class="toolbar-main toolbar-mini-cart-main">
-			<div class="toolbar-hd">
-				<div class="toolbar-hd-title">购物车</div>
-			</div>
-			<div class="toolbar-bd">
-				<div class="mini-cart-list">
-					<div class="mini-cart-list-hd">
-						<div class="mini-cart-list-title">最新加入的宝贝</div>
-					</div>
-					<div class="mini-cart-list-bd">
-						<ul class="mini-cart-items-list">
-							<s:if test="#session.user!=null">
-								<s:iterator value="#session.orderForms">
-									<li data-id="${id}"><div class="mini-cart-item">
-											<div class="mini-cart-item-pic">
-												<img
-													src="json/download_file?isBreviary=1&id=${goods.breviaryPicture.id}">
-											</div>
-											<div class="mini-cart-item-info">
-												<div class="mini-cart-item-title">${goods.name}</div>
-												<div class="mini-cart-item-price">
-													<i class="fa fa-rmb"></i><span class="cart-price">
-														<s:i18n name="format">
-															<s:text name="struts.percent">
-																<s:param value="goods.price*buyNum"/>
-															</s:text>
-														</s:i18n>
-													</span>
+		<s:if test="#session.user!=null">
+			<nav class="st-menu st-effect-13" id="menu-13">
+			<div class="toolbar-main toolbar-mini-cart-main">
+				<div class="toolbar-hd">
+					<div class="toolbar-hd-title">购物车</div>
+				</div>
+				<div class="toolbar-bd">
+					<div class="mini-cart-list">
+						<div class="mini-cart-list-hd">
+							<div class="mini-cart-list-title">最新加入的宝贝</div>
+						</div>
+						<div class="mini-cart-list-bd">
+							<ul class="mini-cart-items-list">
+								<s:if test="#session.user!=null">
+									<s:iterator value="#session.orderForms">
+										<li data-id="${id}"><div class="mini-cart-item">
+												<div class="mini-cart-item-pic">
+													<img
+														src="json/download_file?isBreviary=1&id=${goods.breviaryPicture.id}">
 												</div>
-												<a class="mini-cart-item-del" href="#"><i
-													class="fa fa-times"></i></a>
-											</div>
-										</div></li>
-								</s:iterator>
-							</s:if>
-						</ul>
+												<div class="mini-cart-item-info">
+													<div class="mini-cart-item-title">${goods.name}</div>
+													<div class="mini-cart-item-price">
+														<i class="fa fa-rmb"></i><span class="cart-price">
+															<s:i18n name="format">
+																<s:text name="struts.percent">
+																	<s:param value="goods.price*buyNum" />
+																</s:text>
+															</s:i18n>
+														</span>
+													</div>
+													<a class="mini-cart-item-del" href="#"><i
+														class="fa fa-times"></i></a>
+												</div>
+											</div></li>
+									</s:iterator>
+								</s:if>
+							</ul>
+						</div>
+						<button class="goBuy btn btn-danger">去购物车结算</button>
+						<script type="text/javascript">
+							if($(".mini-cart-item").length<1){
+								$(".goBuy").css("display","none");
+							}
+						</script>
 					</div>
-					<button class="goBuy btn btn-danger">去购物车结算</button>
 				</div>
 			</div>
-		</div>
-		</nav>
+			</nav>
+		</s:if>
 		<!--购物车影响的内容  -->
 		<div class="st-pusher">
 			<div class="st-content" style="background: none">
 				<!-- 购物车图标 -->
-				<div class="cartButton" id="st-trigger-effects">
-					<button data-effect="st-effect-13" class="btn btn-danger st-effect"
-						style="width:30px;height:150px;text-align:center;padding:0;">
-						<span class="badge" id="cart-item-num"> <s:property
-								value="#session.orderForms.size"></s:property>
-						</span><br />我<br />的<br />购<br />物<br />车
-					</button>
-				</div>
+				<s:if test="#session.user!=null">
+					<div class="cartButton" id="st-trigger-effects">
+						<button data-effect="st-effect-13"
+							class="btn btn-danger st-effect"
+							style="width:30px;height:150px;text-align:center;padding:0;">
+							<span class="badge" id="cart-item-num"> <s:property
+									value="#session.orderForms.size"></s:property>
+							</span><br />我<br />的<br />购<br />物<br />车
+						</button>
+					</div>
+				</s:if>
 				<!-- 购物车图标  -->
 				<!-- header -->
 				<div class="header">
@@ -220,6 +230,7 @@
 											<li><a href="loginUi">登陆</a></li>
 										</s:else>
 									</ul></li>
+								<s:if test="#session.user!=null">
 								<li class="dropdown head-dpdn"><a href="#"
 									class="dropdown-toggle" data-toggle="dropdown"><i
 										class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
@@ -228,6 +239,7 @@
 										<li><a href="offers.html">查看购物车</a></li>
 										<li><a href="offers.html">清空购物车</a></li>
 									</ul></li>
+									</s:if>
 								<li class="dropdown head-dpdn"><a href="card.html"
 									class="dropdown-toggle"><i class="fa fa-star"
 										aria-hidden="true"></i>收藏夹</a></li>
@@ -331,9 +343,7 @@
 													<td class="col-md-2 col-sm-2 col-lg-2">
 														<div class="thumbnail" data-id="${goodsId}">
 															<div class="productPicture">
-																<a
-																	href="json/download_file?isBreviary=1&id=${breviaryPicture.id}"
-																	title="Images" class="MagicZoom"> <img class="pimg"
+																	<a href="single?goodsId=${goodsId }"><img class="pimg"
 																	src="json/download_file?isBreviary=1&id=${breviaryPicture.id}" />
 																</a>
 															</div>
@@ -369,11 +379,10 @@
 													<td class="col-md-2 col-sm-2 col-lg-2">
 														<div class="thumbnail">
 															<div class="productPicture">
-																<a
-																	href="json/download_file?isBreviary=1&id=${breviaryPicture.id}"
-																	title="Images" class="MagicZoom"> <img class="pimg"
+															<a href="single?goodsId=${goodsId }">
+																<img class="pimg"
 																	src="json/download_file?isBreviary=1&id=${breviaryPicture.id}" />
-																</a>
+																	</a>
 															</div>
 															<div class="caption" style="position:relative">
 																<p
@@ -569,73 +578,76 @@
 						</div>
 					</div>
 				</div>
-				<!-- countdown.js -->
-				<script src="js/jquery.knob.js"></script>
-				<script src="js/jquery.throttle.js"></script>
-				<script src="js/jquery.classycountdown.js"></script>
-				<script>
-					$(document).ready(function() {
-						$('#countdown1').ClassyCountdown({
-							end : '1388268325',
-							now : '1387999995',
-							labels : true,
-							style : {
-								element : "",
-								textResponsive : .5,
-								days : {
-									gauge : {
-										thickness : .10,
-										bgColor : "rgba(0,0,0,0)",
-										fgColor : "#1abc9c",
-										lineCap : 'round'
-									},
-									textCSS : 'font-weight:300; color:#fff;'
-								},
-								hours : {
-									gauge : {
-										thickness : .10,
-										bgColor : "rgba(0,0,0,0)",
-										fgColor : "#05BEF6",
-										lineCap : 'round'
-									},
-									textCSS : ' font-weight:300; color:#fff;'
-								},
-								minutes : {
-									gauge : {
-										thickness : .10,
-										bgColor : "rgba(0,0,0,0)",
-										fgColor : "#8e44ad",
-										lineCap : 'round'
-									},
-									textCSS : ' font-weight:300; color:#fff;'
-								},
-								seconds : {
-									gauge : {
-										thickness : .10,
-										bgColor : "rgba(0,0,0,0)",
-										fgColor : "#f39c12",
-										lineCap : 'round'
-									},
-									textCSS : ' font-weight:300; color:#fff;'
-								}
+			</div>
+		</div>
+	</div>
 
-							},
-							onEndCallback : function() {
-								console.log("Time out!");
-							}
-						});
-					});
-				</script>
-				<script src="js/cart.js"></script>
-				<script src="js/sidebar/classie.js"></script>
-				<script src="js/sidebar/modernizr.custom.js"></script>
-				<script src="js/sidebar/sidebarEffects.js"></script>
-				<script src="js/MagicZoom.js" type="text/javascript"></script>
-				<script src="js/index.js" type="text/javascript"></script>
-				<!-- Resource jQuery -->
-				<!-- //menu js aim -->
-				<!-- Bootstrap core JavaScript
+	<!-- countdown.js -->
+	<script src="js/jquery.knob.js"></script>
+	<script src="js/jquery.throttle.js"></script>
+	<script src="js/jquery.classycountdown.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#countdown1').ClassyCountdown({
+				end : '1388268325',
+				now : '1387999995',
+				labels : true,
+				style : {
+					element : "",
+					textResponsive : .5,
+					days : {
+						gauge : {
+							thickness : .10,
+							bgColor : "rgba(0,0,0,0)",
+							fgColor : "#1abc9c",
+							lineCap : 'round'
+						},
+						textCSS : 'font-weight:300; color:#fff;'
+					},
+					hours : {
+						gauge : {
+							thickness : .10,
+							bgColor : "rgba(0,0,0,0)",
+							fgColor : "#05BEF6",
+							lineCap : 'round'
+						},
+						textCSS : ' font-weight:300; color:#fff;'
+					},
+					minutes : {
+						gauge : {
+							thickness : .10,
+							bgColor : "rgba(0,0,0,0)",
+							fgColor : "#8e44ad",
+							lineCap : 'round'
+						},
+						textCSS : ' font-weight:300; color:#fff;'
+					},
+					seconds : {
+						gauge : {
+							thickness : .10,
+							bgColor : "rgba(0,0,0,0)",
+							fgColor : "#f39c12",
+							lineCap : 'round'
+						},
+						textCSS : ' font-weight:300; color:#fff;'
+					}
+
+				},
+				onEndCallback : function() {
+					console.log("Time out!");
+				}
+			});
+		});
+	</script>
+	<script src="js/cart.js"></script>
+	<script src="js/sidebar/classie.js"></script>
+	<script src="js/sidebar/modernizr.custom.js"></script>
+	<script src="js/sidebar/sidebarEffects.js"></script>
+	<script src="js/index.js" type="text/javascript"></script>
+	<!-- Resource jQuery -->
+	<!-- //menu js aim -->
+	<!-- Bootstrap core JavaScript
     ================================================== -->
-				<!-- Placed at the end of the document so the pages load faster -->
+	<!-- Placed at the end of the document so the pages load faster -->
 </body>
 </html>

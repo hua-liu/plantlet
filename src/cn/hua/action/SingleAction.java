@@ -23,7 +23,6 @@ public class SingleAction extends ActionSupport implements RequestAware{
 		this.goodsId = goodsId;
 	}
 	public String get(){
-		System.out.println(goodsId);
 		if(goodsId==null){
 			return "index";
 		}
@@ -32,10 +31,8 @@ public class SingleAction extends ActionSupport implements RequestAware{
 			return "index";
 		}
 		goods.setGoodsPicture(null);
-		long start = System.currentTimeMillis();
 		request.put("goodsPictures", service.getGoodsPicturesByGoodsId(goodsId));
 		ActionContext.getContext().getValueStack().push(goods);
-		System.out.println("用时"+(System.currentTimeMillis()-start));
 		return SUCCESS;
 	}
 	@Override

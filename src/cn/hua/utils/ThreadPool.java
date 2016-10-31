@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 public class ThreadPool {
 	public static ExecutorService pool;
 	private ThreadPool(){
-		pool = Executors.newFixedThreadPool(20);
+		pool = Executors.newFixedThreadPool(10);
 	}
 	public static Object submit(Callable<Object> control){
 		if(pool==null)new ThreadPool();
