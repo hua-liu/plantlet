@@ -27,6 +27,8 @@ public class ScopeSearchAction extends ActionSupport implements ModelDriven<Pagi
 				return "adminPermission";
 			}else if(paging.getClassify()==2){
 				return "adminGoods";
+			}else if(paging.getClassify()==3){
+				return "adminOrderForm";
 			}
 		}
 		return SUCCESS;

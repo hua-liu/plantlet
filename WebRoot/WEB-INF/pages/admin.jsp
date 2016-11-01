@@ -281,8 +281,31 @@ espond.js IE8 support of HTML5 elements and media queries -->
 						href="admin_statisticsGoods" target="admin_content"><i
 							class="fa  fa-hand-o-right"></i><span>商品统计</span></a></li>
 				</ul></li>
-			<li class="orderFormMenu"><a href="admin_user"
-				target="admin_content liMenu"><i class="fa fa-gavel"></i> <span>订单管理</span></a></li>
+			<li class="treeview"><a><i class="fa fa-gavel"></i> <span>订单管理</span>
+					<span class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+				</span></a>
+				<ul class="treeview-menu">
+					<li class="paidOrderForm liMenu"><a
+						href="admin_orderForm?function=9" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>已付款订单</span></a></li>
+					<li class="noPayOrderForm liMenu"><a
+						href="admin_orderForm?function=8" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>未付款订单</span></a></li>
+					<li class="cartOrderForm liMenu"><a
+						href="admin_orderForm?function=10" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>购物车订单</span></a></li>
+					<li class="completedOrderForm liMenu"><a
+						href="admin_orderForm?function=12" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>交易完成订单</span></a></li>
+					<li class="failureOrderForm liMenu"><a
+						href="admin_orderForm?function=13" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>交易失败订单</span></a></li>
+					<li class="allOrderForm liMenu"><a
+						href="admin_orderForm?function=0" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>所有订单</span></a></li>
+				</ul>
+				</li>
 			<li class="treeview "><a><i class="fa fa-lock"></i> <span>权限管理</span>
 					<span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>

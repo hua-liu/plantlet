@@ -50,6 +50,11 @@
 			<result>WEB-INF/pages/admin_permission.jsp</result>
 			<result name="input" type="redirectAction">adminloginUi</result>
 		</action>
+		<!-- 订单页面请求 -->
+		<action name="admin_orderForm" class="cn.hua.action.AdminOrderFormAction">
+			<result>WEB-INF/pages/admin_orderForm.jsp</result>
+			<result name="input" type="redirectAction">adminloginUi</result>
+		</action>
 		<!--更新商品 -->
 		<action name="admin_updateGoods" class="cn.hua.action.AdminUpdateGoodsAction">
 			<interceptor-ref name="permissionInterceptor" />
@@ -109,6 +114,7 @@
 			<result name="adminUser" type="redirectAction">admin_user</result>
 			<result name="adminPermission" type="redirectAction">admin_permission</result>
 			<result name="adminGoods" type="redirectAction">admin_manageGoods</result>
+			<result name="adminOrderForm" type="redirectAction">admin_orderForm</result>
 			<result name="input">WEB-INF/pages/adminlogin.jsp</result>
 		</action>
 		<action name="go_*">

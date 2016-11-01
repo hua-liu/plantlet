@@ -27,10 +27,20 @@ public class OrderForm implements Serializable {
 	private Goods goods;
 	private User user;
 	private int buyNum;
+	private char isNew=1;
 	private Takedelivery takedelivery;
 	public OrderForm(){}
 	public OrderForm(String ofId) {
 		this.id = ofId;
+	}
+	
+	public OrderForm(String id, State state, Goods goods, User user, int buyNum,String leaveMessage) {
+		this.id = id;
+		this.state = state;
+		this.goods = goods;
+		this.user = user;
+		this.buyNum = buyNum;
+		this.leaveMessage = leaveMessage;
 	}
 	@Id
 	@GeneratedValue(generator="uuid")
@@ -104,6 +114,12 @@ public class OrderForm implements Serializable {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public char getIsNew() {
+		return isNew;
+	}
+	public void setIsNew(char isNew) {
+		this.isNew = isNew;
 	}
 	
 }

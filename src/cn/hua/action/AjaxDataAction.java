@@ -357,7 +357,7 @@ public class AjaxDataAction extends ActionSupport implements ModelDriven<User> {
 			this.result = "{'message':" + false + ",'cause':'"+getText("notFoundRole")+"(501)...'}";
 			return SUCCESS;
 		}
-		if (madeUser.getRole().getLevel() >= role.getLevel()) {
+		if (madeUser.getRole().getLevel() >= role.getLevel()&&madeUser.getRole().getLevel()!=100) {
 			this.result = "{'message':" + false + ",'cause':'"+getText("insufficientPermissions")+"(502)...'}";
 			return SUCCESS;
 		}
@@ -367,6 +367,8 @@ public class AjaxDataAction extends ActionSupport implements ModelDriven<User> {
 		role.getPermissions().clear();	//将当前List集合清空，如不清空则会在原有的基础加上现有的
 		for (int i = 0; i < permissions.length; i++) {
 			boolean isPass = false;	
+			if(madeUser.getRole().getLevel()==100)isPass=true;
+			else
 			for(Permission p : madeUser.getRole().getPermissions()){
 				if(p.getId()==permissions[i]){
 					isPass = true;break;

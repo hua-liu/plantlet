@@ -348,11 +348,10 @@
 																</a>
 															</div>
 															<div class="caption" style="position:relative;">
-																<p
-																	style="font-size:10px;position:absolute;top:0;right:0;">
+																<p style="font-size:10px;position:absolute;top:-3px;right:0;">
 																	成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
 																</p>
-																<b><a href="single?goodsId=${goodsId }">${name}</a></b><br />
+																<span><b><a href="single?goodsId=${goodsId }">${name}<strong style="color:#E00;margin-left:10px;">¥${price}</strong></a></b></span><br/>
 																<div style="height:35px;overflow:hidden;">
 																	<small>${simpleDescript}</small>
 																</div>
@@ -386,10 +385,10 @@
 															</div>
 															<div class="caption" style="position:relative">
 																<p
-																	style="font-size:10px;position:absolute;top:0;right:0;">
+																	style="font-size:10px;position:absolute;top:-3px;right:0;">
 																	成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
 																</p>
-																<b><a href="single?goodsId=${goodsId }">${name}</a></b><br />
+																<b><a href="single?goodsId=${goodsId }">${name}<strong style="color:#E00;margin-left:10px;">¥${price}</strong></a></b><br />
 																<div style="height:35px;overflow:hidden;">
 																	<small>${simpleDescript}</small>
 																</div>

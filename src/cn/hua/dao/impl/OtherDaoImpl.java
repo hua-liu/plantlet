@@ -52,17 +52,21 @@ public class OtherDaoImpl implements OtherDao<Classify, State> {
 		Query query = null; // 获取不同对象的分页数据
 		if (paging.getClassify() == 1) {
 			System.out.println(paging);
-			query = session.createQuery("from User where " + (paging.getState() == 0 ? " ": ("state.id="
+			query = session.createQuery("select new User(u.id,u.username,u.nickname,u.phone,u.email,u.state) from User u where " + (paging.getState() == 0 ? " ": ("state.id="
 					+ paging.getState()+" and "))+ (paging.getRole().equals("0")? " ": ("role.id='"+ paging.getRole()+
 					"' and "))+ " (username like :key or nickname like :key or phone like :key or email like :key)")
 					.setParameter("key", "%" + paging.getKeywords() + "%");
 		} else if (paging.getClassify() == 2) {
-			query = session.createQuery("from Goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind.id="
-					+ paging.getGoodsKind() + " and ")+ " name like :key ")
+			query = session.createQuery("from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+					+ paging.getGoodsKind() + " and ")+ " g.name like :key ")
 					.setParameter("key","%" + paging.getKeywords() + "%");
 		} else if (paging.getClassify() == 3) {
-			query = session.createQuery("from Store where "+ (paging.getState() == 0 ? " ": "state.id=" + paging.getState()
-					+ " and")+ " (name like :key "+ "or description like :key)")
+			if(paging.getFunction()==9){
+				query = session.createQuery("select new OrderForm(ofm.id, ofm.state,ofm.goods,ofm.user,ofm.buyNum,ofm.leaveMessage) from OrderForm ofm where ofm.state.id=9 and ofm.id like :key order by isNew,buytime")
+						.setParameter("key", "%" + paging.getKeywords() + "%");
+			}else
+			query = session.createQuery("select new OrderForm(ofm.id, ofm.state,ofm.goods,ofm.user,ofm.buyNum,ofm.leaveMessage) from OrderForm ofm where "+ (paging.getFunction() == 0 ? " ": "ofm.state.id=" + paging.getFunction()
+					+ " and")+ " ofm.id like :key order by ofm.buytime desc")
 					.setParameter("key", "%" + paging.getKeywords() + "%");
 		} else if(paging.getClassify()==4){
 			if (paging.getFunction() == 1) {	//权限管理--用户维护
@@ -76,7 +80,18 @@ public class OtherDaoImpl implements OtherDao<Classify, State> {
 				query = session.createQuery("from Permission where name like :key")
 				.setParameter("key", "%" + paging.getKeywords() + "%");
 		}
+		//查询已付款订单时进行更新处理
 		paging.setTotalNum(query.list().size());
+		if(paging.getClassify()==3&&paging.getFunction()==9){
+			List<OrderForm> ofs =  query.setFirstResult(paging.getCurrentRow())
+					.setMaxResults(paging.getSize()).list();
+			for(OrderForm of : ofs){
+				if(of.getIsNew()=='1'){
+					session.createQuery("update OrderForm set isNew=0 where id=?").setParameter(0, of.getId()).executeUpdate();
+				}
+			}
+			return ofs;
+		}
 		return query.setFirstResult(paging.getCurrentRow())
 				.setMaxResults(paging.getSize()).list();
 	}

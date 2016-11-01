@@ -50,6 +50,15 @@ public class Goods implements Serializable {
 	public Goods(String id) {
 		this.goodsId = id;
 	}
+	public Goods(String goodsId, String name, String simpleDescript,
+			float price, long sellsum, BreviaryPicture breviaryPicture) {
+		this.goodsId = goodsId;
+		this.name = name;
+		this.simpleDescript = simpleDescript;
+		this.price = price;
+		this.sellsum = sellsum;
+		this.breviaryPicture = breviaryPicture;
+	}
 
 	@Id
 	@GeneratedValue(generator = "uuid")

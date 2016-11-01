@@ -12,7 +12,7 @@ public class BreviaryPicture implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String path;
-	private Goods goods;
+	//private Goods goods;
 	@Id
 	@GeneratedValue(generator="uuid")
 	@GenericGenerator(name="uuid",strategy="uuid2")
@@ -29,13 +29,13 @@ public class BreviaryPicture implements Serializable{
 	public void setPath(String path) {
 		this.path = path;
 	}
-	@OneToOne(mappedBy="breviaryPicture")
+	/*@OneToOne(mappedBy="breviaryPicture",fetch=FetchType.LAZY)
 	public Goods getGoods() {
 		return goods;
 	}
 	public void setGoods(Goods goods) {
 		this.goods = goods;
-	}
+	}*/
 	public BreviaryPicture(){}
 	public BreviaryPicture(String id,String path){
 		if(id!=null){

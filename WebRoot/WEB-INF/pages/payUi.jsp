@@ -223,7 +223,7 @@
 			})
 			$("#pay").click(function(){
 				$(this).append($('<div class="loader-inner ball-clip-rotate" style="float:right"><div></div></div>'))
-				$.post("json/pay_pay","pp="+$("input[name=password]").val(),function(data){
+				$.post("json/pay_pay","key=${key}&pp="+$("input[name=password]").val(),function(data){
 					if(data!=null){
 						if(data=='input'){
 							window.location.href="loginUi";

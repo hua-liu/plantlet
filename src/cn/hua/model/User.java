@@ -1,11 +1,13 @@
 package cn.hua.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Date;
 @Entity
@@ -27,6 +29,18 @@ public class User implements Serializable{
 	private AccountState accountState;
 	private State state;
 	private Role role;
+	public User(){}
+	
+	public User(String id, String username, String nickname, String phone,
+			String email, State state) {
+		this.id = id;
+		this.username = username;
+		this.nickname = nickname;
+		this.phone = phone;
+		this.email = email;
+		this.state = state;
+	}
+
 	@Id
 	@GeneratedValue(generator="uuid")
 	@GenericGenerator(name="uuid",strategy="uuid2")
