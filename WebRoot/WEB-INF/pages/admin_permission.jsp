@@ -378,11 +378,7 @@ li {
 				</thead>
 				<tbody>
 					<s:iterator value="#request.list" status="s">
-						<s:if test="#s.count%2==0"></s:if>
-						<tr class="userList even" data-id="${id}">
-							<s:else>
-								<tr class="userList odd" data-id="${id}">
-							</s:else>
+							<tr class="userList" data-id="${id}">
 							<td>${s.count}</td>
 							<td><s:property value="username" default="-" /></td>
 							<td><s:property value="nickname" default="-" /></td>

@@ -1,6 +1,7 @@
 package cn.hua.dao.impl;
 
 import cn.hua.dao.GoodsDao;
+import cn.hua.formBean.GoodsPaging;
 import cn.hua.formBean.Paging;
 import cn.hua.model.*;
 
@@ -91,7 +92,7 @@ public class GoodsDaoImpl implements GoodsDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	/**
-	 * 
+	 * 首页的商品展示
 	 */
 	public List<Goods> getGoodsPaging(Paging paging) {
 			Session session = hibernateTemplate.getSessionFactory()
@@ -104,44 +105,41 @@ public class GoodsDaoImpl implements GoodsDao {
 			}else if(paging.getScene()!=null&&"recommend".equals(paging.getScene())){
 				query = session.createNativeQuery("select id,name,simpleDescript,price,sellsum,breviaryPicture_id from goods where state_id=7 order by sellsum desc");
 				//query = session.createQuery("select new Goods(g.goodsId,g.name,g.simpleDescript,g.price,g.sellsum,g.breviaryPicture,g.state) from Goods g where g.state.id=7 order by sellsum desc");
-			}else
-			query = session.createQuery("select new Goods(g.goodsId,g.name,g.simpleDescript,g.price,g.sellsum,g.breviaryPicture) from Goods g");
+			}
 			List list = query.setFirstResult(paging.getCurrentRow())
 					.setMaxResults(paging.getSize()).list();
-			paging.setTotalNum(list.size());
 			List<Goods> goodsList = new ArrayList<Goods>();
 			for(Object obj : list){
 				Object[] objArray = (Object[]) obj;
 				Goods goods = new Goods(objArray[0].toString(),objArray[1].toString(),objArray[2].toString(),Float.parseFloat(objArray[3].toString()),
-						Long.parseLong(objArray[4].toString()),new BreviaryPicture(objArray[5].toString(), null));
+						Long.parseLong(objArray[4].toString()),objArray[5]==null?null:new BreviaryPicture(objArray[5].toString(), null));
 				goodsList.add(goods);
 			}
 			return goodsList;
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see cn.hua.dao.GoodsDao#getGoodsRewardPaging(cn.hua.formBean.GoodsPaging)
+	 * 
+	 *产品页面的分页查询
+	 */
 	@Override
-	public void addShoppingCart(ShoppingCart cart) {
-		hibernateTemplate.save(cart);
-		
-	}
-	@Override
-	public void deleteShoppingCart(String id) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public ShoppingCart getShoppingCartById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public ShoppingCart getShoppingCartByUserId(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void updateShoppingCart(ShoppingCart cart) {
-		// TODO Auto-generated method stub
-		
+	public List<Goods> getGoodsRewardPaging(GoodsPaging paging) {
+		Session session = hibernateTemplate.getSessionFactory().getCurrentSession();
+		String sql = "select new Goods(g.id,g.name,g.price,g.isSale,g.salePrice,g.sellsum,g.breviaryPicture) "
+				+ "from Goods g where "+(paging.getGoodsKind()==0?"":"g.goodsKind.id="+paging.getGoodsKind()+" and ")
+				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+"and")
+				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)")
+				+(paging.getFunction()==0?"":paging.getFunction()==1?"order by price":paging.getFunction()==2?"order by price desc":
+					paging.getFunction()==3?"order by sellsum desc":"");
+		Query query = session.createQuery(sql).setParameter("key","%" + paging.getKeywords() + "%");
+		//这里用来查询总数
+		sql = "select count(*) from Goods where "+(paging.getGoodsKind()==0?"":"goodsKind_id="+paging.getGoodsKind()+" and ")
+				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+"and")
+				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)");
+		Object obj = session.createNativeQuery(sql).setParameter("key","%" + paging.getKeywords() + "%").getSingleResult();
+		paging.setTotalNum(Long.parseLong(obj.toString()));
+		return query.setFirstResult(paging.getCurrentRow()).setMaxResults(paging.getSize()).list();
 	}
 
 }

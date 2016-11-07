@@ -1,16 +1,12 @@
 package cn.hua.action;
 
-import java.util.List;
-
 import org.apache.struts2.ServletActionContext;
 
 import cn.hua.annotation.Jurisdiction;
 import cn.hua.formBean.UserLogin;
-import cn.hua.model.OrderForm;
 import cn.hua.model.User;
 import cn.hua.service.Service;
 import cn.hua.utils.CacheData;
-import cn.hua.utils.ThreadControl;
 import cn.hua.utils.Verification;
 
 import com.opensymphony.xwork2.ActionContext;

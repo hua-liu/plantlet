@@ -1,5 +1,6 @@
 package cn.hua.service;
 
+import cn.hua.formBean.GoodsPaging;
 import cn.hua.formBean.Paging;
 import cn.hua.model.*;
 
@@ -62,4 +63,6 @@ public interface Service {
 	void deleteTakedelivery(Takedelivery take);
 	void updateTakedelivery(Takedelivery take);
 	void updateSafe(Safe safe);
+	List<String> getNewOrderFormNum();
+	List<Goods> getGoodsRewardPaging(GoodsPaging paging);
 }

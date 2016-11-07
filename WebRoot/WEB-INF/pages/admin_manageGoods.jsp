@@ -66,7 +66,7 @@
 			role="grid" aria-describedby="example2_info">
 			<thead>
 				<tr>
-					<th colspan="7">
+					<th colspan="8">
 						<div style="float:right">
 							<div class="input-group">
 								<input name="keywords" class="form-control" type="text"
@@ -100,6 +100,10 @@
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
 						aria-label="Platform(s): activate to sort column ascending"><s:text
+							name="销量" /></th>
+					<th class="sorting" tabindex="0" aria-controls="example2"
+						rowspan="1" colspan="1"
+						aria-label="Platform(s): activate to sort column ascending"><s:text
 							name="状态" /></th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
@@ -118,6 +122,7 @@
 						<td><s:property value="name" default="-" /></td>
 						<td><s:property value="inventory" default="-" /></td>
 						<td><s:property value="price" default="-" /></td>
+						<td><s:property value="sellsum" default="-" /></td>
 						<td class="productState">
 							<div class="mc">
 								<p class="on">已上架</p>

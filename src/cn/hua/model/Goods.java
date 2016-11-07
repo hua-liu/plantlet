@@ -27,7 +27,7 @@ public class Goods implements Serializable {
 	private String simpleDescript;
 	private int inventory;
 	private float price;
-	private char isSale;
+	private int isSale;
 	private float salePrice;
 	private Date saleTime;
 	private long sellsum;
@@ -56,6 +56,16 @@ public class Goods implements Serializable {
 		this.name = name;
 		this.simpleDescript = simpleDescript;
 		this.price = price;
+		this.sellsum = sellsum;
+		this.breviaryPicture = breviaryPicture;
+	}
+	public Goods(String goodsId, String name, float price, int isSale,
+			float salePrice, long sellsum, BreviaryPicture breviaryPicture) {
+		this.goodsId = goodsId;
+		this.name = name;
+		this.price = price;
+		this.isSale = isSale;
+		this.salePrice = salePrice;
 		this.sellsum = sellsum;
 		this.breviaryPicture = breviaryPicture;
 	}
@@ -128,11 +138,11 @@ public class Goods implements Serializable {
 		this.otherName = otherName;
 	}
 
-	public char getIsSale() {
+	public int getIsSale() {
 		return isSale;
 	}
 
-	public void setIsSale(char isSale) {
+	public void setIsSale(int isSale) {
 		this.isSale = isSale;
 	}
 

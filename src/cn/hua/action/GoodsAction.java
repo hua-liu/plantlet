@@ -130,8 +130,9 @@ public class GoodsAction extends ActionSupport implements
 				this.result = Conversion.stringToJson("message,true");
 				return SUCCESS;
 			} catch (Exception e) {
+				
 				this.result = Conversion.stringToJson("message,false,cause,"
-						+ e.getMessage());
+						+ e);
 				return SUCCESS;
 			}
 		} else {

@@ -83,8 +83,15 @@ public class AddressAction extends ActionSupport implements ModelDriven<Takedeli
 			service.deleteTakedelivery(take);
 			this.result = Conversion.stringToJson("message,true");
 		}catch(Exception e){
-			e.printStackTrace();
-			this.result = Conversion.stringToJson("message,false,cause,数据库异常");
+			try{
+				take = service.getTakedeliveryById(take.getId());
+				take.setUser(null);
+				service.updateTakedelivery(take);
+				this.result = Conversion.stringToJson("message,true");
+			}catch(Exception e1){
+				e.printStackTrace();
+				this.result = Conversion.stringToJson("message,false,cause,数据库异常");
+			}
 		}
 		return SUCCESS;
 	}

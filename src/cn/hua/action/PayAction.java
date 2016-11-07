@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import org.apache.struts2.ServletActionContext;
 
+import cn.hua.model.Goods;
 import cn.hua.model.OrderForm;
 import cn.hua.model.Safe;
 import cn.hua.model.State;
@@ -21,6 +22,8 @@ import cn.hua.utils.Conversion;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 public class PayAction extends ActionSupport{
 	/**
@@ -70,10 +73,14 @@ public class PayAction extends ActionSupport{
 	}
 	//进入支付界面
 	public String payUi(){
-		System.out.println(Thread.currentThread().getName());
 		List<OrderForm> ofs = new ArrayList<OrderForm>();
 		User user = (User) ActionContext.getContext().getSession().get("user");
 		if(user==null)return INPUT;
+		if(addr==null){
+			this.addActionError("收货地址无效!!");
+			return SUCCESS;
+		}
+		System.out.println(Arrays.toString(id));
 		sumPrice=0;
 		for(int i=0;i<id.length;i++){
 			/*//这里使用多线程来处理,这里未知数太多，现在不处理
@@ -88,6 +95,13 @@ public class PayAction extends ActionSupport{
 				of.setLeaveMessage(leaveMessage[i]);
 				of.setState(new State(8));
 				of.setTakedelivery(new Takedelivery(addr));
+				if(of.getGoods().getInventory()<buyNum[i]){
+					this.addActionError("商品库存已不足!!");
+					return SUCCESS;
+				}
+				Goods goods = of.getGoods();
+				goods.setInventory(goods.getInventory()-buyNum[i]);
+				service.updateGoods(goods);
 				service.updateOrderForm(of);
 			}
 			if(of==null){
@@ -135,14 +149,23 @@ public class PayAction extends ActionSupport{
 		if(pp.equals(user.getSafe().getPayPassword())){
 			try{//这里其实可以使用个事务，但是呢，好麻烦的说
 				Safe safe = user.getSafe();
+				for(OrderForm of : orderForms){
+					sumPrice +=of.getBuyNum()*of.getGoods().getPrice();
+				}
+				if(user.getSafe().getBalance()<sumPrice){
+					this.result = Conversion.stringToJson("message,false,cause,您的余额已不足以支付当前订单!!");
+					return SUCCESS;
+				}
 				safe.setBalance(user.getSafe().getBalance()-sumPrice);
 				service.updateSafe(safe);
 				for(OrderForm of : orderForms){
 					of.setState(new State(9));
 					service.updateOrderForm(of);
+					sumPrice +=of.getBuyNum()*of.getGoods().getPrice();
 				}
 				planPay.remove(key);
 				this.result = Conversion.stringToJson("message,true");
+				ActionContext.getContext().getSession().put("user", user);
 			}catch(Exception e){
 				this.result = Conversion.stringToJson("message,false,cause,支付异常!!");
 			}

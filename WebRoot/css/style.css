@@ -49,7 +49,6 @@ ul.dropdown-menu {
     -moz-animation: fadeInUp .2s ease-in;
     -webkit-animation: fadeInUp .2s ease-in; 
     animation: fadeInUp .2s ease-in;
-	min-width: 120px; 
     font-size: 1em;
 	top: 125%;
 	z-index: 99999;

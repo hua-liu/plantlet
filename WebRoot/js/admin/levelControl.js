@@ -1,6 +1,7 @@
 $(function(){
+	$('[data-toggle="tooltip"]').tooltip();
 	$(".level-control").mouseover(function(){
-		new Drag(this);
+		new DragMove(this);
 	})
 	$(".level-control").on("hide.bs.tooltip", function(){
 		if(tooltipCheck){
@@ -15,10 +16,10 @@ $(function(){
 })
 
 var tooltipCheck=false;
-function move(ele){		//移动元素函数
-	new Drag(ele);
+function moveControl(ele){		//移动元素函数
+	new DragMove(ele);
 }
-var Drag = function(el){
+var DragMove = function(el){
     var drag = function(e) {
         e = e || window.event;
         el.style.cursor = "pointer";
@@ -38,7 +39,10 @@ var Drag = function(el){
         }else{
         	tooltip.style.left=el.offsetLeft-9+"px";
         }
-        $(".tooltip-inner").html(el.offsetLeft)
+        $(".tooltip-inner").html(el.offsetLeft);
+        try{
+        setFontSize(el.offsetLeft);
+        }catch(e){}
     }
     var dragend = function(){
     	tooltipCheck=false;

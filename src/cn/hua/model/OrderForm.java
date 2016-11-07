@@ -3,6 +3,7 @@ package cn.hua.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class OrderForm implements Serializable {
 	private Goods goods;
 	private User user;
 	private int buyNum;
-	private char isNew=1;
+	private int isNew=1;
 	private Takedelivery takedelivery;
 	public OrderForm(){}
 	public OrderForm(String ofId) {
@@ -115,10 +116,10 @@ public class OrderForm implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public char getIsNew() {
+	public int getIsNew() {
 		return isNew;
 	}
-	public void setIsNew(char isNew) {
+	public void setIsNew(int isNew) {
 		this.isNew = isNew;
 	}
 	

@@ -1,6 +1,7 @@
 package cn.hua.service.impl;
 
 import cn.hua.dao.*;
+import cn.hua.formBean.GoodsPaging;
 import cn.hua.formBean.Paging;
 import cn.hua.model.*;
 import cn.hua.service.Service;
@@ -324,6 +325,14 @@ public class ServiceImpl implements Service {
 	@Override
 	public void updateSafe(Safe safe) {
 		userDao.updateSafe(safe);
+	}
+	@Override
+	public List<String> getNewOrderFormNum() {
+		return otherDao.getNewOrderFormNum();
+	}
+	@Override
+	public List<Goods> getGoodsRewardPaging(GoodsPaging paging) {
+		return goodsDao.getGoodsRewardPaging(paging);
 	}
 	
 }

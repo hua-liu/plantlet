@@ -28,58 +28,33 @@ $(function(){
 		if(val>maxValue)val=maxValue;
 		$("#buyNumMade input").val(val);
 	})
-	//添加商品到购物车
-	$(".intoCart").click(function(){
-		addOrderForm($(this).attr("data-id"),$(".buyNum").val());
-	})
-	
-})
-var isColse=true;
-//添加购物车商品节点
-function createCartItim(id,img,name,price,num){
-	//添加节点
-	$(".mini-cart-items-list").append($('<li data-id="'+id+'"><div class="mini-cart-item"><div class="mini-cart-item-pic"><img src="'+img+'"></div><div class="mini-cart-item-info">'
-			+'<div class="mini-cart-item-title">'+name+'</div><div class="mini-cart-item-price">'
-			+'<i class="fa fa-rmb"></i><span class="cart-price">'+price*num+'</span></div><a class="mini-cart-item-del" href="#"><i class="fa fa-times"></i></a></div></div></li>'));
-	/*$(".intoCart").popover("show");
-	window.setTimeout(function() {
-	$(".intoCart").popover("destroy");}, 2000)*/
-	$("#cart-item-num").html(parseInt($("#cart-item-num").html())+1)
-	$(".mini-cart-item-del").unbind();
-	$(".mini-cart-item-del").bind("click",function(){
-		delEvent(this);
-	});
-}
-//向数据库发送添加购物车请求
-function addOrderForm(id,num){
-	var url = "json/orderForm_add";
-	var data = "goods.goodsId="+id+"&buyNum="+num;
-	
-	$.post(url,data,function(data){
-		if(data==null){
-			$(".intoCart").attr("data-content","加入购物车失败");
-			$(".intoCart").popover("show");
-			window.setTimeout(function() {$(".intoCart").popover("destroy");}, 2000)
-			$(".mini-cart-items-list li[data-id="+$(".iotoCart").attr("data-id")+"]").remove();
-		}
-		if(data=='input'){
-			window.location.href="loginUi?url="+window.location.href.substr(7);
-		}else{
-			data = eval("("+data+")");
-			if(data.message){
-				createCartItim(data.id,$(".big-img .MagicZoom img").attr("src"),$(".product_name").html(),$(".price").html(),$(".buyNum").val())
-				$(".intoCart").attr("data-content","加入购物车成功");
-				$(".intoCart").popover("show");
-				if($(".goBuy").is(":hidden")){//判断结算按钮是否显示
-					$(".goBuy").css("display","block");
-				}
-				window.setTimeout(function() {$(".intoCart").popover("destroy");}, 2000)
-			}else{
-				$(".intoCart").attr("data-content","加入购物车失败:原因："+data.cause);
-				$(".intoCart").popover("show");
-				window.setTimeout(function() {$(".intoCart").popover("destroy");}, 2000)
-				$(".mini-cart-items-list li[data-id="+$(".iotoCart").attr("data-id")+"]").remove();
+	$("#buy").click(function(){
+		var el = this;
+		var url = "json/userOrderForm_add";
+		var data = "goods.goodsId="+$(this).attr("data-id")+"&buyNum="+$(this).parents("tbody").find(".buyNum").val();
+		alert($(this).attr("data-id"))
+		alert($(this).parents("tbody").find(".buyNum").val())
+		$.post(url,data,function(data){
+			alert(data)
+			if(data==null){
+				$(el).attr("data-content","创建订单失败，稍候再试");
+				$(el).popover("show");
+				window.setTimeout(function() {$(el).popover("destroy");}, 2000)
+				$(".mini-cart-items-list li[data-id="+$(el).attr("data-id")+"]").remove();
 			}
-		}
-	},"json")
-}
+			if(data=='input'){
+				window.location.href="loginUi?url="+window.location.href.substr(7);
+			}else{
+				data = eval("("+data+")");
+				if(data.message){
+					window.location.href="auctionOrder?id="+data.id;
+				}else{
+					$(el).attr("data-content","购买失败:原因："+data.cause);
+					$(el).popover("show");
+					window.setTimeout(function() {$(el).popover("destroy");}, 2000)
+				}
+			}
+		},"json")
+	})
+})
+

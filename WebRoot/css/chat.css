@@ -1,0 +1,219 @@
+li{
+	list-style:none;
+}
+.chatWinBox{
+	position:absolute;
+	width:800px;height:400px;
+	top:200px;left:50px;
+	z-index:1000;
+	display:none;
+}
+.chatWin{
+	position:absolute;
+	width:500px;height:400px;
+	top:0;left:0;
+	background:rgba(255,255,255,0.9);
+	z-index:1000;
+	border-radius:10px;
+	overflow:hidden;
+}
+.chatWin .head,.messageRecord .head{
+	width:100%;height:30px;
+	background:rgba(0,0,0,0.8);
+	color:#FFF;
+	font-size:15px;
+	cursor:move;
+}
+.chatWin .body{
+	width:100%;height:335px;
+}
+.chatWin .foot{
+	width:100%;height:40px;
+	position:relative;
+	background:rgba(0,0,0,0.2);
+}
+.head .winClose,.head .adminWinClose,.head .winCloseRecord{
+	position:absolute;
+	top:5px;right:5px;
+	color:#FFF;
+	font-size:20px;
+	
+}
+.head span{
+	line-height:30px;
+}
+.head .serverName{
+	color:#090;
+	font-weight: bold;
+}
+.head .winClose:hover,.head .adminWinClose:hover,.head .winCloseRecord:hover{
+	cursor:pointer;
+	color:#F00;
+}
+.body .chatContent{
+	padding:0 5px;
+	height:250px;
+	overflow:auto;
+	border-bottom:1px solid #CCC;
+}
+.recordContent{
+	padding:0 5px;
+}
+.direct-chat-msg .direct-chat-text{
+	width:50%;
+	word-break: break-all;word-wrap: break-word;
+}
+
+.chatPic{
+	width:220px;
+}
+.recordContent .chatPic{
+	width:120px;
+}
+.showPictrueMore{
+	width:550px;
+}
+.right .direct-chat-text{
+	float:right;
+	margin-right:0;
+	word-break: break-all;word-wrap: break-word;
+}
+.direct-chat-name{
+	margin:0 10px;
+}
+.chatContent .hp{
+	width:30px;height:30px;
+	border:1px solid #15A0F5;
+	border-radius:15px;
+}
+.body .myTool{
+	margin:0;
+	padding:0;
+	height:25px;
+	position:relative;
+}
+.myTool li{
+	float:left;
+	font-size:20px;
+	margin-right:10px;
+	cursor:pointer;
+}
+.myTool li:last-child:hover{
+	border-color:#000;
+	border-radius:5px;
+}
+.myTool .recordSwitch{
+	position:absolute;
+	right:0;
+	font-size:15px;
+	line-height:25px;
+	border:1px solid #CCC;
+	margin-top:2px;
+}
+.body .myInput{
+	width:100%;height:60px;
+	border:none;
+	border:2px solid #FFF;
+	background:rgba(0,0,0,0.1);
+	resize: none;/* 禁止改变大小 */
+}
+.foot .sendGroup{
+	width:80px;height:30px;
+	position:absolute;
+	top:2px;right:5px;
+}
+.foot .sendGroup button{
+	height:30px;
+}
+.selectSendMenu li a{
+	padding-left:0;
+	color:#000;
+	text-align:left;
+}
+.foot .winClose,.foot .adminWinClose{
+	width:80px;height:30px;
+	position:absolute;
+	top:2px;right:90px;
+}
+.messageRecord{
+	width:300px;height:400px;
+	background:rgba(255,255,255,0.9);
+	position:absolute;
+	right:-2px;top:0;
+	border-radius:10px;
+	border:1px solid #333;
+	overflow:hidden;
+	display:none;
+}
+.messageRecord .foot{
+	height:30px;
+	position:relative;
+}
+.messageRecord .foot .left{
+	float:left;
+}
+.messageRecord .foot .right{
+	float:right;
+}
+.recordContent{
+	border-bottom:1px solid #CCC;
+	height:85%;
+	overflow:auto;
+}
+/* 字体设置 */
+.fontSet{
+	width:450px;height:35px;
+	position:absolute;
+	top:243px;left:2px;
+	background:rgba(255,255,255,0.8);
+	border:2px solid #AAA;
+	border-radius:5px;
+	display:none;
+}
+.fontSize{
+	margin-right:150px;
+}
+.font{
+	height:25px;width:100px;margin-top:2.5px;margin-right:20px;
+}
+.font select{
+	height:25px;
+	line-height:25px;
+	padding-top:3px;
+	margin:0;
+	font-size:12px;
+}
+.fontSize,.fontColor,.font{
+	height:30px;
+	float:left;
+}
+.fontSize>span,.fontColor>span{
+	font-size:15px;
+	float:left;
+	line-height:30px;
+}
+.fontSize #role_level{
+	float:left;
+}
+/* /字体设置 */
+/* 表情选择 */
+.facebox{
+}
+/* /表情选择 */
+/* 左右滑动 */
+.level{
+	width:120px;height:20px;
+	border:1px solid #CCCCCC;
+	margin:5px 10px;
+	position:absolute;
+	z-index:1001;
+}
+.level-control{
+	width:20px;height:20px;
+	background:#337AB7;
+	position:absolute;
+	top:0px;
+	left:15px;
+	cursor:pointer;
+	z-index:1002;
+}

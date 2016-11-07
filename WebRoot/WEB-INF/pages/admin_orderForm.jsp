@@ -32,6 +32,29 @@
 <link rel="stylesheet" href="css/admin/dataTables.bootstrap.css">
 <link rel="stylesheet" href="css/admin/background.css">
 <link rel="stylesheet" href="css/admin/admin.css">
+<style type="text/css">
+	.orderFormStateUi{
+	padding:0;
+		position:absolute;
+		width:205px;height:80px;
+		background:rgba(0,0,0,0.5);
+		border:2px solid #FFF;
+		top:0;left:0;
+		padding-left:5px;
+		display:none;
+		z-index:10000;
+	}
+	.orderFormStateUi li{
+		width:60px;height:30px;background:#FFF;
+		float:left;margin:5px 5px 0 0;
+		text-align:center;
+		line-height:30px;
+	}
+	.orderFormStateUi li:hover{
+		background:#555;color:#FFF;
+		cursor:pointer;
+	}
+</style>
 <script src="js/ie/respond.min.js"></script>
 </head>
 <body style="padding:0;">
@@ -79,7 +102,7 @@
 			role="grid" aria-describedby="example2_info">
 			<thead>
 				<tr>
-					<th colspan="7">
+					<th colspan="8">
 						<div style="float:right">
 							<div class="input-group">
 								<input name="keywords" class="form-control" type="text"
@@ -128,18 +151,14 @@
 			</thead>
 			<tbody>
 				<s:iterator value="#request.list" status="s">
-					<s:if test="#s.count%2==0"></s:if>
-					<tr class="orderFormList even" data-id="${id}">
-						<s:else>
-							<tr class="userList odd" data-id="${id}">
-						</s:else>
+						<tr class="orderFormList" data-id="${id}">
 						<td>${s.count}</td>
 						<td><s:property value="id" default="-" /></td>
 						<td><s:property value="user.username" default="-" /></td>
 						<td><s:property value="goods.name" default="-" /></td>
 						<td><s:property value="buyNum" default="-" /></td>
 						<td><s:property value="leaveMessage" default="-" /></td>
-						<td><s:text name="%{getText(state.name)}" /></td>
+						<td><button class="btn btn-default stateButton" data-id="${state.id}"><span class="stateText"><s:text name="%{getText(state.name)}" /></span><span class="caret" style="margin-left:5px;"></span></button></td>
 						<td><div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown" aria-expanded="false">
@@ -270,7 +289,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">
-						<s:text name="userMoreInformation" />
+						<s:text name="订单更多信息" />
 					</h4>
 				</div>
 				<div class="modal-body" id="printContext">
@@ -290,6 +309,11 @@
 			</div>
 		</div>
 	</div>
+	<ul class="orderFormStateUi">
+		<s:iterator value="#request.orderFormStates">
+			<li data-id="${id}">${name}</li>
+		</s:iterator>
+	</ul>
 	<script src="js/admin/map.js"></script>
 	<script type="text/javascript">
 		var totalPage = ${totalPage};

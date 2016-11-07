@@ -53,9 +53,8 @@
 </head>
 <body style="padding-top:0">
 		<div class="putawayGoodsBox">
-		<s:debug></s:debug>
 			<!-- 产品开始 -->
-			<div class="products" id="products">
+			<div class="products col-md-12" id="products">
 			<s:if test="goodsId==null">
 				<div class="alert alert-success alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert"
@@ -213,7 +212,7 @@
 									$(".isSale").hide();
 								</script>
 							</s:if>
-							<tr class="goodsSizeTr" style="display:none;">
+							<%-- <tr class="goodsSizeTr" style="display:none;">
 								<td>商品尺寸</td>
 								<td>&nbsp;
 									<div>
@@ -228,7 +227,7 @@
 										<input type="text" name="goodsSize" placeholder="输入其它尺寸[空格割开]"
 											style="width:50%;margin-left:5px;">
 								</td>
-							</tr>
+							</tr> --%>
 							<tr>
 								<td>商品颜色</td>
 								<td>
@@ -262,12 +261,13 @@
 						</table>
 					</form>
 				</div>
+				</div>
 				<!-- collapse-tabs -->
-				<div class="collpse tabs">
+				<div class="collpse tabs col-md-12" style="float:left;width:100%;">
 					<h3 class="w3ls-title">　</h3>
 					<div class="panel panel-default" style="margin-top:50px;">
 					<button class="btn btn-default clickUploadHtml">上传商品展示网页</button>
-						<div class="panel-heading" role="tab">
+						<div class="panel-heading" role="tab" style="height:40px">
 							<h4 class="panel-title">
 								<a class="collapsed pa_italic" role="button"
 									data-toggle="collapse" data-parent="#accordion"

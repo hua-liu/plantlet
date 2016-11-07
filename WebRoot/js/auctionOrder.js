@@ -51,7 +51,7 @@ $(function() {
 		$("input[name=phone]").val("");
 		$("input[name=telephone]").val("");
 		$("#submitAddAddress").html("添加地址并选择");
-		$("#id").val("");
+		$("#addrId").val("");
 	})
 	
 	//购买数量变更
@@ -123,6 +123,10 @@ $(function() {
 		var isSelectedInput = $(".orderForm input[type=checkbox]:checked");
 		if(isSelectedInput.length<1){
 			alert("您还未选择需要购买的商品！");
+			return false;
+		}
+		if($("input[name=addr]:checked").length<1){
+			alert("您还未选择收货地址！");
 			return false;
 		}
 	})
@@ -338,7 +342,7 @@ function changeAddrData(id){
 				$("input[name=phone]").val(data.phone==null?'':data.phone);
 				$("input[name=telephone]").val(data.telephone==null?'':data.telephone);
 				$("#submitAddAddress").html("更新地址并选择");
-				$("#id").val(data.id);
+				$("#addrId").val(data.id);
 				$("#addAddrModal").modal("show");
 				//此处为了保证修改地址时向数据库请求数据延时，设置定时器
 				var i=0;

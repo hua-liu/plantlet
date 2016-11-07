@@ -5,6 +5,8 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	//聊天服务头
+	String serverPath="ws://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,41 +16,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
-<script type="application/x-javascript">
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } 
-
-</script>
 <!-- Custom Theme files -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"
-	media="all" />
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- <link href="css/menu.css" rel="stylesheet" type="text/css" media="all" /> -->
 <!-- menu style -->
-<link href="css/animate.min.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link href="css/owl.carousel.css" rel="stylesheet" type="text/css"
-	media="all">
+<link href="css/sidebar/components-right.css" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/iconfont.css" rel="stylesheet">
 <!-- carousel slider -->
 <!-- //Custom Theme files -->
 <!-- font-awesome icons -->
 <link href="css/font-awesome.css" rel="stylesheet">
+<link href="css/cart.css" rel="stylesheet">
+<link rel="stylesheet" href="css/admin/AdminLTE.min.css">
+<link href="css/chat.css" rel="stylesheet">
+<link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
 <!-- //font-awesome icons -->
 <!-- js -->
 <script src="js/jquery/jquery.min.js"></script>
-<script src="js/owl.carousel.js"></script>
 <!-- //js -->
+<style type="text/css">
+body {
+	background: #FAFAFA;
+}
+
+.faq li {
+	float: left;
+	text-align: center;
+}
+
+.faq li:hover {
+	color: #0E0;
+}
+/* 分页CSS */
+.paging {
+	width: 100%;
+	height: 35px;
+	position: relative;
+	border-radius: 5px;
+	background: rgba(0, 0, 0, 0.1);
+	float: left;
+	margin-top: 50px;
+}
+
+.paging .pagination {
+	position:absolute;
+	top:-17px;left:20%;
+}
+
+.pagination li a {
+	background: none;
+	color: #333;
+	height: 30px;
+	border-color: #999;
+}
+
+.pagination li a:hover {
+	border-color: #555;
+}
+.productsSort li a{
+	cursor:pointer;
+}
+</style>
 <!-- scroll to fixed-->
 <script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 <script>
 	$(document).ready(function() {
-
 		// Dock the header to the top of the window when scrolled past the banner. This is the default behaviour.
-
 		$('.header-two').scrollToFixed();
 		// previous summary up the page.
-
 		var summaries = $('.summary');
 		summaries.each(function(i) {
 			var summary = $(summaries[i]);
@@ -102,953 +139,602 @@
 	});
 </script>
 <!-- //the jScrollPane script -->
-<script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
 <!-- the mousewheel plugin -->
 </head>
 <body>
-	<!-- header -->
-	<div class="header">
-		<div class="w3ls-header">
-			<!--header-one-->
-			<div class="w3ls-header-left">
-				<p>
-					<a href="#"><img src="img/logo.png" class="logo" /></a>
-				</p>
+	<!-- 购物车开始  -->
+	<div id="st-container" class="st-container">
+		<s:if test="#session.user!=null">
+			<nav class="st-menu st-effect-13" id="menu-13">
+			<div class="toolbar-main toolbar-mini-cart-main">
+				<div class="toolbar-hd">
+					<div class="toolbar-hd-title">购物车</div>
+				</div>
+				<div class="toolbar-bd">
+					<div class="mini-cart-list">
+						<div class="mini-cart-list-hd">
+							<div class="mini-cart-list-title">最新加入的宝贝</div>
+						</div>
+						<div class="mini-cart-list-bd">
+							<ul class="mini-cart-items-list">
+								<s:if test="#session.user!=null">
+									<s:iterator value="#session.orderForms">
+										<li data-id="${id}"><div class="mini-cart-item">
+												<div class="mini-cart-item-pic">
+													<img
+														src="json/download_file?isBreviary=1&id=${goods.breviaryPicture.id}">
+												</div>
+												<div class="mini-cart-item-info">
+													<div class="mini-cart-item-title">${goods.name}</div>
+													<div class="mini-cart-item-price">
+														<i class="fa fa-rmb"></i><span class="cart-price">
+															<s:i18n name="format">
+																<s:text name="struts.percent">
+																	<s:param value="goods.price*buyNum" />
+																</s:text>
+															</s:i18n>
+														</span>
+													</div>
+													<a class="mini-cart-item-del" href="#"><i
+														class="fa fa-times"></i></a>
+												</div>
+											</div></li>
+									</s:iterator>
+								</s:if>
+							</ul>
+						</div>
+						<button class="goBuy btn btn-danger">去购物车结算</button>
+						<script type="text/javascript">
+							if ($(".mini-cart-item").length < 1) {
+								$(".goBuy").css("display", "none");
+							}
+						</script>
+					</div>
+				</div>
 			</div>
-			<div class="w3ls-header-right">
-				<ul>
-					<li class="dropdown head-dpdn"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown"><i
-							class="fa fa-user" aria-hidden="true"></i>我的账户<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<s:if test="#session.user!=null">
-								<li><a href="#"><s:property
-											value="#session.user.username" /></a></li>
-								<li><a href="userLogout">注销</a></li>
-								<li><a href="login.html">我的订单</a></li>
-								<li><a href="login.html">钱包</a></li>
-							</s:if>
-							<s:else>
-								<li><a href="loginUi">登陆</a></li>
-							</s:else>
-						</ul></li>
-					<li class="dropdown head-dpdn"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown"><i
-							class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
-							class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="offers.html">查看购物车</a></li>
-							<li><a href="offers.html">清空购物车</a></li>
-						</ul></li>
-					<li class="dropdown head-dpdn"><a href="card.html"
-						class="dropdown-toggle"><i class="fa fa-star"
-							aria-hidden="true"></i>收藏夹</a></li>
-					<!-- <!-- <li class="dropdown head-dpdn"><a href="contact.html"
+			</nav>
+		</s:if>
+		<!--购物车影响的内容  -->
+		<div class="st-pusher">
+			<div class="st-content" style="background: none">
+				<!-- 购物车图标 -->
+				<s:if test="#session.user!=null">
+					<div class="cartButton" id="st-trigger-effects">
+						<button data-effect="st-effect-13"
+							class="btn btn-danger st-effect"
+							style="width:30px;height:150px;text-align:center;padding:0;">
+							<span class="badge" id="cart-item-num"> <s:property
+									value="#session.orderForms.size"></s:property>
+							</span><br />我<br />的<br />购<br />物<br />车
+						</button>
+					</div>
+				</s:if>
+				<!-- 购物车图标  -->
+				<!-- header -->
+				<div class="header">
+					<div class="w3ls-header">
+						<!--header-one-->
+						<div class="w3ls-header-left">
+							<p>
+								<a href="#"><img src="img/logo.png" class="logo" /></a>
+							</p>
+						</div>
+						<div class="w3ls-header-right">
+							<ul>
+								<li class="dropdown head-dpdn"><a href="#"
+									class="dropdown-toggle" data-toggle="dropdown"><i
+										class="fa fa-user" aria-hidden="true"></i>我的账户<span
+										class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<s:if test="#session.user!=null">
+											<li><a href="#"><s:property
+														value="#session.user.username" /></a></li>
+											<li><a href="userLogout">注销</a></li>
+											<li><a href="login.html">我的订单</a></li>
+											<li><a href="login.html">钱包</a></li>
+										</s:if>
+										<s:else>
+											<li><a href="loginUi">登陆</a></li>
+										</s:else>
+									</ul></li>
+								<s:if test="#session.user!=null">
+								<li class="dropdown head-dpdn"><a href="#"
+									class="dropdown-toggle" data-toggle="dropdown"><i
+										class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
+										class="caret"></span></a>
+									<ul class="dropdown-menu">
+											<li id="st-trigger-effects" class="column"><a href="javascript:"
+											data-effect="st-effect-13" class="st-effect">查看购物车</a></li>
+										<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
+									</ul></li>
+									</s:if>
+								<li class="dropdown head-dpdn"><a href="card.html"
+									class="dropdown-toggle"><i class="fa fa-star"
+										aria-hidden="true"></i>收藏夹</a></li>
+								<!-- <!-- <li class="dropdown head-dpdn"><a href="contact.html"
 						class="dropdown-toggle"><i class="fa fa-map-marker"
 							aria-hidden="true"></i>实体店</a></li> -->
-					<li class="dropdown head-dpdn"><a href="card.html"
-						class="dropdown-toggle"><i class="fa  fa-smile-o"
-							aria-hidden="true"></i>联系客服</a></li>
-					<li class="dropdown head-dpdn"><a href="help.html"
-						class="dropdown-toggle"><i class="fa fa-question-circle"
-							aria-hidden="true"></i> 帮助</a></li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	<!-- //header -->
-	<!-- products -->
-	<div class="products" style="padding-top:0">
-		<div class="container">
-			<div class="col-md-9 product-w3ls-right">
-				<!-- breadcrumbs -->
-				<ol class="breadcrumb breadcrumb1">
-					<li><a href="index.html">Home</a></li>
-					<li class="active">Products</li>
-				</ol>
+								<li class="dropdown head-dpdn linkService"><a
+									href="javascript:void(0)" class="dropdown-toggle"><i
+										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
+								<li class="dropdown head-dpdn"><a href="help.html"
+									class="dropdown-toggle"><i class="fa fa-question-circle"
+										aria-hidden="true"></i> 帮助</a></li>
+							</ul>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<!-- 客服聊天 -->
+					<div class="chatWinBox" onmouseover="move(this)">
+						<div class="chatWin">
+							<div class="head">
+								<span>小苗基地客服&ensp;<span class="serverName">系统</span>&ensp;为您服务--<span
+									class="state"></span></span>
+								<p class="winClose">
+									<i class="glyphicon glyphicon-remove"></i>
+								</p>
+							</div>
+							<div class="body">
+								<div class="chatContent direct-chat-default">
+								</div>
+								<div class="fontSet">
+									<div class="font">
+										<select class="form-control">
+											<option>华文宋体</option>
+											<option>华文行楷</option>
+											<option>华文隶书</option>
+											<option>华文琥珀</option>
+											<option>华文彩云</option>
+											<option>方正舒体</option>
+										</select>
+									</div>
+									<div class="fontSize">
+										<span>字体大小</span>
+										<div class="input-group has-feedback" id="role_level">
+											<div class="level">
+												<p class="level-control" data-toggle="tooltip"
+													data-placement="top" title="15" id="level-control"></p>
+											</div>
+										</div>
+									</div>
+									<div class="fontColor">
+										<span style="margin-right:10px;line-height:30px;">字体颜色</span>
+										<div class="input-group myColorpicker colorpicker-element"
+											style="margin-top:5px;border:1px solid #CCC">
+											<input type="hidden" class="form-control">
+											<div class="input-group-addon"
+												style="width:30px;height:20px; background-color: rgb(0, 0, 0);"></div>
+										</div>
+									</div>
+								</div>
+								<ul class="myTool">
+									<li class="fontSetButton" title="设置字体"><i
+										class="fa fa-font"></i></li>
+									<li title="表情" class="emotion"><i class="fa fa-smile-o"></i></li>
+									<li title="发送图片" class="sendPicture"><i class="fa fa-picture-o"></i></li>
+									<li style="clear:both;"></li>
+									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i>消息记录<i class="fa fa-caret-down"></i></li>
+								</ul>
+								<textarea class="form-control textarea-control myInput" rows="3" id="myInput" name="myInput"></textarea>
+								<div class="fileBox" style="display:none">
+									<input type="file" id="file" name="file"
+										accept="image/png,image/gif,image/jpeg">
+								</div>
+							</div>
+							<div class="foot">
+								<button class="btn btn-primary winClose">关闭</button>
+								<div class="sendGroup btn-group dropup">
+									<button type="button" class="btn btn-primary send">发送</button>
+									<button type="button" class="btn btn-primary dropdown-toggle"
+										data-toggle="dropdown" title="设置发送快捷键">
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu selectSendMenu" role="menu">
+										<li data="ce"><a href="javascript:void(0)">Ctrl+Enter</a></li>
+										<li data="se"><a href="javascript:void(0)">Shift+Enter</a></li>
+										<li data="e"><a href="javascript:void(0)">Enter</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="messageRecord">
+							<div class="head">
+								<span>消息记录</span>
+								<p class="winCloseRecord">
+									<i class="glyphicon glyphicon-remove"></i>
+								</p>
+							</div>
+							<div class="body">
+								<div class="recordContent direct-chat-default">
+									
+								</div>
+							</div>
+							<div class="foot">
+								<button class="left btn btn-default">
+									<i class="glyphicon glyphicon-arrow-left"></i>
+								</button>
+								<button class="right btn btn-default">
+									<i class="glyphicon glyphicon-arrow-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!--/客服聊天  -->
+					<!-- //header -->
+					<form action="products" method="get" id="searchProducts">
+						<s:hidden name="function"></s:hidden>
+						<s:hidden name="keywords"></s:hidden>
+						<s:hidden name="minPrice"></s:hidden>
+						<s:hidden name="maxPrice"></s:hidden>
+						<s:hidden name="goodsKind"></s:hidden>
+					</form>
+					<!-- products -->
+					<div class="products col-md-12" style="padding-top:0;">
+						<div class="container">
+							<div class="col-md-9 product-w3ls-right">
+								<!-- breadcrumbs -->
+								<ol class="breadcrumb breadcrumb1">
+									<li><a href="index">首页</a></li>
+									<li class="active">${goodsKind==0?"全部商品":goodsKind==1?"盘栽":goodsKind==2?"花卉":goodsKind==3?"树苗":"种子"}</li>
+									<s:if test="keywords!=null">
+										<li class="active">${keywords}</li>
+									</s:if>
+								</ol>
+								<div class="clearfix"></div>
+								<!-- //breadcrumbs -->
+								<div class="product-top" style="min-width:850px;">
+									<h4>搜索结果</h4>
+									<ul>
+										<li class="dropdown head-dpdn"><a href="#"
+											class="dropdown-toggle" data-toggle="dropdown">商品排序<span
+												class="caret"></span></a>
+											<ul class="dropdown-menu productsSort">
+												<li data="1"><a>最低价格</a></li>
+												<li data="2"><a>最高价格</a></li>
+												<li data="3"><a>最高销量</a></li>
+												<li data="4"><a>最高评价</a></li>
+											</ul></li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<s:if test="#request.products.size()<1">
+									<div style="width:100%;text-align:center;color:#F00;padding:20px 0;">没有符合搜索要求的商品</div>
+								</s:if>
+								<s:else>
+								<div class="products-row">
+									<s:iterator value="#request.products">
+										<div class="col-md-3 product-grids" style="height:220px;">
+											<div class="agile-products">
+												<!-- <div class="new-tag">
+													<h6>
+														20%<br>Off
+													</h6>
+												</div> -->
+												<a href="single?goodsId=${goodsId }"><img width="140px"
+													height="140px"
+													src="json/download_file?isBreviary=1&id=${breviaryPicture.id}"
+													class="" alt="img"></a>
+												<div class="agile-product-text">
+													<h5 style="position:relative;">
+														<a href="single?goodsId=${goodsId }" class="product_name">${name}</a>
+														<p style="font-size:10px;position:absolute;top:0;right:0;">
+															成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
+														</p>
+													</h5>
+													<h6 style="position:relative;">
+														<del>${price }</del>
+														<span class="price">${salePrice==0?price:salePrice}</span>
+														<p style="font-size:10px;position:absolute;top:0;right:0;">
+															访问 <span style="color:#f50;padding:0;">${sellsum}次</span>
+														</p>
+													</h6>
+													<input type="hidden" class="buyNum" value="1">
+													<button type="button" class="w3ls-cart pw3ls-cart intoCart"
+														data-id="${goodsId}" data-toggle="popover"
+														data-placement="top" data-content="商品加入购物车成功">
+														<i class="fa fa-cart-plus" aria-hidden="true"></i>添加到购物车
+													</button>
+												</div>
+											</div>
+										</div>
+									</s:iterator>
+									<!-- 分页开始 -->
+									<div class="paging">
+										<ul class="pagination">
+											<s:if test="currentPage<2">
+												<li class="disabled"><a href="javascript:void(0)"
+													aria-label="Previous"> <span
+														class="glyphicon glyphicon-arrow-left"></span>
+												</a></li>
+											</s:if>
+											<s:else>
+												<li><a href="javascript:void(0)" aria-label="Previous"
+													paging-data="${currentPage-1 }" data-toggle="tooltip"
+													data-placement="top" title="<s:text name='previousPage'/>">
+														<span class="glyphicon glyphicon-arrow-left"></span>
+												</a></li>
+											</s:else>
+											<s:if test="totalPage==0">
+												<li class="disabled"><a href="javascript:void(0)">0</a></li>
+											</s:if>
+											<s:elseif test="totalPage<11">
+												<s:iterator begin="1" end="totalPage" status="s">
+													<s:if test="#s.count==currentPage">
+														<li class="active"><a href="javascript:void(0)"
+															paging-data="${s.count}">${s.count}</a></li>
+													</s:if>
+													<s:else>
+														<li><a href="javascript:void(0)"
+															paging-data="${s.count}">${s.count}</a></li>
+													</s:else>
+												</s:iterator>
+											</s:elseif>
+											<s:else>
+												<s:if test="currentPage<6">
+													<s:iterator begin="1" end="10" status="s">
+														<s:if test="#s.count==currentPage">
+															<li class="active"><a href="javascript:void(0)"
+																paging-data="${s.count}">${s.count}</a></li>
+														</s:if>
+														<s:else>
+															<li><a href="javascript:void(0)"
+																paging-data="${s.count}">${s.count}</a></li>
+														</s:else>
+													</s:iterator>
+												</s:if>
+												<s:else>
+													<s:iterator begin="currentPage-5"
+														end="currentPage+5>totalPage?totalPage:currentPage+5"
+														status="s" var="cur">
+														<s:if test="#cur==currentPage">
+															<li class="active"><a href="javascript:void(0)"
+																paging-data="${cur}">${cur }</a></li>
+														</s:if>
+														<s:else>
+															<li><a href="javascript:void(0)"
+																paging-data="${cur}">${cur}</a></li>
+														</s:else>
+													</s:iterator>
+												</s:else>
+											</s:else>
+											<s:if test="currentPage>=totalPage">
+												<li class="disabled"><a href="javascript:void(0)"
+													aria-label="Next"><span
+														class="glyphicon glyphicon-arrow-right"></span> </a></li>
+											</s:if>
+											<s:else>
+												<li><a href="javascript:void(0)" aria-label="Next"
+													paging-data="${currentPage+1}" data-toggle="tooltip"
+													data-placement="top" title="<s:text name='nextPage'/>"
+													style="margin-right:20px"><span
+														class="glyphicon glyphicon-arrow-right"></span></a></li>
+											</s:else>
+										</ul>
+									</div>
+									<!-- /分页结束 -->
+								</div>
+								</s:else>
+							</div>
+							<div class="col-md-3 rsidebar">
+								<div class="sidebar-row">
+									<h4>按条件搜索</h4>
+									<ul class="faq">
+										<li role="presentation" class="spinButton"><a
+											href="products?goodsKind=1"> <i class="icon iconfont">&#xe601;</i>
+												<h5>盘栽</h5>
+										</a></li>
+										<li role="presentation" class="spinButton"><a
+											href="products?goodsKind=2"> <i class="icon iconfont"
+												aria-hidden="true">&#xe611;</i>
+												<h5>花卉</h5>
+										</a></li>
+										<li role="presentation" class="spinButton"><a
+											href="products?goodsKind=3"> <i class="icon iconfont"
+												aria-hidden="true">&#xe60b;</i>
+												<h5>树苗</h5>
+										</a></li>
+										<li role="presentation" class="spinButton"><a
+											href="products?goodsKind=4"> <i class="icon iconfont"
+												aria-hidden="true">&#xe603;</i>
+												<h5>种子</h5>
+										</a></li>
+										<%-- 	<li class="item3"><a href="#">Entertainment<span
+													class="glyphicon glyphicon-menu-down"></span></a>
+												<ul>
+													<li class="subitem1"><a href="#"> Tv & Accessories</a></li>
+													<li class="subitem1"><a href="#">Digital Camera </a></li>
+													<li class="subitem1"><a href="#">Computer</a></li>
+												</ul></li> --%>
+									</ul>
+								</div>
+								<br/><br/>
+								<div class="rsidebar-top">
+									<div class="slider-left">
+										<h4 style="padding-top:10px">价格区间</h4>
+										<div class="row row1 scroll-pane priceSection">
+											<label class="checkbox"><input type="checkbox" ${minPrice==0&&maxPrice!=0?"checked":""}
+												name="checkbox" min="0" max="10" ><i></i>0 - 10元 </label> <label
+												class="checkbox"><input type="checkbox" ${minPrice<=10&&maxPrice>=50?"checked":""}
+												name="checkbox" min="10" max="50"><i></i>10元 - 50元 </label> <label
+												class="checkbox"><input type="checkbox" ${minPrice<=50&&maxPrice>=100?"checked":""}
+												name="checkbox" min="50" max="100"><i></i>50元 - 100元 </label> <label
+												class="checkbox"><input type="checkbox" ${minPrice<=100&&maxPrice>=200?"checked":""}
+												name="checkbox" min="100" max="200"><i></i>100元 - 200元 </label> <label
+												class="checkbox"><input type="checkbox" ${minPrice<=200&&maxPrice>=300?"checked":""}
+												name="checkbox" min="200" max="300"><i></i>200元 - 300元 </label> <label
+												class="checkbox"><input type="checkbox" ${minPrice<=300&&maxPrice>=500?"checked":""}
+												name="checkbox" min="300" max="500"><i></i>300元 - 500元 </label> <label
+												class="checkbox"><input type="checkbox" ${maxPrice>=500?"checked":""}
+												name="checkbox" min="500" max="10000"><i></i>500元及以上</label>
+										</div>
+									</div>
+									<!-- <div class="sidebar-row">链接: http://pan.baidu.com/s/1bpBo3s7 密码: 4cqg
+										<h4>颜色</h4>
+										<div class="row row1 scroll-pane goodsColor">
+											<label class="checkbox"><input type="checkbox"
+												name="checkbox" data="白"><i></i>白色</label> <label
+												class="checkbox"><input type="checkbox"
+												name="checkbox" data="红"><i></i>红色</label> <label class="checkbox"><input
+												type="checkbox" name="checkbox" data="绿"><i></i>绿色</label> <label
+												class="checkbox"><input type="checkbox"
+												name="checkbox" data="黑"><i></i>黑色</label> <label class="checkbox"><input
+												type="checkbox" name="checkbox" data="金"><i></i>金色</label> <label
+												class="checkbox"><input type="checkbox"
+												name="checkbox" data="黄"><i></i>黄色</label>
+										</div>
+									</div> -->
+								</div>
+								<button class="btn btn-success searchButton"
+									style="width:100%;margin-top:5px;">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+								<div class="related-row">
+									<h4>热门搜索关键字</h4>
+									<ul>
+										<li><a href="products?keywords=玫瑰">玫瑰</a></li>
+										<li><a href="products?keywords=丁香">丁香</a></li>
+										<li><a href="products?keywords=礼物">礼物</a></li>
+										<li><a href="products?keywords=盘栽">盘栽</a></li>
+										<li><a href="products?keywords=绿色">绿色</a></li>
+										<li><a href="products?keywords=吸辐射">吸辐射</a></li>
+										<li><a href="products?keywords=增氧">增氧</a></li>
+										<li><a href="products?keywords=健康">健康</a></li>
+										<li><a href="products?keywords=水果">水果</a></li>
+										<li><a href="products?keywords=小苗">小苗</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div class="clearfix"></div>
-				<!-- //breadcrumbs -->
-				<div class="product-top">
-					<h4>Electronics</h4>
-					<ul>
-						<li class="dropdown head-dpdn"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown">Filter By<span
-								class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Low price</a></li>
-								<li><a href="#">High price</a></li>
-								<li><a href="#">Latest</a></li>
-								<li><a href="#">Popular</a></li>
-							</ul></li>
-						<li class="dropdown head-dpdn"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown">Brands<span
-								class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Samsung</a></li>
-								<li><a href="#">LG</a></li>
-								<li><a href="#">Sony</a></li>
-								<li><a href="#">Other</a></li>
-							</ul></li>
-					</ul>
-					<div class="clearfix"></div>
-				</div>
-				<div class="products-row">
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>
-									20%<br>Off
-								</h6>
+				<!-- footer-top -->
+				<div class="w3agile-ftr-top">
+					<div class="container">
+						<div class="ftr-toprow">
+							<div class="col-md-4 ftr-top-grids">
+								<div class="ftr-top-left">
+									<i class="fa fa-truck" aria-hidden="true"></i>
+								</div>
+								<div class="ftr-top-right">
+									<h4>FREE DELIVERY</h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+										Fusce tempus justo ac</p>
+								</div>
+								<div class="clearfix"></div>
 							</div>
-							<a href="single.html"><img src="img/e1.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Audio speaker</a>
-								</h5>
-								<h6>
-									<del>$200</del>
-									$100
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Audio speaker" /> <input
-										type="hidden" name="amount" value="100.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
+							<div class="col-md-4 ftr-top-grids">
+								<div class="ftr-top-left">
+									<i class="fa fa-user" aria-hidden="true"></i>
+								</div>
+								<div class="ftr-top-right">
+									<h4>CUSTOMER CARE</h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+										Fusce tempus justo ac</p>
+								</div>
+								<div class="clearfix"></div>
 							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>New</h6>
+							<div class="col-md-4 ftr-top-grids">
+								<div class="ftr-top-left">
+									<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+								</div>
+								<div class="ftr-top-right">
+									<h4>GOOD QUALITY</h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+										Fusce tempus justo ac</p>
+								</div>
+								<div class="clearfix"></div>
 							</div>
-							<a href="single.html"><img src="img/e2.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Refrigerator</a>
-								</h5>
-								<h6>
-									<del>$700</del>
-									$300
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Refrigerator" /> <input type="hidden"
-										name="amount" value="300.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>
-									5% <br> Off
-								</h6>
-							</div>
-							<a href="single.html"><img src="img/e3.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Smart Phone</a>
-								</h5>
-								<h6>
-									<del>$100</del>
-									$70
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Smart Phone" /> <input type="hidden"
-										name="amount" value="70.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="single.html"><img src="img/e4.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Digital Camera</a>
-								</h5>
-								<h6>
-									<del>$100</del>
-									$80
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Digital Camera" /> <input
-										type="hidden" name="amount" value="80.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="single.html"><img src="img/e4.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Digital Camera</a>
-								</h5>
-								<h6>
-									<del>$100</del>
-									$80
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Digital Camera" /> <input
-										type="hidden" name="amount" value="80.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>
-									5% <br> Off
-								</h6>
-							</div>
-							<a href="single.html"><img src="img/e3.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Smart Phone</a>
-								</h5>
-								<h6>
-									<del>$100</del>
-									$70
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Smart Phone" /> <input type="hidden"
-										name="amount" value="70.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>
-									20%<br>Off
-								</h6>
-							</div>
-							<a href="single.html"><img src="img/e1.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Audio speaker</a>
-								</h5>
-								<h6>
-									<del>$200</del>
-									$100
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Audio speaker" /> <input
-										type="hidden" name="amount" value="100.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="single.html"><img src="img/e2.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Refrigerator</a>
-								</h5>
-								<h6>
-									<del>$700</del>
-									$300
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Refrigerator" /> <input type="hidden"
-										name="amount" value="300.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>
-									20%<br>Off
-								</h6>
-							</div>
-							<a href="single.html"><img src="img/e1.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Audio speaker</a>
-								</h5>
-								<h6>
-									<del>$200</del>
-									$100
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Audio speaker" /> <input
-										type="hidden" name="amount" value="100.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="single.html"><img src="img/e2.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Refrigerator</a>
-								</h5>
-								<h6>
-									<del>$700</del>
-									$300
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Refrigerator" /> <input type="hidden"
-										name="amount" value="300.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>
-									5% <br> Off
-								</h6>
-							</div>
-							<a href="single.html"><img src="img/e3.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Smart Phone</a>
-								</h5>
-								<h6>
-									<del>$100</del>
-									$70
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Smart Phone" /> <input type="hidden"
-										name="amount" value="70.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="single.html"><img src="img/e4.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Digital Camera</a>
-								</h5>
-								<h6>
-									<del>$100</del>
-									$80
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Digital Camera" /> <input
-										type="hidden" name="amount" value="80.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="single.html"><img src="img/e4.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Digital Camera</a>
-								</h5>
-								<h6>
-									<del>$100</del>
-									$80
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Digital Camera" /> <input
-										type="hidden" name="amount" value="80.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>
-									5% <br> Off
-								</h6>
-							</div>
-							<a href="single.html"><img src="img/e3.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Smart Phone</a>
-								</h5>
-								<h6>
-									<del>$100</del>
-									$70
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Smart Phone" /> <input type="hidden"
-										name="amount" value="70.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>
-									20%<br>Off
-								</h6>
-							</div>
-							<a href="single.html"><img src="img/e1.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Audio speaker</a>
-								</h5>
-								<h6>
-									<del>$200</del>
-									$100
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Audio speaker" /> <input
-										type="hidden" name="amount" value="100.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 product-grids">
-						<div class="agile-products">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="single.html"><img src="img/e2.png"
-								class="img-responsive" alt="img"></a>
-							<div class="agile-product-text">
-								<h5>
-									<a href="single.html">Refrigerator</a>
-								</h5>
-								<h6>
-									<del>$700</del>
-									$300
-								</h6>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Refrigerator" /> <input type="hidden"
-										name="amount" value="300.00" />
-									<button type="submit" class="w3ls-cart pw3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-			<div class="col-md-3 rsidebar">
-				<div class="rsidebar-top">
-					<div class="slider-left">
-						<h4>Filter By Price</h4>
-						<div class="row row1 scroll-pane">
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox"><i></i>0 - $100 </label> <label class="checkbox"><input
-								type="checkbox" name="checkbox"><i></i>$100 - $200 </label> <label
-								class="checkbox"><input type="checkbox" name="checkbox"><i></i>$200
-								- $250 </label> <label class="checkbox"><input type="checkbox"
-								name="checkbox"><i></i>$250 - $300 </label> <label
-								class="checkbox"><input type="checkbox" name="checkbox"><i></i>$350
-								- $400 </label> <label class="checkbox"><input type="checkbox"
-								name="checkbox"><i></i>$450 - $500 </label> <label
-								class="checkbox"><input type="checkbox" name="checkbox"><i></i>More</label>
-						</div>
-					</div>
-					<div class="sidebar-row">
-						<h4>Electronics</h4>
-						<ul class="faq">
-							<li class="item1"><a href="#">Mobile phones<span
-									class="glyphicon glyphicon-menu-down"></span></a>
-								<ul>
-									<li class="subitem1"><a href="#">Smart phones</a></li>
-									<li class="subitem1"><a href="#">Accessories</a></li>
-									<li class="subitem1"><a href="#">Tabs</a></li>
-								</ul></li>
-							<li class="item2"><a href="#">Large appliances<span
-									class="glyphicon glyphicon-menu-down"></span></a>
-								<ul>
-									<li class="subitem1"><a href="#">Refrigerators </a></li>
-									<li class="subitem1"><a href="#">Washing Machine </a></li>
-									<li class="subitem1"><a href="#">Kitchen Appliances </a></li>
-									<li class="subitem1"><a href="#">Air Conditioner</a></li>
-								</ul></li>
-							<li class="item3"><a href="#">Entertainment<span
-									class="glyphicon glyphicon-menu-down"></span></a>
-								<ul>
-									<li class="subitem1"><a href="#"> Tv & Accessories</a></li>
-									<li class="subitem1"><a href="#">Digital Camera </a></li>
-									<li class="subitem1"><a href="#">Computer</a></li>
-								</ul></li>
-						</ul>
-						<!-- script for tabs -->
-						<script type="text/javascript">
-							$(function() {
-
-								var menu_ul = $('.faq > li > ul'), menu_a = $('.faq > li > a');
-
-								menu_ul.hide();
-
-								menu_a
-										.click(function(e) {
-											e.preventDefault();
-											if (!$(this).hasClass('active')) {
-												menu_a.removeClass('active');
-												menu_ul.filter(':visible')
-														.slideUp('normal');
-												$(this).addClass('active')
-														.next()
-														.stop(true, true)
-														.slideDown('normal');
-											} else {
-												$(this).removeClass('active');
-												$(this).next().stop(true, true)
-														.slideUp('normal');
-											}
-										});
-
-							});
-						</script>
-						<!-- script for tabs -->
-					</div>
-					<div class="sidebar-row">
-						<h4>Color</h4>
-						<div class="row row1 scroll-pane">
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox" checked=""><i></i>White</label> <label
-								class="checkbox"><input type="checkbox" name="checkbox"><i></i>Pink</label>
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox"><i></i>Gold</label> <label class="checkbox"><input
-								type="checkbox" name="checkbox"><i></i>Blue</label> <label
-								class="checkbox"><input type="checkbox" name="checkbox"><i></i>Orange</label>
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox"><i></i> Brown</label>
+							<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>
-				<div class="related-row">
-					<h4>Related Searches</h4>
-					<ul>
-						<li><a href="products.html">Air conditioner </a></li>
-						<li><a href="products.html">Gaming</a></li>
-						<li><a href="products.html">Monitors</a></li>
-						<li><a href="products.html">Pc </a></li>
-						<li><a href="products.html">Food Processors</a></li>
-						<li><a href="products.html">Oven</a></li>
-						<li><a href="products.html">Purifiers</a></li>
-						<li><a href="products.html">Oven</a></li>
-						<li><a href="products.html">Cleaners</a></li>
-						<li><a href="products.html">Small devices</a></li>
-					</ul>
-				</div>
-				<div class="related-row">
-					<h4>YOU MAY ALSO LIKE</h4>
-					<div class="galry-like">
-						<a href="single.html"><img src="img/e1.png"
-							class="img-responsive" alt="img"></a>
-						<h4>
-							<a href="products.html">Audio speaker</a>
-						</h4>
-						<h5>$100</h5>
+				<!-- //footer-top -->
+				<div class="copy-right">
+					<div class="container">
+						<p>Copyright &copy; 2016.Company name All rights reserved</p>
 					</div>
 				</div>
-			</div>
-			<div class="clearfix"></div>
-			<!-- recommendations -->
-			<div class="recommend">
-				<h3 class="w3ls-title">Our Recommendations</h3>
-				<script>
-					$(document).ready(function() {
-						$("#owl-demo5").owlCarousel({
-
-							autoPlay : 3000, //Set AutoPlay to 3 seconds
-
-							items : 4,
-							itemsDesktop : [ 640, 5 ],
-							itemsDesktopSmall : [ 414, 4 ],
-							navigation : true
-
-						});
-
-					});
-				</script>
-				<div id="owl-demo5" class="owl-carousel">
-					<div class="item">
-						<div class="glry-w3agile-grids agileits">
-							<div class="new-tag">
-								<h6>
-									20% <br> Off
-								</h6>
-							</div>
-							<a href="products1.html"><img src="img/f2.png" alt="img"></a>
-							<div class="view-caption agileits-w3layouts">
-								<h4>
-									<a href="products1.html">Women Sandal</a>
-								</h4>
-								<p>Lorem ipsum dolor sit amet consectetur</p>
-								<h5>$20</h5>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Women Sandal" /> <input type="hidden"
-										name="amount" value="20.00" />
-									<button type="submit" class="w3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="glry-w3agile-grids agileits">
-							<a href="products.html"><img src="img/e4.png" alt="img"></a>
-							<div class="view-caption agileits-w3layouts">
-								<h4>
-									<a href="products.html">Digital Camera</a>
-								</h4>
-								<p>Lorem ipsum dolor sit amet consectetur</p>
-								<h5>$80</h5>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Digital Camera" /> <input
-										type="hidden" name="amount" value="100.00" />
-									<button type="submit" class="w3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="glry-w3agile-grids agileits">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="products4.html"><img src="img/s1.png" alt="img"></a>
-							<div class="view-caption agileits-w3layouts">
-								<h4>
-									<a href="products4.html">Roller Skates</a>
-								</h4>
-								<p>Lorem ipsum dolor sit amet consectetur</p>
-								<h5>$180</h5>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Roller Skates" /> <input type="hidden"
-										name="amount" value="180.00" />
-									<button type="submit" class="w3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="glry-w3agile-grids agileits">
-							<a href="products1.html"><img src="img/f1.png" alt="img"></a>
-							<div class="view-caption agileits-w3layouts">
-								<h4>
-									<a href="products1.html">T Shirt</a>
-								</h4>
-								<p>Lorem ipsum dolor sit amet consectetur</p>
-								<h5>$10</h5>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="T Shirt" /> <input type="hidden"
-										name="amount" value="10.00" />
-									<button type="submit" class="w3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="glry-w3agile-grids agileits">
-							<div class="new-tag">
-								<h6>New</h6>
-							</div>
-							<a href="products6.html"><img src="img/p1.png" alt="img"></a>
-							<div class="view-caption agileits-w3layouts">
-								<h4>
-									<a href="products6.html">Coffee Mug</a>
-								</h4>
-								<p>Lorem ipsum dolor sit amet consectetur</p>
-								<h5>$14</h5>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Coffee Mug" /> <input type="hidden"
-										name="amount" value="14.00" />
-									<button type="submit" class="w3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="glry-w3agile-grids agileits">
-							<div class="new-tag">
-								<h6>
-									20% <br> Off
-								</h6>
-							</div>
-							<a href="products6.html"><img src="img/p2.png" alt="img"></a>
-							<div class="view-caption agileits-w3layouts">
-								<h4>
-									<a href="products6.html">Teddy bear</a>
-								</h4>
-								<p>Lorem ipsum dolor sit amet consectetur</p>
-								<h5>$20</h5>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Teddy bear" /> <input type="hidden"
-										name="amount" value="20.00" />
-									<button type="submit" class="w3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="glry-w3agile-grids agileits">
-							<a href="products4.html"><img src="img/s2.png" alt="img"></a>
-							<div class="view-caption agileits-w3layouts">
-								<h4>
-									<a href="products4.html">Football</a>
-								</h4>
-								<p>Lorem ipsum dolor sit amet consectetur</p>
-								<h5>$70</h5>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Football" /> <input type="hidden"
-										name="amount" value="70.00" />
-									<button type="submit" class="w3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="glry-w3agile-grids agileits">
-							<div class="new-tag">
-								<h6>Sale</h6>
-							</div>
-							<a href="products3.html"><img src="img/h1.png" alt="img"></a>
-							<div class="view-caption agileits-w3layouts">
-								<h4>
-									<a href="products3.html">Wall Clock</a>
-								</h4>
-								<p>Lorem ipsum dolor sit amet consectetur</p>
-								<h5>$80</h5>
-								<form action="#" method="post">
-									<input type="hidden" name="cmd" value="_cart" /> <input
-										type="hidden" name="add" value="1" /> <input type="hidden"
-										name="w3ls_item" value="Wall Clock" /> <input type="hidden"
-										name="amount" value="80.00" />
-									<button type="submit" class="w3ls-cart">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart
-									</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- //recommendations -->
-		</div>
-	</div>
-	<!--//products-->
-	<!-- footer-top -->
-	<div class="w3agile-ftr-top">
-		<div class="container">
-			<div class="ftr-toprow">
-				<div class="col-md-4 ftr-top-grids">
-					<div class="ftr-top-left">
-						<i class="fa fa-truck" aria-hidden="true"></i>
-					</div>
-					<div class="ftr-top-right">
-						<h4>FREE DELIVERY</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Fusce tempus justo ac</p>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<div class="col-md-4 ftr-top-grids">
-					<div class="ftr-top-left">
-						<i class="fa fa-user" aria-hidden="true"></i>
-					</div>
-					<div class="ftr-top-right">
-						<h4>CUSTOMER CARE</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Fusce tempus justo ac</p>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<div class="col-md-4 ftr-top-grids">
-					<div class="ftr-top-left">
-						<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-					</div>
-					<div class="ftr-top-right">
-						<h4>GOOD QUALITY</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Fusce tempus justo ac</p>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
-	<!-- //footer-top -->
-	<div class="copy-right">
-		<div class="container">
-			<p>Copyright &copy; 2016.Company name All rights reserved</p>
-		</div>
+	<div class="modal fade" id="showPicture" tabindex="-1" role="dialog" aria-labelledby="showPicture" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="showPictureLabel">查看大图</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<img alt="pic" src="img/loading.gif" class="showPictrueMore">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
-	<!-- cart-js -->
-	<script src="js/minicart.js"></script>
-	<script>
-		w3ls.render();
-
-		w3ls.cart.on('w3sb_checkout', function(evt) {
-			var items, len, i;
-
-			if (this.subtotal() > 0) {
-				items = this.items();
-
-				for (i = 0, len = items.length; i < len; i++) {
-					items[i].set('shipping', 0);
-					items[i].set('shipping2', 0);
+	<script type="text/javascript">
+		$(function(){
+			$(".productsSort li").bind("click",function(){
+				$("#function").val($(this).attr("data"));
+				$("#searchProducts").submit();
+			})
+			$(".priceSection input[type=checkbox]").change(function(){
+				var priceSectionInput = $(".priceSection input[type=checkbox]:checked");
+				if(priceSectionInput.length>0){
+					$("#minPrice").val($(priceSectionInput[0]).attr("min"));
+					$("#maxPrice").val($(priceSectionInput[priceSectionInput.length-1]).attr("max"));
+				}else{
+					$("#minPrice").val(0);
+					$("#maxPrice").val(0);
 				}
-			}
-		});
+			})
+			$(".searchButton").click(function(){
+				$("#searchProducts").submit();
+			})
+			//用于改变分页到中间位置
+			var paging = $(".paging").get(0);
+			var pagination = $(".pagination").get(0);
+			pagination.style.left = (paging.offsetWidth-pagination.offsetWidth)/2+"px";
+		})
 	</script>
-	<!-- //cart-js -->
 	<!-- menu js aim -->
-	<script src="js/jquery.menu-aim.js">
-		
-	</script>
-	<script src="js/main.js"></script>
+	<%-- <script src="js/jquery.menu-aim.js"> --%>
+	<%-- 	
+	</script> --%>
+	<%-- <script src="js/main.js"></script> --%>
 	<!-- Resource jQuery -->
 	<!-- //menu js aim -->
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/sidebar/classie.js"></script>
+	<script src="js/sidebar/modernizr.custom.js"></script>
+	<script src="js/sidebar/sidebarEffects.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-
+	<script src="js/cart.js"></script>
+	<script src="js/move.js"></script>
+	<script src="js/chat.js"></script>
+	<script src="js/admin/levelControl.js" type="text/javascript"></script>
+	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+	<script src="css/face/js/jquery-browser.js"></script>
+	<script src="css/face/js/jquery.qqFace.js"></script>
+	<script src="js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript">
+		var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		$(function(){
+		//显示聊天窗口
+			$(".linkService").click(function(){
+			if($('.chatWinBox').is(":hidden")){
+				$(".chatWinBox").show();
+				//连接聊天服务器
+				openWebSocket();
+			}
+			})
+		})
+	</script>
 </body>
 </html>

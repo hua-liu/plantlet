@@ -27,6 +27,10 @@ public class AdminGoodsAction extends ActionSupport implements ServletRequestAwa
 	private String id;
 	private Goods goods;
 	private String result;
+	private int function;
+	public void setFunction(int function) {
+		this.function = function;
+	}
 	public String getResult() {
 		return result;
 	}
@@ -131,6 +135,8 @@ public class AdminGoodsAction extends ActionSupport implements ServletRequestAwa
 		if(paging==null){
 			paging = new Paging();
 		}
+		paging.setPutawayGoods(0);
+		paging.setFunction(function);
 		paging.setClassify(2);	
 		httpServletRequest.setAttribute("list",service.getPagingData(paging, user.getId()));
 		ActionContext.getContext().getValueStack().push(paging);

@@ -10,8 +10,9 @@ $(function() {
 		}
 	})
 	// 设置菜单点击监听
-	$(".sidebar-menu li").bind("click", function() {
-		headerText($(this).attr("class"))
+	$(".liMenu").bind("click", function() {
+		//headerText($(this).attr("class"))
+		setHeaderText($(this).find("span").html());
 	})
 	// 显示设置--每页显示条数更改监听
 	$("#rowNum").bind("change", function() {
@@ -37,7 +38,42 @@ $(function() {
 			$(".sidebar-menu").hide();
 		}
 	})
+	$(".paidOrderForm").bind("click",function(){
+		$(".newOrderFormNum").html(0);
+		$(".newOrderForm").hide();
+		$(".newOrderFormBar").css("width","0%");
+	})
+	$(".newOrderFormButton").click(function(){
+		$(".paidOrderForm").trigger("click");
+	})
+	$(".adminWinClose").click(function(){
+		$(this).parents(".chatWinBox").hide();
+	})
+	//向服务器获取新订单条数
+	getNewOrderFormMessage(1);
 })
+function getNewOrderFormMessage(once){
+	setTimeout(function() {
+		$.post("json/orderForm_getNewMessage","once="+once,function(data){
+			if(data!=null){
+				data = eval("("+data+")");
+				if(data.message){
+					if(data.num=='0'){
+						return;
+					}
+					$(".newOrderFormNum").html(data.num);
+					$(".newOrderForm").show();
+					$(".newOrderFormBar").css("width",data.num+"%");
+					var sound = $("#sound")[0];
+					sound.src="sound/msn.mp3";
+					sound.play();
+				}
+				getNewOrderFormMessage(2);
+				return;
+			}
+		})
+	}, once==1?3000:10000)
+}
 var loaderAnimation=function (){
 	$(".loaderMenuBox").remove();
 	$(".content-wrapper").append($('<div class="loaderMenuBox"><div class="loaderMenu"><div class="loader-inner pacman"><div></div><div></div><div></div><div></div><div></div></div></div></div>'))

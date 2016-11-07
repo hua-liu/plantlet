@@ -5,17 +5,12 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	 String serverPath="ws://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
 <head>
-<script type="text/javascript">
-	var start = new Date().getTime();
-	window.onload = function() {
-		alert("页面加载用时：" + (new Date().getTime() - start))
-	}
-</script>
 <title>小苗基地</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -23,6 +18,7 @@
 <!-- Custom Theme files -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" media="all" />
+<link rel="stylesheet" href="css/admin/AdminLTE.min.css">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/iconfont.css" rel="stylesheet">
 <!-- <link href="css/spinMenu.css" rel="stylesheet" type="text/css"
@@ -34,25 +30,28 @@
 <link rel="stylesheet" href="css/MagicZoom.css" type="text/css" />
 <link href="css/sidebar/components-right.css" rel="stylesheet">
 <link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
 <!-- <link href="css/owl.carousel.css" rel="stylesheet" type="text/css"
 	media="all"> -->
 <!-- carousel slider -->
 <!-- //Custom Theme files -->
 <!-- font-awesome icons -->
 <link href="css/font-awesome.css" rel="stylesheet">
+<link href="css/chat.css" rel="stylesheet">
 <!-- //font-awesome icons -->
 <style type="text/css">
-.featuredProducts td {
-	padding: 2px;
+body {
+	background: #FAFAFA;
 }
-/*  .productPicture:hover{
-	border:1px solid #0f0;
-	opacity: 0.3;
-}  */
+
 .thumbnail {
+	width: 220px;
+	height: 270px;
 	text-align: center;
 	vertical-align: middle;
 	cursor: pointer;
+	float: left;
+	margin: 2px;
 }
 
 .thumbnail .pimg {
@@ -134,7 +133,7 @@
 <!-- //smooth-scrolling-of-move-up -->
 <script src="js/bootstrap.min.js"></script>
 </head>
-<body style="min-width:1200px;">
+<body>
 	<!-- 购物车开始  -->
 	<div id="st-container" class="st-container">
 		<s:if test="#session.user!=null">
@@ -178,8 +177,8 @@
 						</div>
 						<button class="goBuy btn btn-danger">去购物车结算</button>
 						<script type="text/javascript">
-							if($(".mini-cart-item").length<1){
-								$(".goBuy").css("display","none");
+							if ($(".mini-cart-item").length < 1) {
+								$(".goBuy").css("display", "none");
 							}
 						</script>
 					</div>
@@ -231,24 +230,26 @@
 										</s:else>
 									</ul></li>
 								<s:if test="#session.user!=null">
-								<li class="dropdown head-dpdn"><a href="#"
-									class="dropdown-toggle" data-toggle="dropdown"><i
-										class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
-										class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="offers.html">查看购物车</a></li>
-										<li><a href="offers.html">清空购物车</a></li>
-									</ul></li>
-									</s:if>
+									<li class="dropdown head-dpdn"><a href="#"
+										class="dropdown-toggle" data-toggle="dropdown"><i
+											class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
+											class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li id="st-trigger-effects" class="column"><a
+												href="javascript:" data-effect="st-effect-13"
+												class="st-effect">查看购物车</a></li>
+											<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
+										</ul></li>
+								</s:if>
 								<li class="dropdown head-dpdn"><a href="card.html"
 									class="dropdown-toggle"><i class="fa fa-star"
 										aria-hidden="true"></i>收藏夹</a></li>
 								<!-- <!-- <li class="dropdown head-dpdn"><a href="contact.html"
 						class="dropdown-toggle"><i class="fa fa-map-marker"
 							aria-hidden="true"></i>实体店</a></li> -->
-								<li class="dropdown head-dpdn"><a href="card.html"
-									class="dropdown-toggle"><i class="fa  fa-smile-o"
-										aria-hidden="true"></i>联系客服</a></li>
+								<li class="dropdown head-dpdn linkService"><a
+									href="javascript:void(0)" class="dropdown-toggle"><i
+										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
 								<li class="dropdown head-dpdn"><a href="help.html"
 									class="dropdown-toggle"><i class="fa fa-question-circle"
 										aria-hidden="true"></i> 帮助</a></li>
@@ -256,6 +257,102 @@
 						</div>
 						<div class="clearfix"></div>
 					</div>
+					<!-- 客服聊天 -->
+					<div class="chatWinBox" onmouseover="move(this)">
+						<div class="chatWin">
+							<div class="head">
+								<span>小苗基地客服&ensp;<span class="serverName">系统</span>&ensp;为您服务--<span
+									class="state"></span></span>
+								<p class="winClose">
+									<i class="glyphicon glyphicon-remove"></i>
+								</p>
+							</div>
+							<div class="body">
+								<div class="chatContent direct-chat-default">
+								</div>
+								<div class="fontSet">
+									<div class="font">
+										<select class="form-control">
+											<option>华文宋体</option>
+											<option>华文行楷</option>
+											<option>华文隶书</option>
+											<option>华文琥珀</option>
+											<option>华文彩云</option>
+											<option>方正舒体</option>
+										</select>
+									</div>
+									<div class="fontSize">
+										<span>字体大小</span>
+										<div class="input-group has-feedback" id="role_level">
+											<div class="level">
+												<p class="level-control" data-toggle="tooltip"
+													data-placement="top" title="15" id="level-control"></p>
+											</div>
+										</div>
+									</div>
+									<div class="fontColor">
+										<span style="margin-right:10px;line-height:30px;">字体颜色</span>
+										<div class="input-group myColorpicker colorpicker-element"
+											style="margin-top:5px;border:1px solid #CCC">
+											<input type="hidden" class="form-control">
+											<div class="input-group-addon"
+												style="width:30px;height:20px; background-color: rgb(0, 0, 0);"></div>
+										</div>
+									</div>
+								</div>
+								<ul class="myTool">
+									<li class="fontSetButton" title="设置字体"><i
+										class="fa fa-font"></i></li>
+									<li title="表情" class="emotion"><i class="fa fa-smile-o"></i></li>
+									<li title="发送图片" class="sendPicture"><i class="fa fa-picture-o"></i></li>
+									<li style="clear:both;"></li>
+									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i>消息记录<i class="fa fa-caret-down"></i></li>
+								</ul>
+								<textarea class="form-control textarea-control myInput" rows="3" id="myInput" name="myInput"></textarea>
+								<div class="fileBox" style="display:none">
+									<input type="file" id="file" name="file"
+										accept="image/png,image/gif,image/jpeg">
+								</div>
+							</div>
+							<div class="foot">
+								<button class="btn btn-primary winClose">关闭</button>
+								<div class="sendGroup btn-group dropup">
+									<button type="button" class="btn btn-primary send">发送</button>
+									<button type="button" class="btn btn-primary dropdown-toggle"
+										data-toggle="dropdown" title="设置发送快捷键">
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu selectSendMenu" role="menu">
+										<li data="ce"><a href="javascript:void(0)">Ctrl+Enter</a></li>
+										<li data="se"><a href="javascript:void(0)">Shift+Enter</a></li>
+										<li data="e"><a href="javascript:void(0)">Enter</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="messageRecord">
+							<div class="head">
+								<span>消息记录</span>
+								<p class="winCloseRecord">
+									<i class="glyphicon glyphicon-remove"></i>
+								</p>
+							</div>
+							<div class="body">
+								<div class="recordContent direct-chat-default">
+									
+								</div>
+							</div>
+							<div class="foot">
+								<button class="left btn btn-default">
+									<i class="glyphicon glyphicon-arrow-left"></i>
+								</button>
+								<button class="right btn btn-default">
+									<i class="glyphicon glyphicon-arrow-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!--/客服聊天  -->
 					<!-- <div class="header-two">
 			header-two
 			<div class="container">
@@ -305,24 +402,24 @@
 								<div class="bs-example bs-example-tabs" role="tabpanel"
 									data-example-id="togglable-tabs">
 									<ul id="myTab" class=" nav-tabs" role="tablist">
-										<li role="presentation" class="spinButton" data="electronics"><a
-											href="#home" id="home-tab" role="tab" data-toggle="tab">
-												<i class="icon iconfont">&#xe601;</i>
+										<li role="presentation" class="spinButton"><a
+											href="products?goodsKind=1" id="home-tab" role="tab"> <i
+												class="icon iconfont">&#xe601;</i>
 												<h5>盘栽</h5>
 										</a></li>
-										<li role="presentation" class="spinButton" data="fashion"><a
-											href="#carl" role="tab" id="carl-tab" data-toggle="tab">
-												<i class="icon iconfont" aria-hidden="true">&#xe611;</i>
+										<li role="presentation" class="spinButton"><a
+											href="products?goodsKind=2" role="tab" id="carl-tab"> <i
+												class="icon iconfont" aria-hidden="true">&#xe611;</i>
 												<h5>花卉</h5>
 										</a></li>
-										<li role="presentation" class="spinButton" data="gifts"><a
-											href="#james" role="tab" id="james-tab" data-toggle="tab">
-												<i class="icon iconfont" aria-hidden="true">&#xe60b;</i>
+										<li role="presentation" class="spinButton"><a
+											href="products?goodsKind=3" role="tab" id="james-tab"> <i
+												class="icon iconfont" aria-hidden="true">&#xe60b;</i>
 												<h5>树苗</h5>
 										</a></li>
-										<li role="presentation" class="spinButton" data="decor"><a
-											href="#decor" role="tab" id="decor-tab" data-toggle="tab">
-												<i class="icon iconfont" aria-hidden="true">&#xe603;</i>
+										<li role="presentation" class="spinButton"><a
+											href="products?goodsKind=4" role="tab" id="decor-tab"> <i
+												class="icon iconfont" aria-hidden="true">&#xe603;</i>
 												<h5>种子</h5>
 										</a></li>
 										<!-- <li role="presentation" class="spinButton" data="sports"><a
@@ -333,76 +430,52 @@
 									</ul>
 									<div class="clearfix"></div>
 									<h3 class="w3ls-title">新品速递</h3>
-									<div id="myTabContent" class="tab-content">
-										<table class="featuredProducts">
-											<tbody>
-												<s:iterator value="#request.newGoodsList" status="c">
-													<s:if test="#c.count==1">
-														<tr>
-													</s:if>
-													<td class="col-md-2 col-sm-2 col-lg-2">
-														<div class="thumbnail" data-id="${goodsId}">
-															<div class="productPicture">
-																	<a href="single?goodsId=${goodsId }"><img class="pimg"
-																	src="json/download_file?isBreviary=1&id=${breviaryPicture.id}" />
-																</a>
-															</div>
-															<div class="caption" style="position:relative;">
-																<p style="font-size:10px;position:absolute;top:-3px;right:0;">
-																	成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
-																</p>
-																<span><b><a href="single?goodsId=${goodsId }">${name}<strong style="color:#E00;margin-left:10px;">¥${price}</strong></a></b></span><br/>
-																<div style="height:35px;overflow:hidden;">
-																	<small>${simpleDescript}</small>
-																</div>
-															</div>
-														</div>
-													</td>
-													<s:elseif test="#c.count%5==0">
-														</tr>
-														<tr>
-													</s:elseif>
-												</s:iterator>
-												</tr>
-											</tbody>
-										</table>
+									<div style="text-align:center;">
+										<s:iterator value="#request.newGoodsList" status="c">
+											<div class="thumbnail" data-id="${goodsId}">
+												<div class="productPicture">
+													<a href="single?goodsId=${goodsId }"><img class="pimg"
+														src="json/download_file?isBreviary=1&id=${breviaryPicture.id}" />
+													</a>
+												</div>
+												<div class="caption" style="position:relative;">
+													<p
+														style="font-size:10px;position:absolute;top:-3px;right:0;">
+														成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
+													</p>
+													<span><b><a href="single?goodsId=${goodsId }">${name}<strong
+																style="color:#E00;margin-left:10px;">¥${price}</strong></a></b></span><br />
+													<div style="height:35px;overflow:hidden;">
+														<small>${simpleDescript}</small>
+													</div>
+												</div>
+											</div>
+										</s:iterator>
+										<div style="clear:both"></div>
 									</div>
 									<h3 class="w3ls-title">热门推荐</h3>
-									<div id="myTabContent" class="tab-content">
-										<table class="featuredProducts">
-											<tbody>
-												<s:iterator value="#request.randomList" status="c">
-													<s:if test="#c.count==1">
-														<tr>
-													</s:if>
-													<td class="col-md-2 col-sm-2 col-lg-2">
-														<div class="thumbnail">
-															<div class="productPicture">
-															<a href="single?goodsId=${goodsId }">
-																<img class="pimg"
-																	src="json/download_file?isBreviary=1&id=${breviaryPicture.id}" />
-																	</a>
-															</div>
-															<div class="caption" style="position:relative">
-																<p
-																	style="font-size:10px;position:absolute;top:-3px;right:0;">
-																	成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
-																</p>
-																<b><a href="single?goodsId=${goodsId }">${name}<strong style="color:#E00;margin-left:10px;">¥${price}</strong></a></b><br />
-																<div style="height:35px;overflow:hidden;">
-																	<small>${simpleDescript}</small>
-																</div>
-															</div>
-														</div>
-													</td>
-													<s:elseif test="#c.count%5==0">
-														</tr>
-														<tr>
-													</s:elseif>
-												</s:iterator>
-												</tr>
-											</tbody>
-										</table>
+									<div>
+										<s:iterator value="#request.randomList" status="c">
+											<div class="thumbnail">
+												<div class="productPicture">
+													<a href="single?goodsId=${goodsId }"> <img class="pimg"
+														src="json/download_file?isBreviary=1&id=${breviaryPicture.id}" />
+													</a>
+												</div>
+												<div class="caption" style="position:relative">
+													<p
+														style="font-size:10px;position:absolute;top:-3px;right:0;">
+														成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
+													</p>
+													<b><a href="single?goodsId=${goodsId }">${name}<strong
+															style="color:#E00;margin-left:10px;">¥${price}</strong></a></b><br />
+													<div style="height:35px;overflow:hidden;">
+														<small>${simpleDescript}</small>
+													</div>
+												</div>
+											</div>
+										</s:iterator>
+										<div style="clear:both"></div>
 									</div>
 									<!-- deals -->
 									<div class="deals">
@@ -410,7 +483,7 @@
 											<h3 class="w3ls-title">热门关键字</h3>
 											<div class="deals-row">
 												<div class="col-md-3 focus-grid">
-													<a href="products.html" class="wthree-btn">
+													<a href="products?keywords=玫瑰" class="wthree-btn">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -418,7 +491,7 @@
 													</a>
 												</div>
 												<div class="col-md-3 focus-grid">
-													<a href="products.html" class="wthree-btn wthree1">
+													<a href="products?keywords=丁香" class="wthree-btn wthree1">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -426,7 +499,7 @@
 													</a>
 												</div>
 												<div class="col-md-3 focus-grid">
-													<a href="products4.html" class="wthree-btn wthree2">
+													<a href="products?keywords=绿色" class="wthree-btn wthree2">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -434,7 +507,7 @@
 													</a>
 												</div>
 												<div class="col-md-3 focus-grid">
-													<a href="products3.html" class="wthree-btn wthree3">
+													<a href="products?keywords=吸辐射" class="wthree-btn wthree3">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -442,7 +515,7 @@
 													</a>
 												</div>
 												<div class="col-md-2 focus-grid w3focus-grid-mdl">
-													<a href="products9.html" class="wthree-btn wthree3">
+													<a href="products?keywords=增氧" class="wthree-btn wthree3">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -450,7 +523,7 @@
 													</a>
 												</div>
 												<div class="col-md-2 focus-grid w3focus-grid-mdl">
-													<a href="products1.html" class="wthree-btn wthree4">
+													<a href="products?keywords=爱情" class="wthree-btn wthree4">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -458,15 +531,15 @@
 													</a>
 												</div>
 												<div class="col-md-2 focus-grid w3focus-grid-mdl">
-													<a href="products2.html" class="wthree-btn wthree2">
+													<a href="products?keywords=礼物" class="wthree-btn wthree2">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
-														<h4 class="clrchg">心意</h4>
+														<h4 class="clrchg">礼物</h4>
 													</a>
 												</div>
 												<div class="col-md-2 focus-grid w3focus-grid-mdl">
-													<a href="products5.html" class="wthree-btn wthree">
+													<a href="products?keywords=萌" class="wthree-btn wthree">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -474,7 +547,7 @@
 													</a>
 												</div>
 												<div class="col-md-2 focus-grid w3focus-grid-mdl">
-													<a href="products7.html" class="wthree-btn wthree5">
+													<a href="products?keywords=大叶" class="wthree-btn wthree5">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -482,7 +555,7 @@
 													</a>
 												</div>
 												<div class="col-md-2 focus-grid w3focus-grid-mdl">
-													<a href="products8.html" class="wthree-btn wthree1">
+													<a href="products?keywords=银杏" class="wthree-btn wthree1">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -490,7 +563,7 @@
 													</a>
 												</div>
 												<div class="col-md-3 focus-grid">
-													<a href="products5.html" class="wthree-btn wthree2">
+													<a href="products?keywords=花灌木" class="wthree-btn wthree2">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -498,7 +571,7 @@
 													</a>
 												</div>
 												<div class="col-md-3 focus-grid">
-													<a href="products4.html" class="wthree-btn wthree5">
+													<a href="products?keywords=常青树" class="wthree-btn wthree5">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -506,15 +579,15 @@
 													</a>
 												</div>
 												<div class="col-md-3 focus-grid">
-													<a href="products2.html" class="wthree-btn wthree3">
+													<a href="products?keywords=小苗" class="wthree-btn wthree3">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
-														<h4 class="clrchg">乔木</h4>
+														<h4 class="clrchg">小苗</h4>
 													</a>
 												</div>
 												<div class="col-md-3 focus-grid">
-													<a href="products6.html" class="wthree-btn ">
+													<a href="products?keywords=好看" class="wthree-btn ">
 														<div class="focus-image">
 															<i class="icon iconfont">&#xe60c;</i>
 														</div>
@@ -580,7 +653,22 @@
 			</div>
 		</div>
 	</div>
-
+	<div class="modal fade" id="showPicture" tabindex="-1" role="dialog" aria-labelledby="showPicture" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="showPictureLabel">查看大图</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<img alt="pic" src="img/loading.gif" class="showPictrueMore">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<!-- countdown.js -->
 	<script src="js/jquery.knob.js"></script>
 	<script src="js/jquery.throttle.js"></script>
@@ -639,10 +727,32 @@
 		});
 	</script>
 	<script src="js/cart.js"></script>
+	<script src="js/move.js"></script>
 	<script src="js/sidebar/classie.js"></script>
 	<script src="js/sidebar/modernizr.custom.js"></script>
 	<script src="js/sidebar/sidebarEffects.js"></script>
 	<script src="js/index.js" type="text/javascript"></script>
+	<script src="js/admin/levelControl.js" type="text/javascript"></script>
+	<!-- 表情 -->
+	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+	<script src="js/chat.js"></script>
+	<script src="css/face/js/jquery-browser.js"></script>
+	<script src="css/face/js/jquery.qqFace.js"></script>
+	<script src="js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript">
+		var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		$(function(){
+			//显示聊天窗口
+			$(".linkService").click(function(){
+			if($('.chatWinBox').is(":hidden")){
+				$(".chatWinBox").show();
+				//连接聊天服务器
+				openWebSocket();
+			}
+			})
+		})
+	</script>
 	<!-- Resource jQuery -->
 	<!-- //menu js aim -->
 	<!-- Bootstrap core JavaScript

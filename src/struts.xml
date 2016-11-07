@@ -36,6 +36,14 @@
 			<result name="index">WEB-INF/pages/index.jsp</result>
 			<result>WEB-INF/pages/single.jsp</result>
 		</action>
+		<!-- 产品搜索页 -->
+		<action name="products" class="cn.hua.action.ProductsAction">
+			<interceptor-ref name="loginInterceptor"/>
+			<interceptor-ref name="defaultStack"/>
+			<result name="index">WEB-INF/pages/index.jsp</result>
+			<result>WEB-INF/pages/products.jsp</result>
+			<result name="redirect" type="redirectAction">products</result>
+		</action>
 		<!-- 提交订单-->
 		<action name="auctionOrder" class="cn.hua.action.AuctionOrderAction">
 			<result>/WEB-INF/pages/auctionOrder.jsp</result>
@@ -174,7 +182,7 @@
 		</action>
 		<!--ajax文件上传下载 -->
 		<action name="*_file" class="cn.hua.action.FileAction" method="{1}">
-			<result name="error" type="json">
+			<result type="json">
 				<param name="root">message</param>
 			</result>
 			<result name="download" type="stream">
@@ -199,7 +207,14 @@
 			</result>
 		</action>
 		<!-- 购物车与订单管理 -->
-		<action name="orderForm_*" class="cn.hua.action.OrderFormAction"
+		<action name="userOrderForm_*" class="cn.hua.action.OrderFormAction"
+			method="{1}">
+			<interceptor-ref name="loginInterceptor" />
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<!--  用于跳转至登陆 -->
+		<!-- 购物车与订单管理 -->
+		<action name="orderForm_*" class="cn.hua.action.AdminOrderFormAction"
 			method="{1}">
 			<interceptor-ref name="loginInterceptor" />
 			<interceptor-ref name="defaultStack" />

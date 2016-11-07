@@ -50,50 +50,74 @@ public class OtherDaoImpl implements OtherDao<Classify, State> {
 		Session session = hibernateTemplate.getSessionFactory()
 				.getCurrentSession();
 		Query query = null; // 获取不同对象的分页数据
+		String totalSql="";//用于查询总数
 		if (paging.getClassify() == 1) {
 			System.out.println(paging);
 			query = session.createQuery("select new User(u.id,u.username,u.nickname,u.phone,u.email,u.state) from User u where " + (paging.getState() == 0 ? " ": ("state.id="
 					+ paging.getState()+" and "))+ (paging.getRole().equals("0")? " ": ("role.id='"+ paging.getRole()+
-					"' and "))+ " (username like :key or nickname like :key or phone like :key or email like :key)")
-					.setParameter("key", "%" + paging.getKeywords() + "%");
+					"' and "))+ " (username like :key or nickname like :key or phone like :key or email like :key)");
+			totalSql = "select count(*) from kjuser where " + (paging.getState() == 0 ? " ": ("state_id="
+					+ paging.getState()+" and "))+ (paging.getRole().equals("0")? " ": ("role_id='"+ paging.getRole()+
+					"' and "))+ " (username like :key or nickname like :key or phone like :key or email like :key)";
 		} else if (paging.getClassify() == 2) {
-			query = session.createQuery("from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
-					+ paging.getGoodsKind() + " and ")+ " g.name like :key ")
-					.setParameter("key","%" + paging.getKeywords() + "%");
+			String sql;
+			if(paging.getFunction()==1){
+				sql  = "from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+						+ paging.getGoodsKind() + " and ")+ " inventory=0 and g.name like :key";
+				totalSql = "select count(*) from goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind_id="
+						+ paging.getGoodsKind() + " and ")+ " inventory=0 and name like :key";
+			}else if(paging.getFunction()==2){
+				sql  = "from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+						+ paging.getGoodsKind() + " and ")+ " g.name like :key order by sellsum desc";
+				totalSql = "select count(*) from goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind_id="
+						+ paging.getGoodsKind() + " and ")+ " name like :key";
+			}else if(paging.getFunction()==3){
+				sql  = "from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+						+ paging.getGoodsKind() + " and ")+ " g.name like :key order by sellsum desc";
+				totalSql = "select count(*) from goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind_id="
+						+ paging.getGoodsKind() + " and ")+ " name like :key";
+			}else{
+				sql = "from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+						+ paging.getGoodsKind() + " and ")+ " g.name like :key ";
+				totalSql = "select count(*) from goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind_id="
+						+ paging.getGoodsKind() + " and ")+ " name like :key";
+			}
+			query = session.createQuery(sql);
 		} else if (paging.getClassify() == 3) {
 			if(paging.getFunction()==9){
-				query = session.createQuery("select new OrderForm(ofm.id, ofm.state,ofm.goods,ofm.user,ofm.buyNum,ofm.leaveMessage) from OrderForm ofm where ofm.state.id=9 and ofm.id like :key order by isNew,buytime")
-						.setParameter("key", "%" + paging.getKeywords() + "%");
-			}else
+				query = session.createQuery("select new OrderForm(ofm.id, ofm.state,ofm.goods,ofm.user,ofm.buyNum,ofm.leaveMessage) from OrderForm ofm where ofm.state.id=9 and ofm.id like :key order by isNew desc,buytime");
+			}else{
 			query = session.createQuery("select new OrderForm(ofm.id, ofm.state,ofm.goods,ofm.user,ofm.buyNum,ofm.leaveMessage) from OrderForm ofm where "+ (paging.getFunction() == 0 ? " ": "ofm.state.id=" + paging.getFunction()
-					+ " and")+ " ofm.id like :key order by ofm.buytime desc")
-					.setParameter("key", "%" + paging.getKeywords() + "%");
+					+ " and")+ " ofm.id like :key order by ofm.buytime desc");
+			}
+			totalSql = "select count(*) from OrderForm where "+ (paging.getFunction() == 0 ? " ": "state_id=" + paging.getFunction()+" and")+ " id like :key";
 		} else if(paging.getClassify()==4){
 			if (paging.getFunction() == 1) {	//权限管理--用户维护
 				query = session.createQuery("from User where role.id!=null and (username like :key or nickname like :key or"
-										+ " phone like :key or email like :key or role.name like :key)")
-						.setParameter("key", "%" + paging.getKeywords() + "%");
+										+ " phone like :key or email like :key or role.name like :key)");
 			}else if(paging.getFunction() == 2){	//权限管理--角色维护
-				query = session.createQuery("from Role where name like :key")
-						.setParameter("key", "%" + paging.getKeywords() + "%");
-			}else
-				query = session.createQuery("from Permission where name like :key")
-				.setParameter("key", "%" + paging.getKeywords() + "%");
+				query = session.createQuery("from Role where name like :key");
+			}else{
+				query = session.createQuery("from Permission where name like :key");
+			}
 		}
+		query = query.setParameter("key", "%" + paging.getKeywords() + "%");
+		if(paging.getClassify()==4){
+			paging.setTotalNum(query.list().size());
+		}else{
+			Object obj = session.createNativeQuery(totalSql).setParameter("key", "%" + paging.getKeywords() + "%").getSingleResult();
+			paging.setTotalNum(Long.parseLong(obj.toString()));
+		}
+		List<OrderForm> ofs =  query.setFirstResult(paging.getCurrentRow()).setMaxResults(paging.getSize()).list();
 		//查询已付款订单时进行更新处理
-		paging.setTotalNum(query.list().size());
 		if(paging.getClassify()==3&&paging.getFunction()==9){
-			List<OrderForm> ofs =  query.setFirstResult(paging.getCurrentRow())
-					.setMaxResults(paging.getSize()).list();
 			for(OrderForm of : ofs){
-				if(of.getIsNew()=='1'){
+				if(of.getIsNew()==1){
 					session.createQuery("update OrderForm set isNew=0 where id=?").setParameter(0, of.getId()).executeUpdate();
 				}
 			}
-			return ofs;
 		}
-		return query.setFirstResult(paging.getCurrentRow())
-				.setMaxResults(paging.getSize()).list();
+		return ofs;
 	}
 
 	@Override
@@ -153,5 +177,10 @@ public class OtherDaoImpl implements OtherDao<Classify, State> {
 	@Override
 	public List<Area> getAreas(int id) {
 		return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from Area where parent=:p1 order by name").setParameter("p1", id).list();
+	}
+
+	@Override
+	public List<String> getNewOrderFormNum() {
+		return hibernateTemplate.getSessionFactory().getCurrentSession().createNativeQuery("select id from orderForm where state_id=9 and isnew=1").getResultList();
 	}
 }

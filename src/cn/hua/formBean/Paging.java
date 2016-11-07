@@ -11,7 +11,7 @@ public class Paging {
 	private long totalNum;
 	private String scene;;
 	private String role="0";
-	private int function=1;
+	private int function=0;
 	private int goodsKind;
 	/*private int[] moreKind;*/
 	private int putawayGoods;

@@ -6,6 +6,8 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	//聊天服务头
+	String serverPath="ws://"+request.getServerName()+":"+request.getServerPort()+path+"/"; 
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -27,6 +29,8 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="css/admin/AdminLTE.min.css">
 <link rel="stylesheet" href="css/admin/animation.css">
+<link href="css/chat.css" rel="stylesheet">
+<link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 a {
 	cursor: pointer;
@@ -60,6 +64,9 @@ a {
 	background: #1e282c;
 	border-left-color: #3c8dbc;
 	cursor: pointer;
+}
+.newOrderForm{
+	display:none;
 }
 </style>
 <link rel="stylesheet" href="css/admin/skin-blue.min.css">
@@ -144,26 +151,42 @@ espond.js IE8 support of HTML5 elements and media queries -->
 				</li>
 				<!-- Tasks Menu -->
 				<li class="dropdown tasks-menu">
-					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
+					<!-- Menu Toggle Button --> <a class="dropdown-toggle"
 					data-toggle="dropdown"> <i class="fa fa-flag-o"></i> <span
-						class="label label-danger">9</span>
+						class="label label-danger newMessage"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li class="header">You have 9 tasks</li>
+						<li class="header">用户咨询消息处理</li>
 						<li>
 							<!-- Inner menu: contains the tasks -->
 							<ul class="menu">
-								<li>
-									<!-- Task item --> <a href="#"> <!-- Task title and progress text -->
+								<li class="linkService"><a><h3>没有新消息...</h3></a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<!-- User Account Menu -->
+				<!-- Tasks Menu -->
+				<li class="dropdown tasks-menu">
+					<!-- Menu Toggle Button --> <a class="dropdown-toggle"
+					data-toggle="dropdown"> <i class="fa fa-gavel"></i> <span
+						class="label label-success newOrderForm newOrderFormNum">0</span>
+				</a>
+					<ul class="dropdown-menu">
+						<li class="header">订单任务处理</li>
+						<li>
+							<!-- Inner menu: contains the tasks -->
+							<ul class="menu">
+								<li class="paidOrderForm liMenu">
+									<!-- Task item --> <a href="admin_orderForm?function=9"  target="admin_content"> <!-- Task title and progress text -->
 										<h3>
-											Design some buttons <small class="pull-right">20%</small>
+											有&nbsp;<span class="newOrderFormNum">0</span>&nbsp;个新订单已经付款等待处理 <small class="pull-right"><span class="newOrderFormNum">0</span>%</small>
 										</h3> <!-- The progress bar -->
 										<div class="progress xs">
 											<!-- Change the css width attribute to simulate progress -->
-											<div class="progress-bar progress-bar-aqua"
-												style="width: 20%" role="progressbar" aria-valuenow="20"
+											<div class="progress-bar progress-bar-aqua newOrderFormBar"
+												style="width:0%" role="progressbar" aria-valuenow="20"
 												aria-valuemin="0" aria-valuemax="100">
-												<span class="sr-only">20% Complete</span>
 											</div>
 										</div>
 								</a>
@@ -171,7 +194,6 @@ espond.js IE8 support of HTML5 elements and media queries -->
 								<!-- end task item -->
 							</ul>
 						</li>
-						<li class="footer"><a href="#">View all tasks</a></li>
 					</ul>
 				</li>
 				<!-- User Account Menu -->
@@ -242,8 +264,7 @@ espond.js IE8 support of HTML5 elements and media queries -->
 					<b><s:property value="#session.user.username" /></b>
 				</p>
 				<!-- Status -->
-				<a href="javascript:void(0)"><i
-					class="fa fa-circle text-success"></i> Online</a>
+				<a href="javascript:void(0)" data="online" class="myState"><i class="fa fa-circle text-success"></i><span style="font-size:12px">在线</span></a>
 			</div>
 		</div>
 
@@ -277,18 +298,32 @@ espond.js IE8 support of HTML5 elements and media queries -->
 						target="admin_content"><i class="fa  fa-hand-o-right"></i><span>添加商品</span></a></li>
 					<li class="manageProduct liMenu"><a href="admin_manageGoods"
 						target="admin_content"><i class="fa  fa-hand-o-right"></i><span>管理商品</span></a></li>
-					<li class="statisticsProduct liMenu"><a
-						href="admin_statisticsGoods" target="admin_content"><i
-							class="fa  fa-hand-o-right"></i><span>商品统计</span></a></li>
+					<li class="treeview"><a><i class="fa  fa-paw"></i> <span>商品统计</span>
+					<span class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+					</span> </a>
+					<ul class="treeview-menu">
+					<li class="paidOrderForm liMenu"><a
+						href="admin_manageGoods?function=1" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>库存不足</span></a></li>
+					<li class="noPayOrderForm liMenu"><a
+						href="admin_manageGoods?function=2" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>销量排行</span></a></li>
+					<li class="completedOrderForm liMenu"><a
+						href="admin_manageGoods?function=3" target="admin_content"><i
+							class="fa  fa-hand-o-right"></i><span>访问排行</span></a></li>
+					</ul>
+				</li>
 				</ul></li>
-			<li class="treeview"><a><i class="fa fa-gavel"></i> <span>订单管理</span>
+			<li class="treeview"><a><i class="fa fa-gavel"></i> <span>订单管理
+			             <small class="label bg-green newOrderForm" style="margin-left:50px">new</small></span>
 					<span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span></a>
 				<ul class="treeview-menu">
 					<li class="paidOrderForm liMenu"><a
 						href="admin_orderForm?function=9" target="admin_content"><i
-							class="fa  fa-hand-o-right"></i><span>已付款订单</span></a></li>
+							class="fa  fa-hand-o-right"></i><span>已付款订单</span><small class="label pull-right bg-green newOrderForm newOrderFormNum">0</small></a></li>
 					<li class="noPayOrderForm liMenu"><a
 						href="admin_orderForm?function=8" target="admin_content"><i
 							class="fa  fa-hand-o-right"></i><span>未付款订单</span></a></li>
@@ -347,26 +382,177 @@ espond.js IE8 support of HTML5 elements and media queries -->
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 			<h1>
-				当前位置:<span>统计数据</span> <small>welcome</small>
+			当前位置:
+				<s:if test="classify==0">
+					<s:url var="goUrl" value="go_admin_home" />
+					<span>统计数据</span> 
+				</s:if> 
+				<s:elseif test="classify==1">
+					<s:url var="goUrl" value="admin_user" />
+					<span>用户管理</span> 
+				</s:elseif>
+				 <s:elseif test="classify==2&&putawayGoods==1">
+					<s:url var="goUrl" value="admin_addGoods" />
+					<span>添加商品</span> 
+				</s:elseif> 
+				<s:elseif test="classify==2&&function==0">
+					<s:url var="goUrl" value="admin_manageGoods" />
+					<span>管理商品</span> 
+				</s:elseif>
+				<s:elseif test="classify==2&&function==1">
+					<s:url var="goUrl" value="admin_manageGoods?function=1" />
+					<span>库存不足</span> 
+				</s:elseif>
+				<s:elseif test="classify==2&&function==2">
+					<s:url var="goUrl" value="admin_manageGoods?function=2" />
+					<span>销量排行</span> 
+				</s:elseif>
+				<s:elseif test="classify==2&&function==3">
+					<s:url var="goUrl" value="admin_manageGoods?function=3" />
+					<span>访问排行</span> 
+				</s:elseif>
+				<s:elseif test="classify==3&&function==9">
+					<s:url var="goUrl" value="admin_orderForm?function=9" />
+					<span>已付款订单</span> 
+				</s:elseif>
+				<s:elseif test="classify==3&&function==8">
+					<s:url var="goUrl" value="admin_orderForm?function=8" />
+					<span>未付款订单</span> 
+				</s:elseif>
+				<s:elseif test="classify==3&&function==10">
+					<s:url var="goUrl" value="admin_orderForm?function=10" />
+					<span>购物车订单</span> 
+				</s:elseif>
+				<s:elseif test="classify==3&&function==12">
+					<s:url var="goUrl" value="admin_orderForm?function=12" />
+					<span>交易完成订单</span> 
+				</s:elseif>
+				<s:elseif test="classify==3&&function==13">
+					<s:url var="goUrl" value="admin_orderForm?function=13" />
+					<span>交易失败订单</span> 
+				</s:elseif>
+				<s:elseif test="classify==3&&function==0">
+					<s:url var="goUrl" value="admin_orderForm?function=0" />
+					<span>所有订单</span> 
+				</s:elseif>
+				<s:elseif test="classify==4&&function==1">
+					<s:url var="goUrl" value="admin_permission?function=1" />
+					<span>管理员维护</span> 
+				</s:elseif>
+				<s:elseif test="classify==4&&function==2">
+					<s:url var="goUrl" value="admin_permission?function=2" />
+					<span>角色维护</span> 
+				</s:elseif>
+				<s:elseif test="classify==4&&function==3">
+					<s:url var="goUrl" value="admin_permission?function=3" />
+					<span>查看权限</span> 
+				</s:elseif>
+				<small>welcome</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="admin_home" target="admin_content"><i
 						class="fa fa-dashboard"></i> <span>统计数据</span></a></li>
 			</ol>
 			</section>
-			<s:debug></s:debug>
-			<section class="content"> <!-- Main content --> <s:if
-				test="classify==0">
-				<s:url var="goUrl" value="go_admin_home" />
-			</s:if> <s:elseif test="classify==1">
-				<s:url var="goUrl" value="admin_user" />
-			</s:elseif> <s:elseif test="classify==2&&putawayGoods==1">
-				<s:url var="goUrl" value="admin_addGoods" />
-			</s:elseif> <s:elseif test="classify==2&&putawayGoods==0">
-				<s:url var="goUrl" value="admin_manageGoods" />
-			</s:elseif> <s:elseif test="classify==4">
-				<s:url var="goUrl" value="admin_permission?function=%{function}" />
-			</s:elseif> <iframe src="${goUrl}" width="100%" frameBorder=0
+			
+			<!-- 客服 -->
+					<div class="chatWinBox" onmouseover="move(this)">
+						<div class="chatWin">
+							<div class="head">
+								<span>正在为用户&ensp;<span class="serverName">系统</span>&ensp;解决问题--<span
+									class="state">正在等待用户</span></span>
+								<p class="adminWinClose">
+									<i class="glyphicon glyphicon-remove"></i>
+								</p>
+							</div>
+							<div class="body">
+								<div class="chatContent direct-chat-default">
+								</div>
+								<div class="fontSet">
+									<div class="font">
+										<select class="form-control">
+											<option>华文宋体</option>
+											<option>华文行楷</option>
+											<option>华文隶书</option>
+											<option>华文琥珀</option>
+											<option>华文彩云</option>
+											<option>方正舒体</option>
+										</select>
+									</div>
+									<div class="fontSize">
+										<span>字体大小</span>
+										<div class="input-group has-feedback" id="role_level">
+											<div class="level">
+												<p class="level-control" data-toggle="tooltip"
+													data-placement="top" title="15" id="level-control"></p>
+											</div>
+										</div>
+									</div>
+									<div class="fontColor">
+										<span style="margin-right:10px;line-height:30px;">字体颜色</span>
+										<div class="input-group myColorpicker colorpicker-element"
+											style="margin-top:5px;border:1px solid #CCC">
+											<input type="hidden" class="form-control">
+											<div class="input-group-addon"
+												style="width:30px;height:20px; background-color: rgb(0, 0, 0);"></div>
+										</div>
+									</div>
+								</div>
+								<ul class="myTool">
+									<li class="fontSetButton" title="设置字体"><i
+										class="fa fa-font"></i></li>
+									<li title="表情" class="emotion"><i class="fa fa-smile-o"></i></li>
+									<li title="发送图片" class="sendPicture"><i class="fa fa-picture-o"></i></li>
+									<li style="clear:both;"></li>
+									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i>消息记录<i class="fa fa-caret-down"></i></li>
+								</ul>
+								<textarea class="form-control textarea-control myInput" rows="3" id="myInput" name="myInput"></textarea>
+								<div class="fileBox" style="display:none">
+									<input type="file" id="file" name="file"
+										accept="image/png,image/gif,image/jpeg">
+								</div>
+							</div>
+							<div class="foot">
+								<button class="btn btn-primary adminWinClose">关闭</button>
+								<div class="sendGroup btn-group dropup">
+									<button type="button" class="btn btn-primary send">发送</button>
+									<button type="button" class="btn btn-primary dropdown-toggle"
+										data-toggle="dropdown" title="设置发送快捷键">
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu selectSendMenu" role="menu">
+										<li data="ce"><a href="javascript:void(0)">Ctrl+Enter</a></li>
+										<li data="se"><a href="javascript:void(0)">Shift+Enter</a></li>
+										<li data="e"><a href="javascript:void(0)">Enter</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="messageRecord">
+							<div class="head">
+								<span>消息记录</span>
+								<p class="winCloseRecord">
+									<i class="glyphicon glyphicon-remove"></i>
+								</p>
+							</div>
+							<div class="body">
+								<div class="recordContent direct-chat-success">
+								</div>
+							</div>
+							<div class="foot">
+								<button class="left btn btn-default">
+									<i class="glyphicon glyphicon-arrow-left"></i>
+								</button>
+								<button class="right btn btn-default">
+									<i class="glyphicon glyphicon-arrow-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- /客服 -->
+			
+			<section class="content"> <!-- Main content --> 
+			<iframe src="${goUrl}" width="100%" frameBorder=0
 				style="overflow-y : hidden;" name="admin_content" height="80%"
 				seamless="seamless" onload="removeLoader()" id="iframepage"></iframe>
 			<script type="text/javascript">
@@ -462,9 +648,70 @@ espond.js IE8 support of HTML5 elements and media queries -->
 		<!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
 		<div class="control-sidebar-bg"></div>
+	<div class="modal fade" id="showPicture" tabindex="-1" role="dialog" aria-labelledby="showPicture" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="showPictureLabel">查看大图</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<img alt="pic" src="img/loading.gif" class="showPictrueMore">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
+	</div>
+		<audio id="sound">
+			<source src="sound/msn.mp3" type="audio/mpeg" class="source">
+	 		<source src="sound/msn.wav" type="audio/wav" class="source">
+		</audio>
 	<!-- ./wrapper -->
-
+	<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/admin/admin.js"></script>
+	<!-- Bootstrap 3.3.6 -->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="js/admin/app.min.js"></script>
+		<!--聊天  -->
+	<script src="js/move.js"></script>
+	<script src="js/chat.js"></script>
+	<script src="js/admin/levelControl.js" type="text/javascript"></script>
+	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+	<script src="css/face/js/jquery-browser.js"></script>
+	<script src="css/face/js/jquery.qqFace.js"></script>
+	<script src="js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript">
+		var webSocketUri="<%=serverPath%>chatServer.server?userType=system&user=${user.username}";
+		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		$(function(){
+			//显示聊天窗口
+			$(".linkService").click(function(){
+				$(".chatWinBox").show();
+				$(".linkService small").html("正在处理中.....")
+				$(".newMessage").html("");
+			})
+			if("online"==$(".myState").attr("data")){
+				//连接聊天服务器
+				openWebSocket();
+			}
+			$(".myState").click(function(){
+				if($(this).attr("data")=='online'){
+					closeWebSocket();
+					$(this).attr("data",'hiding');
+					$(this).find("span").html("隐身");
+				}else{
+					openWebSocket();
+					$(this).attr("data",'online');
+					$(this).find("span").html("在线");
+				}
+			})
+		})
+	</script>
+	<!--/聊天  -->
 	<!-- REQUIRED JS SCRIPTS -->
 	<script src="js/admin/map.js"></script>
 	<script type="text/javascript">
@@ -487,12 +734,7 @@ espond.js IE8 support of HTML5 elements and media queries -->
 	</script>
 
 	<!-- jQuery 2.2.3 -->
-	<script src="js/jquery/jquery.min.js"></script>
-	<script src="js/admin/admin.js"></script>
-	<!-- Bootstrap 3.3.6 -->
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="js/admin/app.min.js"></script>
+	
 	<!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

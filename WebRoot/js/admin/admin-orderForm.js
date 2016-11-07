@@ -52,7 +52,7 @@ $(function() {
 			return false;
 		}
 	})
-
+	
 	var uls = getElement(".advanced");
 	for (i = 0; i < uls.length; i++) {
 		uls[i].getElementsByTagName("li")[0].addEventListener("click",
@@ -69,7 +69,7 @@ $(function() {
 						showWarning(false,i18n.get("insufficientPermissions")+i18n.get("canNot")+i18n.get("showMore")+"...");
 						return;
 					} else
-						getUserMoreData(this);
+						getOrderFromMoreData(this);
 				})
 	}
 	
@@ -85,6 +85,38 @@ $(function() {
 			closeWin(this);
 		})
 	}
+	//窗口改变时关闭选择状态框
+	window.onresize=function(){
+		$(".orderFormStateUi").hide();
+	}
+	//更改状态按钮事件
+	$(".stateButton").bind("click",function(){
+		var currentButton = this;
+		$(".orderFormStateUi").toggle();
+		$(".orderFormStateUi").css({"top":this.getBoundingClientRect().top-$(".orderFormStateUi").height(),"left":this.getBoundingClientRect().left-($(".orderFormStateUi").width()-this.offsetWidth)/2});
+		$(".orderFormStateUi li").unbind();
+		$(".orderFormStateUi li").bind("click",function(){
+			$(".orderFormStateUi").hide();
+			if($(this).attr("data-id")==$(currentButton).attr("data-id"))return;
+			var li = this;
+			$.post("json/orderForm_updateState","id="+$(currentButton).parents("tr").attr("data-id")+"&stateId="+$(this).attr("data-id"),function(data){
+				if(data!=null){
+					data = eval("("+data+")");
+					if(data.message){
+						$(currentButton).find(".stateText").html($(li).html());
+						$(currentButton).attr($(li).attr("data-id"));
+						showWarning(true,"订单已成功更新！！");
+						return;
+					}else{
+						showWarning(false,"订单更新失败，原因："+data.cause+"...");
+						return;
+					}
+				}
+				showWarning(false,i18n.get("update")+i18n.get("failure")+"！"+i18n.get("pleaseTryAgainLater")+"...");
+				return;
+			})
+		})
+	})
 })
 function pagingGo(el) { // 分页数据请求
 	var current = el.getElementsByTagName("a")[0].getAttribute("paging-data");
@@ -135,15 +167,15 @@ function deleteOrderFormData(el) {
 		})
 	})
 }
-function getUserMoreData(el) {
+function getOrderFromMoreData(el) {
 	var id = el.parentNode.getAttribute("data-id");
 	var data = "id=" + id;
 	$.post({
-		url : "json/getMoreData_user",
+		url : "json/getMoreData_orderForm",
 		data : data,
 		success : function(data) {
 			if (data != null) {
-				getElement("#moreInfor").innerHTML = null;
+				getElement("#moreInfor").innerHTML = "";
 				data = eval("(" + data + ")");
 				setMoreData(data);
 			}
@@ -153,10 +185,10 @@ function getUserMoreData(el) {
 }
 function setMoreData(data) {
 	for ( var val in data) {
-		if(val=='roleId')continue;
 		if(val=='state')data[val]=i18n.get(data[val]);
 		if (data[val] != null) {
-			createTrTd(nameArr[val], data[val])
+			//createTrTd(nameArr[val], data[val])
+			createTrTd(val, data[val])
 		}
 	}
 
@@ -174,36 +206,6 @@ function cancelPropover(ele) {
 var existError = function(ty) {
 	var type = ty;
 };
-function checkIsExist(type, ele) {
-	if (ele.value == ele.getAttribute("source-data")) {
-		return false;
-	}
-	var data = "type=" + type + "&id=" + getElement("#update.id").value
-			+ "&value=" + ele.value;
-	$.post({
-		url : "json/checkIsExist",
-		data : data,
-		success : function(data) { // 此处可以因为版本问题导入包commons-lang-2.3.jar
-			if (data != null) {
-				var data = eval("(" + data + ")");
-				if (data.message) {
-					type == 'usename' ? ele.setAttribute("data-content",
-							i18n.get("usernameInvalid")) : type == 'email' ? ele.setAttribute(
-							"data-content", i18n.get("emailInvalid")) : type == 'phone' ? ele
-							.setAttribute("data-content", i18n.get("phoneInvalid")) : ele
-							.setAttribute("data-content", i18n.get("nicknameInvalid"));
-					$(ele).popover('show');
-					ele.style.borderColor = "#f00";
-					isExsit.put(type, null);
-				} else {
-					$(ele).popover('destroy');
-					ele.style.borderColor = "#ccc";
-					isExsit.remove(type);
-				}
-			}
-		}
-	});
-}
 function closeWin(el) {
 	$(el.parentNode).hide(500);
 }

@@ -1,18 +1,30 @@
 package cn.hua.action;
 
+import cn.hua.model.Goods;
+import cn.hua.model.OrderForm;
 import cn.hua.model.Permission;
 import cn.hua.model.Role;
+import cn.hua.model.State;
+import cn.hua.model.Takedelivery;
+import cn.hua.model.User;
 import cn.hua.service.Service;
+import cn.hua.utils.Conversion;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opensymphony.xwork2.ActionSupport;
+
+import org.apache.commons.collections.map.LinkedMap;
 import org.apache.struts2.interceptor.SessionAware;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,7 +123,61 @@ public class GetMoreDataAction extends ActionSupport implements SessionAware {
 		}
 		return SUCCESS;
 	}
-
+	public String orderForm(){
+		if(id!=null){
+			OrderForm orderForm = service.findOrderFormById(id);
+			Map<String, Object> map = new LinkedHashMap<String, Object>();
+			BeanInfo beanInfo;
+			try {
+				beanInfo = Introspector.getBeanInfo(orderForm.getClass(),	//通过内省获取到类信息
+						Object.class);
+				PropertyDescriptor[] propertyDescriptors = beanInfo		//通过类信息获取到属性
+						.getPropertyDescriptors();
+				for (PropertyDescriptor descriptor : propertyDescriptors) {	//遍历属性
+					Method getMethod = descriptor.getReadMethod();	//获取get方法
+					String methodName = getMethod.getName();	//获取方法名字
+					Method method = orderForm.getClass().getDeclaredMethod(	//获取指定方法
+							methodName);
+					method.setAccessible(true);	//设置私有可访问
+					Object object = method.invoke(orderForm, new Object[] {}); //调用方法
+					if ("getUser".equals(methodName)) {
+						User user = (User) object;
+						map.put(descriptor.getName(),user.getUsername()==null?user.getNickname()==null?user.getPhone():user.getNickname():user.getUsername());
+					}else if("getGoods".equals(methodName)){
+						Goods goods = (Goods)object;
+						map.put("goodsName", goods.getName());
+						map.put("goodsPrice", goods.getPrice());
+					}else if("getState".equals(methodName)){
+						State state = (State)object;
+						map.put(descriptor.getName(), state.getName());
+					}else if(("getTakedelivery").equals(methodName)){
+						Takedelivery takedelivery = (Takedelivery)object;
+						map.put("收件人", takedelivery.getName());
+						map.put("收件地址", takedelivery.getAddress()+"--"+takedelivery.getMoreAddress());
+					}else if(("getBuytime").equals(methodName)){
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+						map.put(descriptor.getName(),sdf.format(sdf.parse(object+"")));
+					}else{
+						map.put(descriptor.getName(), object);
+					}
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				throw new RuntimeException();
+			}
+			if (map != null) {
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					this.result = mapper.writeValueAsString(map);
+				} catch (JsonProcessingException e) {
+					this.result=null;
+					e.printStackTrace();
+				}
+				System.out.println(result);
+			}
+		}
+		return SUCCESS;
+	}
 	@Override
 	public void setSession(Map<String, Object> arg0) {
 		this.session = arg0;

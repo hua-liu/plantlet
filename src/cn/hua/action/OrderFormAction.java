@@ -78,10 +78,6 @@ public class OrderFormAction extends ActionSupport implements ModelDriven<OrderF
 		}
 		return SUCCESS;
 	}
-	public String get(){
-		
-		return SUCCESS;
-	}
 	@Override
 	public OrderForm getModel() {
 		this.orderForm = new OrderForm();

@@ -40,8 +40,13 @@
 		</div>
 	</div>
 	<div class="kjzf_usermes">
-		<div class="touxiang">
-			<img src="img/payImg/logotoux.png" width="103" height="103" style="margin-top:50px;">
+		<div class="touxiang" style="margin:20px 0 0 150px;">
+		<s:if test="actionErrors!=null&&actionErrors.size>0&&actionErrors[0]!=null">
+			<span class="glyphicon glyphicon-remove-sign" style="font-size:100px;color:#DD4B39;"style="margin:60px 10px 0 0;"></span>
+		</s:if>
+		<s:else>
+			<span class="glyphicon glyphicon-info-sign" style="font-size:100px;color:#FF6600;"style="margin:60px 10px 0 0;"></span>
+		</s:else>
 		</div>
 		<div class="usermes hasClear">
 			<s:if test="actionErrors!=null&&actionErrors.size>0&&actionErrors[0]!=null">
@@ -221,6 +226,11 @@
 				if ($(this).attr("class") != 'active')
 					$(this).css("border-color", "#f1f1f1");
 			})
+			$("input[name=password]").keyup(function(e){
+				if(e.keyCode==13){
+					$("#pay").trigger("click");
+				}
+			})
 			$("#pay").click(function(){
 				$(this).append($('<div class="loader-inner ball-clip-rotate" style="float:right"><div></div></div>'))
 				$.post("json/pay_pay","key=${key}&pp="+$("input[name=password]").val(),function(data){
@@ -231,6 +241,9 @@
 						}
 						data = eval("("+data+")");
 						if(data.message){
+							$(".glyphicon").removeClass("glyphicon-info-sign");
+							$(".glyphicon").addClass("glyphicon-ok-sign");
+							$(".glyphicon").css("color","#00A65A");
 							$(".hasCloase").remove();
 							$(".hasClear").html("<h2>付款成功</h2><h3>立即前往已买宝贝看看<a href='index'>点击前往</a></h3>");
 							return;
@@ -240,6 +253,9 @@
 									window.location.href="index";
 									return;
 								}
+								$(".glyphicon").removeClass("glyphicon-info-sign");
+								$(".glyphicon").addClass("glyphicon-remove-sign");
+								$(".glyphicon").css("color","#DD4B39");
 								$(".hasCloase").remove();
 								$(".hasClear").html("<h2>付款失败！！<small>原因:没有密码，未完成支付</small></h2><h3>您可以前往未付款订单查看宝贝<a href='index'>点击前往</a></h3>");
 								return;
@@ -253,12 +269,19 @@
 								}, 3000);
 								return;
 							}
+							$(".glyphicon").removeClass("glyphicon-info-sign");
+							$(".glyphicon").addClass("glyphicon-remove-sign");
+							$(".glyphicon").css("color","#DD4B39");
 							$(".hasCloase").remove();
-							$(".hasClear").html("<h2>付款失败</h2><h3>您可以前往未付款订单查看宝贝<a href='index'>点击前往</a></h3>");
+							$(".hasClear").html("<h2>付款失败<small>原因:"+data.cause+"</small></h2><h3>您可以前往未付款订单查看宝贝<a href='index'>点击前往</a></h3>");
+							return;
 						}
 					}
+					$(".glyphicon").removeClass("glyphicon-info-sign");
+					$(".glyphicon").addClass("glyphicon-remove-sign");
+					$(".glyphicon").css("color","#DD4B39");
 					$(".hasCloase").remove();
-					$(".hasClear").html("<h2>付款失败<small>原因:"+data.cause+"</small></h2><h3>您可以前往未付款订单查看宝贝<a href='index'>点击前往</a></h3>");
+					$(".hasClear").html("<h2>付款失败!!</h2><h3>您可以前往未付款订单查看宝贝<a href='index'>点击前往</a></h3>");
 				})
 			})
 		})

@@ -1,5 +1,6 @@
 package cn.hua.dao;
 
+import cn.hua.formBean.GoodsPaging;
 import cn.hua.formBean.Paging;
 import cn.hua.model.*;
 
@@ -14,11 +15,7 @@ public interface GoodsDao extends Dao<Goods> {
 	public List<GoodsPicture> getGoodsPicturesByGoodsId(String goodsId);
 	public void deleteGoodsPicture(String goodsId, String imgId);
 	public List<Goods> getGoodsPaging(Paging paging);
+	public List<Goods> getGoodsRewardPaging(GoodsPaging paging);
 	public BreviaryPicture getGoodsBreviaryPicture(String id);
 	public void deleteGoodsBreviaryPicture(String id);
-	public void addShoppingCart(ShoppingCart cart);
-	public void updateShoppingCart(ShoppingCart cart);
-	public void deleteShoppingCart(String id);
-	public ShoppingCart getShoppingCartById(String id);
-	public ShoppingCart getShoppingCartByUserId(String id);
 }

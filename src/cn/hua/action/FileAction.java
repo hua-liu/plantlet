@@ -113,6 +113,65 @@ public class FileAction extends ActionSupport {
 
 		return SUCCESS;
 	}
+	//上传聊天时的图片
+	public String uploadChatPic(){
+		String path = "";
+		try {
+			String[] fileSuffix = new String[] { ".jpg", ".gif", ".png" };
+			boolean isPass = false;
+			for (String fileSuffixName : fileSuffix) {
+				if (fileFileName.endsWith(fileSuffixName)) {
+					isPass = true;
+					break;
+				}
+			}
+			if (!isPass) {
+				message = Conversion.stringToJson("message,false,cause,上传非法格式文件");
+				return SUCCESS;
+			}
+			String uuid = UUID.randomUUID().toString();
+			FileInputStream inputStream = new FileInputStream(file);
+			path = "D:/DATA/SKJS/message/picture/" + uuid;
+			FileOutputStream outputStream = new FileOutputStream(path);
+			byte[] buf = new byte[1024];
+			int length = 0;
+			while ((length = inputStream.read(buf)) != -1) {
+				outputStream.write(buf, 0, length);
+			}
+			inputStream.close();
+			// outputStream.flush();
+			outputStream.close();
+			this.message = Conversion.stringToJson("message,true,id,"+uuid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			new FileOperation(path).start(); // 启用线程删除文件
+			message = Conversion.stringToJson("message,false,cause,文件系统出错");
+			return SUCCESS;
+		}
+		
+		return SUCCESS;
+	}
+	//下载聊天时的图片
+	public String downloadChatPic() {
+		try {
+			if (id != null) {
+				String path = "D:/DATA/SKJS/message/picture/"+id;
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				InputStream input = new BufferedInputStream(
+						new FileInputStream(path));
+				byte[] bt = new byte[1024];
+				while (input.read(bt) > 0) {
+					bos.write(bt);
+				}
+				this.inputStream = new ByteArrayInputStream(bos.toByteArray());
+				bos.close();
+				input.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "download";
+	}
 
 	// 上传
 	public String upload() throws Exception {

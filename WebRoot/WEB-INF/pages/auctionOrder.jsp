@@ -6,6 +6,8 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	//聊天服务头
+	String serverPath="ws://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
@@ -20,34 +22,17 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/auctionOrder.css" rel="stylesheet" type="text/css"
 	media="all" />
-<!-- <link href="css/animate.min.css" rel="stylesheet" type="text/css"
-	media="all" />
-animation
-<link href="css/menu.css" rel="stylesheet" type="text/css" media="all" />
-menu style
-<link href="css/owl.carousel.css" rel="stylesheet" type="text/css"
-	media="all"> -->
-<!-- carousel slider -->
-<!-- //Custom Theme files -->
+<!--聊天-->
+<link rel="stylesheet" href="css/admin/AdminLTE.min.css">
+<link href="css/chat.css" rel="stylesheet">
+<link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
+<!--/聊天-->
 <!-- font-awesome icons -->
 <link href="css/font-awesome.css" rel="stylesheet">
 <!-- js -->
 <script src="js/jquery/jquery.min.js"></script>
 <%-- <script src="js/owl.carousel.js"></script> --%>
 <script src="bootstrap/js/bootstrap.min.js"></script>
-<!--flex slider-->
-<%-- <script defer src="js/jquery.flexslider.js"></script> --%>
-<!-- <link rel="stylesheet" href="css/flexslider.css" type="text/css"
-	media="screen" /> -->
-<%-- <script>
-	// Can also be used with $(document).ready()
-	$(window).load(function() {
-		$('.flexslider').flexslider({
-			animation : "slide",
-			controlNav : "thumbnails"
-		});
-	});
-</script> --%>
 <!--flex slider-->
 <script src="js/MagicZoom.js"></script>
 <!-- //js -->
@@ -87,6 +72,9 @@ menu style
 </script>
 <!-- //smooth-scrolling-of-move-up -->
 <style type="text/css">
+body {
+	background: #FAFAFA;
+}
 .orderForm td {
 	text-align: center;
 }
@@ -142,9 +130,9 @@ a {
 							<!-- <!-- <li class="dropdown head-dpdn"><a href="contact.html"
 						class="dropdown-toggle"><i class="fa fa-map-marker"
 							aria-hidden="true"></i>实体店</a></li> -->
-							<li class="dropdown head-dpdn"><a href="card.html"
-								class="dropdown-toggle"><i class="fa  fa-smile-o"
-									aria-hidden="true"></i>联系客服</a></li>
+								<li class="dropdown head-dpdn linkService"><a
+									href="javascript:void(0)" class="dropdown-toggle"><i
+										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
 							<li class="dropdown head-dpdn"><a href="help.html"
 								class="dropdown-toggle"><i class="fa fa-question-circle"
 									aria-hidden="true"></i> 帮助</a></li>
@@ -152,6 +140,102 @@ a {
 					</div>
 					<div class="clearfix"></div>
 				</div>
+				<!-- 客服聊天 -->
+					<div class="chatWinBox" onmouseover="move(this)">
+						<div class="chatWin">
+							<div class="head">
+								<span>小苗基地客服&ensp;<span class="serverName">系统</span>&ensp;为您服务--<span
+									class="state"></span></span>
+								<p class="winClose">
+									<i class="glyphicon glyphicon-remove"></i>
+								</p>
+							</div>
+							<div class="body">
+								<div class="chatContent direct-chat-default">
+								</div>
+								<div class="fontSet">
+									<div class="font">
+										<select class="form-control">
+											<option>华文宋体</option>
+											<option>华文行楷</option>
+											<option>华文隶书</option>
+											<option>华文琥珀</option>
+											<option>华文彩云</option>
+											<option>方正舒体</option>
+										</select>
+									</div>
+									<div class="fontSize">
+										<span>字体大小</span>
+										<div class="input-group has-feedback" id="role_level">
+											<div class="level">
+												<p class="level-control" data-toggle="tooltip"
+													data-placement="top" title="15" id="level-control"></p>
+											</div>
+										</div>
+									</div>
+									<div class="fontColor">
+										<span style="margin-right:10px;line-height:30px;">字体颜色</span>
+										<div class="input-group myColorpicker colorpicker-element"
+											style="margin-top:5px;border:1px solid #CCC">
+											<input type="hidden" class="form-control">
+											<div class="input-group-addon"
+												style="width:30px;height:20px; background-color: rgb(0, 0, 0);"></div>
+										</div>
+									</div>
+								</div>
+								<ul class="myTool">
+									<li class="fontSetButton" title="设置字体"><i
+										class="fa fa-font"></i></li>
+									<li title="表情" class="emotion"><i class="fa fa-smile-o"></i></li>
+									<li title="发送图片" class="sendPicture"><i class="fa fa-picture-o"></i></li>
+									<li style="clear:both;"></li>
+									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i>消息记录<i class="fa fa-caret-down"></i></li>
+								</ul>
+								<textarea class="form-control textarea-control myInput" rows="3" id="myInput" name="myInput"></textarea>
+								<div class="fileBox" style="display:none">
+									<input type="file" id="file" name="file"
+										accept="image/png,image/gif,image/jpeg">
+								</div>
+							</div>
+							<div class="foot">
+								<button class="btn btn-primary winClose">关闭</button>
+								<div class="sendGroup btn-group dropup">
+									<button type="button" class="btn btn-primary send">发送</button>
+									<button type="button" class="btn btn-primary dropdown-toggle"
+										data-toggle="dropdown" title="设置发送快捷键">
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu selectSendMenu" role="menu">
+										<li data="ce"><a href="javascript:void(0)">Ctrl+Enter</a></li>
+										<li data="se"><a href="javascript:void(0)">Shift+Enter</a></li>
+										<li data="e"><a href="javascript:void(0)">Enter</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="messageRecord">
+							<div class="head">
+								<span>消息记录</span>
+								<p class="winCloseRecord">
+									<i class="glyphicon glyphicon-remove"></i>
+								</p>
+							</div>
+							<div class="body">
+								<div class="recordContent direct-chat-default">
+									
+								</div>
+							</div>
+							<div class="foot">
+								<button class="left btn btn-default">
+									<i class="glyphicon glyphicon-arrow-left"></i>
+								</button>
+								<button class="right btn btn-default">
+									<i class="glyphicon glyphicon-arrow-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!--/客服聊天  -->
 				<!-- breadcrumbs -->
 				<div class="container">
 					<ol class="breadcrumb breadcrumb1">
@@ -511,7 +595,7 @@ a {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<s:hidden name="id"></s:hidden>
+						<input type="hidden" name="id" id="addrId">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 						<button type="button" class="btn btn-primary"
 							id="submitAddAddress" data-toggle="popover" data-placement="left"
@@ -521,9 +605,44 @@ a {
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="showPicture" tabindex="-1" role="dialog" aria-labelledby="showPicture" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="showPictureLabel">查看大图</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<img alt="pic" src="img/loading.gif" class="showPictrueMore">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<script src="js/ChineseAscii.js"></script>
 	<script src="js/auctionOrder.js"></script>
-	<%-- 	<script src="js/cart.js"></script> --%>
-
+	<!--聊天  -->
+	<script src="js/move.js"></script>
+	<script src="js/chat.js"></script>
+	<script src="js/admin/levelControl.js" type="text/javascript"></script>
+	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+	<script src="css/face/js/jquery-browser.js"></script>
+	<script src="css/face/js/jquery.qqFace.js"></script>
+	<script src="js/fileUpload/ajaxfileupload.js"></script>
+	<script type="text/javascript">
+				var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		$(function(){
+			//显示聊天窗口
+			$(".linkService").click(function(){
+				$(".chatWinBox").show();
+				//连接聊天服务器
+				openWebSocket();
+			})
+		})
+	</script>
+	<!--/聊天  -->
 </body>
 </html>

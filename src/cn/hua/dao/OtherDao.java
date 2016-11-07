@@ -24,4 +24,5 @@ public interface OtherDao <T,K>{
 	void saveGoodsExplain(Explain explain);
 	Explain loadGoodsExplain(String id);
 	List<Area> getAreas(int id);
+	List<String> getNewOrderFormNum();
 }
