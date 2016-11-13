@@ -334,5 +334,9 @@ public class ServiceImpl implements Service {
 	public List<Goods> getGoodsRewardPaging(GoodsPaging paging) {
 		return goodsDao.getGoodsRewardPaging(paging);
 	}
+	@Override
+	public void updateUserNickname(String id, String nickname) {
+		userDao.updateUserNickname(id, nickname);
+	}
 	
 }

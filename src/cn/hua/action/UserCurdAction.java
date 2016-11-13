@@ -61,7 +61,15 @@ public class UserCurdAction extends ActionSupport implements ModelDriven<User> ,
 			this.result = "{'message':" + false + "}";}
 		return SUCCESS;
 	}
-
+	public String myselfUpdate() {
+		try {
+			service.updateUser(user);
+			this.result = "{'message':" + true + "}";
+		} catch (Exception e) {
+			this.result = "{'message':" + false + "}";
+		}
+		return SUCCESS;
+	}
 	@Override
 	public User getModel() {
 		if (id != null && !id.trim().equals("")) {

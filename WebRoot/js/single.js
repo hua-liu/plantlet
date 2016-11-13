@@ -35,7 +35,6 @@ $(function(){
 		alert($(this).attr("data-id"))
 		alert($(this).parents("tbody").find(".buyNum").val())
 		$.post(url,data,function(data){
-			alert(data)
 			if(data==null){
 				$(el).attr("data-content","创建订单失败，稍候再试");
 				$(el).popover("show");

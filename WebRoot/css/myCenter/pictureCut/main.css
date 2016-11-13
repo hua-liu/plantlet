@@ -1,0 +1,185 @@
+body {
+  background-color: #fcfcfc;
+}
+/*头像上传*/
+.avatar-view {
+  display: block;
+  margin: 5% auto 0;
+  height: 200px;
+  width: 200px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.avatar-view img {
+  width: 100%;
+}
+
+.avatar-body {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.avatar-upload {
+  overflow: hidden;
+}
+
+.avatar-upload label {
+  display: block;
+  float: left;
+  clear: left;
+  width: 100px;
+}
+
+.avatar-upload input {
+  display: block;
+  margin-left: 110px;
+}
+
+.avater-alert {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.avatar-wrapper {
+  height: 364px;
+  width: 100%;
+  margin-top: 15px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,.25);
+  background-color: #fcfcfc;
+  overflow: hidden;
+}
+
+.avatar-wrapper img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.avatar-preview {
+  float: left;
+  margin-top: 15px;
+  margin-right: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.avatar-preview:hover {
+  border-color: #ccf;
+  box-shadow: 0 0 5px rgba(0,0,0,.15);
+}
+
+.avatar-preview img {
+  width: 100%;
+}
+
+.preview-lg {
+  height: 184px;
+  width: 184px;
+  margin-top: 15px;
+}
+
+.preview-md {
+  height: 100px;
+  width: 100px;
+}
+
+.preview-sm {
+  height: 50px;
+  width: 50px;
+}
+
+@media (min-width: 992px) {
+  .avatar-preview {
+    float: none;
+  }
+}
+
+.avatar-btns {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.avatar-btns .btn-group {
+  margin-right: 5px;
+}
+
+.loading {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff url("../img/loading.gif") no-repeat center center;
+  opacity: .75;
+  filter: alpha(opacity=75);
+  z-index: 20140628;
+}
+/*/头像上传*/
+/*边框动画*/
+@CHARSET "UTF-8";
+
+.menu{
+  height: 200px;
+  overflow: hidden;
+  margin: 10px;
+  float: left;
+  position: relative;
+  cursor: pointer;
+  border:1px solid #999;
+}
+.menu .top{
+  position: absolute;
+  z-index:1;
+  height: 5px;
+  width: 0px;
+  top: 0px;
+  width: 0px;
+}
+.menu .bottom{
+  position: absolute;
+  z-index:1;
+  height: 5px;
+  width: 0%;
+  bottom: 0px;
+  right: 0px;
+}
+.menu .left{
+  height: 0;
+  position: absolute;
+  left: 0px;
+  width: 5px;
+}
+.menu .right{
+  height: 0;
+  position: absolute;
+  right: 0px;
+  width: 5px;
+  bottom: 0px;
+}
+.menu span{
+  width:100%;
+  height: 190px;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: 5px;
+  font-size:100px;
+  line-height:190px;
+}
+.menu p{
+  position: absolute;
+  z-index: 2;
+  background: rgba(2,179,191,0.5);
+  height: 0px;
+  line-height: 40px;
+  width: 370px;
+  text-align: center;
+  color: #fff;
+  bottom: 5px;
+  left: 5px;
+}
+/*/边框动画*/

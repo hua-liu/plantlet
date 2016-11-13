@@ -4,13 +4,25 @@ import cn.hua.model.BreviaryPicture;
 import cn.hua.model.Explain;
 import cn.hua.model.Goods;
 import cn.hua.model.GoodsPicture;
+import cn.hua.model.Photo;
+import cn.hua.model.User;
 import cn.hua.service.Service;
 import cn.hua.utils.Conversion;
 import cn.hua.utils.FileOperation;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Iterator;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 
 public class FileAction extends ActionSupport {
 	/**
@@ -27,8 +39,21 @@ public class FileAction extends ActionSupport {
 	private File[] htmlfile;
 	private String[] htmlfileFileName;
 	private String[] htmlfileContentType;
-	private int isBreviary;
+	private int isBreviary;//1为商品缩略图，2为用户头像
 	private String sourcePicId;
+	private int x,y,width,height;	//用于裁剪图片
+	public void setX(int x) {
+		this.x = x;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	public void setHeight(int height) {
+		this.height = height;
+	}
 	public void setSourcePicId(String sourcePicId) {
 		this.sourcePicId = sourcePicId;
 	}
@@ -258,6 +283,61 @@ public class FileAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
+	// 上传头像
+	public String uploadHeadPhoto() throws Exception {
+		String path = "";
+		FileInputStream inputStream=null;
+		ImageInputStream iis=null;
+		String sourcePath=null;
+		User user = (User)ActionContext.getContext().getSession().get("user");
+		if(user==null)return INPUT;
+		user = service.findUserById(user.getId());
+		if(user==null)return INPUT;
+		try {
+			String[] fileSuffix = new String[] { ".jpg", ".gif", ".png" };
+			boolean isPass = false;
+			String suffix = null;
+			for (String fileSuffixName : fileSuffix) {
+				if (fileFileName.endsWith(fileSuffixName)) {
+					isPass = true;
+					suffix = fileSuffixName.substring(1);
+					break;
+				}
+			}
+			if (!isPass) {
+				message = Conversion.stringToJson("cause,上传非法格式文件");
+				return SUCCESS;
+			}
+			inputStream = new FileInputStream(file);
+			String pid=UUID.randomUUID()+"";
+			path = getDir("D:/DATA/SKJS/headphoto", null) + "/" + pid;
+			//FileOutputStream outputStream = new FileOutputStream(path);
+			Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName(suffix);
+			ImageReader imageReader = iterator.next();
+			iis = ImageIO.createImageInputStream(inputStream);
+			imageReader.setInput(iis,true);
+			ImageReadParam param = imageReader.getDefaultReadParam();
+			Rectangle rect = new Rectangle(x,y,width,height);
+			param.setSourceRegion(rect);
+			BufferedImage bufferedImage = imageReader.read(0,param);
+			ImageIO.write(bufferedImage, suffix, new File(path));
+			if(user.getPhoto()!=null)sourcePath = user.getPhoto().getPath();
+			user.setPhoto(new Photo(path));
+			service.updateUser(user);
+			ActionContext.getContext().getSession().put("user", user);
+			this.message=Conversion.stringToJson("message,true,id,"+user.getPhoto().getId());
+			if(sourcePath!=null)new FileOperation(sourcePath);
+		} catch (Exception e) {
+			e.printStackTrace();
+			message = Conversion.stringToJson("cause,文件系统出错");
+			new FileOperation(path).start(); // 启用线程删除文件
+			return SUCCESS;
+		}finally{
+			if(inputStream!=null)inputStream.close();
+			if(iis!=null)iis.close();
+		}
+		return SUCCESS;
+	}
 
 	public String download() {
 		try {
@@ -269,7 +349,11 @@ public class FileAction extends ActionSupport {
 					if (breviaryPicture != null) {
 						path = breviaryPicture.getPath();
 					}
-				} else {
+				} else if(isBreviary==2){
+					User user = (User)ActionContext.getContext().getSession().get("user");
+					if(user==null)return INPUT;
+					path = user.getPhoto().getPath();
+				}else{
 					GoodsPicture goodsPicture = service.getGoodsPicture(id);
 					if (goodsPicture != null) {
 						path = goodsPicture.getPath();

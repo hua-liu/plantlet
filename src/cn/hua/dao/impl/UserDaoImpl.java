@@ -95,4 +95,10 @@ public class UserDaoImpl implements UserDao {
 		hibernateTemplate.update(safe);
 	}
 
+	@Override
+	public void updateUserNickname(String id,String nickname) {
+		hibernateTemplate.getSessionFactory().getCurrentSession().createNativeQuery("update kjuser set nickname=:nickname where id=:id")
+		.setParameter("nickname", nickname).setParameter("id", id).executeUpdate();
+	}
+
 }

@@ -22,33 +22,33 @@ $(function() {
 	if(picId.indexOf("id=")!=-1){
 		sourcePicId = picId.substr(picId.lastIndexOf("=")+1);
 	}
-		$.ajaxFileUpload({
-					url : "json/upload_file?id="+ $("#goodsId").val()+"&isBreviary="+isBreviary+"&sourcePicId="+sourcePicId,// 用于文件上传的服务器端请求地址
-					secureuri : false,// 一般设置为false
-					fileElementId : 'file',// 文件上传空间的id属性
-					dataType : 'json',// 返回值类型 一般设置为json
-					error : function(data) {
-						alert(data.cause)
-					},
-					success : function(data) {
-						data = eval("(" + data + ")");
-						if (data.message) {
-							if(isBreviary==1){
-								// 上传完成预览
-								$(".goodsPicture tr td:first-child img.checked").attr("src","json/download_file?isBreviary=1&id="+ data.id);
-								// 上传完成大图预览
-								$(".goodsPicture .bigPicture").attr("src","json/download_file?isBreviary=1&id="+ data.id);
-							}else{
-								// 上传完成预览
-								$(".goodsPicture tr td:first-child img.checked").attr("src","json/download_file?id="+ data.id);
-								// 上传完成大图预览
-								$(".goodsPicture .bigPicture").attr("src","json/download_file?id="+ data.id);
-							}
-						} else {
-							alert("上传失败");
-						}
-					}
-				})
+	$.ajaxFileUpload({
+		url : "json/upload_file?id="+ $("#goodsId").val()+"&isBreviary="+isBreviary+"&sourcePicId="+sourcePicId,// 用于文件上传的服务器端请求地址
+		secureuri : false,// 一般设置为false
+		fileElementId : 'file',// 文件上传空间的id属性
+		dataType : 'json',// 返回值类型 一般设置为json
+		error : function(data) {
+			alert(data.cause)
+		},
+		success : function(data) {
+			data = eval("(" + data + ")");
+			if (data.message) {
+				if(isBreviary==1){
+					// 上传完成预览
+					$(".goodsPicture tr td:first-child img.checked").attr("src","json/download_file?isBreviary=1&id="+ data.id);
+					// 上传完成大图预览
+					$(".goodsPicture .bigPicture").attr("src","json/download_file?isBreviary=1&id="+ data.id);
+				}else{
+					// 上传完成预览
+					$(".goodsPicture tr td:first-child img.checked").attr("src","json/download_file?id="+ data.id);
+					// 上传完成大图预览
+					$(".goodsPicture .bigPicture").attr("src","json/download_file?id="+ data.id);
+				}
+			} else {
+				alert("上传失败");
+			}
+		}
+	})
 
 	})
 	// 商品是否打折事件监听
@@ -113,49 +113,44 @@ $(function() {
 		$("#htmlfile").trigger("click");
 	})
 	// html上传监听
-	$(".htmlfileBox")
-			.bind(
-					"change",
-					function() {
-						$(".goodsExplainBox")
-								.before(
-										'<div class="loaderBox"><div class="loader"><div class="loader-inner line-scale"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>');
-						$(".goodsExplainBox").hide();
-						var files = htmlfile.files;
-						$
-								.ajaxFileUpload({
-									url : "json/uploadHtml_file?id="
-											+ $("#goodsId").val(),// 用于文件上传的服务器端请求地址
-									secureuri : false,// 一般设置为false
-									fileElementId : 'htmlfile',// 文件上传空间的id属性
-									dataType : 'json',// 返回值类型 一般设置为json
-									error : function(data) {
-									},
-									success : function(data) {
-										if (data != null) {
-											data = eval("(" + data + ")");
-											if (data.message) {
-												/* data = eval("(" + data + ")") */
-												// 添加显示上传网页的框架
-												var iframe = $('<iframe src='
-														+ data.path
-														+ ' id="iframepage" name="iframepage" frameBorder=0 scrolling=no width="100%"></iframe>')
-												$(".goodsExplainBox").before(
-														iframe);// 追加后移除
-												$(".loaderBox").remove();
-												$("#goodsExplainId").val(
-														data.id);
-											} else {
-												alert(data.cause)
-												$(".loaderBox").remove();
-											}
-										} else {
-											alert("未知原因，上传失败")
-											$(".loaderBox").remove();
-										}
-									}
-								})
-					})
+	$(".htmlfileBox").bind("change",function() {
+	$(".goodsExplainBox").before(
+					'<div class="loaderBox"><div class="loader"><div class="loader-inner line-scale"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>');
+	$(".goodsExplainBox").hide();
+	var files = htmlfile.files;
+		$.ajaxFileUpload({
+				url : "json/uploadHtml_file?id="
+						+ $("#goodsId").val(),// 用于文件上传的服务器端请求地址
+				secureuri : false,// 一般设置为false
+				fileElementId : 'htmlfile',// 文件上传空间的id属性
+				dataType : 'json',// 返回值类型 一般设置为json
+				error : function(data) {
+				},
+				success : function(data) {
+					if (data != null) {
+						data = eval("(" + data + ")");
+						if (data.message) {
+							/* data = eval("(" + data + ")") */
+							// 添加显示上传网页的框架
+							var iframe = $('<iframe src='
+									+ data.path
+									+ ' id="iframepage" name="iframepage" frameBorder=0 scrolling=no width="100%"></iframe>')
+							$(".goodsExplainBox").before(
+									iframe);// 追加后移除
+							$(".loaderBox").remove();
+							$("#goodsExplainId").val(
+									data.id);
+						} else {
+							alert(data.cause)
+							$(".loaderBox").remove();
+						}
+					} else {
+						alert("未知原因，上传失败")
+						$(".loaderBox").remove();
+					}
+				}
+			})
+		})
 	// 窗口改变更改html高度
 	window.onresize = function() {
 		reinitIframeEND();

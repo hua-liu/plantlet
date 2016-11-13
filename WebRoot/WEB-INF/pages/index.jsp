@@ -16,11 +16,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <!-- Custom Theme files -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	type="text/css" media="all" />
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" href="css/admin/AdminLTE.min.css">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/iconfont.css" rel="stylesheet">
+<link href="css/iconfont.css" rel="stylesheet" type="text/css">
 <!-- <link href="css/spinMenu.css" rel="stylesheet" type="text/css"
 	media="all" /> -->
 <!-- menu style -->
@@ -219,11 +218,11 @@ body {
 										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<s:if test="#session.user!=null">
-											<li><a href="#"><s:property
+											<li><a href="myCenter?function=0"><s:property
 														value="#session.user.username" /></a></li>
 											<li><a href="userLogout">注销</a></li>
-											<li><a href="login.html">我的订单</a></li>
-											<li><a href="login.html">钱包</a></li>
+											<li><a href="myCenter?function=2">我的订单</a></li>
+											<li><a href="myCenter?function=3">钱包</a></li>
 										</s:if>
 										<s:else>
 											<li><a href="loginUi">登陆</a></li>
@@ -241,12 +240,6 @@ body {
 											<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
 										</ul></li>
 								</s:if>
-								<li class="dropdown head-dpdn"><a href="card.html"
-									class="dropdown-toggle"><i class="fa fa-star"
-										aria-hidden="true"></i>收藏夹</a></li>
-								<!-- <!-- <li class="dropdown head-dpdn"><a href="contact.html"
-						class="dropdown-toggle"><i class="fa fa-map-marker"
-							aria-hidden="true"></i>实体店</a></li> -->
 								<li class="dropdown head-dpdn linkService"><a
 									href="javascript:void(0)" class="dropdown-toggle"><i
 										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>

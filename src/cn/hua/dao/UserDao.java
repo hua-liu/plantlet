@@ -15,5 +15,6 @@ public interface UserDao extends Dao<User>{
 	 * 参数1：String	指定模糊查找
 	 * 参数2：int		指定当前页*/
 	List<User> getNoRoleUser(String likeStr,Paging paging);
-	public void updateSafe(Safe safe);
+	void updateSafe(Safe safe);
+	void updateUserNickname(String id,String nickname);
 }

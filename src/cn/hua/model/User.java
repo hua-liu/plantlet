@@ -20,7 +20,9 @@ public class User implements Serializable{
 	private String username;
 	private String nickname;
 	private Date birthday;
+	private int sex;
 	private int credit;
+	private String address;
 	private String phone;
 	private String email;
 	private Photo photo;
@@ -50,6 +52,23 @@ public class User implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public int getSex() {
+		return sex;
+	}
+
+	public void setSex(int sex) {
+		this.sex = sex;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -86,7 +105,7 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	public Photo getPhoto() {
 		return photo;
 	}

@@ -1,11 +1,12 @@
 package cn.hua.model;
 
-import org.hibernate.annotations.GenericGenerator;
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Photo implements Serializable {

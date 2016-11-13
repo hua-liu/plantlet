@@ -43,9 +43,11 @@ public class OtherDaoImpl implements OtherDao<Classify, State> {
 	 * @parme id	当前用户的ID，用于获取全局设置
 	 */
 	public List<?> getPagingData(Paging paging, String id) {
-		MySet myset = getSet(id);
-		if (myset != null) {
-			paging.setSize(myset.getPageRowNum());
+		if(paging.getSize()<=1){
+			MySet myset = getSet(id);
+			if (myset != null) {
+				paging.setSize(myset.getPageRowNum());
+			}
 		}
 		Session session = hibernateTemplate.getSessionFactory()
 				.getCurrentSession();
