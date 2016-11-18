@@ -1,6 +1,7 @@
 package cn.hua.action;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.UUID;
 import org.apache.struts2.ServletActionContext;
 
 import cn.hua.model.Goods;
+import cn.hua.model.Log;
 import cn.hua.model.OrderForm;
 import cn.hua.model.Safe;
 import cn.hua.model.State;
@@ -19,6 +21,7 @@ import cn.hua.model.Takedelivery;
 import cn.hua.model.User;
 import cn.hua.service.Service;
 import cn.hua.utils.Conversion;
+import cn.hua.utils.Encryption;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -127,11 +130,53 @@ public class PayAction extends ActionSupport{
 		//readlyOf = ofs;
 		return SUCCESS;
 	}
+	//进入支付界面
+	/*
+	 * 这里会有一个不断刷新就会添加付款订单问题，不想处理了
+	 */
+	public String goPayUi(){
+		List<OrderForm> ofs = new ArrayList<OrderForm>();
+		User user = (User) ActionContext.getContext().getSession().get("user");
+		if(user==null)return INPUT;
+		sumPrice=0;
+		if(id.length<1){
+			this.addActionError("订单已过期!!");
+			return SUCCESS;
+		}
+		OrderForm of = service.findOrderFormById(id[0]);
+		if(of!=null){
+			if(of.getState().getId()!=8){
+				this.addActionError("未付款订单中不存在该订单!!");
+				return SUCCESS;
+			}
+		}
+		if(of==null){
+			this.addActionError("订单已过期!!");
+			return SUCCESS;
+		}
+		sumPrice += of.getBuyNum()*of.getGoods().getPrice();
+		ofs.add(of);
+		ServletActionContext.getRequest().setAttribute("orderForms", ofs);
+		ActionContext.getContext().getValueStack().push(sumPrice);
+		key = UUID.randomUUID().toString();
+		planPay.put(key, ofs);
+		ActionContext.getContext().getValueStack().push(key);
+		Timer timer = new Timer();	//设置一个定时器，2分钟后清楚数据
+		timer.scheduleAtFixedRate(new TimerTask(){
+			@Override
+			public void run() {
+				planPay.remove(key);
+			}
+			
+		}, new Date(System.currentTimeMillis()+1000*120), 100);
+		//readlyOf = ofs;
+		return SUCCESS;
+	}
 	public String pay(){
 		List<OrderForm> orderForms = planPay.get(key);
 		if(orderForms==null||orderForms!=null&&orderForms.size()<1){
 			this.result = Conversion.stringToJson("message,false,cause,订单已超时！！");
-			return SUCCESS;
+			return ERROR;
 		}
 		User user = (User) ActionContext.getContext().getSession().get("user");
 		if(user!=null)user = service.findUserById(user.getId());
@@ -140,12 +185,13 @@ public class PayAction extends ActionSupport{
 		}
 		if(pp==null){
 			this.result = Conversion.stringToJson("message,false,cause,密码错误!!");
-			return SUCCESS;
+			return ERROR;
 		}
 		if(user.getSafe().getPayPassword()==null){
 			this.result = Conversion.stringToJson("message,false,cause,noPassword");
-			return SUCCESS;
+			return ERROR;
 		}
+		pp = Encryption.encryption(pp+user.getSafe().getId());
 		if(pp.equals(user.getSafe().getPayPassword())){
 			try{//这里其实可以使用个事务，但是呢，好麻烦的说
 				Safe safe = user.getSafe();
@@ -154,27 +200,40 @@ public class PayAction extends ActionSupport{
 				}
 				if(user.getSafe().getBalance()<sumPrice){
 					this.result = Conversion.stringToJson("message,false,cause,您的余额已不足以支付当前订单!!");
-					return SUCCESS;
+					return ERROR;
 				}
 				safe.setBalance(user.getSafe().getBalance()-sumPrice);
-				service.updateSafe(safe);
+				//service.updateSafe(safe);
 				for(OrderForm of : orderForms){
 					of.setState(new State(9));
-					service.updateOrderForm(of);
+					//service.updateOrderForm(of);
+					service.pay(safe,of);
 					sumPrice +=of.getBuyNum()*of.getGoods().getPrice();
 				}
 				planPay.remove(key);
 				this.result = Conversion.stringToJson("message,true");
 				ActionContext.getContext().getSession().put("user", user);
+				return SUCCESS;
 			}catch(Exception e){
 				this.result = Conversion.stringToJson("message,false,cause,支付异常!!");
 			}
-			return SUCCESS;
+			return ERROR;
 		}
 		this.result = Conversion.stringToJson("message,false,password,false,cause,密码错误!!");
-		return SUCCESS;
+		return ERROR;
 	}
-	public Object threadUpdate(String[] args){
+	/*public boolean checkRepeat(String id){
+		Collection<List<OrderForm>> coll = planPay.values();
+		for(List<OrderForm> list :planPay.values()){
+			for(OrderForm of : list){
+				if(of.getId().equals(id)){
+					return false;
+				}
+			}
+		}
+		return true;
+	}*/
+	/*public Object threadUpdate(String[] args){
 		OrderForm of = service.findOrderFormById(args[0]);
 		if(of!=null){
 			if(of.getState().getId()!=10)return null;
@@ -186,5 +245,5 @@ public class PayAction extends ActionSupport{
 			return of;
 		}
 		return null;
-	}
+	}*/
 }

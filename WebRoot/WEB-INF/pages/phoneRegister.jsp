@@ -45,7 +45,7 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top mynav"
 			role="navigation">
 		<div class="navbar-header">
-			<a href="index.html" class="navbar-brand"><img src="img/logo.png"></a>
+			<a href="index" class="navbar-brand"><img src="img/logo.png"></a>
 			<div class="minMenu">
 				<span class="glyphicon glyphicon-menu-hamburger dropdown-toggle"
 					data-toggle="dropdown"></span>
@@ -76,22 +76,6 @@
 								href="phoneRegisterUi?request_locale=en_US"><s:text
 										name="english" /></a></li>
 						</ul> </li>
-					<li class="dropdown">
-							<button class="btn btn-default dropdown-toggle" type="button"
-								data-toggle="dropdown" aria-expanded="true">
-								<s:text name="help" />
-								<span class="caret"></span>
-							</button>
-							<ul class="nav" role="menu"
-								aria-labelledby="dropdownMenu1">
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="#"><s:text name="makeGuide" /></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="#"><s:text name="customerService" /></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="#"><s:text name="about" /></a></li>
-							</ul>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -187,7 +171,7 @@
 					class="col-sm-2 control-label col-md-offset-3"><s:text
 						name="phone" /></label>
 				<div class="col-sm-4">
-					<input type="text" name="phone" value="${phone}"
+					<input type="text" name="phone" value="${phone}" maxlength="11"
 						class="form-control" id="inputPhone"
 						aria-describedby="inputSuccess2Status"
 						placeholder="<s:text name="inputPhonePrompt"/>">
@@ -307,7 +291,6 @@
 			</div>
 		</form>
 	</div>
-	<s:debug></s:debug>
 	<footer class="footer">
 	<div class="container">
 		<p class="text-muted">
@@ -380,11 +363,11 @@
 			usernameInvalid : '<s:text name="usernameInvalid"/>',
 		}
 	</script>
-	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery/jquery.min.js"></script>
 	<script src="js/menu.js"></script>
-	<script src="js/map.js"></script>
+	<script src="js/admin/map.js"></script>
 	<script src="js/register.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 	<script src="js/vendor/holder.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

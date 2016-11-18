@@ -59,6 +59,9 @@
 .myContent{
    height:400px;
 }
+.modal-content{
+	min-width:600px;
+}
 .iframeContent{
     width:100%;height:100%;
 }

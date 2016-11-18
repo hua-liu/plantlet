@@ -169,9 +169,6 @@ public class GoodsAction extends ActionSupport implements
 
 	@Override
 	public GoodsForm getModel() {
-		if(goodsId!=null){
-			Goods goods = service.findGoodsById(goodsId);
-		}
 		goodsForm = new GoodsForm();
 		return goodsForm;
 	}

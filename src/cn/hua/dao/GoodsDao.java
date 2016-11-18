@@ -18,4 +18,5 @@ public interface GoodsDao extends Dao<Goods> {
 	public List<Goods> getGoodsRewardPaging(GoodsPaging paging);
 	public BreviaryPicture getGoodsBreviaryPicture(String id);
 	public void deleteGoodsBreviaryPicture(String id);
+	public List<String> getAllColor();
 }

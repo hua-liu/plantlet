@@ -14,7 +14,7 @@ public class Identity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
-	private String num;//身份证
+	private String identityNumber;//身份证
 	private Photo frontPhoto;
 	private Photo backPhotot;
 	private Photo selfPhoto;
@@ -33,11 +33,12 @@ public class Identity implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getNum() {
-		return num;
+	
+	public String getIdentityNumber() {
+		return identityNumber;
 	}
-	public void setNum(String num) {
-		this.num = num;
+	public void setIdentityNumber(String identityNumber) {
+		this.identityNumber = identityNumber;
 	}
 	@OneToOne
 	public Photo getFrontPhoto() {

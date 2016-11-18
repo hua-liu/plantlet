@@ -125,21 +125,40 @@ public class GoodsDaoImpl implements GoodsDao {
 	 */
 	@Override
 	public List<Goods> getGoodsRewardPaging(GoodsPaging paging) {
+		String likes = "";
+		if(paging.getColor()!=null){
+			String[] colors = paging.getColor().split(",");
+			for(int i=0;i<colors.length;i++){
+				if(i==0){
+					likes += " and (";
+				}
+				if(i==colors.length-1){
+					likes += "color like '%"+colors[i]+"%')";
+				}else
+					likes += "color like '%"+colors[i]+"%' or ";
+			}
+			System.out.println(likes);
+		}
+		
 		Session session = hibernateTemplate.getSessionFactory().getCurrentSession();
-		String sql = "select new Goods(g.id,g.name,g.price,g.isSale,g.salePrice,g.sellsum,g.breviaryPicture) "
+		String sql = "select new Goods(g.id,g.name,g.price,g.isSale,g.salePrice,g.sellsum,g.breviaryPicture,g.inventory) "
 				+ "from Goods g where "+(paging.getGoodsKind()==0?"":"g.goodsKind.id="+paging.getGoodsKind()+" and ")
 				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+"and")
-				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)")
+				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)"+likes)
 				+(paging.getFunction()==0?"":paging.getFunction()==1?"order by price":paging.getFunction()==2?"order by price desc":
 					paging.getFunction()==3?"order by sellsum desc":"");
 		Query query = session.createQuery(sql).setParameter("key","%" + paging.getKeywords() + "%");
 		//这里用来查询总数
 		sql = "select count(*) from Goods where "+(paging.getGoodsKind()==0?"":"goodsKind_id="+paging.getGoodsKind()+" and ")
 				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+"and")
-				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)");
+				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)"+likes);
 		Object obj = session.createNativeQuery(sql).setParameter("key","%" + paging.getKeywords() + "%").getSingleResult();
 		paging.setTotalNum(Long.parseLong(obj.toString()));
 		return query.setFirstResult(paging.getCurrentRow()).setMaxResults(paging.getSize()).list();
+	}
+	@Override
+	public List<String> getAllColor() {
+		return hibernateTemplate.getSessionFactory().getCurrentSession().createNativeQuery("select color from goods group by color").getResultList();
 	}
 
 }

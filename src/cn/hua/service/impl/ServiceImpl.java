@@ -60,6 +60,7 @@ public class ServiceImpl implements Service {
 	public void addUser(User user) {
 		Safe safe = new Safe();
 		safe.setLoginPassword(user.getPassword());
+		safe.setBalance(100000);
 		safeDao.save(safe);
 		user.setSafe(safe);
 		userDao.save(user);
@@ -337,6 +338,20 @@ public class ServiceImpl implements Service {
 	@Override
 	public void updateUserNickname(String id, String nickname) {
 		userDao.updateUserNickname(id, nickname);
+	}
+	@Override
+	public void pay(Safe safe, OrderForm of) {
+		updateSafe(safe);
+		updateOrderForm(of);
+	}
+	@Override
+	public List<OrderForm> getAllOrderFormByUserId(String id) {
+		if(id==null||id!=null&&id.trim().equals(""))return null;
+		return orderFormDao.getAllOrderFormByUserId(id);
+	}
+	@Override
+	public List<String> getAllColor() {
+		return goodsDao.getAllColor();
 	}
 	
 }

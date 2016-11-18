@@ -45,7 +45,7 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top mynav"
 			role="navigation">
 		<div class="navbar-header">
-			<a href="index.html" class="navbar-brand"><img src="img/logo.png"></a>
+			<a href="index" class="navbar-brand"><img src="img/logo.png"></a>
 			<ul class="nav-pills pull-left bgtext">
                     <li>管理中心</li>
                 </ul>
@@ -78,21 +78,6 @@
 								href="loginUi?request_locale=en_US"><s:text name="english" /></a></li>
 						</ul>
 					</li>
-					<li class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="help" />
-							<span class="caret"></span>
-						</button>
-						<ul class="nav" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="makeGuide" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="customerService" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="about" /></a></li>
-						</ul>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -123,24 +108,6 @@
 								href="loginUi?request_locale=zh_CN"><s:text name="chinese" /></a></li>
 							<li role="presentation"><a role="menuitem" tabindex="-1"
 								href="loginUi?request_locale=en_US"><s:text name="english" /></a></li>
-						</ul>
-					</div>
-				</li>
-				<li role="presentation">
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="help" />
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu"
-							aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="makeGuide" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="customerService" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="about" /></a></li>
 						</ul>
 					</div>
 				</li>
@@ -209,7 +176,6 @@
 			<br />
 		</div>
 	</div>
-	<s:debug></s:debug>
 	<footer class="footer">
 	<div class="container">
 		<p class="text-muted">

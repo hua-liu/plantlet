@@ -21,10 +21,10 @@
 <meta http-equiv="Refresh" content="10;url=loginUi?account=${user.phone }">
 <title><s:text name="registerSuccess" /></title>
 <!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/dashboard.css" rel="stylesheet">
-<link rel="stylesheet" href="css/background.css" type="text/css">
+<link href="css/admin/dashboard.css" rel="stylesheet">
+<link rel="stylesheet" href="css/admin/background.css" type="text/css">
 <link href="css/menu.css" rel="stylesheet">
 <link href="css/registerSuccess.css" rel="stylesheet">
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -75,22 +75,6 @@
 								href="phoneSuccess?request_locale=en_US"><s:text
 										name="english" /></a></li>
 						</ul> </li>
-					<li class="dropdown">
-							<button class="btn btn-default dropdown-toggle" type="button"
-								data-toggle="dropdown" aria-expanded="true">
-								<s:text name="help" />
-								<span class="caret"></span>
-							</button>
-							<ul class="nav" role="menu"
-								aria-labelledby="dropdownMenu1">
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="#"><s:text name="makeGuide" /></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="#"><s:text name="customerService" /></a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									href="#"><s:text name="about" /></a></li>
-							</ul>
-					</li>
 				</ul>
 			</div>
 		</div>

@@ -1,9 +1,13 @@
 package cn.hua.action;
 
+import cn.hua.formBean.GoodsForm;
 import cn.hua.model.Goods;
 import cn.hua.service.Service;
+import cn.hua.utils.Conversion;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
 import org.apache.struts2.interceptor.RequestAware;
 
 import java.util.Map;
@@ -22,7 +26,7 @@ public class SingleAction extends ActionSupport implements RequestAware{
 	public void setGoodsId(String goodsId) {
 		this.goodsId = goodsId;
 	}
-	public String get(){
+	public String getProductSingle(){
 		if(goodsId==null){
 			return "index";
 		}
@@ -32,7 +36,8 @@ public class SingleAction extends ActionSupport implements RequestAware{
 		}
 		goods.setGoodsPicture(null);
 		request.put("goodsPictures", service.getGoodsPicturesByGoodsId(goodsId));
-		ActionContext.getContext().getValueStack().push(goods);
+		GoodsForm goodsForm = new Conversion<GoodsForm, Goods>().beanToBean(new GoodsForm(), goods);	//bean转换
+		ActionContext.getContext().getValueStack().push(goodsForm);
 		return SUCCESS;
 	}
 	@Override

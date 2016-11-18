@@ -167,7 +167,7 @@ function checkInput() {
 	var typeValue = document.getElementById("registerType").value;
 	if (typeValue == "phone") {
 		checkPhoneMust();
-		checkverificationCode();
+		//checkverificationCode();
 		checkEmail();
 	} else if (typeValue == "username") {
 		checkUsername();
@@ -204,7 +204,7 @@ function checkverificationCode() {
 		inputError.put("verificationCode", getElement("#verificationCode"));
 	} else {
 		getElement("#jsverificationCodeError").innerHTML = "";
-		inputError.remove("verificationCode");
+		//inputError.remove("verificationCode");
 	}
 }
 function checkPhone() {

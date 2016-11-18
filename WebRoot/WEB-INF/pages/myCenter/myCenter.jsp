@@ -40,6 +40,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.loader-inner>div{
 			border:none;
 		}
+		.head .left{
+			float:left;
+		}
+		.head p a{
+			margin:0 5px;color:#FFF;
+		}
 	</style>
 	<script type="text/javascript">
 		function removeLoading(){
@@ -48,9 +54,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
   </head>
 <body style="background:url('img/background.jpg')">
+<div class="bodyLoader" style="width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,0.8);z-index:1500"><div class="loader-inner square-spin"><div></div></div></div>
 <div class="container">
         <div class="head">
-            <p>欢迎回来 《上次登陆时间:2016-6-6 12:12:12》</p>
+        	<p class="left"><a href="index">返回首页</a></p>
+            <p>欢迎回来 《上次登陆时间:<s:date name="log.currentDate!=null?log.currentDate:'您是第一次登陆'" format="yyyy-MM-dd HH:mm:ss"/> 登陆IP：${log.changeIp!=null?log.changeIp:'您是第一次登陆'}》<a href="userLogout">退出</a></p>
         </div>
         <div class="body">
             <table class="table col-md-12">
@@ -68,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 	</s:else>
                                     <br/>
                                 </div>
-                                <p style="margin-top:10px;"><h3 class="modifyHover"><span class="nickname"><s:property value="#session.user.nickname!=null?#session.user.nickname:'您还没有昵称'"/></span><small class="nickname_modify"><i class="glyphicon glyphicon-pencil"></i></small></h3></p>
+                                <p style="margin-top:10px;"><h3 class="modifyHover"><span class="nickname"><s:property value="#session.user.nickname!=null?#session.user.nickname:'您还没有昵称'"/></span></h3></p>
                                 <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -200,21 +208,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <p>小苗基地@liuhua</p>
         </div>
     </div>
+    <s:debug></s:debug>
     <div class="modal fade bs-example-modal-lg" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#000">&times;</span></button>
-                    <h4 class="modal-title" id="contentModalLabel" style="color:#000;font-size:15px;">Modal title</h4>
+                    <h4 class="modal-title" id="contentModalLabel" style="color:#000;font-size:15px;">${function==1?'我的信息':function==2?'我的订单':function==3?'我的金库':function==4?'收货地址维护':function==5?'消息提醒':'安全设置' }</h4>
                 </div>
                 <div class="modal-body myContentBody">
                     <div class="myContent">
-                         <iframe src="" class="iframeContent" onload="removeLoading()"></iframe>
+                    	<s:if test="function!=0">
+                    		<script>
+                    			$(function(){
+                    				$("#contentModal").modal("show");
+                    			})
+                    		</script>
+                    	</s:if>
+                    	<s:if test="function==1">
+                    		<s:url var="url" value="center_myInfo"></s:url>
+                    	</s:if>
+                    	<s:elseif test="function==2">
+                    		<s:url var="url" value="center_myOrderForm"></s:url>
+                    	</s:elseif>
+                    	<s:elseif test="function==3">
+                    		<s:url var="url" value="center_myMoney"></s:url>
+                    	</s:elseif>
+                    	<s:elseif test="function==4">
+                    		<s:url var="url" value="center_myDeliveryAddr"></s:url>
+                    	</s:elseif>
+                    	<s:elseif test="function==5">
+                    		<s:url var="url" value="center_myMessage"></s:url>
+                    	</s:elseif>
+                    	<s:elseif test="function==6">
+                    		<s:url var="url" value="center_mySafe"></s:url>
+                    	</s:elseif>
+                    	<s:else>
+                    		<s:url var="url" value=""></s:url>
+                    	</s:else>
+                         <iframe src="${url}" class="iframeContent" onload="removeLoading()"></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <audio id="sound">
+		<source src="sound/msn.mp3" type="audio/mpeg" class="source">
+ 		<source src="sound/msn.wav" type="audio/wav" class="source">
+	</audio>
     <script src="js/fileUpload/ajaxfileupload.js" type="text/javascript"></script>
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/myCenter/myCenter.js" type="text/javascript"></script>

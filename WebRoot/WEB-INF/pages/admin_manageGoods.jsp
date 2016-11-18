@@ -57,7 +57,7 @@
 		<s:hidden name="keywords" />
 		<s:hidden name="size" />
 		<s:hidden name="isShowChart" />
-		<s:hidden name="currentPage" id="currentPage" />
+		<s:hidden name="currentPage"/>
 	</form>
 	<!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
 	<!-- <link href="css/menu.css" rel="stylesheet"> -->

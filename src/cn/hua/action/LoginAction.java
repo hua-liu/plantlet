@@ -5,7 +5,6 @@ import org.apache.struts2.ServletActionContext;
 import cn.hua.annotation.Jurisdiction;
 import cn.hua.formBean.UserLogin;
 import cn.hua.model.User;
-import cn.hua.service.Service;
 import cn.hua.utils.CacheData;
 import cn.hua.utils.Verification;
 
@@ -19,9 +18,12 @@ public class LoginAction extends ActionSupport implements
 	private UserLogin userLogin;
 	private String resourceUrl;
 	private String url;
-	private Service service;
-	public void setService(Service service) {
-		this.service = service;
+	private String account;
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
 	}
 	public void setUrl(String url) {
 		this.url = url;
@@ -43,10 +45,11 @@ public class LoginAction extends ActionSupport implements
 	//private HttpServletResponse httpServletResponse;
 
 	public String accountParameter() {
-		ActionContext.getContext().getSession().remove("user");
-		ActionContext.getContext().getValueStack().push(userLogin);
-		System.out.println(url);
-		ActionContext.getContext().getSession().put("url", url);
+		if(ActionContext.getContext().getSession().get("account")!=null){
+			ServletActionContext.getRequest().setAttribute("account", ActionContext.getContext().getSession().get("account"));
+			ActionContext.getContext().getSession().remove("account");
+		}
+		/*ActionContext.getContext().getValueStack().push(userLogin);*/
 		return SUCCESS;
 	}
 	/**

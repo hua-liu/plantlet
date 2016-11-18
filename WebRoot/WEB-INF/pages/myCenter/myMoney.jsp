@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -50,8 +52,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             margin:0;
         }
         .recordBox{
-            width:100%;height:365px;
+            width:100%;height:360px;
             overflow:auto;
+            padding:0;
+        }
+        .recordBox li{
+        	background:rgba(0,0,0,0.1);
+        	list-style:none;
+        	margin-bottom:1px;
+        	padding:5px;
         }
     </style>
 </head>
@@ -60,16 +69,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="container-fluid" style="height:400px">
     <div class="left">
         <h1>你的余额</h1>
-         <h2><span title="点击显示">100000元</span></h2>
+         <h2><span title="点击显示">
+         <s:i18n name="format">
+			<s:text name="struts.percent">
+				<s:param value="safe.balance" />
+			</s:text>
+		</s:i18n>
+         	元</span></h2>
     </div>
     <div class="right">
-        <p class="rightHead"><b>消费纪录</b></p>
-        <div class="recordBox">
-            11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>
-            11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>
-            11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>
-            11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>11<br/>
-        </div>
+        <p class="rightHead"><b>最近消费纪录</b></p>
+        <ul class="recordBox">
+        <s:iterator value="#request.logs">
+        	<li>
+	        	<p>消费日期：<s:date name="currentDate" format="yyyy-MM-dd hh:mm:ss"/></p>
+	        	<p>I&nbsp;P地址：${changeIp}</p>
+	        	<p>消费金额：
+	        	<fmt:formatNumber value="${changeBegin-changeAfter}" pattern="#0.00"/>
+	        	元</p>
+	        	<p>剩余金额：
+	        	<fmt:formatNumber value="${changeAfter}" pattern="#0.00"/>
+	        	元</p>
+        	</li>
+        </s:iterator>
+        </ul>
     </div>
 </div>
 <script src="js/jquery/jquery.min.js" type="text/javascript"></script>

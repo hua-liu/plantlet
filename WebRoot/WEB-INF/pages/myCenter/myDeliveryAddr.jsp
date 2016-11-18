@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -19,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="css/auctionOrder.css" type="text/css" rel="stylesheet">
     <style type="text/css">
-        ul li{
+        #gallery-wrapper li{
             width:150px;
             list-style: none;
             border:1px solid #CCC;
@@ -28,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             text-align:center;
             display:block;
         }
-        ul li:hover{
+        #gallery-wrapper li:hover{
             border-color:green;
             cursor:pointer;
         }
@@ -42,14 +43,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             max-width: 100%;
             height: auto;
         }
-        .boxCont {
+        .boxCont,.boxContPrimary {
             position: absolute;
             background: white;
             border-radius: 5px;
             box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
             padding: 5px;
         }
-        .boxCont:hover {
+        .boxCont:hover,.boxContPrimary:hover {
             box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
             margin-top: -5px;
             -webkit-transition: all 0.3s ease-in-out;
@@ -57,27 +58,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             -o-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
         }
+        .delAddress{
+        	width:20px;height:20px;
+        	display:none;
+        	position:absolute;
+        	right:2px;top:90%;
+        }
+        .delAddress:hover{
+        	color:#F00;
+        }
     </style>
 </head>
 <body>
     <ul id="gallery-wrapper">
-        <li class="boxCont" style="height:200px;line-height:200px;" data-toggle="modal"
-            data-target="#addAddrModal" id="addAddrModalButton"><i class="glyphicon glyphicon-plus"><br/>添加新地址</i></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>刘华<br/>刘华<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>刘华<br/>刘华<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>刘华<br/>刘华<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>刘华<br/>刘华<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
-        <li class="boxCont"><p  class="thumb"><span>四川省<br/>内江市<br/>东兴区<br/>东兴街道<br/>东兴区尚华名<br/>东兴区尚华名<br/>刘华<br/>15808325356</span></p></li>
+        <li class="boxContPrimary" style="height:200px;" data-toggle="modal"
+            data-target="#addAddrModal" id="addAddrModalButton"><i class="glyphicon glyphicon-plus" style="margin-top:40%;"><br/>添加新地址</i></li>
+       <s:iterator value="#request.addrs" status="c">
+      	<li class="boxCont" data-id="${id}"><p class="thumb"><span>${address.replace("--","<br/>")}<br/>${moreAddress}<br/>${name}<br/>${phone}</span></p><span class="glyphicon glyphicon-remove delAddress" title="删除"></span></li>
+	</s:iterator>
     </ul>
     <div class="modal fade" id="addAddrModal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -288,6 +286,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!--流动布局-->
     <script src="js/myCenter/layout/pinterest_grid.js"></script>
+    <script src="js/ChineseAscii.js"></script>
+    <script src="js/auctionOrder.js"></script>
     <script type="text/javascript">
         $(function(){
             $("#gallery-wrapper").pinterest_grid({

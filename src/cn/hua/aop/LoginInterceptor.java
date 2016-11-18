@@ -29,20 +29,6 @@ public class LoginInterceptor extends MethodFilterInterceptor{
 	public void setService(Service service) {
 		this.service = service;
 	}
-/*	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public String intercept(ActionInvocation action) throws Exception {
-		
-	}*/
 	@Override
 	protected String doIntercept(ActionInvocation action) throws Exception {
 		User user = (User) action.getInvocationContext().getSession().get("user");	//从session获取用户

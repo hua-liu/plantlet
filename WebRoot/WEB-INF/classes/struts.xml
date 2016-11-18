@@ -14,6 +14,7 @@
 	<interceptors>
 		<interceptor name="permissionInterceptor" class="cn.hua.aop.PermissionInterceptor"></interceptor>
 		<interceptor name="loginInterceptor" class="cn.hua.aop.LoginInterceptor"></interceptor>
+		<interceptor name="loggingInterceptor" class="cn.hua.aop.LoggingInterceptor"></interceptor>
 	</interceptors>
 		<default-action-ref name="index" />
 	<global-results>
@@ -30,7 +31,8 @@
 		</action>
 		<!-- 产品详细页 -->
 		<action name="single" class="cn.hua.action.SingleAction"
-			method="get">
+			method="getProductSingle">
+			<interceptor-ref name="loggingInterceptor" />
 			<interceptor-ref name="loginInterceptor"/>
 			<interceptor-ref name="defaultStack"/>
 			<result name="index">WEB-INF/pages/index.jsp</result>
@@ -83,28 +85,29 @@
 			<interceptor-ref name="defaultStack" />
 			<result name="success">WEB-INF/pages/admin.jsp</result>
 			<result name="input" type="redirectAction">adminuserLogin</result>
+			<result name="error" type="redirectAction">adminuserLogin</result>
 		</action>
 		<!-- 注册页面跳转 -->
 		<action name="*RegisterUi">
 			<result>WEB-INF/pages/{1}Register.jsp</result>
 		</action>
 		<!-- 注册数据处理 -->
-		<action name="*RegisterUser" class="cn.hua.action.RegisterAction"
-			method="register">
+		<action class="cn.hua.action.RegisterAction" name="*RegisterUser" method="register">
 			<result type="redirectAction">{1}Success</result>
 			<result name="input">WEB-INF/pages/{1}Register.jsp</result>
-			<!-- <exception-mapping result="phoneInput" exception="javax.persistence.PersistenceException"> 
-				<param name="fieldErrors.phoneError">手机号已被使用</param> </exception-mapping> -->
+		</action>
+		<action name="*Success" class="cn.hua.action.LoginAction" method="accountParameter">
+			<result>WEB-INF/pages/{1}Success.jsp</result>
 		</action>
 		<!--登陆页面跳转 -->
-		<action name="*loginUi" class="cn.hua.action.LoginAction"
-			method="accountParameter">
+		<action name="*loginUi" class="cn.hua.action.LoginAction" method="accountParameter">
 			<result>WEB-INF/pages/{1}login.jsp</result>
 		</action>
 		<!-- 登陆数据处理 -->
 		<action name="*userLogin" class="cn.hua.action.LoginAction"
 			method="{1}login">
 			<interceptor-ref name="permissionInterceptor" />
+			<interceptor-ref name="loggingInterceptor" />
 			<interceptor-ref name="defaultStack" />
 			<result name="admin" type="redirectAction">admin</result>
 			<result type="redirectAction">${resourceUrl}</result><!-- 重定向到来源页 -->
@@ -131,8 +134,11 @@
 		<action name="pay_payUi" class="cn.hua.action.PayAction" method="payUi">
 			<result>WEB-INF/pages/payUi.jsp</result>
 		</action>
+		<action name="pay_goPayUi" class="cn.hua.action.PayAction" method="goPayUi">
+			<result>WEB-INF/pages/payUi.jsp</result>
+		</action>
 		<!-- 我的中心跳转 -->
-		<action name="myCenter">
+		<action name="myCenter" class="cn.hua.action.MyCenterAction">
 			<interceptor-ref name="permissionInterceptor" />
 			<interceptor-ref name="defaultStack" />
 			<result>WEB-INF/pages/myCenter/myCenter.jsp</result>
@@ -150,10 +156,14 @@
 		<interceptors>
 			<interceptor name="permissionInterceptor" class="cn.hua.aop.PermissionInterceptor"></interceptor>
 			<interceptor name="loginInterceptor" class="cn.hua.aop.LoginInterceptor"></interceptor>
+			<interceptor name="loggingInterceptor" class="cn.hua.aop.LoggingInterceptor"></interceptor>
 		</interceptors>
 		<global-results>
 			<result name="input" type="redirectAction">ajaxInput</result>
 			<result type="json">
+				<param name="root">result</param>
+			</result>
+			<result name="error" type="json">
 				<param name="root">result</param>
 			</result>
 		</global-results>
@@ -236,9 +246,14 @@
 		<action name="provines" class="cn.hua.action.ProvinesAction"></action>
 		<!-- 收货地址  -->
 		<action name="address_*" class="cn.hua.action.AddressAction" method="{1}"></action>
-		<action name="pay_pay" class="cn.hua.action.PayAction" method="pay"></action>
+		<action name="pay_pay" class="cn.hua.action.PayAction" method="pay">
+			<interceptor-ref name="loggingInterceptor" />
+			<interceptor-ref name="defaultStack" />
+		</action>
 		<!--更改用户昵称-->		
 		<action name="myCenter_*" class="cn.hua.action.UserMoreInfoModify" method="{1}"></action>
+		<!-- myMessage -->
+		<action name="myMessage_*" class="cn.hua.action.MyMessageAction" method="{1}"></action>
 	</package>
 	<!-- Add packages here -->
 

@@ -27,6 +27,7 @@
 <script src="js/jquery/jquery.min.js"></script>
 <%-- <script src="js/owl.carousel.js"></script> --%>
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<link href="css/admin/animation.css" rel="stylesheet">
 <!--聊天-->
 <link rel="stylesheet" href="css/admin/AdminLTE.min.css">
 <link href="css/chat.css" rel="stylesheet">
@@ -133,9 +134,20 @@ a:hover {
 .popover-content{
 	color:#000;
 }
+.color{
+	width:30px;height:30px;float:left;
+	border:1px solid #CCC;margin:0 2px;
+}
+.color:hover{
+	cursor:pointer;
+}
+.color.checked{
+	border:4px solid #555;
+}
 </style>
 </head>
 <body>
+<div class="bodyLoader" style="width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,0.4);z-index:1500"><div class="loader-inner square-spin" style="top:48%;left:48%;position:absolute;"><div style="border:none;background:#1E90FF"></div></div></div>
 	<!-- 购物车开始  -->
 	<div id="st-container" class="st-container">
 	<s:if test="#session.user!=null">
@@ -208,39 +220,31 @@ a:hover {
 										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<s:if test="#session.user!=null">
-											<li><a href="#"><s:property
-														value="#session.user.username" /></a></li>
+											<li><a href="myCenter"><s:property
+														value="#session.user.nickname!=null?#session.user.nickname:#session.user.username!=null?#session.user.username:#session.user.email!=null?#session.user.email:#session.user.phone"/></a></li>
 											<li><a href="userLogout">注销</a></li>
-											<li><a href="login.html">我的订单</a></li>
-											<li><a href="login.html">钱包</a></li>
+											<li><a href="myCenter?function=2">我的订单</a></li>
+											<li><a href="myCenter?function=3">钱包</a></li>
 										</s:if>
 										<s:else>
 											<li><a href="loginUi">登陆</a></li>
 										</s:else>
 									</ul></li>
-										<s:if test="#session.user!=null">
-								<li class="dropdown head-dpdn"><a href="#"
-									class="dropdown-toggle" data-toggle="dropdown"><i
-										class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
-										class="caret"></span></a>
-									<ul class="dropdown-menu">
-											<li id="st-trigger-effects" class="column"><a href="javascript:"
-											data-effect="st-effect-13" class="st-effect">查看购物车</a></li>
-										<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
-									</ul></li>
-									</s:if>
-								<li class="dropdown head-dpdn"><a href="card.html"
-									class="dropdown-toggle"><i class="fa fa-star"
-										aria-hidden="true"></i>收藏夹</a></li>
-								<!-- <!-- <li class="dropdown head-dpdn"><a href="contact.html"
-						class="dropdown-toggle"><i class="fa fa-map-marker"
-							aria-hidden="true"></i>实体店</a></li> -->
-									<li class="dropdown head-dpdn linkService"><a
+								<s:if test="#session.user!=null">
+									<li class="dropdown head-dpdn"><a href="#"
+										class="dropdown-toggle" data-toggle="dropdown"><i
+											class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
+											class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li id="st-trigger-effects" class="column"><a
+												href="javascript:" data-effect="st-effect-13"
+												class="st-effect">查看购物车</a></li>
+											<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
+										</ul></li>
+								</s:if>
+								<li class="dropdown head-dpdn linkService"><a
 									href="javascript:void(0)" class="dropdown-toggle"><i
 										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
-								<li class="dropdown head-dpdn"><a href="help.html"
-									class="dropdown-toggle"><i class="fa fa-question-circle"
-										aria-hidden="true"></i> 帮助</a></li>
 							</ul>
 						</div>
 						<div class="clearfix"></div>
@@ -412,13 +416,25 @@ a:hover {
 										<s:if test="isSale=='1'">
 											<tr>
 												<td class="col-md-1 col-sm-1 col-lg-1">原价</td>
-												<td><del>${price }$</del></td>
+												<td><del>
+												<s:i18n name="format">
+													<s:text name="struts.percent">
+														<s:param value="price" />
+													</s:text>
+												</s:i18n>
+												$</del></td>
 											</tr>
 											<tr>
 												<td style="line-height: 70px;">优惠价</td>
 												<td style="color: #C40000;"><i class="fa fa-rmb"
 													style="font-size: 20px; margin-right: 10px;"></i><span class="price"
-													style="font-size: 40px;">${salePrice}</span> <small
+													style="font-size: 40px;">
+													<s:i18n name="format">
+														<s:text name="struts.percent">
+															<s:param value="salePrice" />
+														</s:text>
+													</s:i18n>
+													</span> <small
 													style="color: #999999; font-size: 10px; margin-left: 50px;">优惠截止时间
 														：${saleTime}</samll></td>
 											</tr>
@@ -428,18 +444,26 @@ a:hover {
 												<td class="col-md-1 col-sm-1 col-lg-1" style="line-height: 70px;">价格</td>
 												<td style="color: #C40000;"><i class="fa fa-rmb"
 													style="font-size: 20px; margin-right: 10px;"></i><span class="price"
-													style="font-size: 40px;">${price}</span> 
+													style="font-size: 40px;">
+													<s:i18n name="format">
+																<s:text name="struts.percent">
+																	<s:param value="price" />
+																</s:text>
+															</s:i18n>
+													</span> 
 											</tr>
 										</s:else>
 										<tr>
 											<td colspan="2" style="font-size: 15px;">总销量 <span
-												style="color: #C40000">${sellsum}</span><span
-												style="margin: 0 30px;">|</span>累计评价 <span
-												style="color: #e00">999</span></td>
+												style="color: #C40000">${sellsum}</span></td>
 										</tr>
 										<tr>
 											<td>颜色</td>
-											<td>${color }</td>
+											<td class="colorTd" data-toggle="popover" data-placement="left" data-content="颜色必选一项">
+											<s:iterator value="colors" var="c">
+												<div style="background-color:${c}" class="color" data="${c}"></div>
+											</s:iterator>
+											</td>
 										</tr>
 										<tr>
 											<td>${otherName }</td>
@@ -489,7 +513,7 @@ a:hover {
 								<div class="clearfix"></div>
 							</div>
 
-							<div class="single-page-icons social-icons">
+							<!-- <div class="single-page-icons social-icons">
 								<ul>
 									<li><i class="fa fa-heart-o" aria-hidden="true"></i>点击收藏该宝贝</li>
 									<li><h4>Share on</h4></li>
@@ -502,7 +526,7 @@ a:hover {
 									</a></li>
 									<li><a href="#" class="fa fa-rss icon rss"> </a></li>
 								</ul>
-							</div>
+							</div> -->
 						</div>
 					</div>
 
@@ -662,14 +686,15 @@ a:hover {
 	<script src="js/move.js"></script>
 	<script src="js/chat.js"></script>
 	<script src="js/admin/levelControl.js" type="text/javascript"></script>
-	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+	<script src="js/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 	<script src="css/face/js/jquery-browser.js"></script>
 	<script src="css/face/js/jquery.qqFace.js"></script>
 	<script src="js/fileUpload/ajaxfileupload.js"></script>
 	<script type="text/javascript">
-				var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		$(function(){
+		$(".bodyLoader").remove();
 			//显示聊天窗口
 			$(".linkService").click(function(){
 			if($('.chatWinBox').is(":hidden")){

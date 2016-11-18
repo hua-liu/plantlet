@@ -38,8 +38,10 @@
 <link rel="stylesheet" href="css/admin/background.css" type="text/css">
 <link href="css/admin/animation.css" rel="stylesheet">
 <link href="css/admin/admin.css" rel="stylesheet">
-<link href="css/admin/multipleChoice.css" rel="stylesheet">
-<link href="css/admin/admin-putaway.css" rel="stylesheet">
+<link href="css/admin/multipleChoice.css" rel="stylesheet" type="text/css">
+<link href="css/admin/admin-putaway.css" rel="stylesheet" type="text/css">
+<link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
+<link href="css/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js" ></script><![endif]-->
 <%-- <script src="js/ie-emulation-modes-warning.js"></script> --%>
@@ -52,7 +54,7 @@
     <![endif]-->
 </head>
 <body style="padding-top:0">
-		<div class="putawayGoodsBox">
+		<div class="putawayGoodsBox"><s:debug></s:debug>
 			<!-- 产品开始 -->
 			<div class="products col-md-12" id="products">
 			<s:if test="goodsId==null">
@@ -202,7 +204,7 @@
 							</tr>
 							<tr class="isSale">
 								<td>打折结束时间</td>
-								<td><input type="date" placeholder="格式：yyyy/mm/dd"  value='<s:date name="saleTime" format="yyyy-MM-dd"/>'
+								<td><input type="text" placeholder="格式：yyyy/mm/dd" id="datepicker" value='<s:date name="saleTime" format="yyyy-MM-dd"/>'
 									name="saleTime" class="form-control" style="width:50%"
 									data-toggle="popover" data-placement="top"
 									data-content="打折时间不能为空"></td>
@@ -232,7 +234,10 @@
 								<td>商品颜色</td>
 								<td>
 								<s:iterator value="colors" var="c">
-									<input type='color' name='color' value="${c}">
+									<div class="input-group myColorpicker colorpicker-element" style="width:30px;height:30px;float:left;">
+										<input type="hidden" class="form-control" name="colors" value="${c}">
+										<div class="input-group-addon" style="background-color:${c}"></div>
+									</div>
 								</s:iterator>
 									<button class="addColor" type="button">+</button>
 								</td>
@@ -312,7 +317,8 @@
 				<!-- //collapse -->
 			</div>
 			<!--//products-->
-		</div>
+	<script src="js/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+	<script src="js/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 	<script src="js/fileUpload/ajaxfileupload.js"></script>
 	<script src="js/admin/admin-addGoods.js"></script>
 	<script src="js/admin/map.js"></script>
@@ -323,6 +329,14 @@
 		var isShowChart = ${isShowChart}; */
 	/* 	var classify = ${classify}; */
 		/* var putawayGoods = ${putawayGoods}; */
+		$(function(){
+			//Date picker
+		    $('#datepicker').datepicker({
+		      autoclose: true
+		    });
+		     //Colorpicker
+   			 $(".myColorpicker").colorpicker();
+		})
 		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
 		var i18n = new Map();
 		for ( var key in i18nConfig) {

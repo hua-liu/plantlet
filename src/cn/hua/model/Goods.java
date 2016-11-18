@@ -60,7 +60,7 @@ public class Goods implements Serializable {
 		this.breviaryPicture = breviaryPicture;
 	}
 	public Goods(String goodsId, String name, float price, int isSale,
-			float salePrice, long sellsum, BreviaryPicture breviaryPicture) {
+			float salePrice, long sellsum, BreviaryPicture breviaryPicture,int inventory) {
 		this.goodsId = goodsId;
 		this.name = name;
 		this.price = price;
@@ -68,6 +68,7 @@ public class Goods implements Serializable {
 		this.salePrice = salePrice;
 		this.sellsum = sellsum;
 		this.breviaryPicture = breviaryPicture;
+		this.inventory = inventory;
 	}
 
 	@Id

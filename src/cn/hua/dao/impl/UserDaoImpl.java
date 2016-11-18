@@ -63,7 +63,7 @@ public class UserDaoImpl implements UserDao {
 	public User findAccount(String value) {
 		@SuppressWarnings("unchecked")
 		List<User> list = (List<User>) hibernateTemplate.find("from User where phone='" + value
-				+ "' or username='" + value + "' or email='" + value + "'");
+				+ "' or username='" + value + "' or email='" + value + "' or nickname='"+value+"'");
 		if (list != null && list.size() > 0) {
 			User user = list.get(0);
 			user.getSafe().getId();

@@ -30,6 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			position:fixed;
 			top:20%;left:20%;
 		}
+		#printContext{
+			overflow:auto;
+			height:330px;
+		}
 	</style>
 </head>
 <body>
@@ -87,9 +91,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <s:if test="state.id==8">
                 <tr data="${id }">
                     <td>${id}</td>
-                    <td>${goods.name }</td>
-                    <td>${goods.price*buyNum}</td>
-                    <td><button class="btn btn-default select" data-toggle="modal"
+                    <td><a href="single?goodsId=${goods.goodsId}" target="_blank">${goods.name}</a></td>
+                    <td>
+                    <s:i18n name="format">
+						<s:text name="struts.percent">
+							<s:param value="goods.price*buyNum" />
+						</s:text>
+					</s:i18n>
+                    </td>
+                    <td><button class="btn btn-default select"><a href="pay_goPayUi?id=${id}" target="_blank">去付款</a></button>
+						<button class="btn btn-default select" data-toggle="modal"
 										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
                 </tr>
               </s:if>
@@ -108,8 +119,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <s:if test="state.id==9">
                 <tr data="${id }">
                     <td>${id}</td>
-                    <td>${goods.name }</td>
-                    <td>${goods.price*buyNum}</td>
+                    <td><a href="single?goodsId=${goods.goodsId}" target="_blank">${goods.name}</a></td>
+                    <td> <s:i18n name="format">
+						<s:text name="struts.percent">
+							<s:param value="goods.price*buyNum" />
+						</s:text>
+					</s:i18n></td>
                     <td><button class="btn btn-default select" data-toggle="modal"
 										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
                 </tr>
@@ -127,10 +142,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </tr>
               <s:iterator value="#request.orderForms">
               <s:if test="state.id==11">
-                <tr data="${id }">
+               <tr data="${id }">
                     <td>${id}</td>
-                    <td>${goods.name }</td>
-                    <td>${goods.price*buyNum}</td>
+                    <td><a href="single?goodsId=${goods.goodsId}" target="_blank">${goods.name}</a></td>
+                    <td> <s:i18n name="format">
+						<s:text name="struts.percent">
+							<s:param value="goods.price*buyNum" />
+						</s:text>
+					</s:i18n></td>
                     <td><button class="btn btn-default select" data-toggle="modal"
 										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
                 </tr>
@@ -148,10 +167,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </tr>
               <s:iterator value="#request.orderForms">
               <s:if test="state.id==12">
-                <tr data="${id }">
+               <tr data="${id }">
                     <td>${id}</td>
-                    <td>${goods.name }</td>
-                    <td>${goods.price*buyNum}</td>
+                    <td><a href="single?goodsId=${goods.goodsId}" target="_blank">${goods.name}</a></td>
+                    <td> <s:i18n name="format">
+						<s:text name="struts.percent">
+							<s:param value="goods.price*buyNum" />
+						</s:text>
+					</s:i18n></td>
                     <td><button class="btn btn-default select" data-toggle="modal"
 										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
                 </tr>
@@ -168,10 +191,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <th>高级</th>
                 </tr>
               <s:iterator value="#request.orderForms">
-                <tr data="${id }">
+              <tr data="${id }">
                     <td>${id}</td>
-                    <td>${goods.name }</td>
-                    <td>${goods.price*buyNum}</td>
+                    <td><a href="single?goodsId=${goods.goodsId}" target="_blank">${goods.name}</a></td>
+                    <td> <s:i18n name="format">
+						<s:text name="struts.percent">
+							<s:param value="goods.price*buyNum" />
+						</s:text>
+					</s:i18n></td>
                     <td><button class="btn btn-default select" data-toggle="modal"
 										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
                 </tr>
@@ -191,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		aria-labelledby="myModalLabelMoreData" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
+				<%-- <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -199,21 +226,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<h4 class="modal-title">
 						<s:text name="订单更多信息" />
 					</h4>
-				</div>
+				</div> --%>
 				<div class="modal-body" id="printContext">
 					<table class="table">
 						<tbody id="moreInfor">
 						</tbody>
 					</table>
 				</div>
-				<div class="modal-footer">
+				<%-- <div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
 						<s:text name="close" />
 					</button>
 					<button type="button" class="btn btn-primary" id="printUser">
 						<s:text name="print" />
 					</button>
-				</div>
+				</div> --%>
 			</div>
 		</div>
 	</div>
@@ -285,7 +312,7 @@ function getOrderFromMoreData(el) {
 }
 function setMoreData(data) {
 	for ( var val in data) {
-		if(val=='state')data[val]=i18n.get(data[val]);
+		/*if(val=='state') data[val]=i18n.get(data[val]); */
 		if (data[val] != null) {
 			//createTrTd(nameArr[val], data[val])
 			createTrTd(val, data[val])
@@ -294,8 +321,10 @@ function setMoreData(data) {
 
 }
 function createTrTd(name, value) {
-	$("#moreInfor").append(
-			$("<tr><td>" + name + "</td><td>" + value + "</td></tr>"));
+	if(name=='color'){
+		$("#moreInfor").append($("<tr><td>" + name + "</td><td><div style='background-color:"+value+";width:30px;height:30px;'></div></td></tr>"));
+	}else
+	$("#moreInfor").append($("<tr><td>" + name + "</td><td>" + value + "</td></tr>"));
 }
 function closeWin(el) {
 	$(el.parentNode).hide(500);

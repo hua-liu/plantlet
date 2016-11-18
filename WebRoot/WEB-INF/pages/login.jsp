@@ -45,7 +45,7 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top mynav"
 			role="navigation">
 		<div class="navbar-header">
-			<a href="index.html" class="navbar-brand"><img src="img/logo.png"></a>
+			<a href="index" class="navbar-brand"><img src="img/logo.png"></a>
 			<div class="minMenu">
 				<span class="glyphicon glyphicon-menu-hamburger dropdown-toggle"
 					data-toggle="dropdown"></span>
@@ -73,21 +73,6 @@
 								href="loginUi?request_locale=zh_CN"><s:text name="chinese" /></a></li>
 							<li role="presentation"><a role="menuitem" tabindex="-1"
 								href="loginUi?request_locale=en_US"><s:text name="english" /></a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="help" />
-							<span class="caret"></span>
-						</button>
-						<ul class="nav" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="makeGuide" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="customerService" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="about" /></a></li>
 						</ul>
 					</li>
 				</ul>
@@ -120,24 +105,6 @@
 								href="loginUi?request_locale=zh_CN"><s:text name="chinese" /></a></li>
 							<li role="presentation"><a role="menuitem" tabindex="-1"
 								href="loginUi?request_locale=en_US"><s:text name="english" /></a></li>
-						</ul>
-					</div>
-				</li>
-				<li role="presentation">
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="help" />
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu"
-							aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="makeGuide" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="customerService" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="about" /></a></li>
 						</ul>
 					</div>
 				</li>
@@ -191,9 +158,9 @@
 				</div>
 				<div class="form-group col-sm-10">
 					<div class="checkbox col-md-offset-3 col-sm-5">
-						<label> <input type="checkbox" class="remember"
+						<%-- <label> <input type="checkbox" class="remember"
 							name="isRemember"> <s:text name="rememberMe" />
-						</label>
+						</label> --%>
 					</div>
 					<div class="col-sm-2">
 						<button type="submit" class="btn btn-default loginButton">
@@ -203,21 +170,15 @@
 				</div>
 				<br/><br/><br/>
 				<div class="form-group">
-					<span class="col-md-offset-3 loginT2"> <a href="#"><s:text
+					<span class="col-md-offset-3 loginT2"> <a href="javascript:void(0)" onclick="alert('忘记了就没了，重新注册一个吧')"><s:text
 								name="forgetPassword" /></a> <a href="phoneRegisterUi"><s:text
 								name="noAccount" /></a>
 					</span>
 				</div>
 			</form>
 			<br />
-			<div class="form-group col-md-offset-3 otherLogin">
-				<s:text name="otherLogin" />
-				<a href="#"><img src="img/qq.png"></a><a href="#"><img
-					src="img/qqwibo.png"></a><a href="#"><img src="img/sina.png"></a>
-			</div>
 		</div>
 	</div>
-	<s:debug></s:debug>
 	<footer class="footer">
 	<div class="container">
 		<p class="text-muted">
@@ -225,7 +186,7 @@
 		</p>
 	</div>
 	</footer>
-		<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/jquery/jquery.min.js"></script>
 	<script src="js/menu.js"></script>
 	<script src="js/admin/map.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>

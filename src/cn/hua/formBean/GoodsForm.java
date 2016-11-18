@@ -3,19 +3,14 @@ package cn.hua.formBean;
 import java.io.Serializable;
 import java.util.Date;
 
-public class GoodsForm implements Serializable {
+import cn.hua.model.Goods;
+import edu.emory.mathcs.backport.java.util.Arrays;
+
+public class GoodsForm extends Goods implements Serializable {
 	/**
 	 * 商品：名字，商品数量，是否抢购，销售数量，状态，商店，说明，访问日志
 	 */
 	private static final long serialVersionUID = 1L;
-	private String goodsId;
-	private String name;
-	private String simpleDescript;
-	private int inventory;
-	private float price;
-	private char isSale;
-	private float salePrice;
-	private Date saleTime;
 	private String otherName;
 	private String otherValue;
 	private String goodsSize;
@@ -36,48 +31,6 @@ public class GoodsForm implements Serializable {
 	}
 	public void setColors(String[] colors) {
 		this.colors = colors;
-	}
-	public String getGoodsId() {
-		return goodsId;
-	}
-	public void setGoodsId(String goodsId) {
-		this.goodsId = goodsId;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getSimpleDescript() {
-		return simpleDescript;
-	}
-	public void setSimpleDescript(String simpleDescript) {
-		this.simpleDescript = simpleDescript;
-	}
-	public int getInventory() {
-		return inventory;
-	}
-	public void setInventory(int inventory) {
-		this.inventory = inventory;
-	}
-	public float getPrice() {
-		return price;
-	}
-	public void setPrice(float price) {
-		this.price = price;
-	}
-	public float getSalePrice() {
-		return salePrice;
-	}
-	public void setSalePrice(float salePrice) {
-		this.salePrice = salePrice;
-	}
-	public Date getSaleTime() {
-		return saleTime;
-	}
-	public void setSaleTime(Date saleTime) {
-		this.saleTime = saleTime;
 	}
 	public String getOtherName() {
 		return otherName;
@@ -105,19 +58,16 @@ public class GoodsForm implements Serializable {
 		this.goodsSize = goodsSize;
 	}
 	public String getColor() {
-		if(color!=null){
-			return color.replaceAll(",", " ").replaceAll("\\s+", " ");
+		if(colors!=null&&colors.length>0){
+			color =Arrays.toString(colors);
+			color = color.substring(1,color.length()-1);
 		}
 		return color;
 	}
 	public void setColor(String color) {
+		if(color!=null)
+		this.colors = color.split(",");
 		this.color = color;
-	}
-	public char getIsSale() {
-		return isSale;
-	}
-	public void setIsSale(char isSale) {
-		this.isSale = isSale;
 	}
 	public int[] getMoreKindTemp() {
 		return moreKindTemp;

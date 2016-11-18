@@ -17,6 +17,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -42,6 +43,14 @@ public class FileAction extends ActionSupport {
 	private int isBreviary;//1为商品缩略图，2为用户头像
 	private String sourcePicId;
 	private int x,y,width,height;	//用于裁剪图片
+	private static Properties properties=new Properties();
+	static{
+		try {
+			properties.load(FileAction.class.getClassLoader().getResourceAsStream("path.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -156,7 +165,7 @@ public class FileAction extends ActionSupport {
 			}
 			String uuid = UUID.randomUUID().toString();
 			FileInputStream inputStream = new FileInputStream(file);
-			path = "D:/DATA/SKJS/message/picture/" + uuid;
+			path = properties.getProperty("chatPicture")+"/" + uuid;
 			FileOutputStream outputStream = new FileOutputStream(path);
 			byte[] buf = new byte[1024];
 			int length = 0;
@@ -180,7 +189,7 @@ public class FileAction extends ActionSupport {
 	public String downloadChatPic() {
 		try {
 			if (id != null) {
-				String path = "D:/DATA/SKJS/message/picture/"+id;
+				String path = properties.getProperty("chatPicture")+"/"+id;
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
 				InputStream input = new BufferedInputStream(
 						new FileInputStream(path));
@@ -224,7 +233,7 @@ public class FileAction extends ActionSupport {
 				return SUCCESS;
 			}
 			FileInputStream inputStream = new FileInputStream(file);
-			path = getDir("D:/DATA/SKJS/photo", null) + "/" + UUID.randomUUID();
+			path = getDir(properties.getProperty("goodsPicture"), null) + "/" + UUID.randomUUID();
 			FileOutputStream outputStream = new FileOutputStream(path);
 			byte[] buf = new byte[1024];
 			int length = 0;
@@ -310,7 +319,7 @@ public class FileAction extends ActionSupport {
 			}
 			inputStream = new FileInputStream(file);
 			String pid=UUID.randomUUID()+"";
-			path = getDir("D:/DATA/SKJS/headphoto", null) + "/" + pid;
+			path = getDir(properties.getProperty("headPhoto"), null) + "/" + pid;
 			//FileOutputStream outputStream = new FileOutputStream(path);
 			Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName(suffix);
 			ImageReader imageReader = iterator.next();
@@ -404,7 +413,7 @@ public class FileAction extends ActionSupport {
 				}
 			}
 			// 如果没有目录建立目录
-			String filePath = getDir("D:/DATA/SKJS/html", "uuid") + "/";
+			String filePath = getDir(properties.getProperty("goodsHtml"), "uuid") + "/";
 			try {
 				InputStream inputStream = null;
 				OutputStream outputStream = null;
@@ -424,7 +433,7 @@ public class FileAction extends ActionSupport {
 						inputStream.close();
 				}
 				// 此处htmlfile是服务器映射的地址
-				filePath = filePath.replace("D:/DATA/SKJS/html", "htmlfile")
+				filePath = filePath.replace(properties.getProperty("goodsHtml"), "htmlfile")
 						+ "index.html";
 				Explain explain = new Explain(filePath);
 				service.saveGoodsExplain(explain);

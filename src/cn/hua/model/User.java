@@ -31,6 +31,7 @@ public class User implements Serializable{
 	private AccountState accountState;
 	private State state;
 	private Role role;
+	private Identity identity;
 	public User(){}
 	
 	public User(String id, String username, String nickname, String phone,
@@ -113,7 +114,7 @@ public class User implements Serializable{
 		this.photo = photo;
 	}
 	@JsonIgnore
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	public Safe getSafe() {
 		return safe;
 	}
@@ -156,6 +157,14 @@ public class User implements Serializable{
 	}
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	@OneToOne(cascade=CascadeType.ALL)
+	public Identity getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(Identity identity) {
+		this.identity = identity;
 	}
 	
 }

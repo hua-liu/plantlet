@@ -50,3 +50,6 @@
 .errorT1{
 	text-align:center;
 }
+#loginForm>div>label{
+	min-width:60px;
+}

@@ -1,15 +1,9 @@
 package cn.hua.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Date;
-@Entity
-public class Log implements Serializable{
+
+public class Log implements Serializable,Comparable<Log>{
 	/**
 	 * 日志：更改类型，更改之前，更改之后，当前时间，更改IP，描述
 	 */
@@ -21,10 +15,7 @@ public class Log implements Serializable{
 	private Date currentDate;
 	private String changeIp;
 	private String description;
-	private User user;
-	@Id
-	@GeneratedValue(generator="uuid")
-	@GenericGenerator(name="uuid",strategy="uuid2")
+	private String  userID;
 	public String getId() {
 		return id;
 	}
@@ -67,21 +58,18 @@ public class Log implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	@OneToOne
-	public User getUser() {
-		return user;
+	public String getUserID() {
+		return userID;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
-	public Log(){
-		
-	}
-	public Log(String changeType,String changeIp, User user) {
-		super();
-		this.changeType = changeType;
-		this.changeIp = changeIp;
-		this.user = user;
+	@Override
+	public int compareTo(Log o) {
+		if(this.currentDate.getTime()<o.getCurrentDate().getTime()){
+			return 1;
+		}else
+		return -1;
 	}
 	
 }

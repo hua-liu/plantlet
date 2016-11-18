@@ -29,7 +29,6 @@ public class AdminAction extends ActionSupport implements ServletRequestAware,
 	 */
 	@Jurisdiction("BackgroundLogin")
 	public String execute() {
-		long start = System.currentTimeMillis();
 		User user = (User) session.get("user");
 		if (user == null) {
 			String[] cookie = CacheData.getCookie(request,
@@ -43,8 +42,6 @@ public class AdminAction extends ActionSupport implements ServletRequestAware,
 					&& cookie[2].equals(Encryption.encryption(cookie[0]
 							+ user.getSafe().getLoginPassword() + cookie[1]))) {
 				session.put("user", user);
-				long end = System.currentTimeMillis();
-				System.out.println(end-start);
 			}else
 				return INPUT;
 

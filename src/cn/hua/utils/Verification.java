@@ -318,4 +318,69 @@ public class Verification {
 		}
 		return null;
 		}
+	public static String[] myCenterSafe(String type,String oldData,String oldData2,String newData,User user){
+		String[] error;
+		boolean bool=true;
+		int i=0;
+		if("phone".equals(type)){
+			error = new String[2];
+			if(user.getPhone()!=null&&!user.getPhone().equals(oldData)){
+				error[i++]="oldPhone,与原号码不一致，拒绝修改";
+				bool=false;
+			}
+			if(newData==null||newData!=null&&!newData.matches("^[1][3-8][0-9]{9}$")){
+				error[i++]="newPhone,手机号码格式错误，拒绝修改";
+				bool=false;
+			}
+		}else if("email".equals(type)){
+			error = new String[2];
+			if(user.getEmail()!=null&&!user.getEmail().equals(oldData)){
+				error[i++]="oldEmail,与原邮箱不一致，拒绝修改";
+				bool=false;
+			}
+			if(newData==null||newData!=null&&!newData.matches("^[0-9a-zA-Z]+@[0-9a-zA-Z]+[.][0-9a-zA-Z]+$")){
+				error[i++]="newEmail,邮箱格式错误，拒绝修改";
+				bool=false;
+			}
+		}else if("loginPassword".equals(type)){
+			error = new String[2];
+			System.out.println(Encryption.encryption(oldData+user.getId()));
+			if(!user.getSafe().getLoginPassword().equals(Encryption.encryption(oldData+user.getSafe().getId()))){
+				error[i++]="oldLoginPassword,与原登陆密码不一致，拒绝修改";
+				bool=false;
+			}
+			if(newData==null||newData!=null&&(newData.length()<5||newData.length()>20)){
+				error[i++]="newEmail,密码长度不对，拒绝修改";
+				bool=false;
+			}
+		}else{
+			error = new String[3];
+			if(!user.getSafe().getLoginPassword().equals(Encryption.encryption(oldData+user.getSafe().getId()))){
+				error[i++]="oldLoginPassword,与原登陆密码不一致，拒绝修改";
+				bool=false;
+			}
+			if(user.getSafe().getPayPassword()!=null&&!user.getSafe().getPayPassword().equals(Encryption.encryption(oldData2+user.getSafe().getId()))){
+				error[i++]="oldPayPassword,与原支付密码不一致，拒绝修改";
+				bool=false;
+			}
+			if(newData==null||newData!=null&&(newData.length()<5||newData.length()>20)){
+				error[i++]="newEmail,密码长度不对，拒绝修改";
+				bool=false;
+			}
+		}
+		if(bool)return null;
+		else return error;
+	}
+	public static String[] myCenterInfo(User user){
+		String[] error = new String[1];
+		if(user.getUsername()!=null&&!user.getUsername().matches("^[a-zA-Z]+[0-9a-zA-Z]{4,20}$")){
+			error[0] = "用户名格式不正确";
+			return error;
+		}
+		if(user.getIdentity()!=null&&user.getIdentity().getIdentityNumber()!=null&&!user.getIdentity().getIdentityNumber().matches("^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{4}$")){
+			error[0] = "证件号格式不正确";
+			return error;
+		}
+		return null;
+	}
 }

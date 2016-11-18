@@ -59,8 +59,7 @@ public class PermissionInterceptor extends MethodFilterInterceptor{
 			return "input";
 		}
 		if(user.getRole()==null){
-			this.result = "{'message':"+false+",'cause':'权限不足...'}";
-			return "success";
+			return "error";
 		}
 		for(int i=0;i<jurisdiction.value().length;i++){
 			boolean pass = false;		//进入循环为false，如果内循环结束没被置为true，则说明没有此权限
@@ -71,11 +70,12 @@ public class PermissionInterceptor extends MethodFilterInterceptor{
 			}
 			if(!pass){
 				this.result = "{'message':"+false+",'cause':'权限不足...'}";
-				return "success";
+				return "error";
 			}
 		}
 		return action.invoke();
 	}
+	//登陆处理
 	public String loginHandle(ActionInvocation action) throws Exception{	//当登陆时单独进行处理
 		action.invoke();
 		if("admin".equals(action.getResultCode())){

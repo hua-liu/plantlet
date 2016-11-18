@@ -29,6 +29,7 @@ public class OrderForm implements Serializable {
 	private User user;
 	private int buyNum;
 	private int isNew=1;
+	private String color;
 	private Takedelivery takedelivery;
 	public OrderForm(){}
 	public OrderForm(String ofId) {
@@ -121,6 +122,12 @@ public class OrderForm implements Serializable {
 	}
 	public void setIsNew(int isNew) {
 		this.isNew = isNew;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 }

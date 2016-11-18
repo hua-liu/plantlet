@@ -678,9 +678,9 @@ espond.js IE8 support of HTML5 elements and media queries -->
 	<script src="js/admin/app.min.js"></script>
 		<!--聊天  -->
 	<script src="js/move.js"></script>
+	<script src="js/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 	<script src="js/chat.js"></script>
 	<script src="js/admin/levelControl.js" type="text/javascript"></script>
-	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 	<script src="css/face/js/jquery-browser.js"></script>
 	<script src="css/face/js/jquery.qqFace.js"></script>
 	<script src="js/fileUpload/ajaxfileupload.js"></script>

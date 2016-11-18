@@ -149,8 +149,10 @@ public class GetMoreDataAction extends ActionSupport implements SessionAware {
 						map.put(descriptor.getName(), state.getName());
 					}else if(("getTakedelivery").equals(methodName)){
 						Takedelivery takedelivery = (Takedelivery)object;
-						map.put("收件人", takedelivery.getName());
-						map.put("收件地址", takedelivery.getAddress()+"--"+takedelivery.getMoreAddress());
+						if(takedelivery!=null){
+							map.put("收件人", takedelivery.getName());
+							map.put("收件地址", takedelivery.getAddress()+"--"+takedelivery.getMoreAddress());
+						}
 					}else if(("getBuytime").equals(methodName)){
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 						map.put(descriptor.getName(),sdf.format(sdf.parse(object+"")));

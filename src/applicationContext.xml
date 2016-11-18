@@ -35,10 +35,11 @@
 	</bean>
 	<aop:config>
 		<aop:pointcut id="productServiceMethods"
-			expression="execution(* cn.hua.service.impl.*.*(..))" />
+			expression="execution(* cn.hua.service.impl.ServiceImpl.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods" />
 		<!-- <aop:aspect ref="logging"> <aop:around method="saveLogging" pointcut-ref="productServiceMethods"/> 
-			</aop:aspect> -->
+		</aop:aspect> -->
+			
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>

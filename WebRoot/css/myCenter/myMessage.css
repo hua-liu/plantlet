@@ -1,0 +1,163 @@
+li {
+	list-style: none;
+}
+
+.selectCase {
+	width: 20px;
+	height: 20px;
+	border: 1px solid #555;
+	float: left;
+	margin-top: 10px;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+.selectCase i {
+	display: none;
+}
+
+.checked {
+	padding: 1px;
+	background: #0A0;
+	border-color: #CCC;
+}
+
+.checked i {
+	display: block;
+	color: #FFF;
+}
+
+.menu_th .selectCase {
+	margin: 3px 10px 0 0;
+}
+
+.menu_th button {
+	margin: 0 5px;
+	background: #337AB7;
+	border: none;
+	border-radius: 5px;
+	color: #FFF;
+	padding: 5px 10px;
+}
+
+.menu_th button:hover {
+	background: #286090;
+}
+
+.menu_th {
+	width: 50%;
+	background: #CCC;
+	padding: 5px 0;
+	position: fixed;
+	z-index: 100;
+}
+
+.left {
+	width: 50%;
+	height: 100%;
+	float: left;
+	border-right: 1px solid #CCC;
+	overflow: auto;
+	min-width: 270px;
+}
+
+@media ( max-width :600px) {
+	.mytable {
+		margin-top: 0px;
+	}
+	.mytable tr td:nth-child(3) {
+		padding: 0 5px;
+		width: 140px;
+		max-width: 140px;
+	}
+}
+
+.right {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 50%;
+	height: 100%;
+	float: right;
+	padding: 2px;
+}
+
+.textContent, .selectTextContent {
+	border: none;
+	max-width: 100%;
+	min-height: 290px;
+	max-height: 290px;
+	word-break: break-all;
+	word-wrap: break-word;
+	overflow: auto;
+}
+
+.selectTextContent {
+	min-height: 280px;
+	max-height: 280px;
+}
+
+.mytable {
+	margin-top: 40px;
+	min-width: 270px;
+}
+
+.mytable tr td {
+	position: relative;
+	height: 30px;
+	overflow: hidden;
+	max-width: 300px;
+}
+.mytable tr td:first-child{
+	width:20px;
+}
+.mytable tr {
+	cursor: pointer;
+	border-bottom: 1px solid #CCC;
+}
+
+.mytable tr td:nth-child(2) {
+	padding: 10px;
+	width: 20%;
+}
+
+/* .mytable tr td:nth-child(3) {
+	padding: 0 5px;
+	width: 70%;
+} */
+.contentTD{
+	min-width:500px;
+	height:20px;
+	overflow:hidden;
+	margin:0;
+}
+.isnew {
+	background: #5CB85C;
+	color: #FFF;
+	width: 40px;
+	height: 20px;
+	float: right;
+	text-align: center;
+	line-height: 20px;
+	border-radius: 10px;
+	position: absolute;
+	right: 0;
+	top: 10px;
+}
+
+.delete {
+	position: absolute;
+	right: 0;
+	top: 5px;
+	display: none;
+}
+
+
+.delete:hover {
+}
+
+.sendState .reply, .sendState .selectReceiveUser, .sendState .selectTextContent,
+	.selectState .send, .selectState .textContent, .selectState .receiveUser
+	{
+	display: none;
+}

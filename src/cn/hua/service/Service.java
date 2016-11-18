@@ -66,4 +66,7 @@ public interface Service {
 	List<String> getNewOrderFormNum();
 	List<Goods> getGoodsRewardPaging(GoodsPaging paging);
 	void updateUserNickname(String id,String nickname);
+	void pay(Safe safe, OrderForm of);
+	List<OrderForm> getAllOrderFormByUserId(String id);
+	List<String> getAllColor();
 }

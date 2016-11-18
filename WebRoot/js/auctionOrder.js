@@ -40,7 +40,7 @@ $(function() {
 	})
 	//添加收货地址修改事件
 	changeAddrShow();
-	$("#addAddrModalButton").click(function(){
+	$("#addAddrModalButton").bind("click",function(){
 		$(".selectedArea").html("选择省/市/区...");
 		$(".selectedArea").addClass("initArea");
 		$(".city-provinces").trigger("click");
@@ -288,6 +288,12 @@ function submitForm(){
 						if(addrInput.length>0){
 							$(addrInput).parents("tr").remove();
 						}
+						//个人中心移除后添加
+						var boxCont = $(".boxCont[data-id="+data.id+"]");
+						if(boxCont.length>0){
+							$(boxCont).remove();
+						}
+						$("#gallery-wrapper").append($('<li class="boxCont" data-id="'+data.id+'"><p  class="thumb"><span>'+$("#address").val().replace(/--/g,"<br/>")+'<br/>'+$("textarea[name=moreAddress]").val()+'<br/>'+$("input[name=name]").val()+'<br/>'+$("input[name=phone]").val()+'</span></p></li>'))
 						//添加成功后动态添加与
 						$(".addr tbody tr:eq(0)").after($('<tr><td style="padding-left:100px;"><label><input checked type="radio" value="'+data.id+'"name="addr"> '
 							+$("#address").val()+'--'+$("textarea[name=moreAddress]").val()+'（'+$("input[name=name]").val()+' 收）'
@@ -325,6 +331,22 @@ function changeAddrShow(){
 			deleteAddress(this);
 		}
 	})
+	//个人中心事件
+	$(".boxCont").unbind()
+	$(".boxCont").bind("click",function(){
+		changeAddrData($(this).attr("data-id"));
+	})
+	
+	$(".boxCont").bind("mouseover",function(){
+    	$(this).find(".delAddress").show();
+    })
+    $(".boxCont").bind("mouseout",function(){
+    	$(this).find(".delAddress").hide();
+    })
+    $(".delAddress").bind("click",function(){
+    	deleteAddress(this);
+    	return false;
+    })
 }
 //更改地址
 function changeAddrData(id){
@@ -361,14 +383,16 @@ function changeAddrData(id){
 //删除地址
 function deleteAddress(el){
 	var id = $(el).siblings("label").find("input").val();
+	if(id==null)id = $(el).parents("li.boxCont").attr("data-id");//个人中心删除地址
 	if(id==null)return;
 	$.post("json/address_delete","id="+id,function(data){
 		if(data!=null){
 			data = eval("("+data+")");
 			if(data.message){
-				$(el).parent().parent().hide(500);
+				$(el).parents("tr").hide(500);
 				setTimeout(function(){
-					$(el).parent().parent().remove();
+					$(el).parents("tr").remove();
+					$(el).parents("li.boxCont").remove();
 				},1000)
 			}else{
 				alert(data.cause)

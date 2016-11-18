@@ -28,10 +28,11 @@
 <!-- //Custom Theme files -->
 <!-- font-awesome icons -->
 <link href="css/font-awesome.css" rel="stylesheet">
-<link href="css/cart.css" rel="stylesheet">
+<link href="css/cart.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/admin/AdminLTE.min.css">
 <link href="css/chat.css" rel="stylesheet">
 <link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
+<link href="css/admin/animation.css" rel="stylesheet">
 <!-- //font-awesome icons -->
 <!-- js -->
 <script src="js/jquery/jquery.min.js"></script>
@@ -78,6 +79,7 @@ body {
 .productsSort li a{
 	cursor:pointer;
 }
+
 </style>
 <!-- scroll to fixed-->
 <script src="js/jquery-scrolltofixed-min.js" type="text/javascript"></script>
@@ -142,74 +144,62 @@ body {
 <!-- the mousewheel plugin -->
 </head>
 <body>
+<div class="bodyLoader" style="width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,0.4);z-index:1500"><div class="loader-inner square-spin" style="top:48%;left:48%;position:absolute;"><div style="border:none;background:#CD0000"></div></div></div>
 	<!-- 购物车开始  -->
 	<div id="st-container" class="st-container">
-		<s:if test="#session.user!=null">
-			<nav class="st-menu st-effect-13" id="menu-13">
-			<div class="toolbar-main toolbar-mini-cart-main">
-				<div class="toolbar-hd">
-					<div class="toolbar-hd-title">购物车</div>
-				</div>
-				<div class="toolbar-bd">
-					<div class="mini-cart-list">
-						<div class="mini-cart-list-hd">
-							<div class="mini-cart-list-title">最新加入的宝贝</div>
-						</div>
-						<div class="mini-cart-list-bd">
-							<ul class="mini-cart-items-list">
-								<s:if test="#session.user!=null">
-									<s:iterator value="#session.orderForms">
-										<li data-id="${id}"><div class="mini-cart-item">
-												<div class="mini-cart-item-pic">
-													<img
-														src="json/download_file?isBreviary=1&id=${goods.breviaryPicture.id}">
-												</div>
-												<div class="mini-cart-item-info">
-													<div class="mini-cart-item-title">${goods.name}</div>
-													<div class="mini-cart-item-price">
-														<i class="fa fa-rmb"></i><span class="cart-price">
-															<s:i18n name="format">
-																<s:text name="struts.percent">
-																	<s:param value="goods.price*buyNum" />
-																</s:text>
-															</s:i18n>
-														</span>
-													</div>
-													<a class="mini-cart-item-del" href="#"><i
-														class="fa fa-times"></i></a>
-												</div>
-											</div></li>
-									</s:iterator>
-								</s:if>
-							</ul>
-						</div>
-						<button class="goBuy btn btn-danger">去购物车结算</button>
-						<script type="text/javascript">
-							if ($(".mini-cart-item").length < 1) {
-								$(".goBuy").css("display", "none");
+	<s:if test="#session.user!=null">
+		<nav class="st-menu st-effect-13" id="menu-13"> 
+		<div class="toolbar-main toolbar-mini-cart-main">
+			<div class="toolbar-hd">
+				<div class="toolbar-hd-title">购物车</div>
+			</div>
+			<div class="toolbar-bd">
+				<div class="mini-cart-list">
+					<div class="mini-cart-list-hd">
+						<div class="mini-cart-list-title">最新加入的宝贝</div>
+					</div>
+					<div class="mini-cart-list-bd">
+						<ul class="mini-cart-items-list">
+							<s:if test="#session.user!=null">
+								<s:iterator value="#session.orderForms">
+									<li data-id="${id}"><div class="mini-cart-item">
+									<div class="mini-cart-item-pic"><img src="json/download_file?isBreviary=1&id=${goods.breviaryPicture.id}"></div>
+									<div class="mini-cart-item-info"><div class="mini-cart-item-title">${goods.name}</div>
+									<div class="mini-cart-item-price"><i class="fa fa-rmb"></i><span class="cart-price">
+									<s:i18n name="format">
+										<s:text name="struts.percent">
+											<s:param value="goods.price*buyNum"/>
+										</s:text>
+									</s:i18n>
+									</span></div>
+									<a class="mini-cart-item-del" href="#"><i class="fa fa-times"></i></a></div></div></li>
+								</s:iterator>
+							</s:if>
+						</ul>
+					</div>
+					<button class="goBuy btn btn-danger">去购物车结算</button>
+					<script type="text/javascript">
+							if($(".mini-cart-item").length<1){
+								$(".goBuy").css("display","none");
 							}
 						</script>
-					</div>
 				</div>
 			</div>
-			</nav>
-		</s:if>
+		</div>
+		</nav>
+			</s:if>
 		<!--购物车影响的内容  -->
 		<div class="st-pusher">
 			<div class="st-content" style="background: none">
-				<!-- 购物车图标 -->
-				<s:if test="#session.user!=null">
-					<div class="cartButton" id="st-trigger-effects">
-						<button data-effect="st-effect-13"
-							class="btn btn-danger st-effect"
-							style="width:30px;height:150px;text-align:center;padding:0;">
-							<span class="badge" id="cart-item-num"> <s:property
-									value="#session.orderForms.size"></s:property>
-							</span><br />我<br />的<br />购<br />物<br />车
-						</button>
-					</div>
-				</s:if>
-				<!-- 购物车图标  -->
+			<!-- 购物车图标 -->
+			<s:if test="#session.user!=null">
+			<div class="cartButton" id="st-trigger-effects">
+				<button data-effect="st-effect-13" class="btn btn-danger st-effect" style="width:30px;height:150px;text-align:center;padding:0;"><span class="badge" id="cart-item-num">
+				<s:property value="#session.orderForms.size"></s:property>
+				</span><br/>我<br/>的<br/>购<br/>物<br/>车</button>
+			</div>
+			</s:if>
+			<!-- 购物车图标  -->
 				<!-- header -->
 				<div class="header">
 					<div class="w3ls-header">
@@ -227,39 +217,31 @@ body {
 										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<s:if test="#session.user!=null">
-											<li><a href="#"><s:property
-														value="#session.user.username" /></a></li>
+											<li><a href="myCenter"><s:property
+														value="#session.user.nickname!=null?#session.user.nickname:#session.user.username!=null?#session.user.username:#session.user.email!=null?#session.user.email:#session.user.phone"/></a></li>
 											<li><a href="userLogout">注销</a></li>
-											<li><a href="login.html">我的订单</a></li>
-											<li><a href="login.html">钱包</a></li>
+											<li><a href="myCenter?function=2">我的订单</a></li>
+											<li><a href="myCenter?function=3">钱包</a></li>
 										</s:if>
 										<s:else>
 											<li><a href="loginUi">登陆</a></li>
 										</s:else>
 									</ul></li>
 								<s:if test="#session.user!=null">
-								<li class="dropdown head-dpdn"><a href="#"
-									class="dropdown-toggle" data-toggle="dropdown"><i
-										class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
-										class="caret"></span></a>
-									<ul class="dropdown-menu">
-											<li id="st-trigger-effects" class="column"><a href="javascript:"
-											data-effect="st-effect-13" class="st-effect">查看购物车</a></li>
-										<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
-									</ul></li>
-									</s:if>
-								<li class="dropdown head-dpdn"><a href="card.html"
-									class="dropdown-toggle"><i class="fa fa-star"
-										aria-hidden="true"></i>收藏夹</a></li>
-								<!-- <!-- <li class="dropdown head-dpdn"><a href="contact.html"
-						class="dropdown-toggle"><i class="fa fa-map-marker"
-							aria-hidden="true"></i>实体店</a></li> -->
+									<li class="dropdown head-dpdn"><a href="#"
+										class="dropdown-toggle" data-toggle="dropdown"><i
+											class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
+											class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li id="st-trigger-effects" class="column"><a
+												href="javascript:" data-effect="st-effect-13"
+												class="st-effect">查看购物车</a></li>
+											<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
+										</ul></li>
+								</s:if>
 								<li class="dropdown head-dpdn linkService"><a
 									href="javascript:void(0)" class="dropdown-toggle"><i
 										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
-								<li class="dropdown head-dpdn"><a href="help.html"
-									class="dropdown-toggle"><i class="fa fa-question-circle"
-										aria-hidden="true"></i> 帮助</a></li>
 							</ul>
 						</div>
 						<div class="clearfix"></div>
@@ -367,6 +349,9 @@ body {
 						<s:hidden name="minPrice"></s:hidden>
 						<s:hidden name="maxPrice"></s:hidden>
 						<s:hidden name="goodsKind"></s:hidden>
+						<s:hidden name="color"></s:hidden>
+						<s:hidden name="size" />
+						<s:hidden name="currentPage"/>
 					</form>
 					<!-- products -->
 					<div class="products col-md-12" style="padding-top:0;">
@@ -392,13 +377,15 @@ body {
 												<li data="1"><a>最低价格</a></li>
 												<li data="2"><a>最高价格</a></li>
 												<li data="3"><a>最高销量</a></li>
-												<li data="4"><a>最高评价</a></li>
 											</ul></li>
 									</ul>
 									<div class="clearfix"></div>
 								</div>
 								<s:if test="#request.products.size()<1">
 									<div style="width:100%;text-align:center;color:#F00;padding:20px 0;">没有符合搜索要求的商品</div>
+									<script>
+										$(".bodyLoader").remove();
+									</script>
 								</s:if>
 								<s:else>
 								<div class="products-row">
@@ -416,19 +403,28 @@ body {
 													class="" alt="img"></a>
 												<div class="agile-product-text">
 													<h5 style="position:relative;">
-														<a href="single?goodsId=${goodsId }" class="product_name">${name}</a>
+														<p style="width:95px;height:25px;overflow:hidden;"><a href="single?goodsId=${goodsId }" class="product_name">${name}</a></p>
 														<p style="font-size:10px;position:absolute;top:0;right:0;">
 															成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
 														</p>
 													</h5>
 													<h6 style="position:relative;">
-														<del>${price }</del>
-														<span class="price">${salePrice==0?price:salePrice}</span>
-														<p style="font-size:10px;position:absolute;top:0;right:0;">
-															访问 <span style="color:#f50;padding:0;">${sellsum}次</span>
-														</p>
+														<del>
+														<s:i18n name="format">
+																<s:text name="struts.percent">
+																	<s:param value="price" />
+																</s:text>
+															</s:i18n>
+														</del>
+														<span class="price">
+														<s:i18n name="format">
+																<s:text name="struts.percent">
+																	<s:param value="salePrice==0?price:salePrice" />
+																</s:text>
+															</s:i18n>
+														</span>
 													</h6>
-													<input type="hidden" class="buyNum" value="1">
+													<input type="hidden" class="buyNum" value="1" maxValue="${inventory}">
 													<button type="button" class="w3ls-cart pw3ls-cart intoCart"
 														data-id="${goodsId}" data-toggle="popover"
 														data-placement="top" data-content="商品加入购物车成功">
@@ -568,21 +564,20 @@ body {
 												name="checkbox" min="500" max="10000"><i></i>500元及以上</label>
 										</div>
 									</div>
-									<!-- <div class="sidebar-row">链接: http://pan.baidu.com/s/1bpBo3s7 密码: 4cqg
+									<div class="sidebar-row">
 										<h4>颜色</h4>
 										<div class="row row1 scroll-pane goodsColor">
-											<label class="checkbox"><input type="checkbox"
-												name="checkbox" data="白"><i></i>白色</label> <label
-												class="checkbox"><input type="checkbox"
-												name="checkbox" data="红"><i></i>红色</label> <label class="checkbox"><input
-												type="checkbox" name="checkbox" data="绿"><i></i>绿色</label> <label
-												class="checkbox"><input type="checkbox"
-												name="checkbox" data="黑"><i></i>黑色</label> <label class="checkbox"><input
-												type="checkbox" name="checkbox" data="金"><i></i>金色</label> <label
-												class="checkbox"><input type="checkbox"
-												name="checkbox" data="黄"><i></i>黄色</label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ffffff')!=-1?'checked':'' } data="#ffffff"><i style="border-color:#FFFFFF"></i>白色</label> 
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ff0000')!=-1?'checked':'' } data="#ff0000"><i style="border-color:#FF0000"></i>红色</label> 
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#fff000')!=-1?'checked':'' } data="#fff000"><i style="border-color:#FFF000"></i>橙色</label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ffff00')!=-1?'checked':'' } data="#ffff00"><i style="border-color:#FFFF00"></i>黄色</label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#00ff00')!=-1?'checked':'' } data="#00ff00"><i style="border-color:#00FF00"></i>绿色</label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#00ffff')!=-1?'checked':'' } data="#00ffff"><i style="border-color:#00FFFF"></i>青色</label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#0000ff')!=-1?'checked':'' } data="#0000ff"><i style="border-color:#0000FF"></i>蓝色</label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#f000ff')!=-1?'checked':'' } data="#f000ff"><i style="border-color:#F000FF"></i>紫色</label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#000000')!=-1?'checked':'' } data="#000000"><i style="border-color:#000000"></i>黑色</label> 
 										</div>
-									</div> -->
+									</div>
 								</div>
 								<button class="btn btn-success searchButton"
 									style="width:100%;margin-top:5px;">
@@ -601,6 +596,7 @@ body {
 										<li><a href="products?keywords=健康">健康</a></li>
 										<li><a href="products?keywords=水果">水果</a></li>
 										<li><a href="products?keywords=小苗">小苗</a></li>
+										<li><input type="text" class="form-control inputKey" style="width:100px;height:30px;" placeholder="输入关键字" value="${keywords}"></li>
 									</ul>
 								</div>
 							</div>
@@ -676,7 +672,12 @@ body {
 	  </div>
 	</div>
 	<script type="text/javascript">
+		var totalPage = ${totalPage};
+		var currentPage = ${currentPage};
 		$(function(){
+			$(".pagination li").bind("click", function() {
+					pagingGo(this);
+				});
 			$(".productsSort li").bind("click",function(){
 				$("#function").val($(this).attr("data"));
 				$("#searchProducts").submit();
@@ -694,11 +695,38 @@ body {
 			$(".searchButton").click(function(){
 				$("#searchProducts").submit();
 			})
+			$(".goodsColor input").bind("change",function(){
+				var colors = $(".goodsColor input:checked");
+				var color="";
+				for(var i=0;i<colors.length;i++){
+					if(i==colors.length-1)
+						color += $(colors[i]).attr("data");
+					else
+						color += $(colors[i]).attr("data")+",";
+				}
+				$("#color").val(color);
+			})
+			$(".inputKey").keyup(function(e){
+				if(this.value=='')return;
+				if(e.keyCode==13){
+					window.location.href="products?keywords="+this.value;
+				}
+			})
 			//用于改变分页到中间位置
 			var paging = $(".paging").get(0);
 			var pagination = $(".pagination").get(0);
 			pagination.style.left = (paging.offsetWidth-pagination.offsetWidth)/2+"px";
 		})
+		//分页请求
+		function pagingGo(el) { // 分页数据请求
+			var current = $(el).find("a").attr("paging-data");
+			if (current != null) {
+				if (current != currentPage && current <= totalPage) {
+					$("#currentPage").val(current);
+					$("#searchProducts").submit();
+				}
+			}
+		}
 	</script>
 	<!-- menu js aim -->
 	<%-- <script src="js/jquery.menu-aim.js"> --%>
@@ -710,15 +738,16 @@ body {
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="js/sidebar/classie.js"></script>
-	<script src="js/sidebar/modernizr.custom.js"></script>
-	<script src="js/sidebar/sidebarEffects.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/cart.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="js/sidebar/classie.js" type="text/javascript"></script>
+	<script src="js/sidebar/modernizr.custom.js" type="text/javascript"></script>
+	<script src="js/sidebar/sidebarEffects.js" type="text/javascript"></script>
+	<script src="js/cart.js" type="text/javascript"></script>
+	
 	<script src="js/move.js"></script>
-	<script src="js/chat.js"></script>
+	<script src="js/chat.js" type="text/javascript"></script>
 	<script src="js/admin/levelControl.js" type="text/javascript"></script>
-	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+	<script src="js/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 	<script src="css/face/js/jquery-browser.js"></script>
 	<script src="css/face/js/jquery.qqFace.js"></script>
 	<script src="js/fileUpload/ajaxfileupload.js"></script>
@@ -726,6 +755,7 @@ body {
 		var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		$(function(){
+		$(".bodyLoader").remove();
 		//显示聊天窗口
 			$(".linkService").click(function(){
 			if($('.chatWinBox').is(":hidden")){

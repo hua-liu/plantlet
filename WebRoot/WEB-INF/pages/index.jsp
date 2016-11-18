@@ -30,6 +30,7 @@
 <link href="css/sidebar/components-right.css" rel="stylesheet">
 <link href="css/cart.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
+<link href="css/admin/animation.css" rel="stylesheet">
 <!-- <link href="css/owl.carousel.css" rel="stylesheet" type="text/css"
 	media="all"> -->
 <!-- carousel slider -->
@@ -133,18 +134,19 @@ body {
 <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="bodyLoader" style="width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,0.4);z-index:1500"><div class="loader-inner square-spin" style="top:48%;left:48%;position:absolute;"><div style="border:none;background:#32CD32"></div></div></div>
 	<!-- 购物车开始  -->
 	<div id="st-container" class="st-container">
 		<s:if test="#session.user!=null">
 			<nav class="st-menu st-effect-13" id="menu-13">
 			<div class="toolbar-main toolbar-mini-cart-main">
 				<div class="toolbar-hd">
-					<div class="toolbar-hd-title">购物车</div>
+					<div class="toolbar-hd-title"><s:text name="shoppingCart"/></div>
 				</div>
 				<div class="toolbar-bd">
 					<div class="mini-cart-list">
 						<div class="mini-cart-list-hd">
-							<div class="mini-cart-list-title">最新加入的宝贝</div>
+							<div class="mini-cart-list-title"><s:text name="newestBaby"/></div>
 						</div>
 						<div class="mini-cart-list-bd">
 							<ul class="mini-cart-items-list">
@@ -174,7 +176,7 @@ body {
 								</s:if>
 							</ul>
 						</div>
-						<button class="goBuy btn btn-danger">去购物车结算</button>
+						<button class="goBuy btn btn-danger"><s:text name="goToTheShoppingCartAndSettlement"/></button>
 						<script type="text/javascript">
 							if ($(".mini-cart-item").length < 1) {
 								$(".goBuy").css("display", "none");
@@ -214,38 +216,43 @@ body {
 							<ul>
 								<li class="dropdown head-dpdn"><a href="#"
 									class="dropdown-toggle" data-toggle="dropdown"><i
-										class="fa fa-user" aria-hidden="true"></i>我的账户<span
+										class="fa fa-user" aria-hidden="true"></i><s:text name="myAccount"/><span
 										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<s:if test="#session.user!=null">
-											<li><a href="myCenter?function=0"><s:property
-														value="#session.user.username" /></a></li>
-											<li><a href="userLogout">注销</a></li>
-											<li><a href="myCenter?function=2">我的订单</a></li>
-											<li><a href="myCenter?function=3">钱包</a></li>
+											<li><a href="myCenter"><s:property value="#session.user.nickname!=null?#session.user.nickname:#session.user.username!=null?#session.user.username:#session.user.email!=null?#session.user.email:#session.user.phone" /></a></li>
+											<li><a href="userLogout"><s:text name="logout"/></a></li>
+											<li><a href="myCenter?function=2"><s:text name="myOrder"/></a></li>
+											<li><a href="myCenter?function=3"><s:text name="wallet"/></a></li>
 										</s:if>
 										<s:else>
-											<li><a href="loginUi">登陆</a></li>
+											<li><a href="loginUi"><s:text name="login"/></a></li>
 										</s:else>
 									</ul></li>
 								<s:if test="#session.user!=null">
-									<li class="dropdown head-dpdn"><a href="#"
+									<li class="dropdown head-dpdn"><a href="javascript:void(0)"
 										class="dropdown-toggle" data-toggle="dropdown"><i
-											class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
+											class="fa fa-cart-plus" aria-hidden="true"></i> <s:text name="shoppingCart"/><span
 											class="caret"></span></a>
 										<ul class="dropdown-menu">
 											<li id="st-trigger-effects" class="column"><a
 												href="javascript:" data-effect="st-effect-13"
-												class="st-effect">查看购物车</a></li>
-											<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
+												class="st-effect"><s:text name="toViewTheShoppingCart"/></a></li>
+											<li><a href="javascript:alert('程序员正在加紧实现')"><s:text name="emptyTheShoppingCart"/></a></li>
 										</ul></li>
 								</s:if>
 								<li class="dropdown head-dpdn linkService"><a
 									href="javascript:void(0)" class="dropdown-toggle"><i
-										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
-								<li class="dropdown head-dpdn"><a href="help.html"
-									class="dropdown-toggle"><i class="fa fa-question-circle"
-										aria-hidden="true"></i> 帮助</a></li>
+										class="fa  fa-smile-o" aria-hidden="true"></i><s:text name="contactCustomerService"/></a></li>
+									<li class="dropdown head-dpdn"><a href="javascript:void(0)"
+										class="dropdown-toggle" data-toggle="dropdown"><i
+											class="fa fa-eye" aria-hidden="true"></i> <s:text name="language"/><span
+											class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li id="st-trigger-effects" class="column"><a
+												href="index?request_locale=zh_CN"><s:text name="chinese"/></a></li>
+											<li><a href="index?request_locale=en_US"><s:text name="enlish"/></a></li>
+										</ul></li>
 							</ul>
 						</div>
 						<div class="clearfix"></div>
@@ -398,22 +405,22 @@ body {
 										<li role="presentation" class="spinButton"><a
 											href="products?goodsKind=1" id="home-tab" role="tab"> <i
 												class="icon iconfont">&#xe601;</i>
-												<h5>盘栽</h5>
+												<h5><s:text name="platePlant"/></h5>
 										</a></li>
 										<li role="presentation" class="spinButton"><a
 											href="products?goodsKind=2" role="tab" id="carl-tab"> <i
 												class="icon iconfont" aria-hidden="true">&#xe611;</i>
-												<h5>花卉</h5>
+												<h5><s:text name="flowers"/></h5>
 										</a></li>
 										<li role="presentation" class="spinButton"><a
 											href="products?goodsKind=3" role="tab" id="james-tab"> <i
 												class="icon iconfont" aria-hidden="true">&#xe60b;</i>
-												<h5>树苗</h5>
+												<h5><s:text name="treeSeedlings"/></h5>
 										</a></li>
 										<li role="presentation" class="spinButton"><a
 											href="products?goodsKind=4" role="tab" id="decor-tab"> <i
 												class="icon iconfont" aria-hidden="true">&#xe603;</i>
-												<h5>种子</h5>
+												<h5><s:text name="seeds"/></h5>
 										</a></li>
 										<!-- <li role="presentation" class="spinButton" data="sports"><a
 								href="#sports" role="tab" id="sports-tab" data-toggle="tab">
@@ -422,7 +429,7 @@ body {
 							</a></li> -->
 									</ul>
 									<div class="clearfix"></div>
-									<h3 class="w3ls-title">新品速递</h3>
+									<h3 class="w3ls-title"><s:text name="newExpress"/></h3>
 									<div style="text-align:center;">
 										<s:iterator value="#request.newGoodsList" status="c">
 											<div class="thumbnail" data-id="${goodsId}">
@@ -434,10 +441,16 @@ body {
 												<div class="caption" style="position:relative;">
 													<p
 														style="font-size:10px;position:absolute;top:-3px;right:0;">
-														成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
+														<s:text name="clinchADeal"/> <span style="color:#f50;padding:0;">${sellsum}<s:text name="fund"/></span>
 													</p>
 													<span><b><a href="single?goodsId=${goodsId }">${name}<strong
-																style="color:#E00;margin-left:10px;">¥${price}</strong></a></b></span><br />
+																style="color:#E00;margin-left:10px;">¥
+																<s:i18n name="format">
+																<s:text name="struts.percent">
+																	<s:param value="price" />
+																</s:text>
+															</s:i18n>
+																</strong></a></b></span><br />
 													<div style="height:35px;overflow:hidden;">
 														<small>${simpleDescript}</small>
 													</div>
@@ -446,7 +459,7 @@ body {
 										</s:iterator>
 										<div style="clear:both"></div>
 									</div>
-									<h3 class="w3ls-title">热门推荐</h3>
+									<h3 class="w3ls-title"><s:text name="hotRecommended"/></h3>
 									<div>
 										<s:iterator value="#request.randomList" status="c">
 											<div class="thumbnail">
@@ -458,10 +471,16 @@ body {
 												<div class="caption" style="position:relative">
 													<p
 														style="font-size:10px;position:absolute;top:-3px;right:0;">
-														成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
+														<s:text name="clinchADeal"/> <span style="color:#f50;padding:0;">${sellsum}<s:text name="fund"/></span>
 													</p>
 													<b><a href="single?goodsId=${goodsId }">${name}<strong
-															style="color:#E00;margin-left:10px;">¥${price}</strong></a></b><br />
+															style="color:#E00;margin-left:10px;">¥
+															<s:i18n name="format">
+																<s:text name="struts.percent">
+																	<s:param value="price" />
+																</s:text>
+															</s:i18n>
+															</strong></a></b><br />
 													<div style="height:35px;overflow:hidden;">
 														<small>${simpleDescript}</small>
 													</div>
@@ -473,7 +492,7 @@ body {
 									<!-- deals -->
 									<div class="deals">
 										<div class="container">
-											<h3 class="w3ls-title">热门关键字</h3>
+											<h3 class="w3ls-title"><s:text name="popularKeyword"/></h3>
 											<div class="deals-row">
 												<div class="col-md-3 focus-grid">
 													<a href="products?keywords=玫瑰" class="wthree-btn">
@@ -601,7 +620,7 @@ body {
 														<i class="fa fa-truck" aria-hidden="true"></i>
 													</div>
 													<div class="ftr-top-right">
-														<h4>FREE DELIVERY</h4>
+														<h4><s:text name="freeDelivery"/></h4>
 														<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 															elit. Fusce tempus justo ac</p>
 													</div>
@@ -612,7 +631,7 @@ body {
 														<i class="fa fa-user" aria-hidden="true"></i>
 													</div>
 													<div class="ftr-top-right">
-														<h4>CUSTOMER CARE</h4>
+														<h4><s:text name="customerCare"/></h4>
 														<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 															elit. Fusce tempus justo ac</p>
 													</div>
@@ -623,7 +642,7 @@ body {
 														<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 													</div>
 													<div class="ftr-top-right">
-														<h4>GOOD QUALITY</h4>
+														<h4><s:text name="goodQuality"/></h4>
 														<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 															elit. Fusce tempus justo ac</p>
 													</div>
@@ -727,7 +746,7 @@ body {
 	<script src="js/index.js" type="text/javascript"></script>
 	<script src="js/admin/levelControl.js" type="text/javascript"></script>
 	<!-- 表情 -->
-	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+	<script src="js/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 	<script src="js/chat.js"></script>
 	<script src="css/face/js/jquery-browser.js"></script>
 	<script src="css/face/js/jquery.qqFace.js"></script>
@@ -736,6 +755,7 @@ body {
 		var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		$(function(){
+			$(".bodyLoader").remove();
 			//显示聊天窗口
 			$(".linkService").click(function(){
 			if($('.chatWinBox').is(":hidden")){

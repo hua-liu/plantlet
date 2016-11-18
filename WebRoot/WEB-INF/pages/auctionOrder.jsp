@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="css/admin/AdminLTE.min.css">
 <link href="css/chat.css" rel="stylesheet">
 <link href="css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
+<link href="css/admin/animation.css" rel="stylesheet">
 <!--/聊天-->
 <!-- font-awesome icons -->
 <link href="css/font-awesome.css" rel="stylesheet">
@@ -85,7 +86,7 @@ a {
 </style>
 </head>
 <body style="min-width:1000px;">
-
+<div class="bodyLoader" style="width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,0.4);z-index:1500"><div class="loader-inner square-spin" style="top:48%;left:48%;position:absolute;"><div style="border:none;background:#FFFF00"></div></div></div>
 	<div class="st-pusher">
 		<div class="st-content" style="background: none">
 			<!-- header -->
@@ -99,44 +100,29 @@ a {
 					</div>
 					<div class="w3ls-header-right">
 						<ul>
-							<li class="dropdown head-dpdn"><a href="#"
-								class="dropdown-toggle" data-toggle="dropdown"><i
-									class="fa fa-user" aria-hidden="true"></i>我的账户<span
-									class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<s:if test="#session.user!=null">
-										<li><a href="#"><s:property
-													value="#session.user.username" /></a></li>
-										<li><a href="userLogout">注销</a></li>
-										<li><a href="login.html">我的订单</a></li>
-										<li><a href="login.html">钱包</a></li>
-									</s:if>
-									<s:else>
-										<li><a href="loginUi">登陆</a></li>
-									</s:else>
-								</ul></li>
-							<li class="dropdown head-dpdn"><a href="#"
-								class="dropdown-toggle" data-toggle="dropdown"><i
-									class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
-									class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li id="st-trigger-effects" class="column"><a
-										data-effect="st-effect-13" class="st-effect">查看购物车</a></li>
-									<li><a>清空购物车</a></li>
-								</ul></li>
-							<li class="dropdown head-dpdn"><a href="card.html"
-								class="dropdown-toggle"><i class="fa fa-star"
-									aria-hidden="true"></i>收藏夹</a></li>
-							<!-- <!-- <li class="dropdown head-dpdn"><a href="contact.html"
-						class="dropdown-toggle"><i class="fa fa-map-marker"
-							aria-hidden="true"></i>实体店</a></li> -->
+								<li class="dropdown head-dpdn"><a href="#"
+									class="dropdown-toggle" data-toggle="dropdown"><i
+										class="fa fa-user" aria-hidden="true"></i>我的账户<span
+										class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<s:if test="#session.user!=null">
+											<li><a href="myCenter"><s:property
+														value="#session.user.nickname!=null?#session.user.nickname:#session.user.username!=null?#session.user.username:#session.user.email!=null?#session.user.email:#session.user.phone"/></a></li>
+											<li><a href="userLogout">注销</a></li>
+											<li><a href="myCenter?function=2">我的订单</a></li>
+											<li><a href="myCenter?function=3">钱包</a></li>
+										</s:if>
+										<s:else>
+											<li><a href="loginUi">登陆</a></li>
+										</s:else>
+									</ul></li>
 								<li class="dropdown head-dpdn linkService"><a
 									href="javascript:void(0)" class="dropdown-toggle"><i
 										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
-							<li class="dropdown head-dpdn"><a href="help.html"
-								class="dropdown-toggle"><i class="fa fa-question-circle"
-									aria-hidden="true"></i> 帮助</a></li>
-						</ul>
+								<li class="dropdown head-dpdn"><a href="help.html"
+									class="dropdown-toggle"><i class="fa fa-question-circle"
+										aria-hidden="true"></i> 帮助</a></li>
+							</ul>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -311,7 +297,9 @@ a {
 									<input type="text" class="form-control leaveMessage" name="leaveMessage" placeholder="输入留言信息" style="height:20px;width:250px;">
 								</div>
 							</td>
-							<td><span style="min-width:100px;">颜色：默认<br/> 邮寄：包邮</span></td>
+							<td><span style="min-width:100px;"><p style="float:left;margin-left:30%;">颜色：</p><span style="background-color:${color};width:20px;height:20px;display:block;float:left;margin-top:5px"></span><br/></span>
+							<span style="min-width:100px;"><p style="float:left;margin-left:30%;">邮费：包邮</p><br/></span>
+							</td>
 							<td>
 								<div class="input-group col-md-3 col-sm-3 lg-sm-3"
 									style="position: relative;" id="buyNumMade">
@@ -627,7 +615,7 @@ a {
 	<script src="js/move.js"></script>
 	<script src="js/chat.js"></script>
 	<script src="js/admin/levelControl.js" type="text/javascript"></script>
-	<script src="css/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+	<script src="js/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
 	<script src="css/face/js/jquery-browser.js"></script>
 	<script src="css/face/js/jquery.qqFace.js"></script>
 	<script src="js/fileUpload/ajaxfileupload.js"></script>
@@ -635,6 +623,7 @@ a {
 				var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		$(function(){
+		$(".bodyLoader").remove();
 			//显示聊天窗口
 			$(".linkService").click(function(){
 				$(".chatWinBox").show();

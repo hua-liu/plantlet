@@ -102,7 +102,8 @@ $(function() {
 					})*/
 	// 添加颜色监听
 	$(".addColor").click(function() {
-		$(this).before($("<input type='color' name='color'>"));
+		$(this).before($('<div class="input-group myColorpicker colorpicker-element" style="width:30px;height:30px;float:left;"><input type="hidden" name="colors" value="#000" class="form-control"><div class="input-group-addon" style="background-color:rgb(0, 0, 0);"></div></div>'));
+		$(".myColorpicker").colorpicker();
 	})
 	// 点击上传html按钮
 	$(".clickUploadHtml").click(function() {
@@ -472,4 +473,7 @@ function reinitIframeEND() {
 	// 停止定时
 	window.clearInterval(timer1);
 
+}
+function setColor(){
+	
 }

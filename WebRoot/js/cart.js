@@ -12,7 +12,7 @@ $(function(){
 	})
 	//添加商品到购物车
 	$(".intoCart").click(function(){
-		var buyNum = $(".buyNum").length>1?$(this).prev():$(".buyNum");
+		var buyNum = $(".buyNum").length>1?$(this).prev():$(".buyNum");//如果是商品分类页则调用当前上一个
 		if(parseInt($(buyNum).val())>parseInt($(buyNum).attr("maxValue"))){
 			$(this).attr("data-content","加入购物车失败:没货啦");
 			$(this).popover("show");
@@ -20,7 +20,19 @@ $(function(){
 			window.setTimeout(function() {$(currentNode).popover("destroy");}, 2000)
 			return;
 		}
-		addOrderForm(this,$(buyNum).val());
+		if($(".color").length>0&&$(".color.checked").length<1){
+			$(".colorTd").popover("show");
+			setTimeout(function(){
+				$(".colorTd").popover("destroy");
+			},3000);
+			return;
+		}
+		if($(this).parents("tbody").find(".color.checked").length>0){
+			addOrderForm(this,$(buyNum).val(),$(this).parents("tbody").find(".color.checked").attr("data"));
+		}else{
+			addOrderForm(this,$(buyNum).val(),"");
+		}
+		
 	})
 	
 })
@@ -29,7 +41,7 @@ function createCartItim(id,img,name,price,num){
 	//添加节点
 	$(".mini-cart-items-list").append($('<li data-id="'+id+'"><div class="mini-cart-item"><div class="mini-cart-item-pic"><img src="'+img+'"></div><div class="mini-cart-item-info">'
 			+'<div class="mini-cart-item-title">'+name+'</div><div class="mini-cart-item-price">'
-			+'<i class="fa fa-rmb"></i><span class="cart-price">'+price*num+'</span></div><a class="mini-cart-item-del" href="#"><i class="fa fa-times"></i></a></div></div></li>'));
+			+'<i class="fa fa-rmb"></i><span class="cart-price">'+(price*num).toFixed(2)+'</span></div><a class="mini-cart-item-del" href="#"><i class="fa fa-times"></i></a></div></div></li>'));
 	/*$(".intoCart").popover("show");
 	window.setTimeout(function() {
 	$(".intoCart").popover("destroy");}, 2000)*/
@@ -40,10 +52,10 @@ function createCartItim(id,img,name,price,num){
 	});
 }
 //向数据库发送添加购物车请求
-function addOrderForm(el,num){
+function addOrderForm(el,num,color){
 	var id=$(el).attr("data-id");
 	var url = "json/userOrderForm_add";
-	var data = "goods.goodsId="+id+"&buyNum="+num;
+	var data = "goods.goodsId="+id+"&buyNum="+num+"&color="+color;
 	$.post(url,data,function(data){
 		if(data==null){
 			$(el).attr("data-content","加入购物车失败");
