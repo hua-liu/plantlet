@@ -66,7 +66,7 @@ $(function() {
 		uls[i].getElementsByTagName("li")[0].addEventListener("click",
 				function(e) {
 					if (permissions.indexOf("UpdateUser") == -1) {
-						showWarning(false,i18n.get("insufficientPermissions")+i18n.get("canNot")+i18n.get("updateUser")+"...");
+						showWarning(false,"权限不足，不能更新用户...");
 						return;
 					} else
 						updateUserData(this);
@@ -74,7 +74,7 @@ $(function() {
 		uls[i].getElementsByTagName("li")[1].addEventListener("click",
 				function(e) {
 					if (permissions.indexOf("DeleteUser") == -1) {
-						showWarning(false,i18n.get("insufficientPermissions")+i18n.get("canNot")+i18n.get("deleteUser")+"...");
+						showWarning(false,"权限不足，不能删除用户...");
 						return;
 					} else
 						deleteUserData(this);
@@ -82,7 +82,7 @@ $(function() {
 		uls[i].getElementsByTagName("li")[2].addEventListener("click",
 				function(e) {
 					if (permissions.indexOf("SelectUser") == -1) {
-						showWarning(false,i18n.get("insufficientPermissions")+i18n.get("canNot")+i18n.get("showMore")+"...");
+						showWarning(false,"权限不足，不能显示更多...");
 						return;
 					} else
 						getUserMoreData(this);
@@ -110,11 +110,11 @@ $(function() {
 		if (getElement(".changeNorm")[0].style.display == 'none') {
 			$(getElement("#update.submit")).popover("destroy")
 			getElement(".changeNorm")[0].style.display = "block";
-			this.innerHTML = i18n.get("hideChangeNorm");
+			this.innerHTML = "隐藏修改规范";
 		} else {
 			$(getElement("#update.submit")).popover("destroy")
 			getElement(".changeNorm")[0].style.display = "none";
-			this.innerHTML = i18n.get("readChangeNorm");
+			this.innerHTML = "阅读修改规范";
 		}
 	})
 	getElement(".changeNorm")[0].style.display = "none";
@@ -199,10 +199,10 @@ function deleteUserData(el) {
 	var id = el.parentNode.getAttribute("data-id");
 	var tds = $(".userList[data-id='" + id + "'] td");
 	$("#deleteWarning .deleteWarning-text").html(
-			tds[1].innerHTML != '-' ? i18n.get("username")+i18n.get("_for")+"[" + tds[1].innerHTML
-					: tds[2].innerHTML != "-" ? i18n.get("nickname")+i18n.get("_for")+"[" + tds[2].innerHTML
-							: tds[3].innerHTML != '-' ? i18n.get("phone")+i18n.get("_for")+"["
-									+ tds[3].innerHTML : i18n.get("email")+i18n.get("_for")+"["
+			tds[1].innerHTML != '-' ? "用户名为[" + tds[1].innerHTML
+					: tds[2].innerHTML != "-" ? "昵称为[" + tds[2].innerHTML
+							: tds[3].innerHTML != '-' ? "手机号为["
+									+ tds[3].innerHTML : "邮箱为["
 									+ tds[4].innerHTML);
 	/* 删除按钮事件 */
 	if (id == null) {
@@ -217,11 +217,11 @@ function deleteUserData(el) {
 					data = eval("(" + data + ")");
 					$("#deleteWarning").slideUp(500);
 					if (data.message) {
-						showWarning(true,i18n.get("_delete")+i18n.get("success")+"...");
+						showWarning(true,"删除成功...");
 						$(".userList[data-id=" + id + "]").get(0).remove();
 						return;
 					} else {
-						showWarning(false,i18n.get("_delete")+i18n.get("failure")+"！"+i18n.get("pleaseTryAgainLater")+"...");
+						showWarning(false,"删除失败，请稍候重试...");
 						return;
 					}
 				}
@@ -248,7 +248,7 @@ function getUserMoreData(el) {
 function setMoreData(data) {
 	for ( var val in data) {
 		if(val=='roleId')continue;
-		if(val=='state')data[val]=i18n.get(data[val]);
+		if(val=='state')data[val]="状态";
 		if (data[val] != null) {
 			createTrTd(nameArr[val], data[val])
 		}
@@ -264,7 +264,7 @@ function verify(str, ele) {
 	var value = ele.value;
 	if (str == 'username') {
 		if (value != '' && !/^[a-zA-Z]+[0-9a-zA-Z]{4,20}$/.test(value)) {
-			ele.setAttribute("data-content", i18n.get("username")+i18n.get("formatError"));
+			ele.setAttribute("data-content","用户名格式错误");
 			$(ele).popover('show');
 			ele.style.borderColor = "#f00";
 			isExsit.put(str, null);
@@ -277,7 +277,7 @@ function verify(str, ele) {
 	if (str == 'email') {
 		if (value != ''
 				&& !/^[0-9a-zA-Z]+@[0-9a-zA-Z]+[.][0-9a-zA-Z]+$/.test(value)) {
-			ele.setAttribute("data-content", i18n.get("email")+i18n.get("formatError"));
+			ele.setAttribute("data-content","邮箱地址格式错误");
 			$(ele).popover('show');
 			ele.style.borderColor = "#f00";
 			isExsit.put(str, null);
@@ -289,7 +289,7 @@ function verify(str, ele) {
 	}
 	if (str == 'phone') {
 		if (value != '' && !/^[1][3-8][0-9]{9}$/.test(value)) {
-			ele.setAttribute("data-content", i18n.get("phone")+i18n.get("formatError"));
+			ele.setAttribute("data-content","手机号码格式错误");
 			$(ele).popover('show');
 			ele.style.borderColor = "#f00";
 			isExsit.put(str, null);
@@ -301,7 +301,7 @@ function verify(str, ele) {
 	}
 	if (str == 'nickname') {
 		if (value != '' && value.trim() == '') {
-			ele.setAttribute("data-content", i18n.get("nickname")+i18n.get("formatError"));
+			ele.setAttribute("data-content", "昵称格式错误");
 			$(ele).popover('show');
 			ele.style.borderColor = "#f00";
 			isExsit.put(str, null);
@@ -333,11 +333,10 @@ function checkIsExist(type, ele) {
 			if (data != null) {
 				var data = eval("(" + data + ")");
 				if (data.message) {
-					type == 'usename' ? ele.setAttribute("data-content",
-							i18n.get("usernameInvalid")) : type == 'email' ? ele.setAttribute(
-							"data-content", i18n.get("emailInvalid")) : type == 'phone' ? ele
-							.setAttribute("data-content", i18n.get("phoneInvalid")) : ele
-							.setAttribute("data-content", i18n.get("nicknameInvalid"));
+					type == 'usename' ? ele.setAttribute("data-content","用户名已被使用✘") : type == 'email' ? ele.setAttribute(
+							"data-content","邮箱已被使用✘") : type == 'phone' ? ele
+							.setAttribute("data-content", "手机号已被使用✘") : ele
+							.setAttribute("data-content", "昵称已被使用✘");
 					$(ele).popover('show');
 					ele.style.borderColor = "#f00";
 					isExsit.put(type, null);
@@ -368,7 +367,7 @@ function updateUser() {
 			&& nickname.value == nickname.getAttribute("source-data")
 			&& state[0].value == $("#update-state").attr("source-data")) {
 		$(getElement("#updateModal")).modal("hide");
-		showWarning(false,i18n.get("notModify"));
+		showWarning(false,"您没有做任何更改");
 		return;
 	}
 	if (isExsit.size() > 0) {
@@ -409,11 +408,11 @@ function updateUser() {
 							: nickname.value;
 					tds[3].innerHTML = phone.value == null ? '-' : phone.value;
 					tds[4].innerHTML = email.value == null ? '-' : email.value;
-					tds[5].innerHTML = state[0].value == '1' ? i18n.get("normal")
-							: state[0].value == '2' ? i18n.get("inactive") : i18n.get("locked");
-					showWarning(true,i18n.get("modifySuccess")+"...");
+					tds[5].innerHTML = state[0].value == '1' ? '正常'
+							: state[0].value == '2' ? '激活' : '已锁';
+					showWarning(true,"修改成功...");
 				} else {
-					showWarning(false,i18n.get("modifyUserFailed")+"！"+i18n.get("pleaseTryAgainLater")+"...");
+					showWarning(false,"更新用户失败，请稍候重试...");
 				}
 			}
 		}

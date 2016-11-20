@@ -57,8 +57,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="bodyLoader" style="width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,0.8);z-index:1500"><div class="loader-inner square-spin"><div></div></div></div>
 <div class="container">
         <div class="head">
-        	<p class="left"><a href="index">返回首页</a></p>
-            <p>欢迎回来 《上次登陆时间:<s:date name="log.currentDate!=null?log.currentDate:'您是第一次登陆'" format="yyyy-MM-dd HH:mm:ss"/> 登陆IP：${log.changeIp!=null?log.changeIp:'您是第一次登陆'}》<a href="userLogout">退出</a></p>
+        	<p class="left"><a href="index"><s:text name="backHomepage"/></a></p>
+            <p><s:text name="welcomeBack"/> 《
+            <s:text name="theLastLoginTime"/><s:date name="log!=null&&log.currentDate!=null?log.currentDate:''" format="yyyy-MM-dd HH:mm:ss"/> <s:text name="lastLoginIp"/><s:text name="%{log!=null&&log.changeIp!=null?log.changeIp:getText('firstLogin')}"/>
+            》<a href="userLogout"><s:text name="quit"/></a></p>
         </div>
         <div class="body">
             <table class="table col-md-12">
@@ -76,14 +78,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 	</s:else>
                                     <br/>
                                 </div>
-                                <p style="margin-top:10px;"><h3 class="modifyHover"><span class="nickname"><s:property value="#session.user.nickname!=null?#session.user.nickname:'您还没有昵称'"/></span></h3></p>
+                                <p style="margin-top:10px;"><h3 class="modifyHover"><span class="nickname"><s:property value="%{#session.user.nickname!=null?#session.user.nickname:getText('youNoNickname')}"/></span></h3></p>
                                 <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <form class="avatar-form" action="#" enctype="multipart/form-data" method="get">
                                                 <div class="modal-header">
                                                     <button class="close" data-dismiss="modal" type="button">&times;</button>
-                                                    <h4 class="modal-title" id="avatar-modal-label" style="color:#000;">更换头像</h4>
+                                                    <h4 class="modal-title" id="avatar-modal-label" style="color:#000;"><s:text name="changeThePicture"/></h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="avatar-body">
@@ -109,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                             <div class="row avatar-btns">
                                                                 <div class="col-md-9">
                                                                     <div class="btn-group">
-                                                                        <button class="btn btn-success" id="selectPicture" type="button">选择图片</button>
+                                                                        <button class="btn btn-success" id="selectPicture" type="button"><s:text name="choosePicture"/></button>
                                                                         <!-- <button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">右旋转90度</button>
                                                                         <button class="btn btn-primary" data-method="rotate" data-option="15" type="button">右转15度</button>
                                                                         <button class="btn btn-primary" data-method="rotate" data-option="30" type="button">旋转30度</button>
@@ -118,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <button class="btn btn-primary btn-block avatar-save" type="submit">Done</button>
+                                                                    <button class="btn btn-primary btn-block avatar-save" type="submit"><s:text name="done"/></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -146,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="bottom"></div>
                             <div class="right"></div>
                             <span class="glyphicon glyphicon-user"></span>
-                            <p>我的信息</p>
+                            <p><s:text name="myInformation"/></p>
                         </div>
                     </td>
                     <td class="col-md-4" style="border-top:none;">
@@ -156,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="bottom"></div>
                             <div class="right"></div>
                             <span class="glyphicon glyphicon-star-empty"></span>
-                            <p>我的订单</p>
+                            <p><s:text name="myOrder"/></p>
                         </div>
                     </td>
                     <td class="col-md-4" style="border-top:none;">
@@ -166,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="bottom"></div>
                             <div class="right"></div>
                             <span class="glyphicon glyphicon-usd"></span>
-                            <p>我的金库</p>
+                            <p><s:text name="myVault"/></p>
                         </div>
                     </td>
                 </tr>
@@ -178,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="bottom"></div>
                             <div class="right"></div>
                             <span class="glyphicon glyphicon-pushpin"></span>
-                            <p>收货地址维护</p>
+                            <p><s:text name="shippingAddressMaintenance"/></p>
                         </div>
                     </td>
                     <td class="col-md-4" style="border-top:none;">
@@ -188,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="bottom"></div>
                             <div class="right"></div>
                             <span class="glyphicon glyphicon-volume-up"></span>
-                            <p>消息提醒</p>
+                            <p><s:text name="messageToRemind"/></p>
                         </div>
                     </td>
                     <td class="col-md-4" style="border-top:none;">
@@ -198,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="bottom"></div>
                             <div class="right"></div>
                             <span class="glyphicon glyphicon-lock"></span>
-                            <p>安全设置</p>
+                            <p><s:text name="securitySettings"/></p>
                         </div>
                     </td>
                 </tr>
@@ -214,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:#000">&times;</span></button>
-                    <h4 class="modal-title" id="contentModalLabel" style="color:#000;font-size:15px;">${function==1?'我的信息':function==2?'我的订单':function==3?'我的金库':function==4?'收货地址维护':function==5?'消息提醒':'安全设置' }</h4>
+                    <h4 class="modal-title" id="contentModalLabel" style="color:#000;font-size:15px;"><s:text name="%{function==1?getText('myInformation'):function==2?getText('myOrder'):function==3?getText('myVault'):function==4?getText('shippingAddressMaintenance'):function==5?getText('messageToRemind'):getText('securitySettings')}"/></h4>
                 </div>
                 <div class="modal-body myContentBody">
                     <div class="myContent">
@@ -256,6 +258,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<source src="sound/msn.mp3" type="audio/mpeg" class="source">
  		<source src="sound/msn.wav" type="audio/wav" class="source">
 	</audio>
+	<!--i18n  -->
+	<script src="js/admin/map.js"></script>
+	<script type="text/javascript">
+		try{
+		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
+		var i18n = new Map();
+		for ( var key in i18nConfig) {
+			i18n.put(key, i18nConfig[key]);
+		}
+	}catch(e){
+		alert(e);
+	}
+	</script>
+	<!--/i18n  -->
     <script src="js/fileUpload/ajaxfileupload.js" type="text/javascript"></script>
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/myCenter/myCenter.js" type="text/javascript"></script>

@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'myInfo.jsp' starting page</title>
+    <title>My Information</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -77,51 +77,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <tr>
             <td>
                 <div class="input-group select">
-                    <span class="input-group-addon" id="basic-addon2">昵称</span>
+                    <span class="input-group-addon" id="basic-addon2"><s:text name="nickname"/></span>
                     <span  class="form-control view"  aria-describedby="basic-addon2">${nickname}</span>
-                    <input type="text" name="nickname" class="form-control change" style="display: none" placeholder="填写昵称" aria-describedby="basic-addon2" value="${nickname}" source="${nickname}" data-toggle="tooltip" data-placement="top" title="昵称已经被使用"/>
+                    <input type="text" name="nickname" class="form-control change" style="display: none" placeholder="填写昵称" aria-describedby="basic-addon2" value="${nickname}" source="${nickname}" data-toggle="tooltip" data-placement="top" title="<s:text name='nicknameUsed'/>"/>
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="input-group select">
-                    <span class="input-group-addon" id="basic-addon3">用户名</span>
+                    <span class="input-group-addon" id="basic-addon3"><s:text name="username"/></span>
                     <span  class="form-control view"  aria-describedby="basic-addon3">${username}</span>
-                    <input type="text" name="username" class="form-control change" style="display: none" placeholder="填写用户名" aria-describedby="basic-addon3" value="${username}" source="${username}" data-toggle="tooltip" data-placement="top" title="用户名已经被使用"/>
+                    <input type="text" name="username" class="form-control change" style="display: none" placeholder="<s:text name='inputUsername'/>" aria-describedby="basic-addon3" value="${username}" source="${username}" data-toggle="tooltip" data-placement="top" title="<s:text name='usernameUsed'/>"/>
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="input-group select">
-                    <span class="input-group-addon" id="basic-addon4">真实姓名</span>
+                    <span class="input-group-addon" id="basic-addon4"><s:text name="realName"/></span>
                     <span  class="form-control view"  aria-describedby="basic-addon4">${identity.name}</span>
-                    <input type="text" name="identity.name" class="form-control change" style="display: none" placeholder="what's your name" aria-describedby="basic-addon4" value="${identity.name}"/>
+                    <input type="text" name="identity.name" class="form-control change" style="display: none" placeholder="<s:text name='yourname'/>" aria-describedby="basic-addon4" value="${identity.name}"/>
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="input-group select">
-                    <span class="input-group-addon" id="basic-addon5">证件号</span>
+                    <span class="input-group-addon" id="basic-addon5"><s:text name="idNo"/></span>
                     <span  class="form-control view"  aria-describedby="basic-addon5">${identity.identityNumber}</span>
-                    <input type="text"name="identity.identityNumber" class="form-control change identityNumber" style="display: none" placeholder="what's your identity number" aria-describedby="basic-addon5" value="${identity.identityNumber}" maxlength=18 data-toggle="tooltip" data-placement="top" title="身份证号码格式不正确，可以选择不填"/>
+                    <input type="text"name="identity.identityNumber" class="form-control change identityNumber" style="display: none" placeholder="what's your identity number" aria-describedby="basic-addon5" value="${identity.identityNumber}" maxlength=18 data-toggle="tooltip" data-placement="top" title="<s:text name='idCardFormatError'/>"/>
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="input-group select">
-                    <span class="input-group-addon" id="basic-addon6">性别</span>
+                    <span class="input-group-addon" id="basic-addon6"><s:text name="sex"/></span>
                     <span  class="form-control view"  aria-describedby="basic-addon6">${sex==1?'男':'女'}</span>
                     <!-- radio -->
                     <div class="form-group change" style="margin:5px 0">
                         <label>
-                            <input type="radio" name="sex" class="flat-red" ${sex==1?'checked':'' } value="1">男
+                            <input type="radio" name="sex" class="flat-red" ${sex==1?'checked':'' } value="1"><s:text name="male"/>
                         </label>
                         <label>
-                            <input type="radio" name="sex" class="flat-red" ${sex==0?'checked':'' } value="0">女
+                            <input type="radio" name="sex" class="flat-red" ${sex==0?'checked':'' } value="0"><s:text name="female"/>
                         </label>
                     </div>
                 </div>
@@ -130,9 +130,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <tr>
             <td>
                 <div class="input-group select">
-                    <span class="input-group-addon" id="basic-addon7">出生日期</span>
+                    <span class="input-group-addon" id="basic-addon7"><s:text name="dateOfBirth"/></span>
                     <span  class="form-control view"  aria-describedby="basic-addon7"><s:date name="birthday" format="yyyy-MM-dd"/></span>
-                    <input type="text" name="birthday" class="form-control change" id="datepicker" style="display: none" placeholder="选择出生日期" aria-describedby="basic-addon7" value="<s:date name="birthday" format="yyyy-MM-dd"/>"/>
+                    <input type="text" name="birthday" class="form-control change" id="datepicker" style="display: none" placeholder="<s:text name='selectBirth'/>" aria-describedby="basic-addon7" value="<s:date name="birthday" format="yyyy-MM-dd"/>"/>
                 </div>
             </td>
         </tr>
@@ -140,20 +140,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <td>
                 <div class="input-group select">
                 	<input type="hidden" value="${address}" name="address">
-                    <span class="input-group-addon" id="basic-addon9">家乡</span>
+                    <span class="input-group-addon" id="basic-addon9"><s:text name="hometown"/></span>
                     <span  class="form-control view" aria-describedby="basic-addon9">${address}</span>
                     <div class="form-control selectArea change" style="display:none;" data-toggle="popover"
-                         data-placement="top" data-content="省市是必须要选的">
-                        <span class="selectedArea initArea">${address!=null?address:'选择省/市/区...'}</span> <span
+                         data-placement="top" data-content="<s:text name='selectProvince_error'/>">
+                        <span class="selectedArea initArea"><s:text name="%{address!=null?address:getText('selectProvince/city/district...')}"/></span> <span
                             class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"
                             style="float:right"></span>
                     </div>
                     <div class="provinesBox" style="width:350px;">
                         <ul class="provinesMenu">
-                            <li class="provinces active">省份</li>
-                            <li class="city">城市</li>
-                            <li class="district">县区</li>
-                            <li class="street">街道</li>
+                            <li class="provinces active"><s:text name="provinces"/></li>
+                            <li class="city"><s:text name="city"/></li>
+                            <li class="district"><s:text name="county"/></li>
+                            <li class="street"><s:text name="street"/></li>
                             <!-- 	<li class="village">村</li> -->
                         </ul>
                         <div class="provinesContent">
@@ -294,7 +294,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </table>
     </form>
     <div class="modifyButton" state="view"><i class="glyphicon glyphicon-pencil"></i></div>
-    <button class="btn btn-primary modifyCommit" type="button" data-toggle="popover" data-placement="left" data-content="">更新</button>
+    <button class="btn btn-primary modifyCommit" type="button" data-toggle="popover" data-placement="left" data-content=""><s:text name="update"/></button>
     <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
@@ -313,6 +313,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 $(".modifyCommit").show();
             }else{
                 $(this).attr("state","view");
+                $(".provinesBox").hide();
                 $(".view").show();
                 $(".change").hide();
                 $(".modifyCommit").hide();
@@ -334,7 +335,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						if(data.message){
 							window.location.reload();
 						}else{
-							$(_this).attr("data-content","更新失败，原因："+data.cause);
+							$(_this).attr("data-content","<s:text name='updateLose'/><s:text name='cause'/>"+data.cause);
 							$(_this).popover("show");
 							setTimeout(function(){
 								$(_this).popover("destroy");
@@ -342,7 +343,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						}
 						return;
 					}
-					$(_this).attr("data-content","更新失败，未知原因");
+					$(_this).attr("data-content","<s:text name='updateLose'/><s:text name='noKnowCause'/>");
 					$(_this).popover("show");
 					setTimeout(function(){
 						$(_this).popover("destroy");
@@ -379,11 +380,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     function checkIsExist(type, el) {
     	if(el.value==''||el.value==$(el).attr("source"))return;
     	if(type=='username'&&!/^[a-zA-Z]+[0-9a-zA-Z]{4,20}$/.test(el.value)){
-    		$(el).attr("title","用户名只支持英文加数字并且5-20位");
+    		$(el).attr("title","<s:text name='usernameNorm'/>");
     		$(el).tooltip("show");
     		setTimeout(function(){
 				$(el).tooltip("destroy");
-				$(el).attr("title","用户名已经被使用");
+				$(el).attr("title","<s:text name='usernameUsed'/>");
 			},3000);
 			return;
     	}

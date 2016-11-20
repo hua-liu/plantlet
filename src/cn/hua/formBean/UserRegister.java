@@ -3,6 +3,10 @@ package cn.hua.formBean;
 import cn.hua.model.User;
 
 public class UserRegister extends User{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String password;
 	private String password2;
 	private String verificationCode;

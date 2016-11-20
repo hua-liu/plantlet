@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
     <ul id="gallery-wrapper">
         <li class="boxContPrimary" style="height:200px;" data-toggle="modal"
-            data-target="#addAddrModal" id="addAddrModalButton"><i class="glyphicon glyphicon-plus" style="margin-top:40%;"><br/>添加新地址</i></li>
+            data-target="#addAddrModal" id="addAddrModalButton"><i class="glyphicon glyphicon-plus" style="margin-top:40%;"><br/><s:text name="addANewAddress"/></i></li>
        <s:iterator value="#request.addrs" status="c">
       	<li class="boxCont" data-id="${id}"><p class="thumb"><span>${address.replace("--","<br/>")}<br/>${moreAddress}<br/>${name}<br/>${phone}</span></p><span class="glyphicon glyphicon-remove delAddress" title="删除"></span></li>
 	</s:iterator>
@@ -87,28 +87,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        <b>添加收货地址</b>
+                        <b><s:text name="addAShippingAddress"/></b>
                     </h4>
                 </div>
                 <form action="addAddr" method="post" id="addressForm">
                     <div class="modal-body">
                         <s:hidden name="address"></s:hidden>
                         <div class="input-group">
-                            <div class="input-group-addon">所在地区</div>
+                            <div class="input-group-addon"><s:text name="inTheArea"/></div>
                             <div class="form-control selectArea" data-toggle="popover"
-                                 data-placement="top" data-content="省市是必须要选的">
-                                <span class="selectedArea initArea">选择省/市/区...</span> <span
-                                    class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"
-                                    style="float:right"></span>
-                            </div>
-                            <div class="provinesBox">
-                                <ul class="provinesMenu">
-                                    <li class="provinces active">省份</li>
-                                    <li class="city">城市</li>
-                                    <li class="district">县区</li>
-                                    <li class="street">街道</li>
-                                    <!-- 	<li class="village">村</li> -->
-                                </ul>
+                                data-placement="top" data-content="<s:text name='selectProvince_error'/>">
+								<span class="selectedArea initArea"><s:text name='selectProvince/city/district...'/></span> <span
+									class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"
+									style="float:right"></span>
+							</div>
+							<div class="provinesBox">
+								<ul class="provinesMenu">
+									<li class="provinces active"><s:text name='provinces'/></li>
+									<li class="city"><s:text name='city'/></li>
+									<li class="district"><s:text name='county'/></li>
+									<li class="street"><s:text name='street'/></li>
+									<!-- 	<li class="village">村</li> -->
+								</ul>
                                 <div class="provinesContent">
                                     <div class="city-group city-provinces active">
                                         <table>
@@ -243,45 +243,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
 
                         </div>
-                        <div class="input-group">
-                            <div class="input-group-addon">详细地址</div>
+                       <div class="input-group">
+							<div class="input-group-addon"><s:text name='detailedAddress'/></div>
 							<textarea class="form-control" name="moreAddress" rows="3"
-                                      placeholder="建议您如实填写详细收货地址，例如街道名称，门牌号码，楼层和房间号等信息"
-                                      style="max-width:490px;" data-toggle="popover"
-                                      data-placement="top" data-content="多多少少也请填写一点，让你取货更方便"></textarea>
-                            <!-- 						<input type="text" class="form-control col-md-10" placeholder="输入详细的地址">
- -->
-                        </div>
-                        <div class="input-group">
-                            <div class="input-group-addon">收&ensp;件&ensp;人</div>
-                            <input type="text" class="form-control col-md-10" name="name"
-                                   placeholder="填写收件人姓名" data-toggle="popover" data-placement="top"
-                                   data-content="你要把货寄给谁呀">
-                            <div class="input-group-addon">邮政编码</div>
-                            <input type="text" class="form-control col-md-10" name="postcode"
-                                   placeholder="不填写，默认000000">
-                        </div>
-                        <div class="input-group">
-                            <div class="input-group-addon">手&ensp;机&ensp;号</div>
-                            <input type="text" class="form-control col-md-10" name="phone"
-                                   placeholder="电话号码、手机号码必须填一项" data-toggle="popover"
-                                   data-placement="top" data-content="手机号或电话号码为方便联系你">
-                            <div class="input-group-addon">电话</div>
-                            <input type="text" class="form-control col-md-10"
-                                   name="telephone" placeholder="电话号码、手机号码必须填一项">
-                        </div>
-                    </div>
+								placeholder="<s:text name='detailedAddress_placeHolder'/>"
+								style="max-width:490px;" data-toggle="popover"
+								data-placement="top" data-content="<s:text name='detailedAddress_error'/>"></textarea>
+						</div>
+						<div class="input-group">
+							<div class="input-group-addon"><s:text name='toReceiveA'/></div>
+							<input type="text" class="form-control col-md-10" name="name"
+								placeholder="<s:text name='fillInTheRecipientsName'/>" data-toggle="popover" data-placement="top"
+								data-content="<s:text name='toReceiveA_error'/>">
+							<div class="input-group-addon"><s:text name='postalcode'/></div>
+							<input type="text" class="form-control col-md-10" name="postcode"
+								placeholder="<s:text name='doNotFillIn,theDefaultOf000000'/>">
+						</div>
+						<div class="input-group">
+							<div class="input-group-addon"><s:text name='mobilePhoneNo.'/></div>
+							<input type="text" class="form-control col-md-10" name="phone"
+								placeholder="<s:text name='mobilePhoneNo._placeHolder'/>" data-toggle="popover"
+								data-placement="top" data-content="<s:text name='mobilePhoneNo._error'/>">
+							<div class="input-group-addon"><s:text name='telephone'/></div>
+							<input type="text" class="form-control col-md-10"
+								name="telephone" placeholder="<s:text name='mobilePhoneNo._placeHolder'/>">
+						</div>
+					</div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="addrId">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary"
-                                id="submitAddAddress" data-toggle="popover" data-placement="left"
-                                data-content="">确定添加</button>
+                       <button type="button" class="btn btn-default" data-dismiss="modal"><s:text name='close'/></button>
+						<button type="button" class="btn btn-primary"
+							id="submitAddAddress" data-toggle="popover" data-placement="left"
+							data-content=""><s:text name='addAddressAndSelect'/></button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <!--i18n  -->
+	<script src="js/admin/map.js"></script>
+	<script type="text/javascript">
+		try{
+		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
+		var i18n = new Map();
+		for ( var key in i18nConfig) {
+			i18n.put(key, i18nConfig[key]);
+		}
+	}catch(e){
+		alert(e);
+	}
+	</script>
+	<!--/i18n  -->
     <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!--流动布局-->

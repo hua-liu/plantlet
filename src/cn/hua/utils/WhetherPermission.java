@@ -1,12 +1,14 @@
 package cn.hua.utils;
 
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
 import cn.hua.model.Role;
 import cn.hua.model.User;
 import cn.hua.service.Service;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.util.Map;
 @Component
 public class WhetherPermission {
 	private static Service service;

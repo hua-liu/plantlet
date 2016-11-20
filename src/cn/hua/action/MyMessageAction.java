@@ -10,9 +10,14 @@ import cn.hua.utils.Conversion;
 import cn.hua.utils.MessageOperation;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class MyMessageAction implements ModelDriven<Message>{
+public class MyMessageAction extends ActionSupport implements ModelDriven<Message>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Message message;
 	private String result;
 	private Service service;
@@ -40,15 +45,15 @@ public class MyMessageAction implements ModelDriven<Message>{
 		User user = (User)ActionContext.getContext().getSession().get("user");
 		if(user==null)return "input";
 		if(message==null){
-			this.result = Conversion.stringToJson("message,false,cause,信息错误");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("noGetData"));
 			return "error";
 		}
 		if(message.getReceiveID()==null||message.getContent()==null){
-			this.result = Conversion.stringToJson("message,false,cause,信息填写不完整");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("infoFIllNoFull"));
 			return "error";
 		}
 		if(service.findUserById(message.getReceiveID())==null){
-			this.result = Conversion.stringToJson("message,false,cause,收件人不存在");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("receiveNoExist"));
 			return "error";
 		}
 		message.setSendID(user.getId());
@@ -60,7 +65,7 @@ public class MyMessageAction implements ModelDriven<Message>{
 			this.result = Conversion.stringToJson("message,true");
 			return "success";
 		}else{
-			this.result = Conversion.stringToJson("message,false,文件系统出错");
+			this.result = Conversion.stringToJson("message,false,"+getText("fileSysError"));
 			return "error";
 		}
 	}
@@ -81,7 +86,7 @@ public class MyMessageAction implements ModelDriven<Message>{
 			this.result=Conversion.stringToJson("message,false");
 		}else{
 			if(my.getId().equals(user.getId())){
-				this.result=Conversion.stringToJson("message,false,cause,不能发送给自己");
+				this.result=Conversion.stringToJson("message,false,cause,"+getText("noSendSelf"));
 			}else
 			this.result=Conversion.stringToJson("message,true,id,"+user.getId());
 		}

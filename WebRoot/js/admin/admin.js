@@ -128,8 +128,7 @@ function saveSet() {
 			if (data != null) {
 				data = eval("(" + data + ")");
 				if (data.res) {
-					showWarning(true, i18n.get("setSaved") + ","
-							+ i18n.get("requestData") + "...")
+					showWarning(true,"已保存,马上重新请求数据...")
 					$("#rowNum").attr("source-data", $("#rowNum").val());
 					window.setTimeout(function() {
 						document.getElementById('iframepage').contentWindow.location.reload();
@@ -137,8 +136,7 @@ function saveSet() {
 					return;
 				}
 			}
-			showWarning(false, i18n.get("canNotSave") + ","
-					+ i18n.get("pleaseCheckNetwork") + "！！");
+			showWarning(false, "保存失败,请检查网络连接！！");
 			return;
 		}
 	})

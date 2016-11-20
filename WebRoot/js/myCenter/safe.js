@@ -12,7 +12,7 @@ function setPhone(){
 	var newPhone = $(".setPhone input[name=newPhone]")[0];
 	var oldPhone = $(".setPhone input[name=oldPhone]")[0];
 	if(oldPhone.value!=''&&!/^[1][3-8][0-9]{9}$/.test(oldPhone.value)){
-		$(oldPhone).attr("title","手机号码填错了，我不怪你");
+		$(oldPhone).attr("title",i18n.get("phoneFillError"));
 		$(oldPhone).tooltip("show");
 		setTimeout(function(){
 			$(oldPhone).tooltip("destroy");
@@ -20,7 +20,7 @@ function setPhone(){
 		return;
 	}
 	if(newPhone.value==''){
-		$(newPhone).attr("title","还没填手机号呢，不要乱点啦");
+		$(newPhone).attr("title",i18n.get("noFillPhone"));
 		$(newPhone).tooltip("show");
 		setTimeout(function(){
 			$(newPhone).tooltip("destroy");
@@ -28,7 +28,7 @@ function setPhone(){
 		return;
 	}
 	if(!/^[1][3-8][0-9]{9}$/.test(newPhone.value)){
-		$(newPhone).attr("title","手机号码填错了，我不怪你");
+		$(newPhone).attr("title",i18n.get("phoneFillError"));
 		$(newPhone).tooltip("show");
 		setTimeout(function(){
 			$(newPhone).tooltip("destroy");
@@ -36,7 +36,7 @@ function setPhone(){
 		return;
 	}
 	if(oldPhone.value==newPhone.value){
-		$(newPhone).attr("title","不能与原手机号码一样");
+		$(newPhone).attr("title",i18n.get("oldPhoneSame"));
 		$(newPhone).tooltip("show");
 		setTimeout(function(){
 			$(newPhone).tooltip("destroy");
@@ -49,7 +49,7 @@ function setEmail(){
 	var newEmail = $(".setEmail input[name=newEmail]")[0];
 	var oldEmail = $(".setEmail input[name=oldEmail]")[0];
 	if(oldEmail.value!=''&&!/^[0-9a-zA-Z]+@[0-9a-zA-Z]+[.][0-9a-zA-Z]+$/.test(oldEmail.value)){
-		$(oldEmail).attr("title","邮箱填错了，我不怪你");
+		$(oldEmail).attr("title",i18n.get("emailFillError"));
 		$(oldEmail).tooltip("show");
 		setTimeout(function(){
 			$(oldEmail).tooltip("destroy");
@@ -57,7 +57,7 @@ function setEmail(){
 		return;
 	}
 	if(newEmail.value==''){
-		$(newEmail).attr("title","还没填邮箱呢，不要乱点啦");
+		$(newEmail).attr("title",i18n.get("onFillEmail"));
 		$(newEmail).tooltip("show");
 		setTimeout(function(){
 			$(newEmail).tooltip("destroy");
@@ -65,7 +65,7 @@ function setEmail(){
 		return;
 	}
 	if(!/^[0-9a-zA-Z]+@[0-9a-zA-Z]+[.][0-9a-zA-Z]+$/.test(newEmail.value)){
-		$(newEmail).attr("title","邮箱填错了，我不怪你");
+		$(newEmail).attr("title",i18n.get("emailFillError"));
 		$(newEmail).tooltip("show");
 		setTimeout(function(){
 			$(newEmail).tooltip("destroy");
@@ -73,7 +73,7 @@ function setEmail(){
 		return;
 	}
 	if(oldEmail.value==newEmail.value){
-		$(newEmail).attr("title","不能与原邮箱一样");
+		$(newEmail).attr("title",i18n.get("oldEmailSame"));
 		$(newEmail).tooltip("show");
 		setTimeout(function(){
 			$(newEmail).tooltip("destroy");
@@ -87,7 +87,7 @@ function setLoginPassword(){
 	var newLoginPassword2 = $(".setLoginPassword input[name=newLoginPassword2]")[0];
 	var oldLoginPassword = $(".setLoginPassword input[name=oldLoginPassword]")[0];
 	if(oldLoginPassword.value==''){
-		$(oldLoginPassword).attr("title","必须要填登陆密码，不要告诉我你没有");
+		$(oldLoginPassword).attr("title",i18n.get("mustFillLoginPassword"));
 		$(oldLoginPassword).tooltip("show");
 		setTimeout(function(){
 			$(oldLoginPassword).tooltip("destroy");
@@ -95,7 +95,7 @@ function setLoginPassword(){
 		return;
 	}
 	if(oldLoginPassword.value.length<5||oldLoginPassword.value.length>20){
-		$(oldLoginPassword).attr("title","长度不对，看右边规则");
+		$(oldLoginPassword).attr("title",i18n.get("lengthNoRight"));
 		$(oldLoginPassword).tooltip("show");
 		setTimeout(function(){
 			$(oldLoginPassword).tooltip("destroy");
@@ -103,7 +103,7 @@ function setLoginPassword(){
 		return;
 	}
 	if(newLoginPassword.value==''){
-		$(newLoginPassword).attr("title","还没密码呢，不要乱点啦");
+		$(newLoginPassword).attr("title",i18n.get("noFillPassword"));
 		$(newLoginPassword).tooltip("show");
 		setTimeout(function(){
 			$(newLoginPassword).tooltip("destroy");
@@ -111,7 +111,7 @@ function setLoginPassword(){
 		return;
 	}
 	if(newLoginPassword.value.length<5||newLoginPassword.value.length>20){
-		$(newLoginPassword).attr("title","长度不对，看右边规则");
+		$(newLoginPassword).attr("title",i18n.get("lengthNoRight"));
 		$(newLoginPassword).tooltip("show");
 		setTimeout(function(){
 			$(newLoginPassword).tooltip("destroy");
@@ -119,7 +119,7 @@ function setLoginPassword(){
 		return;
 	}
 	if(oldLoginPassword.value==newLoginPassword.value){
-		$(newLoginPassword).attr("title","不能与原密码一样");
+		$(newLoginPassword).attr("title",i18n.get("oldPasswordSame"));
 		$(newLoginPassword).tooltip("show");
 		setTimeout(function(){
 			$(newLoginPassword).tooltip("destroy");
@@ -127,7 +127,7 @@ function setLoginPassword(){
 		return;
 	}
 	if(newLoginPassword.value!=newLoginPassword2.value){
-		$(newLoginPassword2).attr("title","两次输入密码不一样，不要乱填啦");
+		$(newLoginPassword2).attr("title",i18n.get("twoPasswordNoSame"));
 		$(newLoginPassword2).tooltip("show");
 		setTimeout(function(){
 			$(newLoginPassword2).tooltip("destroy");
@@ -142,7 +142,7 @@ function setPayPassword(){
 	var newPayPassword = $(".setPayPassword input[name=newPayPassword]")[0];
 	var newPayPassword2 = $(".setPayPassword input[name=newPayPassword2]")[0];
 	if(oldLoginPassword.value==''){
-		$(oldLoginPassword).attr("title","必须要填登陆密码，不要告诉我你没有");
+		$(oldLoginPassword).attr("title",i18n.get("mustFillLoginPassword"));
 		$(oldLoginPassword).tooltip("show");
 		setTimeout(function(){
 			$(oldLoginPassword).tooltip("destroy");
@@ -150,7 +150,7 @@ function setPayPassword(){
 		return;
 	}
 	if(oldLoginPassword.value.length<5||oldLoginPassword.value.length>20){
-		$(oldLoginPassword).attr("title","长度不对，看右边规则");
+		$(oldLoginPassword).attr("title",i18n.get("lengthNoRight"));
 		$(oldLoginPassword).tooltip("show");
 		setTimeout(function(){
 			$(oldLoginPassword).tooltip("destroy");
@@ -158,7 +158,7 @@ function setPayPassword(){
 		return;
 	}
 	if(oldPayPassword.value!=''&&(oldPayPassword.value.length<5||oldPayPassword.value.length>20)){
-		$(oldPayPassword).attr("title","长度不对，看右边规则");
+		$(oldPayPassword).attr("title",i18n.get("lengthNoRight"));
 		$(oldPayPassword).tooltip("show");
 		setTimeout(function(){
 			$(oldPayPassword).tooltip("destroy");
@@ -166,7 +166,7 @@ function setPayPassword(){
 		return;
 	}
 	if(newPayPassword.value==''){
-		$(newPayPassword).attr("title","还没密码呢，不要乱点啦");
+		$(newPayPassword).attr("title",i18n.get("noFillPassword"));
 		$(newPayPassword).tooltip("show");
 		setTimeout(function(){
 			$(newPayPassword).tooltip("destroy");
@@ -174,7 +174,7 @@ function setPayPassword(){
 		return;
 	}
 	if(newPayPassword.value.length<5||newPayPassword.value.length>20){
-		$(newPayPassword).attr("title","长度不对，看右边规则");
+		$(newPayPassword).attr("title",i18n.get("lengthNoRight"));
 		$(newPayPassword).tooltip("show");
 		setTimeout(function(){
 			$(newPayPassword).tooltip("destroy");
@@ -182,7 +182,7 @@ function setPayPassword(){
 		return;
 	}
 	if(oldPayPassword.value==newPayPassword.value){
-		$(newPayPassword).attr("title","不能与原密码一样");
+		$(newPayPassword).attr("title",i18n.get("oldPasswordSame"));
 		$(newPayPassword).tooltip("show");
 		setTimeout(function(){
 			$(newPayPassword).tooltip("destroy");
@@ -190,7 +190,7 @@ function setPayPassword(){
 		return;
 	}
 	if(newPayPassword.value!=newPayPassword2.value){
-		$(newPayPassword2).attr("title","两次输入密码不一样，不要乱填啦");
+		$(newPayPassword2).attr("title",i18n.get("twoPasswordNoSame"));
 		$(newPayPassword2).tooltip("show");
 		setTimeout(function(){
 			$(newPayPassword2).tooltip("destroy");

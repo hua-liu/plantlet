@@ -77,4 +77,9 @@ public class OrderFormDaoImpl implements OrderFormDao {
 		hibernateTemplate.update(take);
 	}
 
+	@Override
+	public void clearAllSoppingCart(String id) {
+		hibernateTemplate.getSessionFactory().getCurrentSession().createNativeQuery("delete from orderform where user_id=? and state_id=10").setParameter(1, id).executeUpdate();
+	}
+
 }

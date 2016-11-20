@@ -45,7 +45,7 @@ $(function(){
 		var data = "goods.goodsId="+$(this).attr("data-id")+"&buyNum="+$(this).parents("tbody").find(".buyNum").val()+"&color="+$(this).parents("tbody").find(".color.checked").attr("data");
 		$.post(url,data,function(data){
 			if(data==null){
-				$(el).attr("data-content","创建订单失败，稍候再试");
+				$(el).attr("data-content",i18n.get("createOrderFailure"));
 				$(el).popover("show");
 				window.setTimeout(function() {$(el).popover("destroy");}, 2000)
 				$(".mini-cart-items-list li[data-id="+$(el).attr("data-id")+"]").remove();
@@ -57,7 +57,7 @@ $(function(){
 				if(data.message){
 					window.location.href="auctionOrder?id="+data.id;
 				}else{
-					$(el).attr("data-content","购买失败:原因："+data.cause);
+					$(el).attr("data-content",i18n.get("buyFailure")+data.cause);
 					$(el).popover("show");
 					window.setTimeout(function() {$(el).popover("destroy");}, 2000)
 				}

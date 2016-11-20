@@ -12,20 +12,20 @@ public class GetI18nConfig extends Thread{
 	private Map<String,Object> session;
 	private ActionContext actionContext;
 	private static Properties properties = new Properties();
-	public GetI18nConfig(ActionContext actionContext,Map<String,Object> session){
-		this.actionContext = actionContext;this.session = session;
+	public GetI18nConfig(ActionContext actionContext){
+		this.actionContext = actionContext;this.session = actionContext.getSession();
 	}
 	public void run(){
 		Locale sessionI18n = (Locale) session.get("WW_TRANS_I18N_LOCALE");
 		if(sessionI18n==null){
 			sessionI18n = actionContext.getLocale();
-			session.put("i18nConfig",getI18n(sessionI18n));
 		}
+		session.put("i18nConfig",getI18n(sessionI18n));
 	}
 	public static String getI18n(Locale locale){
 		try {
 			result="{";
-			properties.load(GetI18nConfig.class.getClassLoader().getResourceAsStream("i18n_"+locale.toString()+".properties"));
+			properties.load(GetI18nConfig.class.getClassLoader().getResourceAsStream("i18n_js_"+locale.toString()+".properties"));
 			int i=0;
 			for(Entry<Object, Object>  entry : properties.entrySet()){
 				i++;

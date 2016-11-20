@@ -10,6 +10,7 @@ import cn.hua.formBean.Paging;
 import cn.hua.model.Log;
 import cn.hua.model.User;
 import cn.hua.service.Service;
+import cn.hua.utils.GetI18nConfig;
 import cn.hua.utils.Logging;
 import cn.hua.utils.MessageOperation;
 
@@ -51,6 +52,9 @@ public class MyCenterAction{
 				ActionContext.getContext().getSession().put("log", log);
 			}
 		}
+		//js国际化文件
+		if(ActionContext.getContext().getSession().get("i18n")!=null)
+		new GetI18nConfig(ActionContext.getContext()).start();
 		return "success";
 	}
 	public String myInfo(){

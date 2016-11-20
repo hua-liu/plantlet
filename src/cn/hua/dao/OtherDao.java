@@ -1,15 +1,14 @@
 package cn.hua.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import cn.hua.formBean.Paging;
 import cn.hua.model.Area;
 import cn.hua.model.Explain;
 import cn.hua.model.MySet;
 import cn.hua.model.Photo;
 import cn.hua.model.Role;
-import cn.hua.model.Takedelivery;
-
-import java.util.List;
-import java.util.Map;
 
 public interface OtherDao <T,K>{
 	List<T> getAll();

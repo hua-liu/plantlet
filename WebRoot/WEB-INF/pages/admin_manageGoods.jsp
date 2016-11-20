@@ -72,7 +72,7 @@
 								<input name="keywords" class="form-control" type="text"
 									source-data="${keywords}" style="width:300px;"
 									value="${keywords }" id="inputKeywords"
-									placeholder='<s:text name="inputKeywordsSearch"></s:text>' />
+									placeholder='输入关键字搜索'/>
 								<span class="input-group-addon" id="keywords-submit"
 									style="max-width:40px;cursor:pointer;"><span
 									class="glyphicon glyphicon-search"></span></span>
@@ -83,36 +83,29 @@
 				<tr role="row">
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Rendering engine: activate to sort column ascending"><s:text
-							name="sequence" /></th>
+						aria-label="Rendering engine: activate to sort column ascending">序号</th>
 					<th class="sorting_desc" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
 						aria-label="Browser: activate to sort column ascending"
-						aria-sort="descending"><s:text name="商品名字" /></th>
+						aria-sort="descending">商品名字</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending"><s:text
-							name="库存" /></th>
+						aria-label="Platform(s): activate to sort column ascending">库存</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending"><s:text
-							name="价格" /></th>
+						aria-label="Platform(s): activate to sort column ascending">价格</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending"><s:text
-							name="销量" /></th>
+						aria-label="Platform(s): activate to sort column ascending">销量</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending"><s:text
-							name="状态" /></th>
+						aria-label="Platform(s): activate to sort column ascending">状态</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending"><s:text
-							name="所属分类" /></th>
+						aria-label="Platform(s): activate to sort column ascending">所属分类</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending"><s:text
-							name="moreOperation" /></th>
+						aria-label="CSS grade: activate to sort column ascending">更多操作</th>
 				</tr>
 			</thead>
 			<tbody class="tableContext">
@@ -136,28 +129,22 @@
 						<td>
 							<div class="btn-group">
 								<button type="button" class="btn btn-default"
-									data-toggle="dropdown" aria-expanded="false">
-									<s:text name="advancedOptions" />
-									<span class="caret"></span>
+									data-toggle="dropdown" aria-expanded="false">高级选项<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu advanced" role="menu"
 									data-id="${goodsId}">
 									<s:if test="state.id==6">
 										<li role="product" class="putawayProductLi"><a
-											role="menuitem" tabindex="-1" href="javascript:void(0)"><s:text
-													name="上架商品" /></a></li>
+											role="menuitem" tabindex="-1" href="javascript:void(0)">上架商品</a></li>
 									</s:if>
 									<s:elseif test="state.id==7">
 										<li role="product" class="soldOutProductLi"><a
-											role="menuitem" tabindex="-1" href="javascript:void(0)"><s:text
-													name="下架商品" /></a></li>
+											role="menuitem" tabindex="-1" href="javascript:void(0)">下架商品</a></li>
 									</s:elseif>
 									<li role="product" class="updateProductLi"><a
-										role="menuitem" tabindex="-1" href="javascript:void(0)"><s:text
-												name="更新商品" /></a></li>
+										role="menuitem" tabindex="-1" href="javascript:void(0)">更新商品</a></li>
 									<li role="product" class="deleteProductLi"><a
-										role="menuitem" tabindex="-1" href="javascript:void(0)"><s:text
-												name="删除商品" /></a></li>
+										role="menuitem" tabindex="-1" href="javascript:void(0)">删除商品</a></li>
 									<li role="product" class="showProductLi"><a
 										role="menuitem" tabindex="-1" href="javascript:void(0)">更多<span class="glyphicon glyphicon-option-horizontal"></span></a></li>
 
@@ -193,18 +180,14 @@
 					<th colspan="7">
 						<div class="paging" style="margin:0 auto;">
 							<p class="pagingP1">
-								<s:text name="totalRecord" />
+								总记录
 								<span>&nbsp;${totalNum}&nbsp;</span>
-								<s:text name="item" />
+								条
 							</p>
 							<p class="pagingP2">
-								<s:text name="the" />
-								<span>&nbsp;${currentPage}&nbsp;</span>
-								<s:text name="page" />
+								第<span>&nbsp;${currentPage}&nbsp;</span>页
 								/
-								<s:text name="total" />
-								<span>&nbsp;${totalPage}&nbsp;</span>
-								<s:text name="page" />
+								总<span>&nbsp;${totalPage}&nbsp;</span>页
 							</p>
 							<ul class="pagination">
 								<s:if test="currentPage<2">
@@ -216,7 +199,7 @@
 								<s:else>
 									<li><a href="javascript:void(0)" aria-label="Previous"
 										paging-data="${currentPage-1 }" data-toggle="tooltip"
-										data-placement="top" title="<s:text name='previousPage'/>">
+										data-placement="top" title="上一页">
 											<span class="glyphicon glyphicon-arrow-left"></span>
 									</a></li>
 								</s:else>
@@ -270,17 +253,17 @@
 								<s:else>
 									<li><a href="javascript:void(0)" aria-label="Next"
 										paging-data="${currentPage+1}" data-toggle="tooltip"
-										data-placement="top" title="<s:text name='nextPage'/>"
+										data-placement="top" title="下一页"
 										style="margin-right:20px"><span
 											class="glyphicon glyphicon-arrow-right"></span></a></li>
 								</s:else>
 							</ul>
 							<div class="selectPage">
-								<s:text name="jumpTo" />
+								跳转至
 								<input type="text" maxlength="5" value="${currentPage }"
 									id="goto" data-toggle="tooltip" data-placement="top"
-									title="<s:text name='enterJump'/>" />
-								<s:text name="page" />
+									title="回车跳转" />
+								页
 							</div>
 						</div>
 					</th>
@@ -298,20 +281,13 @@
 			<span aria-hidden="true">×</span>
 		</button>
 		<h4>
-			<strong><s:text name="ProductDeleteWarning" />!</strong>
-		</h4>
-		<s:text name="sureWantDelete" />
-		<span class="deleteWarning-text"></span>]
-		<s:text name="的商品吗？" />
+			<strong>商品删除警告!</strong>
+		</h4>确认要删除[<span class="deleteWarning-text"></span>]的商品吗？
 		<br /> <br />
 
-		<button type="button" class="btn btn-danger" id="sureDelete">
-			<s:text name="sureDelete" />
-		</button>
+		<button type="button" class="btn btn-danger" id="sureDelete">确认删除</button>
 		<button type="button" class="btn btn-default closeWin"
-			style="margin-left:20px;width:100px">
-			<s:text name="cancel" />
-		</button>
+			style="margin-left:20px;width:100px">取消</button>
 	</div>
 	<script src="js/admin/map.js"></script>
 	<script type="text/javascript">

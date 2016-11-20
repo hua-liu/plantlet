@@ -1,7 +1,6 @@
 package cn.hua.formBean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import cn.hua.model.Goods;
 import edu.emory.mathcs.backport.java.util.Arrays;

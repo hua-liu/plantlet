@@ -58,7 +58,7 @@ $(function() {
 		uls[i].getElementsByTagName("li")[0].addEventListener("click",
 				function(e) {
 					if (permissions.indexOf("DeleteOrderForm") == -1) {
-						showWarning(false,i18n.get("insufficientPermissions")+i18n.get("canNot")+i18n.get("deleteUser")+"...");
+						showWarning(false,"权限不足，无法删除用户...");
 						return;
 					} else
 						deleteOrderFormData(this);
@@ -66,7 +66,7 @@ $(function() {
 		uls[i].getElementsByTagName("li")[1].addEventListener("click",
 				function(e) {
 					if (permissions.indexOf("SelectOrderForm") == -1) {
-						showWarning(false,i18n.get("insufficientPermissions")+i18n.get("canNot")+i18n.get("showMore")+"...");
+						showWarning(false,"权限不足，不能显示更多...");
 						return;
 					} else
 						getOrderFromMoreData(this);
@@ -112,7 +112,7 @@ $(function() {
 						return;
 					}
 				}
-				showWarning(false,i18n.get("update")+i18n.get("failure")+"！"+i18n.get("pleaseTryAgainLater")+"...");
+				showWarning(false,"更新失败，请稍候重试...");
 				return;
 			})
 		})
@@ -155,11 +155,11 @@ function deleteOrderFormData(el) {
 					data = eval("(" + data + ")");
 					$("#deleteWarning").slideUp(500);
 					if (data.message) {
-						showWarning(true,i18n.get("_delete")+i18n.get("success")+"...");
+						showWarning(true,"删除成功...");
 						$(".orderFormList[data-id=" + id + "]").get(0).remove();
 						return;
 					} else {
-						showWarning(false,i18n.get("_delete")+i18n.get("failure")+"！"+i18n.get("pleaseTryAgainLater")+"...");
+						showWarning(false,"删除失败，请稍候重试...");
 						return;
 					}
 				}
@@ -185,7 +185,7 @@ function getOrderFromMoreData(el) {
 }
 function setMoreData(data) {
 	for ( var val in data) {
-		if(val=='state')data[val]=i18n.get(data[val]);
+		if(val=='state')data[val]='状态';
 		if (data[val] != null) {
 			//createTrTd(nameArr[val], data[val])
 			createTrTd(val, data[val])

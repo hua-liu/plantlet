@@ -147,7 +147,7 @@ function checkInput() {
 		inputError.remove("password");
 	}
 	if (getElement("#inputPassword2").value == "") {
-		getElement("#jspassword2Error").innerHTML = i18n.password2Null;
+		getElement("#jspassword2Error").innerHTML = i18n.passwordNull;
 		inputError.put("password2", getElement("#inputPassword2"));
 	} else if (getElement("#inputPassword2").value != getElement("#inputPassword").value) {
 		getElement("#jspassword2Error").innerHTML = i18n.twicePasswordSame;

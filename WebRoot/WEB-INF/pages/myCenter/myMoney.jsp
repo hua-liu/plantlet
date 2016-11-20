@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'myInfo.jsp' starting page</title>
+    <title>My Money</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -68,28 +68,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class="container-fluid" style="height:400px">
     <div class="left">
-        <h1>你的余额</h1>
-         <h2><span title="点击显示">
+        <h1><s:text name='yourBalance'/></h1>
+         <h2><span title="s:text name='clickshow'/>">
          <s:i18n name="format">
 			<s:text name="struts.percent">
 				<s:param value="safe.balance" />
 			</s:text>
 		</s:i18n>
-         	元</span></h2>
+         	<s:text name='yuan'/></span></h2>
     </div>
     <div class="right">
-        <p class="rightHead"><b>最近消费纪录</b></p>
+        <p class="rightHead"><b><s:text name='recentConsumptionRecord'/></b></p>
         <ul class="recordBox">
         <s:iterator value="#request.logs">
         	<li>
-	        	<p>消费日期：<s:date name="currentDate" format="yyyy-MM-dd hh:mm:ss"/></p>
-	        	<p>I&nbsp;P地址：${changeIp}</p>
-	        	<p>消费金额：
+	        	<p><s:text name='theDateOfConsumption'/><s:date name="currentDate" format="yyyy-MM-dd hh:mm:ss"/></p>
+	        	<p>I&nbsp;P&nbsp;<s:text name='address'/>：${changeIp}</p>
+	        	<p><s:text name='consumptionAmount'/>：
 	        	<fmt:formatNumber value="${changeBegin-changeAfter}" pattern="#0.00"/>
-	        	元</p>
-	        	<p>剩余金额：
+	        	<s:text name='yuan'/></p>
+	        	<p><s:text name='theRemainingAmount'/>：
 	        	<fmt:formatNumber value="${changeAfter}" pattern="#0.00"/>
-	        	元</p>
+	        	<s:text name='yuan'/></p>
         	</li>
         </s:iterator>
         </ul>

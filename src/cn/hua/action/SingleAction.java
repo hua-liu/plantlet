@@ -4,6 +4,7 @@ import cn.hua.formBean.GoodsForm;
 import cn.hua.model.Goods;
 import cn.hua.service.Service;
 import cn.hua.utils.Conversion;
+import cn.hua.utils.GetI18nConfig;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -38,6 +39,8 @@ public class SingleAction extends ActionSupport implements RequestAware{
 		request.put("goodsPictures", service.getGoodsPicturesByGoodsId(goodsId));
 		GoodsForm goodsForm = new Conversion<GoodsForm, Goods>().beanToBean(new GoodsForm(), goods);	//bean转换
 		ActionContext.getContext().getValueStack().push(goodsForm);
+		//js国际化文件
+		new GetI18nConfig(ActionContext.getContext()).start();
 		return SUCCESS;
 	}
 	@Override

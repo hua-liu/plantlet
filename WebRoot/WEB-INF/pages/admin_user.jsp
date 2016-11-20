@@ -43,20 +43,14 @@
 			<span aria-hidden="true">×</span>
 		</button>
 		<h4>
-			<strong><s:text name="userDeleteWarning" />!</strong>
+			<strong>删除用户警告!</strong>
 		</h4>
-		<s:text name="sureWantDelete" />
-		<span class="deleteWarning-text"></span>]
-		<s:text name="ofuser" />
+		确定要删除：[<span class="deleteWarning-text"></span>]的用户吗？
 		<br /> <br />
 
-		<button type="button" class="btn btn-danger" id="sureDelete">
-			<s:text name="sureDelete" />
-		</button>
+		<button type="button" class="btn btn-danger" id="sureDelete">确认删除</button>
 		<button type="button" class="btn btn-default closeWin"
-			style="margin-left:20px;width:100px">
-			<s:text name="cancel" />
-		</button>
+			style="margin-left:20px;width:100px">取消</button>
 	</div>
 	<!--删除警告结束  -->
 
@@ -85,7 +79,7 @@
 								<input name="keywords" class="form-control" type="text"
 									source-data="${keywords}" style="width:300px;"
 									value="${keywords }" id="inputKeywords"
-									placeholder='<s:text name="inputKeywordsSearch"></s:text>' />
+									placeholder='输入关键字搜索' />
 									<span class="input-group-addon" id="keywords-submit" style="max-width:40px;cursor:pointer;"><span class="glyphicon glyphicon-search"></span></span>
 							</div>
 						</div>
@@ -94,32 +88,26 @@
 				<tr role="row">
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Rendering engine: activate to sort column ascending"><s:text
-							name="sequence" /></th>
+						aria-label="Rendering engine: activate to sort column ascending">序号</th>
 					<th class="sorting_desc" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
 						aria-label="Browser: activate to sort column ascending"
-						aria-sort="descending"><s:text name="username" /></th>
+						aria-sort="descending">用户名</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending"><s:text
-							name="nickname" /></th>
+						aria-label="Platform(s): activate to sort column ascending">昵称</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Engine version: activate to sort column ascending"><s:text
-							name="phone" /></th>
+						aria-label="Engine version: activate to sort column ascending">手机号</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending"><s:text
-							name="email" /></th>
+						aria-label="CSS grade: activate to sort column ascending">邮箱</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending"><s:text
-							name="accountState" /></th>
+						aria-label="CSS grade: activate to sort column ascending">账户状态</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending"><s:text
-							name="moreOperation" /></th>
+						aria-label="CSS grade: activate to sort column ascending">更多操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -130,23 +118,20 @@
 						<td><s:property value="nickname" default="-" /></td>
 						<td><s:property value="phone" default="-" /></td>
 						<td><s:property value="email" default="-" /></td>
-						<td><s:text name="%{getText(state.name)}" /></td>
+						<td>${state.name=="inactive"?'未激活':state.name=="normal"?'正常':'已锁定'}</td>
 						<td><div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-expanded="false">
-									<s:text name="advancedOptions" />
-									<span class="caret"></span>
+									data-toggle="dropdown" aria-expanded="false">高级选项<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu advanced" role="menu" data-id="${id}">
 									<li role="presentation" data-toggle="modal"
 										data-target="#updateModal"><a role="menuitem"
-										tabindex="-1" href="javascript:void(0)"><s:text
-												name="update" /></a></li>
+										tabindex="-1" href="javascript:void(0)">更新</a></li>
 									<li role="presentation"><a role="menuitem" tabindex="-1"
-										href="javascript:void(0)"><s:text name="delete" /></a></li>
+										href="javascript:void(0)">删除</a></li>
 									<li role="presentation" data-toggle="modal"
 										data-target="#myModal"><a role="menuitem" tabindex="-1"
-										href="javascript:void(0)"><s:text name="showMore" /></a></li>
+										href="javascript:void(0)">显示更多</a></li>
 								</ul>
 							</div></td>
 					</tr>
@@ -159,18 +144,14 @@
 				<tr>
 					<th colspan="7"><div class="paging" style="margin:0 auto;">
 							<p class="pagingP1">
-								<s:text name="totalRecord" />
+								总记录
 								<span>&nbsp;${totalNum}&nbsp;</span>
-								<s:text name="item" />
+								条
 							</p>
 							<p class="pagingP2">
-								<s:text name="the" />
-								<span>&nbsp;${currentPage}&nbsp;</span>
-								<s:text name="page" />
+								第<span>&nbsp;${currentPage}&nbsp;</span>页
 								/
-								<s:text name="total" />
-								<span>&nbsp;${totalPage}&nbsp;</span>
-								<s:text name="page" />
+								总<span>&nbsp;${totalPage}&nbsp;</span>页
 							</p>
 							<ul class="pagination">
 								<s:if test="currentPage<2">
@@ -182,7 +163,7 @@
 								<s:else>
 									<li><a href="javascript:void(0)" aria-label="Previous"
 										paging-data="${currentPage-1 }" data-toggle="tooltip"
-										data-placement="top" title="<s:text name='previousPage'/>">
+										data-placement="top" title="上一页">
 											<span class="glyphicon glyphicon-arrow-left"></span>
 									</a></li>
 								</s:else>
@@ -236,17 +217,17 @@
 								<s:else>
 									<li><a href="javascript:void(0)" aria-label="Next"
 										paging-data="${currentPage+1}" data-toggle="tooltip"
-										data-placement="top" title="<s:text name='nextPage'/>"
+										data-placement="top" title="下一页"
 										style="margin-right:20px"><span
 											class="glyphicon glyphicon-arrow-right"></span></a></li>
 								</s:else>
 							</ul>
 							<div class="selectPage">
-								<s:text name="jumpTo" />
+								跳转至
 								<input type="text" maxlength="5" value="${currentPage }"
 									id="goto" data-toggle="tooltip" data-placement="top"
-									title="<s:text name='enterJump'/>" />
-								<s:text name="page" />
+									title="回车跳转" />
+								页
 							</div>
 						</div></th>
 				</tr>
@@ -265,10 +246,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">
-						<s:text name="updateUserInformation" />
-						(
-						<s:text name="followingMayChangeFields" />
-						)
+						更新用户信息(以下为可修改字段)
 					</h4>
 				</div>
 				<div class="modal-body">
@@ -276,43 +254,43 @@
 						<tbody>
 							<tr>
 								<td><div class="input-group">
-										<span class="input-group-addon"><s:text name="username" />：</span>
+										<span class="input-group-addon">用户名：</span>
 										<input id="update.username" type="text" class="form-control"
 											data-placement="top"
-											data-content='<s:text name="usernameFormatError"/>'
-											placeholder='<s:text name="inputUsername"/>' />
+											data-content='用户名格式错误'
+											placeholder='填写用户名' />
 									</div></td>
 							</tr>
 							<tr>
 								<td><div class="input-group">
-										<span class="input-group-addon"><s:text name="email" />：</span>
+										<span class="input-group-addon">邮箱：</span>
 										<input id="update.email" type="text" class="form-control"
 											data-placement="top"
-											data-content="<s:text name="errorFormatError"/>"
-											placeholder='<s:text name="inputEmail"/>'>
+											data-content="邮箱地址格式错误"
+											placeholder='填写邮箱地址'>
 									</div></td>
 							</tr>
 							<tr>
 								<td><div class="input-group">
-										<span class="input-group-addon"><s:text name="phone" />：</span>
+										<span class="input-group-addon">手机号：</span>
 										<input id="update.phone" type="text" class="form-control"
 											data-placement="top"
-											data-content="<s:text name="phoneFormatError"/>"
-											placeholder='<s:text name="inputPhone"/>'>
+											data-content="手机号码格式错误"
+											placeholder='填写手机号'>
 									</div></td>
 							</tr>
 							<tr>
 								<td><div class="input-group">
-										<span class="input-group-addon"><s:text name="nickname" />：</span>
+										<span class="input-group-addon">昵称：</span>
 										<input id="update.nickname" type="text" class="form-control"
 											data-placement="top"
-											data-content="<s:text name="nicknameFormatError"/>"
-											placeholder='<s:text name="inputNickname"/>'>
+											data-content="昵称格式错误"
+											placeholder='填写用户昵称'>
 									</div></td>
 							</tr>
 							<tr>
 								<td><div class="input-group" id="update-state">
-										<span class="input-group-addon"><s:text name="state" />：</span>
+										<span class="input-group-addon">账户状态：</span>
 										<div style="margin-left:10px;">
 											<s:iterator var="s" value="#request.userAllState">
 												<label class="radio-inline"> <input type="radio"
@@ -324,48 +302,33 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td><s:text name="changeWarningItems" />
+								<td>修改注意事项：以上信息都必需保证其唯一性；
 									<button type="button" class="btn btn-primary btn-md"
-										id="changeNorm">
-										<s:text name="readChangeNorm" />
+										id="changeNorm">阅读修改规范
 									</button> <input type="hidden" id="update.id"></td>
 							</tr>
 							<tr>
 								<td class="changeNorm">
 									<div class="alert alert-success" role="alert">
-										<strong><s:text name="username" />！</strong>
-										<s:text name="usernameNorm" />
-									</div>
+										<strong>用户名！</strong>长度需在5-20位,由字母数字组成,不能含有特殊字符,且必须以字母开头</div>
 									<div class="alert alert-success" role="alert">
-										<strong><s:text name="email" />！</strong>
-										<s:text name="emailNorm" />
-									</div>
+										<strong>邮箱！</strong>保证其有效性</div>
 									<div class="alert alert-success" role="alert">
-										<strong><s:text name="phone" />！</strong>
-										<s:text name="emailNorm" />
-									</div>
+										<strong>手机号！</strong>保证其有效性</div>
 									<div class="alert alert-success" role="alert">
-										<strong><s:text name="nickname" />！</strong>
-										<s:text name="emailNorm" />
-									</div>
+										<strong>昵称！</strong>长度在1-20位,可由任意字符组成,不能以空格开头</div>
 									<div class="alert alert-success" role="alert">
-										<strong><s:text name="warning" />！</strong>
-										<s:text name="normWarning" />
-									</div>
+										<strong>警告！</strong>以上信息不是必需的,用户名、邮箱、手机号必须有其一</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						<s:text name="close" />
-					</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					<button type="button" class="btn btn-primary" id="update.submit"
 						data-placement="left"
-						data-content='<s:text name="formErrorPleaseReadNorm"/>'>
-						<s:text name="updateInformation" />
-					</button>
+						data-content='表单填写有误，请阅读修改规范'>更新信息</button>
 				</div>
 			</div>
 		</div>
@@ -379,9 +342,7 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">
-						<s:text name="userMoreInformation" />
-					</h4>
+					<h4 class="modal-title">用户详细信息</h4>
 				</div>
 				<div class="modal-body" id="printContext">
 					<table class="table">
@@ -390,12 +351,8 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						<s:text name="close" />
-					</button>
-					<button type="button" class="btn btn-primary" id="printUser">
-						<s:text name="print" />
-					</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="printUser">打印</button>
 				</div>
 			</div>
 		</div>
@@ -475,17 +432,5 @@
 			}
 		}
 	</script>
-	<%-- <!-- Placed at the end of the document so the pages load faster -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
-	<script src="js/jquery.PrintArea.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/multipleChoice.js"></script>
-	<script src="js/admin-menu.js"></script>
-	<script src="js/admin-user.js"></script>
-	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-	<script src="js/vendor/holder.js"></script>
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="js/ie10-viewport-bug-workaround.js"></script> --%>
 </body>
 </html>

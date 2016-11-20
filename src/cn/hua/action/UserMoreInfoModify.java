@@ -2,7 +2,6 @@ package cn.hua.action;
 
 import org.apache.struts2.ServletActionContext;
 
-import cn.hua.formBean.ModifyUser;
 import cn.hua.model.User;
 import cn.hua.service.Service;
 import cn.hua.utils.Conversion;
@@ -10,9 +9,14 @@ import cn.hua.utils.Encryption;
 import cn.hua.utils.Verification;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class UserMoreInfoModify implements ModelDriven<User>{
+public class UserMoreInfoModify extends ActionSupport implements ModelDriven<User>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String onlyNickname;
 	private Service service;
 	private String result;
@@ -61,7 +65,7 @@ public class UserMoreInfoModify implements ModelDriven<User>{
 			ActionContext.getContext().getSession().put("user", user);
 		}catch(Exception e){
 			e.printStackTrace();
-			this.result = Conversion.stringToJson("message,false,cause,数据库异常");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("dbException"));
 		}
 		return "success";
 	}
@@ -78,7 +82,7 @@ public class UserMoreInfoModify implements ModelDriven<User>{
 		try{
 			user = service.findUserById(user.getId());
 			if(user==null)return "input";
-			String[] errors = Verification.myCenterSafe(type, oldData, oldData2, newData, user);
+			String[] errors = Verification.myCenterSafe(this,type, oldData, oldData2, newData, user);
 			if(errors!=null&&errors.length>0){
 				String error="";
 				for(int i=0;i<errors.length;i++){
@@ -107,16 +111,16 @@ public class UserMoreInfoModify implements ModelDriven<User>{
 			if(e.getCause().getCause().toString().indexOf("unique constraint")!=-1){
 				this.result=Conversion.stringToJson("message,false,new"+(char)(type.charAt(0)-32)+type.substring(1)+",已经被使用，换个吧");
 			}else
-			this.result=Conversion.stringToJson("message,false,cause,数据库异常");
+			this.result=Conversion.stringToJson("message,false,cause,"+getText("dbException"));
 		}
 		return "success";
 	}
 	public String myInfo(){
 		if(user==null){
-			this.result = Conversion.stringToJson("message,false,cause,未获取到相关信息");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("noGetData"));
 			return "success";
 		}
-		String[] error = Verification.myCenterInfo(user);
+		String[] error = Verification.myCenterInfo(this,user);
 		if(error!=null&&error.length>0){
 			this.result = Conversion.stringToJson("message,false,cause,"+error[0]);
 			return "success";
@@ -126,7 +130,7 @@ public class UserMoreInfoModify implements ModelDriven<User>{
 			ActionContext.getContext().getSession().put("user", user);
 			this.result = Conversion.stringToJson("message,true");
 		}catch(Exception e){
-			this.result = Conversion.stringToJson("message,false,cause,未知异常");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("unKnowException"));
 		}
 		return "success";
 	}

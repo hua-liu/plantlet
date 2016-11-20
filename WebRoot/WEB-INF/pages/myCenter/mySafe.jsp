@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -105,101 +106,115 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <ul class="col-md-12">
         <li class="col-md-3 menu active" data="setPhone">
             <i class="glyphicon glyphicon-phone"></i><br/>
-            手机设置
+           <s:text name='phoneSettings'/>
         </li>
         <li class="col-md-3 menu" data="setEmail">
             <i class="glyphicon glyphicon-envelope"></i><br/>
-            邮箱设置
+          <s:text name='emailSettings'/>
         </li>
         <li class="col-md-3 menu" data="setLoginPassword">
             <i class="glyphicon glyphicon-credit-card"></i><br/>
-            登陆密码设置
+          <s:text name='loginPasswordSettings'/>
         </li>
         <li class="col-md-3 menu" data="setPayPassword">
             <i class="glyphicon glyphicon-lock"></i><br/>
-            支付密码设置
+            <s:text name='payPasswordSettings'/>
         </li>
         <li style="clear:both;display:none;"></li>
     </ul>
 </div>
   <ul class="setContent">
       <li class="setPhone">
-          <div class="left" style="padding:50px 0;">手<br/>机<br/>设<br/>置</div>
+          <div class="left" style="padding:50px 0;"><s:text name='shou'/><br/><s:text name='ji'/><br/><s:text name='she'/><br/><s:text name='zhi'/></div>
           <div class="center">
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon1">原手机号</span>
-                  <input type="text" name="oldPhone" class="form-control" placeholder="填写原手机号" aria-describedby="sizing-addon2" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon1"><s:text name='oldPhoneNo.'/></span>
+                  <input type="text" name="oldPhone" class="form-control" placeholder="<s:text name='fillInTheOldPhoneNumber'/>" aria-describedby="sizing-addon2" data-toggle="tooltip" data-placement="top" title="">
               </div>
               <br/>
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon2">新手机号</span>
-                  <input type="text" name="newPhone" class="form-control" placeholder="填写新11位手机号" aria-describedby="sizing-addon2" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon2"><s:text name='newPhoneNo.'/></span>
+                  <input type="text" name="newPhone" class="form-control" placeholder="<s:text name='fillInTheNew11PhoneNumber'/>" aria-describedby="sizing-addon2" data-toggle="tooltip" data-placement="top" title="">
               </div>
-              <button type="button" class="btn btn-primary" data="phone">更改</button>
+              <button type="button" class="btn btn-primary" data="phone"><s:text name="update"/></button>
           </div>
-          <div class="right"><h3>更改手机号规范</h3><br/>1、需要提供原手机号，没有则不填<br/>2、需使用合法的11位手机号码　　<br/><i class="glyphicon glyphicon-ok successSign"><br/><small>修改成功</small></i></div>
+          <div class="right"><h3><s:text name="changePhoneNo.Norm"/></h3>1、<s:text name="phoneNorm_1"/><br/>2、<s:text name="phoneNorm_2"/>　　<br/><i class="glyphicon glyphicon-ok successSign"><br/><small><s:text name="updateSuccess"/></small></i></div>
       </li>
       <li class="setEmail">
-          <div class="left" style="padding:50px 0;">邮<br/>箱<br/>设<br/>置</div>
+          <div class="left" style="padding:50px 0;"><s:text name='you'/><br/><s:text name='xiang'/><br/><s:text name='she'/><br/><s:text name='zhi'/></div>
           <div class="center">
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon3">原邮箱</span>
-                  <input type="text" name="oldEmail" class="form-control" placeholder="填写原邮箱地址" aria-describedby="sizing-addon4" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon3"><s:text name="oldEmail"/></span>
+                  <input type="text" name="oldEmail" class="form-control" placeholder="<s:text name='fillInTheOriginalEmailAddress'/>" aria-describedby="sizing-addon4" data-toggle="tooltip" data-placement="top" title="">
               </div>
               <br/>
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon4">新邮箱</span>
-                  <input type="text" name="newEmail" class="form-control" placeholder="填写新邮箱地址" aria-describedby="sizing-addon4" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon4"><s:text name="newEmail"/></span>
+                  <input type="text" name="newEmail" class="form-control" placeholder="<s:text name='fillInTheNewEmailAddress'/>" aria-describedby="sizing-addon4" data-toggle="tooltip" data-placement="top" title="">
               </div>
-              <button type="button" class="btn btn-primary" data="email">更改</button>
+              <button type="button" class="btn btn-primary" data="email"><s:text name="update"/></button>
           </div>
-          <div class="right"><h3>更改邮箱规范</h3><br/>1、需要提供原邮箱地址，没有则不填<br/>2、需使用合法的邮箱格式　　　　　<br/><i class="glyphicon glyphicon-ok successSign"><br/><small>修改成功</small></i></div>
+          <div class="right"><h3><s:text name="changeEmailNorm"/></h3>1、<s:text name="emailNorm_1"/><br/>2、<s:text name="emailNorm_2"/>　　　　　<br/><i class="glyphicon glyphicon-ok successSign"><br/><small><s:text name="updateSuccess"/></small></i></div>
       </li>
       <li class="setLoginPassword">
-          <div class="left" style="padding:20px 0;">登<br/>陆<br/>密<br/>码<br/>设<br/>置</div>
+          <div class="left" style="padding:20px 0;"><s:text name='deng'/><br/><s:text name='lu'/><br/><s:text name='mi'/><br/><s:text name='ma'/><br/><s:text name='she'/><br/><s:text name='zhi'/></div>
           <div class="center">
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon6">当前密码</span>
-                  <input type="password" name="oldLoginPassword" class="form-control" placeholder="填写当前登陆密码" aria-describedby="sizing-addon6" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon6"><s:text name="currentPassword"/></span>
+                  <input type="password" name="oldLoginPassword" class="form-control" placeholder="<s:text name='fillInTheCurrentPassword'/>" aria-describedby="sizing-addon6" data-toggle="tooltip" data-placement="top" title="">
               </div>
               <br/>
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon7">新的密码</span>
-                  <input type="password" name="newLoginPassword" class="form-control" placeholder="填写新的登陆密码" aria-describedby="sizing-sizing" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon7"><s:text name="newPassword"/></span>
+                  <input type="password" name="newLoginPassword" class="form-control" placeholder="<s:text name='fillInTheNewPassword'/>" aria-describedby="sizing-sizing" data-toggle="tooltip" data-placement="top" title="">
               </div>
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon8">确认密码</span>
-                  <input type="password" name="newLoginPassword2" class="form-control" placeholder="填写新的登陆密码" aria-describedby="sizing-addon8" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon8"><s:text name='confirmPassword'/></span>
+                  <input type="password" name="newLoginPassword2" class="form-control" placeholder="<s:text name='fillInTheNewPassword'/>" aria-describedby="sizing-addon8" data-toggle="tooltip" data-placement="top" title="">
               </div>
-              <button type="button" class="btn btn-primary" data="loginPassword">更改</button>
+              <button type="button" class="btn btn-primary" data="loginPassword"><s:text name='update'/></button>
           </div>
-          <div class="right"><h3>更改密码规范</h3><br/>1、更改密码需要输入原密码<br/>2、密码长度在5-20位　　　<br/>3、请妥善保管你的密码　　<br/><i class="glyphicon glyphicon-ok successSign"><br/><small>修改成功</small></i></div>
+          <div class="right"><h3><s:text name='changeLoginPasswordNorm'/></h3>1、<s:text name='loginPasswordNorm_1'/><br/>2、<s:text name='loginPasswordNorm_2'/>　　　<br/>3、<s:text name='passwordNorm_3'/>　　<br/><i class="glyphicon glyphicon-ok successSign"><br/><small><s:text name="updateSuccess"/></small></i></div>
       </li>
       <li class="setPayPassword">
-          <div class="left" style="padding:20px 0;">支<br/>付<br/>密<br/>码<br/>设<br/>置</div>
+          <div class="left" style="padding:20px 0;"><s:text name='_zhi'/><br/><s:text name='fu'/><br/><s:text name='mi'/><br/><s:text name='ma'/><br/><s:text name='she'/><br/><s:text name='zhi'/></div>
           <div class="center" style="padding-top:20px;">
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon12">登陆的密码</span>
-                  <input type="password" name="oldLoginPassword" class="form-control" placeholder="填写当前登陆密码" aria-describedby="sizing-addon12" data-toggle="tooltip" data-placement="bottom" title="">
+                  <span class="input-group-addon" id="sizing-addon12"><s:text name="currentPassword"/></span>
+                  <input type="password" name="oldLoginPassword" class="form-control" placeholder="<s:text name='fillInTheCurrentPassword'/>" aria-describedby="sizing-addon12" data-toggle="tooltip" data-placement="bottom" title="">
               </div>
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon9">旧支付密码</span>
-                  <input type="password" name="oldPayPassword" class="form-control" placeholder="填写当前支付密码" aria-describedby="sizing-addon9" data-toggle="tooltip" data-placement="bottom" title="">
+                  <span class="input-group-addon" id="sizing-addon9"><s:text name='payTheOldPassword'/></span>
+                  <input type="password" name="oldPayPassword" class="form-control" placeholder="<s:text name='fillInTheCurrentPaymentPassword'/>" aria-describedby="sizing-addon9" data-toggle="tooltip" data-placement="bottom" title="">
               </div>
               <br/>
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon10">新支付密码</span>
-                  <input type="password" name="newPayPassword" class="form-control" placeholder="填写新的支付密码" aria-describedby="sizing-addon10" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon10"><s:text name='newPaymentPassword'/></span>
+                  <input type="password" name="newPayPassword" class="form-control" placeholder="<s:text name='fillOutTheNewPaymentPassword'/>" aria-describedby="sizing-addon10" data-toggle="tooltip" data-placement="top" title="">
               </div>
               <div class="input-group">
-                  <span class="input-group-addon" id="sizing-addon11">新支付密码</span>
-                  <input type="password" name="newPayPassword2" class="form-control" placeholder="填写新的支付密码" aria-describedby="sizing-addon11" data-toggle="tooltip" data-placement="top" title="">
+                  <span class="input-group-addon" id="sizing-addon11"><s:text name='newPaymentPassword'/></span>
+                  <input type="password" name="newPayPassword2" class="form-control" placeholder="<s:text name='fillOutTheNewPaymentPassword'/>" aria-describedby="sizing-addon11" data-toggle="tooltip" data-placement="top" title="">
               </div>
-              <button type="button" class="btn btn-primary" data="payPassword">更改</button>
+              <button type="button" class="btn btn-primary" data="payPassword"><s:text name='update'/></button>
           </div>
-          <div class="right"><h3>更改支付密码规范</h3><br/>1、更改密码需要输入原密码<br/>2、没有原支付密码则不填写<br/>2、密码长度在5-20位　　　<br/>3、请妥善保管你的密码　　<br/><i class="glyphicon glyphicon-ok successSign"><br/><small>修改成功</small></i></div>
+          <div class="right"><h3><s:text name='changePayPasswordNorm'/></h3>1、<s:text name='payPasswordNorm_1'/><br/>2、<s:text name='payPasswordNorm_2'/><br/>3、<s:text name='loginPasswordNorm_2'/>　　　<br/>4、<s:text name='passwordNorm_3'/>　　<br/><i class="glyphicon glyphicon-ok successSign"><br/><small>修改成功</small></i></div>
       </li>
   </ul>
+ <!--i18n  -->
+<script src="js/admin/map.js"></script>
+<script type="text/javascript">
+	try{
+		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
+		var i18n = new Map();
+		for ( var key in i18nConfig) {
+			i18n.put(key, i18nConfig[key]);
+		}
+	}catch(e){
+		alert(e);
+	}
+</script>
+<!--/i18n  -->
 <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/myCenter/safe.js" type="text/javascript"></script>

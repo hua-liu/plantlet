@@ -11,7 +11,7 @@ function myMc(mc){
     var off = mc.getElementsByClassName("off")[0];
     var sysnchronized = false;
     var input = mc.getElementsByTagName("input")[0];
-    if($(mc).children(".mcControl").val()=='1'){
+    if($(mc).find(".mcControl").val()=='1'){
     	 on.style.left = "0px";
          control.style.left = "50px";
          off.style.left ="90px"

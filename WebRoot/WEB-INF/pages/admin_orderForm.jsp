@@ -66,20 +66,13 @@
 			<span aria-hidden="true">×</span>
 		</button>
 		<h4>
-			<strong><s:text name="订单删除警告！" />!</strong>
-		</h4>
-		<s:text name="sureWantDelete" />订单号为 [
-		<span class="deleteWarning-text"></span>]
-		<s:text name="的订单吗？" />
+			<strong>订单删除警告！!</strong>
+		</h4>确认要删除订单号为 [<span class="deleteWarning-text"></span>]的订单吗？
 		<br /> <br />
 
-		<button type="button" class="btn btn-danger" id="sureDelete">
-			<s:text name="sureDelete" />
-		</button>
+		<button type="button" class="btn btn-danger" id="sureDelete">确认删除</button>
 		<button type="button" class="btn btn-default closeWin"
-			style="margin-left:20px;width:100px">
-			<s:text name="cancel" />
-		</button>
+			style="margin-left:20px;width:100px">取消</button>
 	</div>
 	<!--删除警告结束  -->
 
@@ -108,7 +101,7 @@
 								<input name="keywords" class="form-control" type="text"
 									source-data="${keywords}" style="width:300px;"
 									value="${keywords }" id="inputKeywords"
-									placeholder='<s:text name="inputKeywordsSearch"></s:text>' />
+									placeholder='输入关键字搜索' />
 									<span class="input-group-addon" id="keywords-submit" style="max-width:40px;cursor:pointer;"><span class="glyphicon glyphicon-search"></span></span>
 							</div>
 						</div>
@@ -117,36 +110,29 @@
 				<tr role="row">
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Rendering engine: activate to sort column ascending"><s:text
-							name="sequence" /></th>
+						aria-label="Rendering engine: activate to sort column ascending">序号</th>
 					<th class="sorting_desc" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1" width="310px" 
 						aria-label="Browser: activate to sort column ascending"
-						aria-sort="descending"><s:text name="订单号" /></th>
+						aria-sort="descending">订单号</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending"><s:text
-							name="购买用户" /></th>
+						aria-label="CSS grade: activate to sort column ascending">购买用户</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Platform(s): activate to sort column ascending"><s:text
-							name="购买商品" /></th>
+						aria-label="Platform(s): activate to sort column ascending">购买商品</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Engine version: activate to sort column ascending"><s:text
-							name="购买数量" /></th>
+						aria-label="Engine version: activate to sort column ascending">购买数量</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="Engine version: activate to sort column ascending"><s:text
-							name="买家留言" /></th>
+						aria-label="Engine version: activate to sort column ascending">买家留言</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending"><s:text
-							name="订单状态" /></th>
+						aria-label="CSS grade: activate to sort column ascending">订单状态</th>
 					<th class="sorting" tabindex="0" aria-controls="example2"
 						rowspan="1" colspan="1"
-						aria-label="CSS grade: activate to sort column ascending"><s:text
-							name="moreOperation" /></th>
+						aria-label="CSS grade: activate to sort column ascending">更多操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -158,19 +144,17 @@
 						<td><s:property value="goods.name" default="-" /></td>
 						<td><s:property value="buyNum" default="-" /></td>
 						<td><s:property value="leaveMessage" default="-" /></td>
-						<td><button class="btn btn-default stateButton" data-id="${state.id}"><span class="stateText"><s:text name="%{getText(state.name)}" /></span><span class="caret" style="margin-left:5px;"></span></button></td>
+						<td><button class="btn btn-default stateButton" data-id="${state.id}"><span class="stateText">${state.name}</span><span class="caret" style="margin-left:5px;"></span></button></td>
 						<td><div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-expanded="false">
-									<s:text name="advancedOptions" />
-									<span class="caret"></span>
+									data-toggle="dropdown" aria-expanded="false">高级选项<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu advanced" role="menu" data-id="${id}">
 									<li role="presentation"><a role="menuitem" tabindex="-1"
-										href="javascript:void(0)"><s:text name="delete" /></a></li>
+										href="javascript:void(0)">删除</a></li>
 									<li role="presentation" data-toggle="modal"
 										data-target="#myModal"><a role="menuitem" tabindex="-1"
-										href="javascript:void(0)"><s:text name="showMore" /></a></li>
+										href="javascript:void(0)">显示更多</a></li>
 								</ul>
 							</div></td>
 					</tr>
@@ -183,18 +167,14 @@
 				<tr>
 					<th colspan="7"><div class="paging" style="margin:0 auto;">
 							<p class="pagingP1">
-								<s:text name="totalRecord" />
+								总记录
 								<span>&nbsp;${totalNum}&nbsp;</span>
-								<s:text name="item" />
+								条
 							</p>
 							<p class="pagingP2">
-								<s:text name="the" />
-								<span>&nbsp;${currentPage}&nbsp;</span>
-								<s:text name="page" />
+								第<span>&nbsp;${currentPage}&nbsp;</span>页
 								/
-								<s:text name="total" />
-								<span>&nbsp;${totalPage}&nbsp;</span>
-								<s:text name="page" />
+								总<span>&nbsp;${totalPage}&nbsp;</span>页
 							</p>
 							<ul class="pagination">
 								<s:if test="currentPage<2">
@@ -206,7 +186,7 @@
 								<s:else>
 									<li><a href="javascript:void(0)" aria-label="Previous"
 										paging-data="${currentPage-1 }" data-toggle="tooltip"
-										data-placement="top" title="<s:text name='previousPage'/>">
+										data-placement="top" title="上一页">
 											<span class="glyphicon glyphicon-arrow-left"></span>
 									</a></li>
 								</s:else>
@@ -260,17 +240,17 @@
 								<s:else>
 									<li><a href="javascript:void(0)" aria-label="Next"
 										paging-data="${currentPage+1}" data-toggle="tooltip"
-										data-placement="top" title="<s:text name='nextPage'/>"
+										data-placement="top" title="下一页"
 										style="margin-right:20px"><span
 											class="glyphicon glyphicon-arrow-right"></span></a></li>
 								</s:else>
 							</ul>
 							<div class="selectPage">
-								<s:text name="jumpTo" />
+								跳转至
 								<input type="text" maxlength="5" value="${currentPage }"
 									id="goto" data-toggle="tooltip" data-placement="top"
-									title="<s:text name='enterJump'/>" />
-								<s:text name="page" />
+									title="回车跳转" />
+								页
 							</div>
 						</div></th>
 				</tr>
@@ -288,9 +268,7 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">
-						<s:text name="订单更多信息" />
-					</h4>
+					<h4 class="modal-title">订单更多信息</h4>
 				</div>
 				<div class="modal-body" id="printContext">
 					<table class="table">
@@ -299,12 +277,8 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						<s:text name="close" />
-					</button>
-					<button type="button" class="btn btn-primary" id="printUser">
-						<s:text name="print" />
-					</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="printUser">打印</button>
 				</div>
 			</div>
 		</div>

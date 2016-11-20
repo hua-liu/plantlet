@@ -1,5 +1,12 @@
 package cn.hua.action;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Properties;
+import java.util.UUID;
+
+import org.apache.struts2.interceptor.SessionAware;
+
 import cn.hua.formBean.UserRegister;
 import cn.hua.model.Message;
 import cn.hua.model.State;
@@ -12,14 +19,6 @@ import cn.hua.utils.Verification;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
-
-import org.apache.struts2.interceptor.SessionAware;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
 
 public class RegisterAction extends ActionSupport implements ModelDriven<UserRegister>,SessionAware{
 	private static final long serialVersionUID = 1L;

@@ -34,7 +34,7 @@ $(function(){
 	$(".recordSwitch").click(function(){
 		$(".messageRecord").toggle();
 		if(!$(".messageRecord").is(":hidden")){
-			if(systemServer!='系统消息'){
+			if(systemServer!=i18n.get('systemMessage')){
 				if(recordPage<=0){//首次使用发送记录请求
 					sendMessage("record:"+recordPage+"make:+");
 				}
@@ -47,7 +47,7 @@ $(function(){
 	})
 	//关闭聊天窗口
 	$(".winClose").click(function(){
-		if(confirm("关闭窗口会中断当前会话？是否关闭")){
+		if(confirm(i18n.get('closeChatWarning'))){
 			$(this).parents(".chatWinBox").hide();
 			closeWebSocket();
 		}
@@ -87,7 +87,7 @@ $(function(){
 					$(last).find("img").attr("src","json/downloadChatPic_file?id="+data.id);
 					sendMessage("img:"+data.id);
 				} else {
-					alert("发送失败,原因："+data.cause);
+					alert(i18n.get('sendFailure')+data.cause);
 				}
 			}
 		})
@@ -195,7 +195,7 @@ function createMessage(val){
 	setAllFont();
 	setScrollatBottom();
 }
-var systemServer="系统消息";
+var systemServer=i18n.get('systemMessage');
 function createSystemMessage(val,time){
 	if(val=='')return;
 	$(".chatContent").append($('<div class="direct-chat-msg"><div class="direct-chat-info clearfix"><span class="direct-chat-name">'+systemServer+'</span>'
@@ -241,9 +241,9 @@ function openWebSocket(){
 		 if(evt.data!=null){
 			 var data = eval("("+evt.data+")");
 			 if(data.state=='5'){
-				 $(".serverName").html("系统");
-				 $(".state").html("客服繁忙");
-				 systemServer="系统消息";
+				 $(".serverName").html(i18n.get('system'));
+				 $(".state").html(i18n.get('serviceBusy'));
+				 systemServer=i18n.get('systemMessage');
 				 createSystemMessage(data.message,data.time!=null?data.time:'');
 			 }else if(data.state=='10'){//表示没客服或正常状态
 				 if(data.message.indexOf('img:')==0){
@@ -251,12 +251,12 @@ function openWebSocket(){
 					 createSystemPictureMessage("chatContent",imgID);
 				 }else
 				 createSystemMessage(data.message,data.time!=null?data.time:'');
-				 $(".state").html("正在聊天");
+				 $(".state").html(i18n.get('chating'));
 			 }else if(data.state=='1'){//表示发现客服，并将客服名带过来了
 				 createSystemMessage(data.message,data.time!=null?data.time:'');
 				 systemServer=data.user;
 				 $(".serverName").html(systemServer);
-				 $(".state").html("客服上线");
+				 $(".state").html(i18n.get('serviceOnline'));
 			 }else if(data.state=='2'){
 				$(last).css("border-bottom","1px solid #050");
 			 }else if(data.state=='6'){
@@ -265,12 +265,12 @@ function openWebSocket(){
 				sound.src="sound/sys.mp3";
 				sound.play();
 				$(".linkService").html("");
-				$(".linkService").append($('<a><h3><span class="username">'+data.user+'</span><small class="pull-right"><span class="messageNum">'+data.num+'</span>条消息</small></h3></a>'));
+				$(".linkService").append($('<a><h3><span class="username">'+data.user+'</span><small class="pull-right"><span class="messageNum">'+data.num+'</span>'+i18n.get('aMessage')+'</small></h3></a>'));
 			 }else if(data.state=='0'){
-				 $(".serverName").html("系统");
-				 $(".state").html("客服繁忙");
-				 systemServer="系统消息";
-				 $(".linkService h3").html("没有新的用户消息");
+				 $(".serverName").html(i18n.get('system'));
+				 $(".state").html(i18n.get('serviceBusy'));
+				 systemServer=i18n.get('systemMessage');
+				 $(".linkService h3").html(i18n.get('noNewMessage'));
 				 createSystemMessage(data.message,data.time!=null?data.time:'');
 			 }else if(data.state=='4'){
 				 allowUpload=false;//不允许上传
@@ -300,6 +300,10 @@ function closeWebSocket(){
 	webSocket.close();
 }
 function sendMessage(message){
+	if(message==''){
+		$("#myInput").focus();
+		return;
+	}
 	webSocket.send(message);
 }
 //对日期扩展

@@ -69,4 +69,5 @@ public interface Service {
 	void pay(Safe safe, OrderForm of);
 	List<OrderForm> getAllOrderFormByUserId(String id);
 	List<String> getAllColor();
+	void clearAllSoppingCart(String id);
 }

@@ -10,9 +10,9 @@ import org.apache.struts2.ServletActionContext;
 
 import cn.hua.model.Log;
 import cn.hua.model.User;
-import cn.hua.service.Service;
 import cn.hua.utils.Logging;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
 
@@ -22,10 +22,6 @@ public class LoggingInterceptor extends MethodFilterInterceptor{
 	 * @author liuhua
 	 * @category this is a jurisdiction interceptor;
 	 */
-	private Service service;
-	public void setService(Service service) {
-		this.service = service;
-	}
 	@Override
 	protected String doIntercept(ActionInvocation action) throws Exception {
 		String methodName = action.getProxy().getMethod();
@@ -55,7 +51,7 @@ public class LoggingInterceptor extends MethodFilterInterceptor{
 			log.setChangeIp(ip);
 			log.setCurrentDate(new Date());
 			result = action.invoke();
-			
+			ActionContext.getContext().getSession().remove("log");
 			if("success".equals(result)){
 				User user = (User) action.getInvocationContext().getSession().get("user");	//从session获取用户
 				if(user!=null){

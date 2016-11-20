@@ -41,7 +41,7 @@ $(function() {
 	//添加收货地址修改事件
 	changeAddrShow();
 	$("#addAddrModalButton").bind("click",function(){
-		$(".selectedArea").html("选择省/市/区...");
+		$(".selectedArea").html(i18n.get('selectProvinces'));
 		$(".selectedArea").addClass("initArea");
 		$(".city-provinces").trigger("click");
 		$(".city-group").find("li").removeClass("active");
@@ -50,7 +50,7 @@ $(function() {
 		$("input[name=postcode]").val("");
 		$("input[name=phone]").val("");
 		$("input[name=telephone]").val("");
-		$("#submitAddAddress").html("添加地址并选择");
+		$("#submitAddAddress").html(i18n.get('addAndSelect'));
 		$("#addrId").val("");
 	})
 	
@@ -122,11 +122,11 @@ $(function() {
 	$("#buyForm").submit(function(){
 		var isSelectedInput = $(".orderForm input[type=checkbox]:checked");
 		if(isSelectedInput.length<1){
-			alert("您还未选择需要购买的商品！");
+			alert(i18n.get('noSelectGoods'));
 			return false;
 		}
 		if($("input[name=addr]:checked").length<1){
-			alert("您还未选择收货地址！");
+			alert(i18n.get('noSelectAddress'));
 			return false;
 		}
 	})
@@ -259,10 +259,10 @@ function submitForm(){
 	}
 	if($("input[name=phone]").val()==''&&$("input[name=telephone]").val()==''){
 		if($("input[name=phone]").val()!=''&&/^[1][3-8][0-9]{9}$/.test($("input[name=phone]").val())){
-			$("input[name=phone]").attr("data-content","手机号码格式错误");
+			$("input[name=phone]").attr("data-content",i18n.get('phoneFormatError'));
 			$("input[name=phone]").popover("show");
 		}
-		$("input[name=phone]").attr("data-content","货到你身边了却不知怎么告诉你");
+		$("input[name=phone]").attr("data-content",i18n.get('phone_error'));
 		$("input[name=phone]").popover("show");
 		setTimeout(function() {
 			$("input[name=phone]").popover("destroy");
@@ -296,9 +296,9 @@ function submitForm(){
 						$("#gallery-wrapper").append($('<li class="boxCont" data-id="'+data.id+'"><p  class="thumb"><span>'+$("#address").val().replace(/--/g,"<br/>")+'<br/>'+$("textarea[name=moreAddress]").val()+'<br/>'+$("input[name=name]").val()+'<br/>'+$("input[name=phone]").val()+'</span></p></li>'))
 						//添加成功后动态添加与
 						$(".addr tbody tr:eq(0)").after($('<tr><td style="padding-left:100px;"><label><input checked type="radio" value="'+data.id+'"name="addr"> '
-							+$("#address").val()+'--'+$("textarea[name=moreAddress]").val()+'（'+$("input[name=name]").val()+' 收）'
+							+$("#address").val()+'--'+$("textarea[name=moreAddress]").val()+'（'+$("input[name=name]").val()+" "+i18n.get('shou')+'）'
 							+($("input[name=phone]").val()!=''?$("input[name=phone]").val():$("input[name=telephone]").val())+
-							'</label><span class="glyphicon glyphicon-pencil changeAddress" title="修改"></span><span class="glyphicon glyphicon-remove deleteAddress" title="删除"></span></td></tr>'))
+							'</label><span class="glyphicon glyphicon-pencil changeAddress" title="'+i18n.get('change')+'"></span><span class="glyphicon glyphicon-remove deleteAddress" title="'+i18n.get('delete')+'></span></td></tr>'))
 							//添加收货地址修改事件
 							changeAddrShow();
 					}else{
@@ -327,7 +327,7 @@ function changeAddrShow(){
 		changeAddrData($(this).siblings("label").find("input").val());
 	})
 	$(".deleteAddress").bind("click",function(){
-		if(confirm("是否确认删除当前收货地址？")){
+		if(confirm(i18n.get('deleteAddress'))){
 			deleteAddress(this);
 		}
 	})
@@ -363,7 +363,7 @@ function changeAddrData(id){
 				$("input[name=postcode]").val(data.postcode);
 				$("input[name=phone]").val(data.phone==null?'':data.phone);
 				$("input[name=telephone]").val(data.telephone==null?'':data.telephone);
-				$("#submitAddAddress").html("更新地址并选择");
+				$("#submitAddAddress").html(i18n.get('updateAndSelect'));
 				$("#addrId").val(data.id);
 				$("#addAddrModal").modal("show");
 				//此处为了保证修改地址时向数据库请求数据延时，设置定时器

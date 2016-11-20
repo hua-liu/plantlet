@@ -353,5 +353,9 @@ public class ServiceImpl implements Service {
 	public List<String> getAllColor() {
 		return goodsDao.getAllColor();
 	}
+	@Override
+	public void clearAllSoppingCart(String id) {
+		orderFormDao.clearAllSoppingCart(id);
+	}
 	
 }

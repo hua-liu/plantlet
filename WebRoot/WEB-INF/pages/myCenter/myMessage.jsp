@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="left">
 <div class="menu_th">
     <p class="selectCase allCase"><i class="glyphicon glyphicon-ok"></i></p>
-    <button class="deleteMany">删除选中</button><button class="signMany">选中标记为已读</button>
+    <button class="deleteMany"><s:text name='checkMarkAsRead'/></button><button class="signMany"><s:text name="checkMarkAsRead"/></button>
 </div>
 <table class="mytable">
 	<s:iterator value="#request.messages">
@@ -48,18 +48,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <div class="right sendState">
     <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1"><b>收件人</b></span>
+        <span class="input-group-addon" id="basic-addon1"><b><s:text name='toReceiveA1'/></b></span>
         <span class="form-control selectReceiveUser"></span>
-        <input type="text" class="form-control receiveUser" placeholder="填写收件人(管理员ID：admin)" aria-describedby="basic-addon1" data-toggle="tooltip" data-placement="bottom" title="">
+        <input type="text" class="form-control receiveUser" placeholder="<s:text name='messageSend_placeHolder'/>" aria-describedby="basic-addon1" data-toggle="tooltip" data-placement="bottom" title="">
     </div>
     <div style="border:1px solid #CCC">
-        <p  id="basic-addon2" style="width:100%;height:30px;background:#EEEEEE;text-align: center;line-height:30px;margin:0;"><b>内容</b></p>
+        <p  id="basic-addon2" style="width:100%;height:30px;background:#EEEEEE;text-align: center;line-height:30px;margin:0;"><b><s:text name='content'/></b></p>
         <p class="form-control selectTextContent"></p>
-        <textarea class="form-control textContent" placeholder="消息内容" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="bottom" title=""></textarea>
+        <textarea class="form-control textContent" placeholder="<s:text name='messageContent'/>" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="bottom" title=""></textarea>
     </div>
-    <button class="btn btn-default reply" style="float:right;">回复</button>
-    <button class="btn btn-default send" style="float:right;">发送</button>
+    <button class="btn btn-default reply" style="float:right;"><s:text name='reply'/></button>
+    <button class="btn btn-default send" style="float:right;"><s:text name='send'/></button>
 </div>
+<!--i18n  -->
+	<script src="js/admin/map.js"></script>
+	<script type="text/javascript">
+		try{
+		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
+		var i18n = new Map();
+		for ( var key in i18nConfig) {
+			i18n.put(key, i18nConfig[key]);
+		}
+	}catch(e){
+		alert(e);
+	}
+	</script>
+	<!--/i18n  -->
 <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/myCenter/myMessage.js" type="text/javascript"></script>

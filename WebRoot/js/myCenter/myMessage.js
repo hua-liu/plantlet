@@ -56,14 +56,14 @@ $(function() {
 					$(".receiveUser").val("");
 					$(".receiveUser").attr("sendid","");
 					$(".textContent").val("")
-					$(".textContent").attr("title","已成功发送");
+					$(".textContent").attr("title",i18n.get("sendSuccess"));
 					$(".textContent").tooltip("show");
 					$(".receiveUser").attr("source","");
 					setTimeout(function(){
 						$(".textContent").tooltip("destroy");
 					},5000)
 				}else{
-					$(".send").attr("title","发送失败，原因："+message.cause);
+					$(".send").attr("title",i18n.get("sendFailure")+message.cause);
 					$(".send").tooltip("show");
 					setTimeout(function(){
 						$(".send").tooltip("destroy");
@@ -114,7 +114,7 @@ function checkExist(el){
 				if(data.cause!=null){
 					$(".receiveUser").attr("title",data.cause);
 				}else{
-					$(".receiveUser").attr("title","收件人不存在，请检查是否有误");
+					$(".receiveUser").attr("title",i18n.get("receiveNoExist"));
 				}
 				$(".receiveUser").tooltip("show");
 				 $(".receiveUser").attr("sendID","");
@@ -157,7 +157,7 @@ function deleteMessage(arr){
 					$(arr[i]).remove();
 				}
 			}else{
-				alert("删除失败");
+				alert(i18n.get("deleteFailure"));
 			}
 		}
 	})

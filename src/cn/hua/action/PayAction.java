@@ -1,7 +1,6 @@
 package cn.hua.action;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.UUID;
 import org.apache.struts2.ServletActionContext;
 
 import cn.hua.model.Goods;
-import cn.hua.model.Log;
 import cn.hua.model.OrderForm;
 import cn.hua.model.Safe;
 import cn.hua.model.State;
@@ -80,7 +78,7 @@ public class PayAction extends ActionSupport{
 		User user = (User) ActionContext.getContext().getSession().get("user");
 		if(user==null)return INPUT;
 		if(addr==null){
-			this.addActionError("收货地址无效!!");
+			this.addActionError(getText("receiveAddInvalid"));
 			return SUCCESS;
 		}
 		System.out.println(Arrays.toString(id));
@@ -91,7 +89,7 @@ public class PayAction extends ActionSupport{
 			OrderForm of = service.findOrderFormById(id[i]);
 			if(of!=null){
 				if(of.getState().getId()!=10){
-					this.addActionError("订单已不存在于购物车中!!");
+					this.addActionError(getText("orderNoExist"));
 					return SUCCESS;
 				}
 				of.setBuyNum(buyNum[i]);
@@ -99,7 +97,7 @@ public class PayAction extends ActionSupport{
 				of.setState(new State(8));
 				of.setTakedelivery(new Takedelivery(addr));
 				if(of.getGoods().getInventory()<buyNum[i]){
-					this.addActionError("商品库存已不足!!");
+					this.addActionError(getText("goodsNumNo"));
 					return SUCCESS;
 				}
 				Goods goods = of.getGoods();
@@ -108,7 +106,7 @@ public class PayAction extends ActionSupport{
 				service.updateOrderForm(of);
 			}
 			if(of==null){
-				this.addActionError("订单已过期!!");
+				this.addActionError(getText("orderOutDate"));
 				return SUCCESS;
 			}
 			sumPrice += of.getBuyNum()*of.getGoods().getPrice();
@@ -140,18 +138,18 @@ public class PayAction extends ActionSupport{
 		if(user==null)return INPUT;
 		sumPrice=0;
 		if(id.length<1){
-			this.addActionError("订单已过期!!");
+			this.addActionError(getText("orderOutDate"));
 			return SUCCESS;
 		}
 		OrderForm of = service.findOrderFormById(id[0]);
 		if(of!=null){
 			if(of.getState().getId()!=8){
-				this.addActionError("未付款订单中不存在该订单!!");
+				this.addActionError(getText("noPayIsExist"));
 				return SUCCESS;
 			}
 		}
 		if(of==null){
-			this.addActionError("订单已过期!!");
+			this.addActionError(getText("orderOutDate"));
 			return SUCCESS;
 		}
 		sumPrice += of.getBuyNum()*of.getGoods().getPrice();
@@ -175,7 +173,7 @@ public class PayAction extends ActionSupport{
 	public String pay(){
 		List<OrderForm> orderForms = planPay.get(key);
 		if(orderForms==null||orderForms!=null&&orderForms.size()<1){
-			this.result = Conversion.stringToJson("message,false,cause,订单已超时！！");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("orderOvertime"));
 			return ERROR;
 		}
 		User user = (User) ActionContext.getContext().getSession().get("user");
@@ -184,7 +182,7 @@ public class PayAction extends ActionSupport{
 			return INPUT;
 		}
 		if(pp==null){
-			this.result = Conversion.stringToJson("message,false,cause,密码错误!!");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("passwordError"));
 			return ERROR;
 		}
 		if(user.getSafe().getPayPassword()==null){
@@ -199,7 +197,7 @@ public class PayAction extends ActionSupport{
 					sumPrice +=of.getBuyNum()*of.getGoods().getPrice();
 				}
 				if(user.getSafe().getBalance()<sumPrice){
-					this.result = Conversion.stringToJson("message,false,cause,您的余额已不足以支付当前订单!!");
+					this.result = Conversion.stringToJson("message,false,cause,"+getText("youBalanceNo"));
 					return ERROR;
 				}
 				safe.setBalance(user.getSafe().getBalance()-sumPrice);
@@ -215,11 +213,11 @@ public class PayAction extends ActionSupport{
 				ActionContext.getContext().getSession().put("user", user);
 				return SUCCESS;
 			}catch(Exception e){
-				this.result = Conversion.stringToJson("message,false,cause,支付异常!!");
+				this.result = Conversion.stringToJson("message,false,cause,"+getText("payException"));
 			}
 			return ERROR;
 		}
-		this.result = Conversion.stringToJson("message,false,password,false,cause,密码错误!!");
+		this.result = Conversion.stringToJson("message,false,password,false,cause,"+getText("passwordError"));
 		return ERROR;
 	}
 	/*public boolean checkRepeat(String id){

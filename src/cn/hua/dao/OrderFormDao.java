@@ -13,4 +13,5 @@ public interface OrderFormDao extends Dao<OrderForm>{
 	void saveTakedelivery(Takedelivery take);
 	void deleteTakedelivery(Takedelivery take);
 	void updateTakedelivery(Takedelivery take);
+	void clearAllSoppingCart(String id);
 }

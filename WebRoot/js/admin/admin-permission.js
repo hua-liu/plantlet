@@ -65,21 +65,21 @@ $(function() {
 	for(var i=0;i<advanced.length;i++){
 		$(advanced[i]).children("li:first").click(function(e) {
 			if (permissions.indexOf("GiveJurisdiction" && "CancelJurisdiction") == -1) {
-				showWarning(false,i18n.get('insufficientPermissions')+"，"+i18n.get('canNot')+i18n.get('updateUser')+"...");
+				showWarning(false,"权限不足，不能更新用户...");
 				return;
 			} else
 				updateUserData(this);
 		})
 		$(advanced[i]).children("li:eq(1)").click(function(e) {
 			if (permissions.indexOf("CancelJurisdiction") == -1) {
-				showWarning(false,i18n.get('insufficientPermissions')+"，"+i18n.get('canNot')+i18n.get('kickOut')+i18n.get('manage')+"...");
+				showWarning(false,"权限不足，不能使用踢出管理...");
 				return;
 			} else
 				deleteUserPermission(this);
 		})
 		$(advanced[i]).children("li:last").click(function(e) {
 			if (permissions.indexOf("SelectUser") == -1) {
-				showWarning(false,i18n.get('insufficientPermissions')+"，"+i18n.get('canNot')+i18n.get('selectMoreInformation')+"...");
+				showWarning(false,"权限不足，不能查看更多信息...");
 				return;
 			} else
 				getUserMoreData(this);
@@ -90,7 +90,7 @@ $(function() {
 	for(var i=0;i<advancedRole.length;i++){
 		$(advancedRole[i]).children("li:first").click(function(e) {
 			if (permissions.indexOf("UpdateRole") == -1) {
-				showWarning(false,i18n.get('insufficientPermissions')+"，"+i18n.get('canNot')+i18n.get('updateRole')+"...");
+				showWarning(false,"权限不足，不能更新角色...");
 				return;
 			}else{
 				getRoleMoreData(this);
@@ -99,7 +99,7 @@ $(function() {
 		})
 		$(advancedRole[i]).children("li:last").click(function(e) {
 			if (permissions.indexOf("DeleteRole") == -1) {
-				showWarning(false,i18n.get('insufficientPermissions')+"，"+i18n.get('canNot')+i18n.get('deleteRole')+"...");
+				showWarning(false,"权限不足，不能删除角色...");
 				return;
 			} else
 				deleteRole(this);
@@ -129,12 +129,12 @@ $(function() {
 			$("#update_submit").popover("destroy")
 			$("#suerUpdateRole").popover("destroy");
 			changeNoorm.style.display = "block";
-			this.innerHTML = i18n.get('hideChangeNorm');
+			this.innerHTML ="隐藏修改规范";
 		} else {
 			$("#update_submit").popover("destroy")
 			$("#suerUpdateRole").popover("destroy");
 			changeNoorm.style.display = "none";
-			this.innerHTML = i18n.get('readChangeNorm');
+			this.innerHTML = "阅读修改规范";
 		}
 	})
 	$(".changeNorm").css("display", "none");//[0].style.display = "none";
@@ -345,10 +345,10 @@ function updateRoleSure(el){
 			data = eval("("+data+")");
 			if(data.message){
 				$("#updateRole").modal("hide");
-				showWarning(true,i18n.get('update')+i18n.get('success')+"...");
+				showWarning(true,"更新成功...");
 				$(".roleList[data-id="+$(el).attr("data-id")+"] td:eq(2)").html(text);//设置更新后的值
 			}else{
-				$("#suerUpdateRole").attr("data-content", i18n.get('update')+i18n.get('failure')+"："+data.cause)
+				$("#suerUpdateRole").attr("data-content","更新失败："+data.cause)
 				$("#suerUpdateRole").popover("show");
 			}
 		}
@@ -361,7 +361,7 @@ function suerAddRole(){
 	if(value==''){
 		$("#add_role").addClass("has-error");
 		$("#add_role_icon").addClass("glyphicon glyphicon-remove");
-		el.setAttribute("data-content", i18n.get('formatError')+":"+i18n.get('canNotNull')+"！");
+		el.setAttribute("data-content", "格式错误，不能为空！");
 		$(el).popover('show');
 		el.focus();
 		return false;
@@ -370,7 +370,7 @@ function suerAddRole(){
 			if(!/[0-9]+/.test(value)){
 			$("#add_role").addClass("has-error");
 			$("#add_role_icon").addClass("glyphicon glyphicon-remove");
-			el.setAttribute("data-content", i18n.get('formatError')+":"+i18n.get('canNotContainSpecialCharacter'));
+			el.setAttribute("data-content","格式错误:不能包含特殊字符");
 			$(el).popover('show');
 			return false;
 		}
@@ -378,7 +378,7 @@ function suerAddRole(){
 	if(!/^(.){2,10}$/.test(value)){
 		$("#add_role").addClass("has-error");
 		$("#add_role_icon").addClass("glyphicon glyphicon-remove");
-		el.setAttribute("data-content", i18n.get('formatError')+":"+i18n.get('lengthIn2-10'));
+		el.setAttribute("data-content", "格式错误:长度需在2-10位");
 		$(el).popover('show');
 		return false;
 	}
@@ -403,18 +403,18 @@ function addRole(value,el){
 			data = eval("("+data+")");
 			if(data.message){
 				$("#addRole").modal("hide");
-				showWarning(true,i18n.get('addRole')+i18n.get('success')+","+i18n.get('requestData')+"...");
+				showWarning(true,"添加角色成功,马上重新请求数据...");
 				window.setTimeout(function() {
 					window.location.reload();
 				}, 3000)
 				return;
 			}else{
-				$("#suerAddRole").attr("data-content", i18n.get('update')+i18n.get('failure')+"："+data.cause);
+				$("#suerAddRole").attr("data-content", "更新失败："+data.cause);
 				$("#suerAddRole").popover("show");
 				return;
 			}
 		}
-		$("#suerAddRole").attr("data-content", i18n.get('update')+i18n.get('failure')+"："+i18n.get('insufficientPermissions'));
+		$("#suerAddRole").attr("data-content", "更新失败：权限不足");
 		$("#suerAddRole").popover("show");
 		return;
 	}})
@@ -425,7 +425,7 @@ function addRoleInputVerify(el){
 	if(value==''){
 		$("#add_role").addClass("has-error");
 		$("#add_role_icon").addClass("glyphicon glyphicon-remove");
-		el.setAttribute("data-content", i18n.get('formatError')+":"+i18n.get('canNotNull')+"！");
+		el.setAttribute("data-content", "格式错误:不能为空！");
 		$(el).popover('show');
 		el.focus();
 		return false;
@@ -434,7 +434,7 @@ function addRoleInputVerify(el){
 			if(!/[0-9]+/.test(value)){
 			$("#add_role").addClass("has-error");
 			$("#add_role_icon").addClass("glyphicon glyphicon-remove");
-			el.setAttribute("data-content", i18n.get('formatError')+":"+i18n.get('canNotContainSpecialCharacter'));
+			el.setAttribute("data-content", "格式错误:不能包含特殊字符");
 			el.focus();
 			$(el).popover('show');
 			return false;
@@ -443,7 +443,7 @@ function addRoleInputVerify(el){
 	if(!/^(.){2,10}$/.test(value)){
 		$("#add_role").addClass("has-error");
 		$("#add_role_icon").addClass("glyphicon glyphicon-remove");
-		el.setAttribute("data-content", i18n.get('formatError')+":"+i18n.get('lengthIn2-10'));
+		el.setAttribute("data-content", "格式错误:长度需在2-10位");
 		$(el).popover('show');
 		el.focus();
 		return false;
@@ -460,7 +460,7 @@ function verifyRoleName(name,el){
 			if(!data.message){
 				$("#add_role").addClass("has-error");
 				$("#add_role_icon").addClass("glyphicon glyphicon-remove");
-				el.setAttribute("data-content", i18n.get('roleNameUsed')+"！！");
+				el.setAttribute("data-content", "角色名已被使用！！");
 				$(el).popover('show');
 				el.focus();
 				return false;
@@ -484,7 +484,7 @@ function autoComplate(el){
 				data : "currentPage=" + 1 +"&likeStr="+el.value.trim(),
 				success : function(data) {
 					if (data == null) {
-						alert(i18n.get('notGetAnyUser'));
+						alert("没有获取到用户");
 						return;
 					}
 					data = eval("(" + data + ")");
@@ -535,7 +535,7 @@ function addManagerSure(){
 	}
 	$("#add-role").popover("destroy");
 	if(selectRole<myRole){
-		alert(i18n.get('changeJurisdictionCannothighself')+"！！");
+		alert("修改权限不能高于自己！！");
 		return;
 	}
 	var data="";
@@ -556,7 +556,7 @@ function addManagerSure(){
 				data = eval("("+data+")");
 				$("#addManager").modal("hide");
 				if(data.message){
-					showWarning(true,i18n.get('addManager')+":"+data.successNum+i18n.get('success')+","+data.loseNum+i18n.get('failure')+","+i18n.get('requestData')+"...");
+					showWarning(true,"添加管理员:"+data.successNum+"成功,"+data.loseNum+"失败,马上重新请求数据...");
 					window.setTimeout(function() {
 						window.location.reload();
 					}, 3000)
@@ -585,7 +585,7 @@ function getNoRoleUser(search,page) {
 				data : "currentPage=" + page +"&likeStr="+(search!=null?search:""),
 				success : function(data) {
 					if (data == null) {
-						alert(i18n.get('notGetAnyUser'));
+						alert("没有获取到用户");
 						return;
 					}
 					data = eval("(" + data + ")");
@@ -605,7 +605,7 @@ function getNoRoleUser(search,page) {
 }
 function selectUserListClick(el){
 		if($(".member").length>=3){
-			alert(i18n.get('onceChoose3'));
+			alert("一次只能选择3位");
 			return;
 		}
 		el.setAttribute("class","selectUserListChecked");
@@ -629,7 +629,7 @@ function selectUserListClick(el){
 function addMember(id,text){
 	if($(".member[data-text='"+id+"']").length>0)return;
 	if($(".member").length>=3){
-		alert(i18n.get('onceChoose3'));
+		alert("一次只能选择3位");
 		return;
 	}
 	var li = $("<li class='member' data-text='"+id+"'><span>"
@@ -729,7 +729,7 @@ function deleteRole(el){
 		return;
 	}
 	if(id<=myRole){
-		showWarning(true,i18n.get('delete')+i18n.get('failure')+"！"+i18n.get('cause')+"："+i18n.get('insufficientPermissions')+"...");
+		showWarning(true,"删除失败！原因：权限不足...");
 		return;
 	}
 	$("#deleteRoleWarning").slideDown(500);
@@ -745,15 +745,15 @@ function deleteRole(el){
 					data = eval("(" + data + ")");
 					$("#deleteRoleWarning").slideUp(500);
 					if (data.message) {
-						showWarning(true,i18n.get('delete')+i18n.get('success')+"...");
+						showWarning(true,"删除成功...");
 						$(".roleList[data-id=" + id + "]").get(0).remove();
 						return;
 					} else {
-						showWarning(false,i18n.get('delete')+i18n.get('failure')+"！"+i18n.get('cause')+"："+data.cause);
+						showWarning(false,"删除失败！原因："+data.cause);
 						return;
 					}
 				}
-				showWarning(false,i18n.get('delete')+i18n.get('failure')+"！"+i18n.get('pleaseTryAgainLater')+"...");
+				showWarning(false,"删除失败！请稍候重试...");
 				return;
 			}
 		})
@@ -766,12 +766,12 @@ function deleteUserPermission(el) {
 	var id = el.parentNode.getAttribute("data-id");
 	var tds = $(".userList[data-id='" + id + "'] td");
 	$("#deleteWarning .deleteWarning-text").html(
-			(tds[1].innerHTML != '-' ? i18n.get('username')+i18n.get('_for')+"[" + tds[1].innerHTML
-					: tds[2].innerHTML != "-" ? i18n.get('nickname')+i18n.get('_for')+"[" + tds[2].innerHTML
-							: tds[3].innerHTML != '-' ? i18n.get('phone')+i18n.get('_for')+"["
-									+ tds[3].innerHTML : i18n.get('email')+i18n.get('_for')+"["
+			(tds[1].innerHTML != '-' ?"用户名为[" + tds[1].innerHTML
+					: tds[2].innerHTML != "-" ? "昵称为[" + tds[2].innerHTML
+							: tds[3].innerHTML != '-' ?"手机号为["
+									+ tds[3].innerHTML : "邮箱为["
 									+ tds[4].innerHTML)
-					+ "]"+i18n.get('of') + tds[5].innerHTML);
+					+ "]的" + tds[5].innerHTML);
 	/* 删除按钮事件 */
 	if (id == null) {
 		return;
@@ -786,14 +786,14 @@ function deleteUserPermission(el) {
 					$("#deleteWarning").slideUp(500);
 					if (data.message) {
 						$(".userList[data-id=" + id + "]").remove();
-						showWarning(true,i18n.get('kickOut')+i18n.get('success')+"...");
+						showWarning(true,"踢出成功...");
 						return;
 					} else {
-						showWarning(false,i18n.get('kickOut')+i18n.get('failure')+"！"+i18n.get('cause')+":"+data.cause);
+						showWarning(false,"踢出失败！原因："+data.cause);
 						return;
 					}
 				}
-				showWarning(false,i18n.get('kickOut')+i18n.get('failure')+"！"+i18n.get('pleaseTryAgainLater')+"...");
+				showWarning(false,"踢出失败！请稍候重试...");
 				return;
 			}
 		})
@@ -850,7 +850,7 @@ function setMoreData(data) {
 	for ( var val in data) {
 		if (data[val] != null) {
 			if(val=='roleId')continue;
-			if(val=='roleName'||val=='state')data[val]=i18n.get(data[val]);
+			if(val=='roleName'||val=='state')data[val]="状态";
 			createTrTd(nameArr[val], data[val])
 		}
 	}
@@ -865,7 +865,7 @@ function verify(str, ele) {
 	var value = ele.value;
 	if (str == 'username') {
 		if (value != '' && !/^[a-zA-Z]+[0-9a-zA-Z]{4,20}$/.test(value)) {
-			ele.setAttribute("data-content", i18n.get('username')+i18n.get('formatError'));
+			ele.setAttribute("data-content","用户名格式错误");
 			$(ele).popover('show');
 			ele.style.borderColor = "#f00";
 			isExsit.put(str, null);
@@ -878,7 +878,7 @@ function verify(str, ele) {
 	if (str == 'email') {
 		if (value != ''
 				&& !/^[0-9a-zA-Z]+@[0-9a-zA-Z]+[.][0-9a-zA-Z]+$/.test(value)) {
-			ele.setAttribute("data-content", i18n.get('email')+i18n.get('formatError'));
+			ele.setAttribute("data-content", "邮箱地址格式错误");
 			$(ele).popover('show');
 			ele.style.borderColor = "#f00";
 			isExsit.put(str, null);
@@ -890,7 +890,7 @@ function verify(str, ele) {
 	}
 	if (str == 'phone') {
 		if (value != '' && !/^[1][3-8][0-9]{9}$/.test(value)) {
-			ele.setAttribute("data-content", i18n.get('phone')+i18n.get('formatError'));
+			ele.setAttribute("data-content","手机号格式错误");
 			$(ele).popover('show');
 			ele.style.borderColor = "#f00";
 			isExsit.put(str, null);
@@ -902,7 +902,7 @@ function verify(str, ele) {
 	}
 	if (str == 'nickname') {
 		if (value != '' && value.trim() == '') {
-			ele.setAttribute("data-content", i18n.get('nickname')+i18n.get('formatError'));
+			ele.setAttribute("data-content","昵称格式错误");
 			$(ele).popover('show');
 			ele.style.borderColor = "#f00";
 			isExsit.put(str, null);
@@ -934,11 +934,10 @@ function checkIsExist(type, ele) {
 			if (data != null) {
 				var data = eval("(" + data + ")");
 				if (data.message) {
-					type == 'usename' ? ele.setAttribute("data-content",
-							i18n.get("usernameInvalid")) : type == 'email' ? ele.setAttribute(
-							"data-content", i18n.get("emailInvalid")) : type == 'phone' ? ele
-							.setAttribute("data-content", i18n.get("phoneInvalid")) : ele
-							.setAttribute("data-content", i18n.get("nicknameInvalid"));
+					type == 'usename' ? ele.setAttribute("data-content","用户名已被使用✘") : type == 'email' ? ele.setAttribute(
+							"data-content", "邮箱已被使用✘") : type == 'phone' ? ele
+							.setAttribute("data-content", "手机号已被使用✘") : ele
+							.setAttribute("data-content", "昵称已经被使用✘");
 					$(ele).popover('show');
 					ele.style.borderColor = "#f00";
 					isExsit.put(type, null);
@@ -969,7 +968,7 @@ function updateUser() {
 			&& nickname.value == nickname.getAttribute("source-data")
 			&& role[0].value == $("#update-role").attr("source-data")) {
 		$("#updateModal").modal("hide");
-		showWarning(false,i18n.get('noAnyChange'));
+		showWarning(false,"没有做任何更改");
 		return;
 	}
 	if (isExsit.size() > 0) {
@@ -1005,7 +1004,7 @@ function updateUser() {
 				var data = eval("(" + data + ")");
 				if (data.message) {
 					if (role[0].value == 0) {	//更改为普通用户
-						showWarning(true,i18n.get('successChangeJurisdiction')+"...");
+						showWarning(true,"成功更改权限...");
 						$(".userList[data-id=" + id + "]").get(0).remove();
 						return;
 					}
@@ -1017,10 +1016,9 @@ function updateUser() {
 					tds[3].innerHTML = phone.value == '' ? '-' : phone.value;
 					tds[4].innerHTML = email.value == '' ? '-' : email.value;
 					tds[5].innerHTML = roleName;
-					//showWarning(true,i18n.get('modifySuccess')+"...");
 					showWarning(true,"已成功修改管理员身份为["+roleName+"]");
 				} else {
-					showWarning(false,i18n.get('modifyUserFailed')+"！"+i18n.get('cause')+"："+data.cause);
+					showWarning(false,"更改用户失败！原因："+data.cause);
 				}
 			}
 		}

@@ -154,12 +154,12 @@ a:hover {
 		<nav class="st-menu st-effect-13" id="menu-13"> 
 		<div class="toolbar-main toolbar-mini-cart-main">
 			<div class="toolbar-hd">
-				<div class="toolbar-hd-title">购物车</div>
+				<div class="toolbar-hd-title"><s:text name="shoppingCart"/></div>
 			</div>
 			<div class="toolbar-bd">
 				<div class="mini-cart-list">
 					<div class="mini-cart-list-hd">
-						<div class="mini-cart-list-title">最新加入的宝贝</div>
+						<div class="mini-cart-list-title"><s:text name="newestBaby"/></div>
 					</div>
 					<div class="mini-cart-list-bd">
 						<ul class="mini-cart-items-list">
@@ -180,7 +180,7 @@ a:hover {
 							</s:if>
 						</ul>
 					</div>
-					<button class="goBuy btn btn-danger">去购物车结算</button>
+					<button class="goBuy btn btn-danger"><s:text name="goToTheShoppingCartAndSettlement"/></button>
 					<script type="text/javascript">
 							if($(".mini-cart-item").length<1){
 								$(".goBuy").css("display","none");
@@ -199,7 +199,7 @@ a:hover {
 			<div class="cartButton" id="st-trigger-effects">
 				<button data-effect="st-effect-13" class="btn btn-danger st-effect" style="width:30px;height:150px;text-align:center;padding:0;"><span class="badge" id="cart-item-num">
 				<s:property value="#session.orderForms.size"></s:property>
-				</span><br/>我<br/>的<br/>购<br/>物<br/>车</button>
+				</span><br/><s:text name="my"/><br/><s:text name="de"/><br/><s:text name="gou"/><br/><s:text name="wu"/><br/><s:text name="che"/></button>
 			</div>
 			</s:if>
 			<!-- 购物车图标  -->
@@ -216,35 +216,44 @@ a:hover {
 							<ul>
 								<li class="dropdown head-dpdn"><a href="#"
 									class="dropdown-toggle" data-toggle="dropdown"><i
-										class="fa fa-user" aria-hidden="true"></i>我的账户<span
+										class="fa fa-user" aria-hidden="true"></i><s:text name="myAccount"/><span
 										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<s:if test="#session.user!=null">
 											<li><a href="myCenter"><s:property
 														value="#session.user.nickname!=null?#session.user.nickname:#session.user.username!=null?#session.user.username:#session.user.email!=null?#session.user.email:#session.user.phone"/></a></li>
-											<li><a href="userLogout">注销</a></li>
-											<li><a href="myCenter?function=2">我的订单</a></li>
-											<li><a href="myCenter?function=3">钱包</a></li>
+											<li><a href="userLogout"><s:text name="logout"/></a></li>
+											<li><a href="myCenter?function=2"><s:text name="myOrder"/></a></li>
+											<li><a href="myCenter?function=3"><s:text name="wallet"/></a></li>
 										</s:if>
 										<s:else>
-											<li><a href="loginUi">登陆</a></li>
+											<li><a href="loginUi"><s:text name="login"/></a></li>
 										</s:else>
 									</ul></li>
 								<s:if test="#session.user!=null">
 									<li class="dropdown head-dpdn"><a href="#"
 										class="dropdown-toggle" data-toggle="dropdown"><i
-											class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
+											class="fa fa-cart-plus" aria-hidden="true"></i><s:text name="shoppingCart"/><span
 											class="caret"></span></a>
 										<ul class="dropdown-menu">
 											<li id="st-trigger-effects" class="column"><a
 												href="javascript:" data-effect="st-effect-13"
-												class="st-effect">查看购物车</a></li>
-											<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
+												class="st-effect"><s:text name="toViewTheShoppingCart"/></a></li>
+											<li class="clearCart"><a href="javascript:"><s:text name="emptyTheShoppingCart"/></a></li>
 										</ul></li>
 								</s:if>
 								<li class="dropdown head-dpdn linkService"><a
 									href="javascript:void(0)" class="dropdown-toggle"><i
-										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
+										class="fa  fa-smile-o" aria-hidden="true"></i><s:text name="contactCustomerService"/></a></li>
+										<li class="dropdown head-dpdn"><a href="javascript:void(0)"
+									class="dropdown-toggle" data-toggle="dropdown"><i
+										class="fa fa-eye" aria-hidden="true"></i> <s:text name="language"/><span
+										class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li id="st-trigger-effects" class="column"><a
+											href="single?goodsId=${goodsId}&request_locale=zh_CN"><s:text name="chinese"/></a></li>
+										<li><a href="single?goodsId=${goodsId}&request_locale=en_US"><s:text name="english"/></a></li>
+								</ul></li>
 							</ul>
 						</div>
 						<div class="clearfix"></div>
@@ -253,7 +262,7 @@ a:hover {
 					<div class="chatWinBox" onmouseover="move(this)">
 						<div class="chatWin">
 							<div class="head">
-								<span>小苗基地客服&ensp;<span class="serverName">系统</span>&ensp;为您服务--<span
+								<span><s:text name='LiuhuaService'/>&ensp;<span class="serverName"><s:text name='system'/></span>&ensp;<s:text name='forYouService'/>--<span
 									class="state"></span></span>
 								<p class="winClose">
 									<i class="glyphicon glyphicon-remove"></i>
@@ -274,7 +283,7 @@ a:hover {
 										</select>
 									</div>
 									<div class="fontSize">
-										<span>字体大小</span>
+										<span><s:text name='fontSize'/></span>
 										<div class="input-group has-feedback" id="role_level">
 											<div class="level">
 												<p class="level-control" data-toggle="tooltip"
@@ -283,7 +292,7 @@ a:hover {
 										</div>
 									</div>
 									<div class="fontColor">
-										<span style="margin-right:10px;line-height:30px;">字体颜色</span>
+										<span style="margin-right:10px;line-height:30px;"><s:text name='fontColor'/></span>
 										<div class="input-group myColorpicker colorpicker-element"
 											style="margin-top:5px;border:1px solid #CCC">
 											<input type="hidden" class="form-control">
@@ -293,12 +302,12 @@ a:hover {
 									</div>
 								</div>
 								<ul class="myTool">
-									<li class="fontSetButton" title="设置字体"><i
+									<li class="fontSetButton" title="<s:text name='setFont'/>"><i
 										class="fa fa-font"></i></li>
-									<li title="表情" class="emotion"><i class="fa fa-smile-o"></i></li>
-									<li title="发送图片" class="sendPicture"><i class="fa fa-picture-o"></i></li>
+									<li title="<s:text name='face'/>" class="emotion"><i class="fa fa-smile-o"></i></li>
+									<li title="<s:text name='sendPic'/>" class="sendPicture"><i class="fa fa-picture-o"></i></li>
 									<li style="clear:both;"></li>
-									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i>消息记录<i class="fa fa-caret-down"></i></li>
+									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i><s:text name='messageRecord'/><i class="fa fa-caret-down"></i></li>
 								</ul>
 								<textarea class="form-control textarea-control myInput" rows="3" id="myInput" name="myInput"></textarea>
 								<div class="fileBox" style="display:none">
@@ -307,11 +316,11 @@ a:hover {
 								</div>
 							</div>
 							<div class="foot">
-								<button class="btn btn-primary winClose">关闭</button>
+								<button class="btn btn-primary winClose"><s:text name='close'/></button>
 								<div class="sendGroup btn-group dropup">
-									<button type="button" class="btn btn-primary send">发送</button>
+									<button type="button" class="btn btn-primary send"><s:text name='send'/></button>
 									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown" title="设置发送快捷键">
+										data-toggle="dropdown" title="<s:text name='sendKey'/>">
 										<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu selectSendMenu" role="menu">
@@ -324,7 +333,7 @@ a:hover {
 						</div>
 						<div class="messageRecord">
 							<div class="head">
-								<span>消息记录</span>
+								<span><s:text name='messageRecord'/></span>
 								<p class="winCloseRecord">
 									<i class="glyphicon glyphicon-remove"></i>
 								</p>
@@ -348,7 +357,7 @@ a:hover {
 					<!-- breadcrumbs -->
 					<div class="container">
 						<ol class="breadcrumb breadcrumb1">
-							<li><a href="index">首页</a></li>
+							<li><a href="index"><s:text name="homePage"/></a></li>
 							<li class="active">${name }</li>
 						</ol>
 						<div class="clearfix"></div>
@@ -415,7 +424,7 @@ a:hover {
 										</tr>
 										<s:if test="isSale=='1'">
 											<tr>
-												<td class="col-md-1 col-sm-1 col-lg-1">原价</td>
+												<td class="col-md-1 col-sm-1 col-lg-1"><s:text name="price"/></td>
 												<td><del>
 												<s:i18n name="format">
 													<s:text name="struts.percent">
@@ -425,7 +434,7 @@ a:hover {
 												$</del></td>
 											</tr>
 											<tr>
-												<td style="line-height: 70px;">优惠价</td>
+												<td style="line-height: 70px;"><s:text name="preferentialPrice"/></td>
 												<td style="color: #C40000;"><i class="fa fa-rmb"
 													style="font-size: 20px; margin-right: 10px;"></i><span class="price"
 													style="font-size: 40px;">
@@ -435,13 +444,13 @@ a:hover {
 														</s:text>
 													</s:i18n>
 													</span> <small
-													style="color: #999999; font-size: 10px; margin-left: 50px;">优惠截止时间
+													style="color: #999999; font-size: 10px; margin-left: 50px;"><s:text name="discountDeadline"/>
 														：${saleTime}</samll></td>
 											</tr>
 										</s:if>
 										<s:else>
 											<tr>
-												<td class="col-md-1 col-sm-1 col-lg-1" style="line-height: 70px;">价格</td>
+												<td class="col-md-1 col-sm-1 col-lg-1" style="line-height: 70px;"><s:text name="price"/></td>
 												<td style="color: #C40000;"><i class="fa fa-rmb"
 													style="font-size: 20px; margin-right: 10px;"></i><span class="price"
 													style="font-size: 40px;">
@@ -454,12 +463,12 @@ a:hover {
 											</tr>
 										</s:else>
 										<tr>
-											<td colspan="2" style="font-size: 15px;">总销量 <span
+											<td colspan="2" style="font-size: 15px;"><s:text name="totalSales"/> <span
 												style="color: #C40000">${sellsum}</span></td>
 										</tr>
 										<tr>
-											<td>颜色</td>
-											<td class="colorTd" data-toggle="popover" data-placement="left" data-content="颜色必选一项">
+											<td><s:text name="color"/></td>
+											<td class="colorTd" data-toggle="popover" data-placement="left" data-content="<s:text name="willChooseAColor"/>">
 											<s:iterator value="colors" var="c">
 												<div style="background-color:${c}" class="color" data="${c}"></div>
 											</s:iterator>
@@ -470,7 +479,7 @@ a:hover {
 											<td>${otherValue}</td>
 										</tr>
 										<tr>
-											<td style="line-height: 30px;">数量</td>
+											<td style="line-height: 30px;"><s:text name="numberOf"/></td>
 											<td>
 												<div class="input-group col-md-3 col-sm-3 lg-sm-3"
 													style="position: relative;" id="buyNumMade">
@@ -482,7 +491,7 @@ a:hover {
 														class="input-group-addon add"><i class="fa fa-plus"></i></span>
 													<div
 														style="position: absolute; right: -100px; bottom: 0px;">
-														件<span style="margin-left: 10px; font-size: 10px;">(库存${inventory}件)</span>
+														<span style="margin-left: 10px; font-size: 10px;">(<s:text name="inventory"/>${inventory}<s:text name="piece"/>)</span>
 													</div>
 												</div>
 
@@ -490,9 +499,9 @@ a:hover {
 										</tr>
 										<tr>
 											<td colspan="2">
-												<button class="btn btn-danger intoCart" type="submit" style="width:110px;" data-id="${goodsId }" data-toggle="popover" data-placement="top"
-									data-content="商品加入购物车成功"><i class="fa fa-cart-plus" aria-hidden="true" style="margin-right:5px;"></i>加入购物车</button>
-												<button data-id="${goodsId}" class="btn btn-primary buy" id="buy" role="button"><i class="fa fa-gavel" style="margin-right:5px;"></i>购买</button>
+												<button class="btn btn-danger intoCart" type="submit" style="width:120px;" data-id="${goodsId }" data-toggle="popover" data-placement="top"
+									data-content="商品加入购物车成功"><i class="fa fa-cart-plus" aria-hidden="true" style="margin-right:5px;"></i><s:text name="addToCart"/></button>
+												<button data-id="${goodsId}" class="btn btn-primary buy" id="buy" role="button"><i class="fa fa-gavel" style="margin-right:5px;"></i><s:text name="buy"/></button>
 											</td>
 										</tr>
 									</table>
@@ -542,7 +551,7 @@ a:hover {
 											href="#collapseTwo" aria-expanded="false"
 											aria-controls="collapseTwo"> <i
 											class="fa fa-info-circle fa-icon" aria-hidden="true"></i>
-											商品展示页 <span class="fa fa-angle-down fa-arrow"
+											<s:text name="commodityDisplayPage"/><span class="fa fa-angle-down fa-arrow"
 											aria-hidden="true"></span> <i class="fa fa-angle-up fa-arrow"
 											aria-hidden="true"></i>
 										</a>
@@ -617,9 +626,9 @@ a:hover {
 									<i class="fa fa-truck" aria-hidden="true"></i>
 								</div>
 								<div class="ftr-top-right">
-									<h4>FREE DELIVERY</h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Fusce tempus justo ac</p>
+									<h4><s:text name="freeDelivery"/></h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing
+										elit. Fusce tempus justo ac</p>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -628,9 +637,9 @@ a:hover {
 									<i class="fa fa-user" aria-hidden="true"></i>
 								</div>
 								<div class="ftr-top-right">
-									<h4>CUSTOMER CARE</h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Fusce tempus justo ac</p>
+									<h4><s:text name="customerCare"/></h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing
+										elit. Fusce tempus justo ac</p>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -639,9 +648,9 @@ a:hover {
 									<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 								</div>
 								<div class="ftr-top-right">
-									<h4>GOOD QUALITY</h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Fusce tempus justo ac</p>
+									<h4><s:text name="goodQuality"/></h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing
+										elit. Fusce tempus justo ac</p>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -666,17 +675,31 @@ a:hover {
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="showPictureLabel">查看大图</h4>
+	        <h4 class="modal-title" id="showPictureLabel"><s:text name="selectBigPic"/></h4>
 	      </div>
 	      <div class="modal-body">
 	      	<img alt="pic" src="img/loading.gif" class="showPictrueMore">
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal"><s:text name="close"/></button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
+	<!--i18n  -->
+	<script src="js/admin/map.js"></script>
+	<script type="text/javascript">
+		try{
+		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
+		var i18n = new Map();
+		for ( var key in i18nConfig) {
+			i18n.put(key, i18nConfig[key]);
+		}
+	}catch(e){
+		alert(e);
+	}
+	</script>
+	<!--/i18n  -->
 	<script src="js/sidebar/classie.js"></script>
 	<script src="js/sidebar/modernizr.custom.js"></script>
 	<script src="js/sidebar/sidebarEffects.js"></script>

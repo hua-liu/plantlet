@@ -44,11 +44,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<span aria-hidden="true">×</span>
 		</button>
 		<h4>
-			<strong><s:text name="订单删除警告！" />!</strong>
+			<strong><s:text name="orderDelWarning" /></strong>
 		</h4>
-		<s:text name="sureWantDelete" />订单号为 [
+		<s:text name="sureWantDelete" /><s:text name="orderNumberOf" /> [
 		<span class="deleteWarning-text"></span>]
-		<s:text name="的订单吗？" />
+		<s:text name="<s:text name='order?' />" />
 		<br /> <br />
 
 		<button type="button" class="btn btn-danger" id="sureDelete">
@@ -63,29 +63,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="container-fluid">
         <div class="btn-group btn-group-justified menuButton" role="group">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default active" state="8">待付款</button>
+                <button type="button" class="btn btn-default active" state="8"><s:text name="forThePayment"/></button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default" state="9">待发货</button>
+                <button type="button" class="btn btn-default" state="9"><s:text name="toSendTheGoods"/></button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default" state="11">待收货</button>
+                <button type="button" class="btn btn-default" state="11"><s:text name="forTheGoods"/></button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default" state="12">已收货</button>
+                <button type="button" class="btn btn-default" state="12"><s:text name="haveTheGoods"/></button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default" state="0">所有订单</button>
+                <button type="button" class="btn btn-default" state="0"><s:text name="allOrders"/></button>
             </div>
         </div>
         <div class="myOrderBy">
               <div class="8">
                <table class="table">
                 <tr>
-                    <th>订单号</th>
-                    <th>商品</th>
-                    <th>价格</th>
-                    <th>高级</th>
+                    <th><s:text name="theOrderNo"/></th>
+                    <th><s:text name="goods"/></th>
+                    <th><s:text name="price"/></th>
+                    <th><s:text name="advanced"/></th>
                 </tr>
               <s:iterator value="#request.orderForms">
               <s:if test="state.id==8">
@@ -99,9 +99,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</s:text>
 					</s:i18n>
                     </td>
-                    <td><button class="btn btn-default select"><a href="pay_goPayUi?id=${id}" target="_blank">去付款</a></button>
+                    <td><button class="btn btn-default select"><a href="pay_goPayUi?id=${id}" target="_blank"><s:text name="goToThePayment"/></a></button>
 						<button class="btn btn-default select" data-toggle="modal"
-										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
+										data-target="#myModal"><s:text name="select"/></button><button class="btn btn-default delete"><s:text name="delete"/></button></td>
                 </tr>
               </s:if>
                 </s:iterator>
@@ -110,10 +110,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <div class="9">
                <table class="table">
                 <tr>
-                    <th>订单号</th>
-                    <th>商品</th>
-                    <th>价格</th>
-                    <th>高级</th>
+                     <th><s:text name="theOrderNo"/></th>
+                    <th><s:text name="goods"/></th>
+                    <th><s:text name="price"/></th>
+                    <th><s:text name="advanced"/></th>
                 </tr>
               <s:iterator value="#request.orderForms">
               <s:if test="state.id==9">
@@ -126,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</s:text>
 					</s:i18n></td>
                     <td><button class="btn btn-default select" data-toggle="modal"
-										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
+										data-target="#myModal"><s:text name="select"/></button><button class="btn btn-default delete"><s:text name="delete"/></button></td>
                 </tr>
               </s:if>
                 </s:iterator>
@@ -135,10 +135,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="11">
                <table class="table">
                 <tr>
-                    <th>订单号</th>
-                    <th>商品</th>
-                    <th>价格</th>
-                    <th>高级</th>
+                     <th><s:text name="theOrderNo"/></th>
+                    <th><s:text name="goods"/></th>
+                    <th><s:text name="price"/></th>
+                    <th><s:text name="advanced"/></th>
                 </tr>
               <s:iterator value="#request.orderForms">
               <s:if test="state.id==11">
@@ -151,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</s:text>
 					</s:i18n></td>
                     <td><button class="btn btn-default select" data-toggle="modal"
-										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
+										data-target="#myModal"><s:text name="select"/></button><button class="btn btn-default delete"><s:text name="delete"/></button></td>
                 </tr>
               </s:if>
                 </s:iterator>
@@ -160,10 +160,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="12">
                <table class="table">
                 <tr>
-                    <th>订单号</th>
-                    <th>商品</th>
-                    <th>价格</th>
-                    <th>高级</th>
+                     <th><s:text name="theOrderNo"/></th>
+                    <th><s:text name="goods"/></th>
+                    <th><s:text name="price"/></th>
+                    <th><s:text name="advanced"/></th>
                 </tr>
               <s:iterator value="#request.orderForms">
               <s:if test="state.id==12">
@@ -176,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</s:text>
 					</s:i18n></td>
                     <td><button class="btn btn-default select" data-toggle="modal"
-										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
+										data-target="#myModal"><s:text name="select"/></button><button class="btn btn-default delete"><s:text name="delete"/></button></td>
                 </tr>
               </s:if>
                 </s:iterator>
@@ -185,10 +185,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="0">
                  <table class="table">
                 <tr>
-                    <th>订单号</th>
-                    <th>商品</th>
-                    <th>价格</th>
-                    <th>高级</th>
+                     <th><s:text name="theOrderNo"/></th>
+                    <th><s:text name="goods"/></th>
+                    <th><s:text name="price"/></th>
+                    <th><s:text name="advanced"/></th>
                 </tr>
               <s:iterator value="#request.orderForms">
               <tr data="${id }">
@@ -200,7 +200,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</s:text>
 					</s:i18n></td>
                     <td><button class="btn btn-default select" data-toggle="modal"
-										data-target="#myModal">查看</button><button class="btn btn-default delete">删除</button></td>
+										data-target="#myModal"><s:text name="select"/></button><button class="btn btn-default delete"><s:text name="delete"/></button></td>
                 </tr>
                 </s:iterator>
                  </table>
@@ -286,7 +286,7 @@ $(function(){
 						$(".table tr[data=" + id + "]").remove();
 						return;
 					} else {
-						alert("删除失败，原因："+data.cause)
+						alert("<s:text name='deleteLose'/><s:text name='cause'/>："+data.cause)
 						return;
 					}
 				}
@@ -312,7 +312,13 @@ function getOrderFromMoreData(el) {
 }
 function setMoreData(data) {
 	for ( var val in data) {
-		/*if(val=='state') data[val]=i18n.get(data[val]); */
+		if(val=='id'){
+			createTrTd('<s:text name="orderId"/>', data[val])
+			continue;
+		}else if(val=='user'){
+			createTrTd('<s:text name="buyUser"/>', data[val])
+			continue;
+		}else if(val=='isNew')continue;
 		if (data[val] != null) {
 			//createTrTd(nameArr[val], data[val])
 			createTrTd(val, data[val])
@@ -321,13 +327,13 @@ function setMoreData(data) {
 
 }
 function createTrTd(name, value) {
-	if(name=='color'){
+	if(name=='<s:text name="color"/>'){
 		$("#moreInfor").append($("<tr><td>" + name + "</td><td><div style='background-color:"+value+";width:30px;height:30px;'></div></td></tr>"));
 	}else
 	$("#moreInfor").append($("<tr><td>" + name + "</td><td>" + value + "</td></tr>"));
 }
 function closeWin(el) {
-	$(el.parentNode).hide(500);
+	$("#deleteWarning").hide(500);
 }
 </script>
 </body>

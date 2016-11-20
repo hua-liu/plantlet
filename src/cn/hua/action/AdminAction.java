@@ -1,19 +1,21 @@
 package cn.hua.action;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.SessionAware;
+
 import cn.hua.annotation.Jurisdiction;
 import cn.hua.formBean.Paging;
 import cn.hua.model.User;
 import cn.hua.service.Service;
 import cn.hua.utils.CacheData;
 import cn.hua.utils.Encryption;
-import cn.hua.utils.GetI18nConfig;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.SessionAware;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 public class AdminAction extends ActionSupport implements ServletRequestAware,
 		SessionAware {
@@ -95,7 +97,6 @@ public class AdminAction extends ActionSupport implements ServletRequestAware,
 		if(!(paging.getClassify()==2&&paging.getPutawayGoods()==1))
 		httpServletRequest.setAttribute("list", service.getPagingData(paging,user.getId()));*/
 		//获取i18n配置
-		new GetI18nConfig(ActionContext.getContext(),session).start();
 		
 		ActionContext.getContext().getValueStack().push(paging);
 		/*if(paging.getClassify()==4){//当分类为权限管理

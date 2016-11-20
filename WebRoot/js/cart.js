@@ -14,7 +14,7 @@ $(function(){
 	$(".intoCart").click(function(){
 		var buyNum = $(".buyNum").length>1?$(this).prev():$(".buyNum");//如果是商品分类页则调用当前上一个
 		if(parseInt($(buyNum).val())>parseInt($(buyNum).attr("maxValue"))){
-			$(this).attr("data-content","加入购物车失败:没货啦");
+			$(this).attr("data-content",i18n.get('intoCartFailure')+':'+i18n.get('noGoods'));
 			$(this).popover("show");
 			var currentNode = this;
 			window.setTimeout(function() {$(currentNode).popover("destroy");}, 2000)
@@ -33,6 +33,9 @@ $(function(){
 			addOrderForm(this,$(buyNum).val(),"");
 		}
 		
+	})
+	$(".clearCart").click(function(){
+		clearCart();
 	})
 	
 })
@@ -58,7 +61,7 @@ function addOrderForm(el,num,color){
 	var data = "goods.goodsId="+id+"&buyNum="+num+"&color="+color;
 	$.post(url,data,function(data){
 		if(data==null){
-			$(el).attr("data-content","加入购物车失败");
+			$(el).attr("data-content",i18n.get('intoCartFailure'));
 			$(el).popover("show");
 			window.setTimeout(function() {$(el).popover("destroy");}, 2000)
 			$(".mini-cart-items-list li[data-id="+$(el).attr("data-id")+"]").remove();
@@ -72,7 +75,7 @@ function addOrderForm(el,num,color){
 					createCartItim(data.id,$(el).parents(".product-grids").find("img").attr("src"),$(el).parents(".product-grids").find(".product_name").html(),$(el).parents(".product-grids").find(".price").html(),$(el).parents(".product-grids").find(".buyNum").val())
 				}else
 				createCartItim(data.id,$(".big-img .MagicZoom img").attr("src"),$(".product_name").html(),$(".price").html(),$(".buyNum").val())
-				$(el).attr("data-content","加入购物车成功");
+				$(el).attr("data-content",i18n.get('intoCartSuccess'));
 				$(el).popover("show");
 				$(".mini-cart-items-list>li").unbind();
 				$(".mini-cart-items-list>li").bind("click",function(){
@@ -83,7 +86,7 @@ function addOrderForm(el,num,color){
 				}
 				window.setTimeout(function() {$(el).popover("destroy");}, 2000)
 			}else{
-				$(el).attr("data-content","加入购物车失败:原因："+data.cause);
+				$(el).attr("data-content",i18n.get('intoCartFailure')+","+i18n.get('cause')+"："+data.cause);
 				$(el).popover("show");
 				window.setTimeout(function() {$(el).popover("destroy");}, 2000)
 				$(".mini-cart-items-list li[data-id="+$(el).attr("data-id")+"]").remove();
@@ -91,7 +94,21 @@ function addOrderForm(el,num,color){
 		}
 	},"json")
 }
-
+//清空购物车
+function clearCart(){
+	$.post("json/userOrderForm_clearAll",null,function(data){
+		if(data!=null){
+			data = eval("("+data+")");
+			if(data.message){
+				$(".mini-cart-items-list li").remove();
+				$("#cart-item-num").html(0);
+				$(".goBuy").css("display","none");
+			}else{
+				alert(i18n.get('clearCartFailure'))
+			}
+		}
+	})
+}
 function delEvent(el){
 	removeOrderForm(el);
 	$(el).parents("li").remove();

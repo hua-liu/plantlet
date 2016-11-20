@@ -142,22 +142,22 @@ public class GetMoreDataAction extends ActionSupport implements SessionAware {
 						map.put(descriptor.getName(),user.getUsername()==null?user.getNickname()==null?user.getPhone():user.getNickname():user.getUsername());
 					}else if("getGoods".equals(methodName)){
 						Goods goods = (Goods)object;
-						map.put("goodsName", goods.getName());
-						map.put("goodsPrice", goods.getPrice());
+						map.put(getText("goodsName"), goods.getName());
+						map.put(getText("goodsPrice"), goods.getPrice());
 					}else if("getState".equals(methodName)){
 						State state = (State)object;
-						map.put(descriptor.getName(), state.getName());
+						map.put(getText(descriptor.getName()), getText(state.getName()));
 					}else if(("getTakedelivery").equals(methodName)){
 						Takedelivery takedelivery = (Takedelivery)object;
 						if(takedelivery!=null){
-							map.put("收件人", takedelivery.getName());
-							map.put("收件地址", takedelivery.getAddress()+"--"+takedelivery.getMoreAddress());
+							map.put(getText("toReceiveA1"), takedelivery.getName());
+							map.put(getText("receiveAddress"), takedelivery.getAddress()+"--"+takedelivery.getMoreAddress());
 						}
 					}else if(("getBuytime").equals(methodName)){
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-						map.put(descriptor.getName(),sdf.format(sdf.parse(object+"")));
+						map.put(getText(descriptor.getName()),sdf.format(sdf.parse(object+"")));
 					}else{
-						map.put(descriptor.getName(), object);
+						map.put(getText(descriptor.getName()), object);
 					}
 				}
 			} catch (Exception e1) {

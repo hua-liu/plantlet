@@ -33,7 +33,7 @@ public class AddressAction extends ActionSupport implements ModelDriven<Takedeli
 	}
 	public String add(){
 		try{
-			String[] error = Verification.address(take);
+			String[] error = Verification.address(this,take);
 			if(error!=null&&error.length>0){
 				this.result = Conversion.stringToJson("message,false,cause,"+error[0]);
 				return SUCCESS;

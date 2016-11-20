@@ -346,14 +346,11 @@
 			clickGetCode : '<s:text name="clickGetCode"/>',
 			passwordNull : '<s:text name="passwordNull"/>',
 			passwordLenght : '<s:text name="passwordLenght"/>',
-			password2Null : '<s:text name="password2Null"/>',
 			twicePasswordSame : '<s:text name="twicePasswordSame"/>',
 			phoneNull : '<s:text name="phoneNull"/>',
 			phoneFormatError : '<s:text name="phoneFormatError"/>',
 			verificationCodeNull : '<s:text name="verificationCodeNull"/>',
-			emailNull : '<s:text name="emailNull"/>',
 			emailFormatError : '<s:text name="emailFormatError"/>',
-			usernameNull : '<s:text name="usernameNull"/>',
 			usernameLenght : '<s:text name="usernameLenght"/>',
 			phoneAvailable : '<s:text name="phoneAvailable"/>',
 			emailAvailable : '<s:text name="emailAvailable"/>',
@@ -363,9 +360,10 @@
 			usernameInvalid : '<s:text name="usernameInvalid"/>',
 		}
 	</script>
+	<!--i18n  -->
+	<script src="js/admin/map.js"></script>
 	<script src="js/jquery/jquery.min.js"></script>
 	<script src="js/menu.js"></script>
-	<script src="js/admin/map.js"></script>
 	<script src="js/register.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<!-- Just to make our placeholder images work. Don't actually copy the next line! -->

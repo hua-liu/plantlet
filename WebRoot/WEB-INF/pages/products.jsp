@@ -151,12 +151,12 @@ body {
 		<nav class="st-menu st-effect-13" id="menu-13"> 
 		<div class="toolbar-main toolbar-mini-cart-main">
 			<div class="toolbar-hd">
-				<div class="toolbar-hd-title">购物车</div>
+				<div class="toolbar-hd-title"><s:text name="shoppingCart"/></div>
 			</div>
 			<div class="toolbar-bd">
 				<div class="mini-cart-list">
 					<div class="mini-cart-list-hd">
-						<div class="mini-cart-list-title">最新加入的宝贝</div>
+						<div class="mini-cart-list-title"><s:text name="newestBaby"/></div>
 					</div>
 					<div class="mini-cart-list-bd">
 						<ul class="mini-cart-items-list">
@@ -177,7 +177,7 @@ body {
 							</s:if>
 						</ul>
 					</div>
-					<button class="goBuy btn btn-danger">去购物车结算</button>
+					<button class="goBuy btn btn-danger"><s:text name="goToTheShoppingCartAndSettlement"/></button>
 					<script type="text/javascript">
 							if($(".mini-cart-item").length<1){
 								$(".goBuy").css("display","none");
@@ -196,7 +196,7 @@ body {
 			<div class="cartButton" id="st-trigger-effects">
 				<button data-effect="st-effect-13" class="btn btn-danger st-effect" style="width:30px;height:150px;text-align:center;padding:0;"><span class="badge" id="cart-item-num">
 				<s:property value="#session.orderForms.size"></s:property>
-				</span><br/>我<br/>的<br/>购<br/>物<br/>车</button>
+				</span><br/><s:text name="my"/><br/><s:text name="de"/><br/><s:text name="gou"/><br/><s:text name="wu"/><br/><s:text name="che"/></button>
 			</div>
 			</s:if>
 			<!-- 购物车图标  -->
@@ -213,35 +213,44 @@ body {
 							<ul>
 								<li class="dropdown head-dpdn"><a href="#"
 									class="dropdown-toggle" data-toggle="dropdown"><i
-										class="fa fa-user" aria-hidden="true"></i>我的账户<span
+										class="fa fa-user" aria-hidden="true"></i><s:text name="myAccount"/><span
 										class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<s:if test="#session.user!=null">
 											<li><a href="myCenter"><s:property
 														value="#session.user.nickname!=null?#session.user.nickname:#session.user.username!=null?#session.user.username:#session.user.email!=null?#session.user.email:#session.user.phone"/></a></li>
-											<li><a href="userLogout">注销</a></li>
-											<li><a href="myCenter?function=2">我的订单</a></li>
-											<li><a href="myCenter?function=3">钱包</a></li>
+											<li><a href="userLogout"><s:text name="logout"/></a></li>
+											<li><a href="myCenter?function=2"><s:text name="myOrder"/></a></li>
+											<li><a href="myCenter?function=3"><s:text name="wallet"/></a></li>
 										</s:if>
 										<s:else>
-											<li><a href="loginUi">登陆</a></li>
+											<li><a href="loginUi"><s:text name="login"/></a></li>
 										</s:else>
 									</ul></li>
 								<s:if test="#session.user!=null">
 									<li class="dropdown head-dpdn"><a href="#"
 										class="dropdown-toggle" data-toggle="dropdown"><i
-											class="fa fa-cart-plus" aria-hidden="true"></i> 购物车<span
+											class="fa fa-cart-plus" aria-hidden="true"></i><s:text name="shoppingCart"/><span
 											class="caret"></span></a>
 										<ul class="dropdown-menu">
 											<li id="st-trigger-effects" class="column"><a
 												href="javascript:" data-effect="st-effect-13"
-												class="st-effect">查看购物车</a></li>
-											<li><a href="javascript:alert('程序员正在加紧实现')">清空购物车</a></li>
+												class="st-effect"><s:text name="toViewTheShoppingCart"/></a></li>
+											<li class="clearCart"><a href="javascript:"><s:text name="emptyTheShoppingCart"/></a></li>
 										</ul></li>
 								</s:if>
 								<li class="dropdown head-dpdn linkService"><a
 									href="javascript:void(0)" class="dropdown-toggle"><i
-										class="fa  fa-smile-o" aria-hidden="true"></i>联系客服</a></li>
+										class="fa  fa-smile-o" aria-hidden="true"></i><s:text name="contactCustomerService"/></a></li>
+							<li class="dropdown head-dpdn"><a href="javascript:void(0)"
+									class="dropdown-toggle" data-toggle="dropdown"><i
+										class="fa fa-eye" aria-hidden="true"></i> <s:text name="language"/><span
+										class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li id="st-trigger-effects" class="column"><a
+											href="products?request_locale=zh_CN"><s:text name="chinese"/></a></li>
+										<li><a href="products?request_locale=en_US"><s:text name="english"/></a></li>
+								</ul></li>
 							</ul>
 						</div>
 						<div class="clearfix"></div>
@@ -250,7 +259,7 @@ body {
 					<div class="chatWinBox" onmouseover="move(this)">
 						<div class="chatWin">
 							<div class="head">
-								<span>小苗基地客服&ensp;<span class="serverName">系统</span>&ensp;为您服务--<span
+								<span><s:text name='LiuhuaService'/>&ensp;<span class="serverName"><s:text name='system'/></span>&ensp;<s:text name='forYouService'/>--<span
 									class="state"></span></span>
 								<p class="winClose">
 									<i class="glyphicon glyphicon-remove"></i>
@@ -271,7 +280,7 @@ body {
 										</select>
 									</div>
 									<div class="fontSize">
-										<span>字体大小</span>
+										<span><s:text name='fontSize'/></span>
 										<div class="input-group has-feedback" id="role_level">
 											<div class="level">
 												<p class="level-control" data-toggle="tooltip"
@@ -280,7 +289,7 @@ body {
 										</div>
 									</div>
 									<div class="fontColor">
-										<span style="margin-right:10px;line-height:30px;">字体颜色</span>
+										<span style="margin-right:10px;line-height:30px;"><s:text name='fontColor'/></span>
 										<div class="input-group myColorpicker colorpicker-element"
 											style="margin-top:5px;border:1px solid #CCC">
 											<input type="hidden" class="form-control">
@@ -290,12 +299,12 @@ body {
 									</div>
 								</div>
 								<ul class="myTool">
-									<li class="fontSetButton" title="设置字体"><i
+									<li class="fontSetButton" title="<s:text name='setFont'/>"><i
 										class="fa fa-font"></i></li>
-									<li title="表情" class="emotion"><i class="fa fa-smile-o"></i></li>
-									<li title="发送图片" class="sendPicture"><i class="fa fa-picture-o"></i></li>
+									<li title="<s:text name='face'/>" class="emotion"><i class="fa fa-smile-o"></i></li>
+									<li title="<s:text name='sendPic'/>" class="sendPicture"><i class="fa fa-picture-o"></i></li>
 									<li style="clear:both;"></li>
-									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i>消息记录<i class="fa fa-caret-down"></i></li>
+									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i><s:text name='messageRecord'/><i class="fa fa-caret-down"></i></li>
 								</ul>
 								<textarea class="form-control textarea-control myInput" rows="3" id="myInput" name="myInput"></textarea>
 								<div class="fileBox" style="display:none">
@@ -304,11 +313,11 @@ body {
 								</div>
 							</div>
 							<div class="foot">
-								<button class="btn btn-primary winClose">关闭</button>
+								<button class="btn btn-primary winClose"><s:text name='close'/></button>
 								<div class="sendGroup btn-group dropup">
-									<button type="button" class="btn btn-primary send">发送</button>
+									<button type="button" class="btn btn-primary send"><s:text name='send'/></button>
 									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown" title="设置发送快捷键">
+										data-toggle="dropdown" title="<s:text name='sendKey'/>">
 										<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu selectSendMenu" role="menu">
@@ -321,7 +330,7 @@ body {
 						</div>
 						<div class="messageRecord">
 							<div class="head">
-								<span>消息记录</span>
+								<span><s:text name='messageRecord'/></span>
 								<p class="winCloseRecord">
 									<i class="glyphicon glyphicon-remove"></i>
 								</p>
@@ -359,8 +368,8 @@ body {
 							<div class="col-md-9 product-w3ls-right">
 								<!-- breadcrumbs -->
 								<ol class="breadcrumb breadcrumb1">
-									<li><a href="index">首页</a></li>
-									<li class="active">${goodsKind==0?"全部商品":goodsKind==1?"盘栽":goodsKind==2?"花卉":goodsKind==3?"树苗":"种子"}</li>
+									<li><a href="index"><s:text name="homePage"/></a></li>
+									<li class="active"><s:text name="%{goodsKind==0?getText('allGoods'):goodsKind==1?getText('plowers'):goodsKind==2?getText('flowers'):goodsKind==3?getText('treeSeedlings'):getText('seeds')}"/></li>
 									<s:if test="keywords!=null">
 										<li class="active">${keywords}</li>
 									</s:if>
@@ -368,21 +377,21 @@ body {
 								<div class="clearfix"></div>
 								<!-- //breadcrumbs -->
 								<div class="product-top" style="min-width:850px;">
-									<h4>搜索结果</h4>
+									<h4><s:text name="theSearchResults"/></h4>
 									<ul>
 										<li class="dropdown head-dpdn"><a href="#"
-											class="dropdown-toggle" data-toggle="dropdown">商品排序<span
+											class="dropdown-toggle" data-toggle="dropdown"><s:text name="goodsSorting"/><span
 												class="caret"></span></a>
 											<ul class="dropdown-menu productsSort">
-												<li data="1"><a>最低价格</a></li>
-												<li data="2"><a>最高价格</a></li>
-												<li data="3"><a>最高销量</a></li>
+												<li data="1"><a><s:text name="theMostBottomPrice"/></a></li>
+												<li data="2"><a><s:text name="theHighestPrice"/></a></li>
+												<li data="3"><a><s:text name="theHighestSales"/></a></li>
 											</ul></li>
 									</ul>
 									<div class="clearfix"></div>
 								</div>
 								<s:if test="#request.products.size()<1">
-									<div style="width:100%;text-align:center;color:#F00;padding:20px 0;">没有符合搜索要求的商品</div>
+									<div style="width:100%;text-align:center;color:#F00;padding:20px 0;"><s:text name="onSearchResult"/></div>
 									<script>
 										$(".bodyLoader").remove();
 									</script>
@@ -405,7 +414,7 @@ body {
 													<h5 style="position:relative;">
 														<p style="width:95px;height:25px;overflow:hidden;"><a href="single?goodsId=${goodsId }" class="product_name">${name}</a></p>
 														<p style="font-size:10px;position:absolute;top:0;right:0;">
-															成交 <span style="color:#f50;padding:0;">${sellsum}笔</span>
+															<s:text name="clinchADeal"/> <span style="color:#f50;padding:0;">${sellsum}<s:text name="fund"/></span>
 														</p>
 													</h5>
 													<h6 style="position:relative;">
@@ -428,7 +437,7 @@ body {
 													<button type="button" class="w3ls-cart pw3ls-cart intoCart"
 														data-id="${goodsId}" data-toggle="popover"
 														data-placement="top" data-content="商品加入购物车成功">
-														<i class="fa fa-cart-plus" aria-hidden="true"></i>添加到购物车
+														<i class="fa fa-cart-plus" aria-hidden="true"></i><s:text name="addToCart"/>
 													</button>
 												</div>
 											</div>
@@ -513,26 +522,26 @@ body {
 							</div>
 							<div class="col-md-3 rsidebar">
 								<div class="sidebar-row">
-									<h4>按条件搜索</h4>
+									<h4><s:text name="conditionsOfSearch"/></h4>
 									<ul class="faq">
 										<li role="presentation" class="spinButton"><a
 											href="products?goodsKind=1"> <i class="icon iconfont">&#xe601;</i>
-												<h5>盘栽</h5>
+												<h5><s:text name="platePlant"/></h5>
 										</a></li>
 										<li role="presentation" class="spinButton"><a
 											href="products?goodsKind=2"> <i class="icon iconfont"
 												aria-hidden="true">&#xe611;</i>
-												<h5>花卉</h5>
+												<h5><s:text name="flowers"/></h5>
 										</a></li>
 										<li role="presentation" class="spinButton"><a
 											href="products?goodsKind=3"> <i class="icon iconfont"
 												aria-hidden="true">&#xe60b;</i>
-												<h5>树苗</h5>
+												<h5><s:text name="treeSeedlings"/></h5>
 										</a></li>
 										<li role="presentation" class="spinButton"><a
 											href="products?goodsKind=4"> <i class="icon iconfont"
 												aria-hidden="true">&#xe603;</i>
-												<h5>种子</h5>
+												<h5><s:text name="seeds"/></h5>
 										</a></li>
 										<%-- 	<li class="item3"><a href="#">Entertainment<span
 													class="glyphicon glyphicon-menu-down"></span></a>
@@ -546,36 +555,36 @@ body {
 								<br/><br/>
 								<div class="rsidebar-top">
 									<div class="slider-left">
-										<h4 style="padding-top:10px">价格区间</h4>
+										<h4 style="padding-top:10px"><s:text name="aPriceRange"/></h4>
 										<div class="row row1 scroll-pane priceSection">
 											<label class="checkbox"><input type="checkbox" ${minPrice==0&&maxPrice!=0?"checked":""}
-												name="checkbox" min="0" max="10" ><i></i>0 - 10元 </label> <label
+												name="checkbox" min="0" max="10" ><i></i>0 - 10<s:text name="yuan"/> </label> <label
 												class="checkbox"><input type="checkbox" ${minPrice<=10&&maxPrice>=50?"checked":""}
-												name="checkbox" min="10" max="50"><i></i>10元 - 50元 </label> <label
+												name="checkbox" min="10" max="50"><i></i>10<s:text name="yuan"/> - 50<s:text name="yuan"/> </label> <label
 												class="checkbox"><input type="checkbox" ${minPrice<=50&&maxPrice>=100?"checked":""}
-												name="checkbox" min="50" max="100"><i></i>50元 - 100元 </label> <label
+												name="checkbox" min="50" max="100"><i></i>50<s:text name="yuan"/> - 100<s:text name="yuan"/> </label> <label
 												class="checkbox"><input type="checkbox" ${minPrice<=100&&maxPrice>=200?"checked":""}
-												name="checkbox" min="100" max="200"><i></i>100元 - 200元 </label> <label
+												name="checkbox" min="100" max="200"><i></i>100<s:text name="yuan"/> - 200<s:text name="yuan"/> </label> <label
 												class="checkbox"><input type="checkbox" ${minPrice<=200&&maxPrice>=300?"checked":""}
-												name="checkbox" min="200" max="300"><i></i>200元 - 300元 </label> <label
+												name="checkbox" min="200" max="300"><i></i>200<s:text name="yuan"/> - 300<s:text name="yuan"/> </label> <label
 												class="checkbox"><input type="checkbox" ${minPrice<=300&&maxPrice>=500?"checked":""}
-												name="checkbox" min="300" max="500"><i></i>300元 - 500元 </label> <label
+												name="checkbox" min="300" max="500"><i></i>300<s:text name="yuan"/> - 500<s:text name="yuan"/> </label> <label
 												class="checkbox"><input type="checkbox" ${maxPrice>=500?"checked":""}
-												name="checkbox" min="500" max="10000"><i></i>500元及以上</label>
+												name="checkbox" min="500" max="10000"><i></i>500<s:text name="yuan"/><s:text name="andAbove"/></label>
 										</div>
 									</div>
 									<div class="sidebar-row">
-										<h4>颜色</h4>
+										<h4><s:text name="color"/></h4>
 										<div class="row row1 scroll-pane goodsColor">
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ffffff')!=-1?'checked':'' } data="#ffffff"><i style="border-color:#FFFFFF"></i>白色</label> 
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ff0000')!=-1?'checked':'' } data="#ff0000"><i style="border-color:#FF0000"></i>红色</label> 
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#fff000')!=-1?'checked':'' } data="#fff000"><i style="border-color:#FFF000"></i>橙色</label>
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ffff00')!=-1?'checked':'' } data="#ffff00"><i style="border-color:#FFFF00"></i>黄色</label>
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#00ff00')!=-1?'checked':'' } data="#00ff00"><i style="border-color:#00FF00"></i>绿色</label>
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#00ffff')!=-1?'checked':'' } data="#00ffff"><i style="border-color:#00FFFF"></i>青色</label>
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#0000ff')!=-1?'checked':'' } data="#0000ff"><i style="border-color:#0000FF"></i>蓝色</label>
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#f000ff')!=-1?'checked':'' } data="#f000ff"><i style="border-color:#F000FF"></i>紫色</label>
-											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#000000')!=-1?'checked':'' } data="#000000"><i style="border-color:#000000"></i>黑色</label> 
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ffffff')!=-1?'checked':'' } data="#ffffff"><i style="border-color:#FFFFFF"></i><s:text name="white"/></label> 
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ff0000')!=-1?'checked':'' } data="#ff0000"><i style="border-color:#FF0000"></i><s:text name="red"/></label> 
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#fff000')!=-1?'checked':'' } data="#fff000"><i style="border-color:#FFF000"></i><s:text name="orange"/></label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#ffff00')!=-1?'checked':'' } data="#ffff00"><i style="border-color:#FFFF00"></i><s:text name="yellow"/></label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#00ff00')!=-1?'checked':'' } data="#00ff00"><i style="border-color:#00FF00"></i><s:text name="green"/></label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#00ffff')!=-1?'checked':'' } data="#00ffff"><i style="border-color:#00FFFF"></i><s:text name="cyan"/></label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#0000ff')!=-1?'checked':'' } data="#0000ff"><i style="border-color:#0000FF"></i><s:text name="blue"/></label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#f000ff')!=-1?'checked':'' } data="#f000ff"><i style="border-color:#F000FF"></i><s:text name="purple"/></label>
+											<label class="checkbox"><input type="checkbox" ${color!=null&&color.indexOf('#000000')!=-1?'checked':'' } data="#000000"><i style="border-color:#000000"></i><s:text name="block"/></label> 
 										</div>
 									</div>
 								</div>
@@ -584,7 +593,7 @@ body {
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 								<div class="related-row">
-									<h4>热门搜索关键字</h4>
+									<h4><s:text name="topSearchKeywords"/></h4>
 									<ul>
 										<li><a href="products?keywords=玫瑰">玫瑰</a></li>
 										<li><a href="products?keywords=丁香">丁香</a></li>
@@ -596,7 +605,7 @@ body {
 										<li><a href="products?keywords=健康">健康</a></li>
 										<li><a href="products?keywords=水果">水果</a></li>
 										<li><a href="products?keywords=小苗">小苗</a></li>
-										<li><input type="text" class="form-control inputKey" style="width:100px;height:30px;" placeholder="输入关键字" value="${keywords}"></li>
+										<li><input type="text" class="form-control inputKey" style="width:100px;height:30px;" placeholder="<s:text name='inputAKeyword'/>" value="${keywords}"></li>
 									</ul>
 								</div>
 							</div>
@@ -614,9 +623,9 @@ body {
 									<i class="fa fa-truck" aria-hidden="true"></i>
 								</div>
 								<div class="ftr-top-right">
-									<h4>FREE DELIVERY</h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Fusce tempus justo ac</p>
+									<h4><s:text name="freeDelivery"/></h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing
+										elit. Fusce tempus justo ac</p>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -625,9 +634,9 @@ body {
 									<i class="fa fa-user" aria-hidden="true"></i>
 								</div>
 								<div class="ftr-top-right">
-									<h4>CUSTOMER CARE</h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Fusce tempus justo ac</p>
+									<h4><s:text name="customerCare"/></h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing
+										elit. Fusce tempus justo ac</p>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -636,9 +645,9 @@ body {
 									<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 								</div>
 								<div class="ftr-top-right">
-									<h4>GOOD QUALITY</h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Fusce tempus justo ac</p>
+									<h4><s:text name="goodQuality"/></h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing
+										elit. Fusce tempus justo ac</p>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -660,7 +669,7 @@ body {
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="showPictureLabel">查看大图</h4>
+	        <h4 class="modal-title" id="showPictureLabel"><s:text name="selectBigPic"/></h4>
 	      </div>
 	      <div class="modal-body">
 	      	<img alt="pic" src="img/loading.gif" class="showPictrueMore">
@@ -671,6 +680,20 @@ body {
 	    </div>
 	  </div>
 	</div>
+	<!--i18n  -->
+	<script src="js/admin/map.js"></script>
+	<script type="text/javascript">
+		try{
+		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
+		var i18n = new Map();
+		for ( var key in i18nConfig) {
+			i18n.put(key, i18nConfig[key]);
+		}
+	}catch(e){
+		alert(e);
+	}
+	</script>
+	<!--/i18n  -->
 	<script type="text/javascript">
 		var totalPage = ${totalPage};
 		var currentPage = ${currentPage};

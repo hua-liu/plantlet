@@ -1,6 +1,16 @@
 package cn.hua.utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
+import cn.hua.action.AddressAction;
+import cn.hua.action.OrderFormAction;
 import cn.hua.action.RegisterAction;
+import cn.hua.action.UserMoreInfoModify;
 import cn.hua.formBean.GoodsForm;
 import cn.hua.formBean.UserLogin;
 import cn.hua.formBean.UserRegister;
@@ -9,13 +19,6 @@ import cn.hua.model.Safe;
 import cn.hua.model.Takedelivery;
 import cn.hua.model.User;
 import cn.hua.service.Service;
-
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Component
 public class Verification {
@@ -233,7 +236,6 @@ public class Verification {
 	public static String[] goodsVer(GoodsForm goods) {
 		String[] error = new String[1];
 		int i=0;
-		boolean isPass=true;
 		if(goods==null){
 			error[i++]="发生错误";
 			return error;
@@ -271,114 +273,114 @@ public class Verification {
 		return null;
 	}
 	
-	public static String[] orderForm(OrderForm orderForm) {
+	public static String[] orderForm(OrderFormAction action, OrderForm orderForm) {
 		String[] error = new String[1];
 		int i=0;
 		if(orderForm==null){
-			error[i++]="发生错误";
+			error[i++]=action.getText("happenError");
 			return error;
 		}
 		if(orderForm.getGoods()==null){
-			error[i++] = "没有商品信息";
+			error[i++] = action.getText("noGoodsInfor");
 			return error;
 		}
 		if(orderForm.getBuyNum()<1){
-			error[i++] = "商品数量至少为1";
+			error[i++] = action.getText("goodsNumGt1");
 			return error;
 		}
 		return null;
 	}
-	public static String[] address(Takedelivery take){
+	public static String[] address(AddressAction action, Takedelivery take){
 		String[] error = new String[1];
 		int i=0;
 		if(take==null){
-			error[i++]="发生错误";
+			error[i++]=action.getText("happenError");
 			return error;
 		}
 		if(take.getAddress()==null){
-			error[i++]="地址不能为空";
+			error[i++]=action.getText("addressNull");
 			return error;
 		}
 		if(take.getMoreAddress()==null){
-			error[i++]="详细地址不能为空";
+			error[i++]=action.getText("detailedAddNull");
 			return error;
 		}
 		if(take.getPhone()==null&&take.getTelephone()==null){
-			error[i++]="手机号与电话号码必需填写一项";
+			error[i++]=action.getText("numMustFill");
 			return error;
 		}
 		System.out.println(take.getPhone());
 		if(take.getPhone()!=null&&!take.getPhone().trim().matches("^[1][3-8][0-9]{9}$")){
-			error[i++]="手机号码格式错误";
+			error[i++]=action.getText("phoneFormatError");
 			return error;
 		}
 		if(take.getTelephone()!=null&&!take.getTelephone().trim().matches("^[0-9]{0,22}$")){
-			error[i++]="电话号码格式错误";
+			error[i++]=action.getText("telePhoneFormatError");
 			return error;
 		}
 		return null;
 		}
-	public static String[] myCenterSafe(String type,String oldData,String oldData2,String newData,User user){
+	public static String[] myCenterSafe(UserMoreInfoModify action, String type,String oldData,String oldData2,String newData,User user){
 		String[] error;
 		boolean bool=true;
 		int i=0;
 		if("phone".equals(type)){
 			error = new String[2];
 			if(user.getPhone()!=null&&!user.getPhone().equals(oldData)){
-				error[i++]="oldPhone,与原号码不一致，拒绝修改";
+				error[i++]="oldPhone,"+action.getText("oldPhoneReject");
 				bool=false;
 			}
 			if(newData==null||newData!=null&&!newData.matches("^[1][3-8][0-9]{9}$")){
-				error[i++]="newPhone,手机号码格式错误，拒绝修改";
+				error[i++]="newPhone,"+action.getText("phoneErrorReject");
 				bool=false;
 			}
 		}else if("email".equals(type)){
 			error = new String[2];
 			if(user.getEmail()!=null&&!user.getEmail().equals(oldData)){
-				error[i++]="oldEmail,与原邮箱不一致，拒绝修改";
+				error[i++]="oldEmail,"+action.getText("oldEmailReject");
 				bool=false;
 			}
 			if(newData==null||newData!=null&&!newData.matches("^[0-9a-zA-Z]+@[0-9a-zA-Z]+[.][0-9a-zA-Z]+$")){
-				error[i++]="newEmail,邮箱格式错误，拒绝修改";
+				error[i++]="newEmail,"+action.getText("emailErrorReject");
 				bool=false;
 			}
 		}else if("loginPassword".equals(type)){
 			error = new String[2];
 			System.out.println(Encryption.encryption(oldData+user.getId()));
 			if(!user.getSafe().getLoginPassword().equals(Encryption.encryption(oldData+user.getSafe().getId()))){
-				error[i++]="oldLoginPassword,与原登陆密码不一致，拒绝修改";
+				error[i++]="oldLoginPassword,"+action.getText("oldLPasswordReject");
 				bool=false;
 			}
 			if(newData==null||newData!=null&&(newData.length()<5||newData.length()>20)){
-				error[i++]="newEmail,密码长度不对，拒绝修改";
+				error[i++]="newEmail,"+action.getText("passwordLengthReject");
 				bool=false;
 			}
 		}else{
 			error = new String[3];
 			if(!user.getSafe().getLoginPassword().equals(Encryption.encryption(oldData+user.getSafe().getId()))){
-				error[i++]="oldLoginPassword,与原登陆密码不一致，拒绝修改";
+				error[i++]="oldLoginPassword,"+action.getText("oldLPasswordReject");
 				bool=false;
 			}
 			if(user.getSafe().getPayPassword()!=null&&!user.getSafe().getPayPassword().equals(Encryption.encryption(oldData2+user.getSafe().getId()))){
-				error[i++]="oldPayPassword,与原支付密码不一致，拒绝修改";
+				error[i++]="oldPayPassword,"+action.getText("oldPPasswordReject");
 				bool=false;
 			}
 			if(newData==null||newData!=null&&(newData.length()<5||newData.length()>20)){
-				error[i++]="newEmail,密码长度不对，拒绝修改";
+				error[i++]="newEmail,"+action.getText("passwordLengthReject");
 				bool=false;
 			}
 		}
 		if(bool)return null;
 		else return error;
 	}
-	public static String[] myCenterInfo(User user){
+	public static String[] myCenterInfo(UserMoreInfoModify action, User user){
 		String[] error = new String[1];
 		if(user.getUsername()!=null&&!user.getUsername().matches("^[a-zA-Z]+[0-9a-zA-Z]{4,20}$")){
-			error[0] = "用户名格式不正确";
+			error[0] = action.getText("usernameFormatError");
 			return error;
 		}
-		if(user.getIdentity()!=null&&user.getIdentity().getIdentityNumber()!=null&&!user.getIdentity().getIdentityNumber().matches("^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{4}$")){
-			error[0] = "证件号格式不正确";
+		if(user.getIdentity()!=null&&user.getIdentity().getIdentityNumber()!=null&&!user.getIdentity().getIdentityNumber().equals("")&&!user.getIdentity().getIdentityNumber().matches("^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{4}$")){
+			error[0] = action.getText("idFormatError");
 			return error;
 		}
 		return null;

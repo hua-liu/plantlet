@@ -719,11 +719,6 @@ espond.js IE8 support of HTML5 elements and media queries -->
 		var currentPage = ${currentPage};
 		var rowsize = ${size};
 		var classify = ${classify};
-		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
-		var i18n = new Map();
-		for ( var key in i18nConfig) {
-			i18n.put(key, i18nConfig[key]);
-		}
 		var nameArr = eval("("
 				+ "{'id':'ID','state':'<s:text name='accountState'/>','phone':'<s:text name='phone'/>','credit':'<s:text name='credit'/>',"
 				+ "'email':'<s:text name='email'/>','username':'<s:text name='username'/>','phoneState':'<s:text name='phone'/><s:text name='state'/>',"

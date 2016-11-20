@@ -8,6 +8,7 @@ import org.apache.struts2.ServletActionContext;
 import cn.hua.model.OrderForm;
 import cn.hua.model.User;
 import cn.hua.service.Service;
+import cn.hua.utils.GetI18nConfig;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -39,6 +40,8 @@ public class AuctionOrderAction extends ActionSupport{
 		}else{
 			ServletActionContext.getRequest().setAttribute("orderForms", service.getOrderFormByUserId(user.getId()));
 		}
+		//js国际化文件
+		new GetI18nConfig(ActionContext.getContext()).start();
 		return SUCCESS;
 	}
 }

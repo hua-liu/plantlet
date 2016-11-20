@@ -34,7 +34,7 @@ public class OrderFormAction extends ActionSupport implements ModelDriven<OrderF
 	}
 	public String add(){
 		try{
-			String error[] = Verification.orderForm(orderForm);
+			String error[] = Verification.orderForm(this,orderForm);
 			if(error!=null&&error.length>0){
 				this.result = Conversion.stringToJson("message,false,cause,"+error[0]);
 				return SUCCESS;
@@ -46,26 +46,40 @@ public class OrderFormAction extends ActionSupport implements ModelDriven<OrderF
 			this.result = Conversion.stringToJson("message,true,id,"+orderForm.getId());
 		}catch(Exception e){
 			e.printStackTrace();
-			this.result = Conversion.stringToJson("message,false,cause,服务器繁忙");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("dbException"));
 		}
 		return SUCCESS;
 	}
 	public String delete(){
 		try{
 			if(orderForm==null||orderForm!=null&&orderForm.getId()==null){
-				this.result = Conversion.stringToJson("message,false,cause,未获取到商品信息");
+				this.result = Conversion.stringToJson("message,false,cause,"+getText("noGetData"));
 				return SUCCESS;
 			}
 			service.delOrderForm(orderForm.getId());
 			this.result = Conversion.stringToJson("message,true");
 		}catch(Exception e){
-			this.result = Conversion.stringToJson("message,false,cause,服务器繁忙");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("dbException"));
 		}
 		return SUCCESS;
 	}
+	//清空购物车
+	public String clearAll(){
+		User user = (User)ActionContext.getContext().getSession().get("user");
+		try{
+			if(user!=null)
+			service.clearAllSoppingCart(user.getId());
+			this.result = Conversion.stringToJson("message,true");
+			return "success";
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		this.result = Conversion.stringToJson("message,false");
+		return "success";
+	}
 	public String update(){
 		try{
-			String error[] = Verification.orderForm(orderForm);
+			String error[] = Verification.orderForm(this,orderForm);
 			if(error.length>0){
 				this.result = Conversion.stringToJson("message,false,cause,"+error[0]);
 				return SUCCESS;
@@ -74,7 +88,7 @@ public class OrderFormAction extends ActionSupport implements ModelDriven<OrderF
 			this.result = Conversion.stringToJson("message,true");
 		}catch(Exception e){
 			e.printStackTrace();
-			this.result = Conversion.stringToJson("message,false,cause,服务器繁忙");
+			this.result = Conversion.stringToJson("message,false,cause,"+getText("dbException"));
 		}
 		return SUCCESS;
 	}

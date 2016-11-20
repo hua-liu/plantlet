@@ -57,13 +57,13 @@ function changeNickname(name,source){
 	if(name==null||name!=null&&name.trim()=='')return;
 	if(name==source)return;
 	$.post("json/myCenter_modifyNickname","onlyNickname="+name,function(data){
-		if(data==null)alert("昵称更改失败");
+		if(data==null)alert(i18n.get("nicknameUpdateFailure"));
 		if(data=='input'){
 			window.location.href="loginUi?url="+window.location.href.substr(7);
 		}else if(data!=null){
 			data = eval("("+data+")");
 			if(!data.message){
-				alert("昵称更改失败");
+				alert(i18n.get("nicknameUpdateFailure"));
 			}
 		}
 	})
@@ -86,7 +86,7 @@ function updateHeadPhoto(x,y,width,height){
 					$("#avatar-modal").modal("hide");
 					window.location.reload();
 				} else {
-					alert("上传失败");
+					alert(i18n.get("updateFailure"));
 				}
 			}
 			

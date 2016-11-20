@@ -1,25 +1,22 @@
 package cn.hua.dao.impl;
 
-import cn.hua.dao.GoodsDao;
-import cn.hua.formBean.GoodsPaging;
-import cn.hua.formBean.Paging;
-import cn.hua.model.*;
-
-import org.hibernate.Session;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
-import org.hibernate.transform.Transformers;
-import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Component;
+
+import cn.hua.dao.GoodsDao;
+import cn.hua.formBean.GoodsPaging;
+import cn.hua.formBean.Paging;
+import cn.hua.model.BreviaryPicture;
+import cn.hua.model.Goods;
+import cn.hua.model.GoodsKind;
+import cn.hua.model.GoodsPicture;
 @Component
 public class GoodsDaoImpl implements GoodsDao {
 	private HibernateTemplate hibernateTemplate;

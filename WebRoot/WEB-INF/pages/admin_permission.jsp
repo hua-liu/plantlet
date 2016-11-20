@@ -57,130 +57,6 @@ li {
 </head>
 
 <body style="padding-top:0px;">
-	<%-- 	<nav class="navbar navbar-inverse navbar-fixed-top mynav"
-			role="navigation">
-		<div class="navbar-header">
-			<a href="admin" class="navbar-brand"><img src="img/logo.png"></a>
-			<ul class="nav-pills pull-left bgtext">
-				<li><s:text name="manageCenter"/></li>
-			</ul>
-			<div class="minMenu">
-				<span class="glyphicon glyphicon-menu-hamburger dropdown-toggle"
-					data-toggle="dropdown"></span>
-				<ul class="dropdown-menu">
-					<li class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true" id="loginButton2">
-							<s:text name="login" />
-						</button>
-					</li>
-					<li class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true" id="registerButton2">
-							<s:text name="register" />
-						</button>
-					</li>
-					<li class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="language" />
-							<span class="caret"></span>
-						</button>
-						<ul class="nav" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="loginUi?request_locale=zh_CN"><s:text name="chinese" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="loginUi?request_locale=en_US"><s:text name="english" /></a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="help" />
-							<span class="caret"></span>
-						</button>
-						<ul class="nav" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="makeGuide" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="customerService" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="about" /></a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="container-fluid">
-			<ul class="nav navbar-nav navbar-right mynav-right">
-				<li class="showUser"><s:text name="welcome"/>：<span><s:property
-							value="#session.user.username" /></span></li>
-				<li role="presentation">
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="logoutAndQuit"/><span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu"
-							aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#" id="logout"><s:text name="logout"/>/<s:text name="switchUser"/></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#" id="quit"><s:text name="logoutAndQuit"/></a></li>
-						</ul>
-					</div>
-				</li>
-				<li role="presentation">
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="set"/> <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu"
-							aria-labelledby="dropdownMenu1">
-							<li role="presentation" data-toggle="modal"
-								data-target="#personalizeSet"><a role="menuitem"
-								tabindex="-1" href="javascript:void(0)"><s:text name="showSet"/></a></li>
-						</ul>
-					</div>
-				</li>
-				<li role="presentation">
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="language" />
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu"
-							aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="admin?request_locale=zh_CN"><s:text name="chinese" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="admin?request_locale=en_US"><s:text name="english" /></a></li>
-						</ul>
-					</div>
-				</li>
-				<li role="presentation">
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown" aria-expanded="true">
-							<s:text name="help" />
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu"
-							aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="makeGuide" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="customerService" /></a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1"
-								href="#"><s:text name="about" /></a></li>
-						</ul>
-					</div>
-				</li>
-			</ul>
-		</div>
-		</nav> --%>
 	<!-- 删除警告  -->
 	<s:if test="classify==4&&function==1">
 		<div class="alert alert-danger alert-dismissible fade in"
@@ -189,20 +65,13 @@ li {
 				<span aria-hidden="true">×</span>
 			</button>
 			<h4>
-				<strong><s:text name="kickedOutWarningManagement" />!</strong>
+				<strong>踢出管理员警告!</strong>
 			</h4>
-			<s:text name="sureWill" />
-			：<span class="deleteWarning-text"></span>
-			<s:text name="directKickOutManage" />
-			?<br /> <br />
+			确定要将：<span class="deleteWarning-text"></span>直接踢出管理?<br /> <br />
 
-			<button type="button" class="btn btn-danger" id="sureDelete">
-				<s:text name="sureKickOut" />
-			</button>
+			<button type="button" class="btn btn-danger" id="sureDelete">确认踢出</button>
 			<button type="button" class="btn btn-default closeWin"
-				style="margin-left:20px;width:100px">
-				<s:text name="cancel" />
-			</button>
+				style="margin-left:20px;width:100px">取消</button>
 		</div>
 	</s:if>
 	<s:elseif test="classify==4&&function==2">
@@ -212,108 +81,14 @@ li {
 				<span aria-hidden="true">×</span>
 			</button>
 			<h4>
-				<strong><s:text name="deleteRoleWarning" />!</strong>
-			</h4>
-			<s:text name="sureWill" />
-			：
-			<s:text name="roleName" />
-			<span class="deleteWarning-text"></span>
-			<s:text name="delete?" />
-			?<br /> <br />
+				<strong>删除角色警告!</strong>
+			</h4>确认要将：角色名<span class="deleteWarning-text"></span>的删除吗?<br /> <br />
 
-			<button type="button" class="btn btn-danger" id="sureDeleteRole">
-				<s:text name="sureDelete" />
-			</button>
+			<button type="button" class="btn btn-danger" id="sureDeleteRole">确认删除</button>
 			<button type="button" class="btn btn-default closeWin"
-				style="margin-left:20px;width:100px">
-				<s:text name="cancel" />
-			</button>
+				style="margin-left:20px;width:100px">取消</button>
 		</div>
 	</s:elseif>
-	</div>
-	<%-- <div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<form action="ScopeSearch" method="post" id="ScopeSearchCenter">
-					<s:hidden name="size" />
-					<s:hidden name="isShowChart" />
-					<s:hidden name="classify"/>
-					<s:hidden name="function"/>
-					<s:hidden name="putawayGoods"/>
-					<ul class="nav nav-sidebar manageMenu">
-						<h4>
-							<s:text name="管理菜单" />
-						</h4>
-						<li data="1"><a>用户管理<span
-								class="glyphicon glyphicon-chevron-right"></span></a>
-							<ul class="nav userManageUl" style="margin-left:15px;">
-								<li class="userManageLi"><a><s:text name="state" />
-										<s:select name="state" list="#request.state" listKey="id"
-											listValue="name" /></a></li>
-								<li class="userManageLi"><a><s:text name="role" />
-										<s:select name="role" list="#request.role" listKey="id"
-											listValue="name" /></a></li>
-								<li><button class="btn btn-default col-md-10" type="submit"
-										id="userManageSubmit">
-										<span class="glyphicon glyphicon-search"></span>
-									</button></li>
-							</ul></li>
-						<li data="2"><a>商品管理<span
-								class="glyphicon glyphicon-chevron-right"></span></a>
-							<ul class="nav goodsManageUl" style="margin-left:15px;">
-								<li data-index="1" class="goodsManageLi"><a>上架商品</a></li>
-								<li data-index="0" class="goodsManageLi"><a>查询商品<span
-										class="glyphicon glyphicon-chevron-right"></span></a>
-									<ul class="nav goodsKinidUl" style="margin-left:15px;">
-										<li><a>商品分类 <s:select name="goodsKind"
-													list="#request.goodsKind" listKey="id" listValue="name"
-													id="goodsKind" /></a></li>
-										<li class="moreKind" style="display:none"><a>详细分类 <s:select
-													name="moreKind" list="#{0:'全部'}" listKey="key"
-													listValue="value" id="moreKind" /></a></li>
-										<li><button class="btn btn-default col-md-10"
-												type="submit" id="userManageSubmit">
-												<span class="glyphicon glyphicon-search"></span>
-											</button></li>
-									</ul></li>
-							</ul></li>
-						<li data="3"><a>订单管理<span
-								class="glyphicon glyphicon-chevron-right"></span></a></li>
-						<li data="4"><a>权限管理<span
-								class="glyphicon glyphicon-chevron-right"></span></a>
-							<ul class="nav permissionUl" style="margin-left:15px;">
-								<s:iterator value="#request.MaintenanceMenu">
-									<li class="permissionLi" data-id="<s:property value='key'/>"><a><s:property
-												value="value" /></a></li>
-								</s:iterator>
-							</ul></li>
-					</ul>
-					<ul class="nav nav-sidebar">
-						<h4>
-							<s:text name="模糊搜索" />
-						</h4>
-						<li style="margin-left:15px;"><input name="keywords"
-							type="text" style="width:70%;" value="${keywords }"
-							placeholder='<s:text name="inputKeywordsSearch"></s:text>' />
-							<button class="btn btn-success" type="submit">
-								<span class="glyphicon glyphicon-search"></span>
-							</button></li>
-						<li style="text-align:center"></li>
-
-					</ul>
-				</form>
-
-				
-				<!-- <ul class="nav nav-sidebar">
-                <li><a href="">Nav item again</a></li>
-                <li><a href="">One more nav</a></li>
-                <li><a href="">Another nav item</a></li>
-            </ul>-->
-			</div> --%>
-	<!-- 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<div class="table-responsive"> -->
-
-	<!-- /.box-header -->
 	<form action="ScopeSearch" method="post" id="ScopeSearch">
 		<s:hidden name="classify" />
 		<s:hidden name="state" />
@@ -332,15 +107,13 @@ li {
 					<tr>
 						<th colspan="7"><button
 								class="btn btn-default col-md-2"
-								data-toggle="modal" data-target="#addManager">
-								<s:text name="addManager" />
-							</button>
+								data-toggle="modal" data-target="#addManager">添加管理员</button>
 							<div style="float:right">
 							<div class="input-group">
 								<input name="keywords" class="form-control" type="text"
 									source-data="${keywords}" style="width:300px;"
 									value="${keywords }" id="inputKeywords"
-									placeholder='<s:text name="inputKeywordsSearch"></s:text>' />
+									placeholder='输入关键字搜索' />
 									<span class="input-group-addon" id="keywords-submit" style="max-width:40px;cursor:pointer;"><span class="glyphicon glyphicon-search"></span></span>
 							</div>
 						</div></th>
@@ -348,32 +121,26 @@ li {
 					<tr role="row">
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="Rendering engine: activate to sort column ascending"><s:text
-								name="sequence" /></th>
+							aria-label="Rendering engine: activate to sort column ascending">序号</th>
 						<th class="sorting_desc" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
 							aria-label="Browser: activate to sort column ascending"
-							aria-sort="descending"><s:text name="username" /></th>
+							aria-sort="descending">用户名</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="Platform(s): activate to sort column ascending"><s:text
-								name="nickname" /></th>
+							aria-label="Platform(s): activate to sort column ascending">昵称</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="Engine version: activate to sort column ascending"><s:text
-								name="phone" /></th>
+							aria-label="Engine version: activate to sort column ascending">手机号</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="CSS grade: activate to sort column ascending"><s:text
-								name="email" /></th>
+							aria-label="CSS grade: activate to sort column ascending">邮箱</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="CSS grade: activate to sort column ascending"><s:text
-								name="currentRole" /></th>
+							aria-label="CSS grade: activate to sort column ascending">当前角色</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="CSS grade: activate to sort column ascending"><s:text
-								name="moreOperation" /></th>
+							aria-label="CSS grade: activate to sort column ascending">更多操作</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -384,24 +151,20 @@ li {
 							<td><s:property value="nickname" default="-" /></td>
 							<td><s:property value="phone" default="-" /></td>
 							<td><s:property value="email" default="-" /></td>
-							<td><s:text name="%{getText(role.name)}" /></td>
+							<td>${role.name}</td>
 							<td><div class="btn-group">
 									<button type="button" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown" aria-expanded="false">
-										<s:text name="advancedOptions" />
-										<span class="caret"></span>
+										data-toggle="dropdown" aria-expanded="false">高级选项<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu advanced" role="menu" data-id="${id}">
 										<li role="presentation" data-toggle="modal"
 											data-target="#updateModal"><a role="menuitem"
-											tabindex="-1" href="javascript:void(0)"><s:text
-													name="jurisdictionChange" /></a></li>
+											tabindex="-1" href="javascript:void(0)">权限变更</a></li>
 										<li role="presentation"><a role="menuitem" tabindex="-1"
-											href="javascript:void(0)"><s:text
-													name="directKickOutManage" /></a></li>
+											href="javascript:void(0)">直接踢出管理</a></li>
 										<li role="presentation" data-toggle="modal"
 											data-target="#myModal"><a role="menuitem" tabindex="-1"
-											href="javascript:void(0)"><s:text name="showMore" /></a></li>
+											href="javascript:void(0)">显示更多</a></li>
 									</ul>
 								</div></td>
 						</tr>
@@ -411,38 +174,43 @@ li {
 					<tr>
 						<th colspan="7"><div class="paging" style="margin:0 auto;">
 								<p class="pagingP1">
-									<s:text name="totalRecord" />
-									<span>&nbsp;${totalNum}&nbsp;</span>
-									<s:text name="item" />
-								</p>
-								<p class="pagingP2">
-									<s:text name="the" />
-									<span>&nbsp;${currentPage}&nbsp;</span>
-									<s:text name="page" />
-									/
-									<s:text name="total" />
-									<span>&nbsp;${totalPage}&nbsp;</span>
-									<s:text name="page" />
-								</p>
-								<ul class="pagination">
-									<s:if test="currentPage<2">
-										<li class="disabled"><a href="javascript:void(0)"
-											aria-label="Previous"> <span
-												class="glyphicon glyphicon-arrow-left"></span>
-										</a></li>
-									</s:if>
-									<s:else>
-										<li><a href="javascript:void(0)" aria-label="Previous"
-											paging-data="${currentPage-1 }" data-toggle="tooltip"
-											data-placement="top" title="<s:text name='previousPage'/>">
-												<span class="glyphicon glyphicon-arrow-left"></span>
-										</a></li>
-									</s:else>
-									<s:if test="totalPage==0">
-										<li class="disabled"><a href="javascript:void(0)">0</a></li>
-									</s:if>
-									<s:elseif test="totalPage<11">
-										<s:iterator begin="1" end="totalPage" status="s">
+								总记录<span>&nbsp;${totalNum}&nbsp;</span>条
+							</p>
+							<p class="pagingP2">
+								第<span>&nbsp;${currentPage}&nbsp;</span>页/总<span>&nbsp;${totalPage}&nbsp;</span>页
+							</p>
+							<ul class="pagination">
+								<s:if test="currentPage<2">
+									<li class="disabled"><a href="javascript:void(0)"
+										aria-label="Previous"> <span
+											class="glyphicon glyphicon-arrow-left"></span>
+									</a></li>
+								</s:if>
+								<s:else>
+									<li><a href="javascript:void(0)" aria-label="Previous"
+										paging-data="${currentPage-1 }" data-toggle="tooltip"
+										data-placement="top" title="上一页">
+											<span class="glyphicon glyphicon-arrow-left"></span>
+									</a></li>
+								</s:else>
+								<s:if test="totalPage==0">
+									<li class="disabled"><a href="javascript:void(0)">0</a></li>
+								</s:if>
+								<s:elseif test="totalPage<11">
+									<s:iterator begin="1" end="totalPage" status="s">
+										<s:if test="#s.count==currentPage">
+											<li class="active"><a href="javascript:void(0)"
+												paging-data="${s.count}">${s.count}</a></li>
+										</s:if>
+										<s:else>
+											<li><a href="javascript:void(0)"
+												paging-data="${s.count}">${s.count}</a></li>
+										</s:else>
+									</s:iterator>
+								</s:elseif>
+								<s:else>
+									<s:if test="currentPage<6">
+										<s:iterator begin="1" end="10" status="s">
 											<s:if test="#s.count==currentPage">
 												<li class="active"><a href="javascript:void(0)"
 													paging-data="${s.count}">${s.count}</a></li>
@@ -452,54 +220,37 @@ li {
 													paging-data="${s.count}">${s.count}</a></li>
 											</s:else>
 										</s:iterator>
-									</s:elseif>
-									<s:else>
-										<s:if test="currentPage<6">
-											<s:iterator begin="1" end="10" status="s">
-												<s:if test="#s.count==currentPage">
-													<li class="active"><a href="javascript:void(0)"
-														paging-data="${s.count}">${s.count}</a></li>
-												</s:if>
-												<s:else>
-													<li><a href="javascript:void(0)"
-														paging-data="${s.count}">${s.count}</a></li>
-												</s:else>
-											</s:iterator>
-										</s:if>
-										<s:else>
-											<s:iterator begin="currentPage-5"
-												end="currentPage+5>totalPage?totalPage:currentPage+5"
-												status="s" var="cur">
-												<s:if test="#cur==currentPage">
-													<li class="active"><a href="javascript:void(0)"
-														paging-data="${cur}">${cur }</a></li>
-												</s:if>
-												<s:else>
-													<li><a href="javascript:void(0)" paging-data="${cur}">${cur}</a></li>
-												</s:else>
-											</s:iterator>
-										</s:else>
-									</s:else>
-									<s:if test="currentPage>=totalPage">
-										<li class="disabled"><a href="javascript:void(0)"
-											aria-label="Next"><span
-												class="glyphicon glyphicon-arrow-right"></span> </a></li>
 									</s:if>
 									<s:else>
-										<li><a href="javascript:void(0)" aria-label="Next"
-											paging-data="${currentPage+1}" data-toggle="tooltip"
-											data-placement="top" title="<s:text name='nextPage'/>"
-											style="margin-right:20px"><span
-												class="glyphicon glyphicon-arrow-right"></span></a></li>
+										<s:iterator begin="currentPage-5"
+											end="currentPage+5>totalPage?totalPage:currentPage+5"
+											status="s" var="cur">
+											<s:if test="#cur==currentPage">
+												<li class="active"><a href="javascript:void(0)"
+													paging-data="${cur}">${cur }</a></li>
+											</s:if>
+											<s:else>
+												<li><a href="javascript:void(0)" paging-data="${cur}">${cur}</a></li>
+											</s:else>
+										</s:iterator>
 									</s:else>
-								</ul>
-								<div class="selectPage">
-									<s:text name="jumpTo" />
-									<input type="text" maxlength="5" value="${currentPage }"
-										id="goto" data-toggle="tooltip" data-placement="top"
-										title="<s:text name='enterJump'/>" />
-									<s:text name="page" />
-								</div>
+								</s:else>
+								<s:if test="currentPage>=totalPage">
+									<li class="disabled"><a href="javascript:void(0)"
+										aria-label="Next"><span
+											class="glyphicon glyphicon-arrow-right"></span> </a></li>
+								</s:if>
+								<s:else>
+									<li><a href="javascript:void(0)" aria-label="Next"
+										paging-data="${currentPage+1}" data-toggle="tooltip"
+										data-placement="top" title="下一页"
+										style="margin-right:20px"><span
+											class="glyphicon glyphicon-arrow-right"></span></a></li>
+								</s:else>
+							</ul>
+							<div class="selectPage">跳转至<input type="text" maxlength="5" value="${currentPage }"
+									id="goto" data-toggle="tooltip" data-placement="top"
+									title="回车跳转" />页</div>
 							</div></th>
 					</tr>
 				</tfoot>
@@ -512,15 +263,13 @@ li {
 					<tr>
 						<th colspan="4"><button
 								class="btn btn-default col-md-2"
-								data-toggle="modal" data-target="#addRole">
-								<s:text name="addRole" />
-							</button>
+								data-toggle="modal" data-target="#addRole">添加角色</button>
 							<div style="float:right">
 							<div class="input-group">
 								<input name="keywords" class="form-control" type="text"
 									source-data="${keywords}" style="width:300px;"
 									value="${keywords }" id="inputKeywords"
-									placeholder='<s:text name="inputKeywordsSearch"></s:text>' />
+									placeholder='输入关键字搜索' />
 									<span class="input-group-addon" id="keywords-submit" style="max-width:40px;cursor:pointer;"><span class="glyphicon glyphicon-search"></span></span>
 							</div>
 						</div></th>
@@ -528,50 +277,42 @@ li {
 					<tr role="row">
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="Rendering engine: activate to sort column ascending"><s:text
-								name="sequence" /></th>
+							aria-label="Rendering engine: activate to sort column ascending">序号</th>
 						<th class="sorting_desc" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
 							aria-label="Browser: activate to sort column ascending"
-							aria-sort="descending"><s:text name="roleName" /></th>
+							aria-sort="descending">角色名</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="Platform(s): activate to sort column ascending"><s:text
-								name="ownedJurisdiction" /></th>
+							aria-label="Platform(s): activate to sort column ascending">拥有的权限</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="CSS grade: activate to sort column ascending"><s:text
-								name="moreOperation" /></th>
+							aria-label="CSS grade: activate to sort column ascending">更多操作</th>
 					</tr>
 				</thead>
 				<tbody>
 					<s:iterator value="#request.list" status="s">
 						<tr class="roleList" data-id="${id}">
 							<td>${s.count}</td>
-							<td><s:text name="%{getText(name)}" /></td>
+							<td>${name}</td>
 							<td><s:iterator value="permissions" status="s">
 									<s:if test="#s.count>1">
 										<strong>|</strong>
-									</s:if>
-									<%-- <s:property value="id" />= --%>
-									<s:text name="%{getText(name)}" />
+									</s:if>${name}
 								</s:iterator></td>
 							<td>
 
 								<div class="btn-group">
 									<button type="button" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown" aria-expanded="false">
-										<s:text name="advancedOptions" />
-										<span class="caret"></span>
+										data-toggle="dropdown" aria-expanded="false">高级选项<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu advancedRole" role="menu"
 										data-id="${id}">
 										<li role="presentation" data-toggle="modal"
 											data-target="#updateRole"><a role="menuitem"
-											tabindex="-1" href="javascript:void(0)"><s:text
-													name="jurisdictionChange" /></a></li>
+											tabindex="-1" href="javascript:void(0)">权限变更</a></li>
 										<li role="presentation"><a role="menuitem" tabindex="-1"
-											href="javascript:void(0)"><s:text name="deleteRole" /></a></li>
+											href="javascript:void(0)">删除角色</a></li>
 									</ul>
 								</div>
 							</td>
@@ -582,38 +323,47 @@ li {
 					<tr>
 						<th colspan="4"><div class="paging" style="margin:0 auto;">
 								<p class="pagingP1">
-									<s:text name="totalRecord" />
-									<span>&nbsp;${totalNum}&nbsp;</span>
-									<s:text name="item" />
-								</p>
-								<p class="pagingP2">
-									<s:text name="the" />
-									<span>&nbsp;${currentPage}&nbsp;</span>
-									<s:text name="page" />
-									/
-									<s:text name="total" />
-									<span>&nbsp;${totalPage}&nbsp;</span>
-									<s:text name="page" />
-								</p>
-								<ul class="pagination">
-									<s:if test="currentPage<2">
-										<li class="disabled"><a href="javascript:void(0)"
-											aria-label="Previous"> <span
-												class="glyphicon glyphicon-arrow-left"></span>
-										</a></li>
-									</s:if>
-									<s:else>
-										<li><a href="javascript:void(0)" aria-label="Previous"
-											paging-data="${currentPage-1 }" data-toggle="tooltip"
-											data-placement="top" title="<s:text name='previousPage'/>">
-												<span class="glyphicon glyphicon-arrow-left"></span>
-										</a></li>
-									</s:else>
-									<s:if test="totalPage==0">
-										<li class="disabled"><a href="javascript:void(0)">0</a></li>
-									</s:if>
-									<s:elseif test="totalPage<11">
-										<s:iterator begin="1" end="totalPage" status="s">
+								总记录
+								<span>&nbsp;${totalNum}&nbsp;</span>
+								条
+							</p>
+							<p class="pagingP2">
+								第<span>&nbsp;${currentPage}&nbsp;</span>页
+								/
+								总<span>&nbsp;${totalPage}&nbsp;</span>页
+							</p>
+							<ul class="pagination">
+								<s:if test="currentPage<2">
+									<li class="disabled"><a href="javascript:void(0)"
+										aria-label="Previous"> <span
+											class="glyphicon glyphicon-arrow-left"></span>
+									</a></li>
+								</s:if>
+								<s:else>
+									<li><a href="javascript:void(0)" aria-label="Previous"
+										paging-data="${currentPage-1 }" data-toggle="tooltip"
+										data-placement="top" title="上一页">
+											<span class="glyphicon glyphicon-arrow-left"></span>
+									</a></li>
+								</s:else>
+								<s:if test="totalPage==0">
+									<li class="disabled"><a href="javascript:void(0)">0</a></li>
+								</s:if>
+								<s:elseif test="totalPage<11">
+									<s:iterator begin="1" end="totalPage" status="s">
+										<s:if test="#s.count==currentPage">
+											<li class="active"><a href="javascript:void(0)"
+												paging-data="${s.count}">${s.count}</a></li>
+										</s:if>
+										<s:else>
+											<li><a href="javascript:void(0)"
+												paging-data="${s.count}">${s.count}</a></li>
+										</s:else>
+									</s:iterator>
+								</s:elseif>
+								<s:else>
+									<s:if test="currentPage<6">
+										<s:iterator begin="1" end="10" status="s">
 											<s:if test="#s.count==currentPage">
 												<li class="active"><a href="javascript:void(0)"
 													paging-data="${s.count}">${s.count}</a></li>
@@ -623,54 +373,39 @@ li {
 													paging-data="${s.count}">${s.count}</a></li>
 											</s:else>
 										</s:iterator>
-									</s:elseif>
-									<s:else>
-										<s:if test="currentPage<6">
-											<s:iterator begin="1" end="10" status="s">
-												<s:if test="#s.count==currentPage">
-													<li class="active"><a href="javascript:void(0)"
-														paging-data="${s.count}">${s.count}</a></li>
-												</s:if>
-												<s:else>
-													<li><a href="javascript:void(0)"
-														paging-data="${s.count}">${s.count}</a></li>
-												</s:else>
-											</s:iterator>
-										</s:if>
-										<s:else>
-											<s:iterator begin="currentPage-5"
-												end="currentPage+5>totalPage?totalPage:currentPage+5"
-												status="s" var="cur">
-												<s:if test="#cur==currentPage">
-													<li class="active"><a href="javascript:void(0)"
-														paging-data="${cur}">${cur }</a></li>
-												</s:if>
-												<s:else>
-													<li><a href="javascript:void(0)" paging-data="${cur}">${cur}</a></li>
-												</s:else>
-											</s:iterator>
-										</s:else>
-									</s:else>
-									<s:if test="currentPage>=totalPage">
-										<li class="disabled"><a href="javascript:void(0)"
-											aria-label="Next"><span
-												class="glyphicon glyphicon-arrow-right"></span> </a></li>
 									</s:if>
 									<s:else>
-										<li><a href="javascript:void(0)" aria-label="Next"
-											paging-data="${currentPage+1}" data-toggle="tooltip"
-											data-placement="top" title="<s:text name='nextPage'/>"
-											style="margin-right:20px"><span
-												class="glyphicon glyphicon-arrow-right"></span></a></li>
+										<s:iterator begin="currentPage-5"
+											end="currentPage+5>totalPage?totalPage:currentPage+5"
+											status="s" var="cur">
+											<s:if test="#cur==currentPage">
+												<li class="active"><a href="javascript:void(0)"
+													paging-data="${cur}">${cur }</a></li>
+											</s:if>
+											<s:else>
+												<li><a href="javascript:void(0)" paging-data="${cur}">${cur}</a></li>
+											</s:else>
+										</s:iterator>
 									</s:else>
-								</ul>
-								<div class="selectPage">
-									<s:text name="jumpTo" />
-									<input type="text" maxlength="5" value="${currentPage }"
-										id="goto" data-toggle="tooltip" data-placement="top"
-										title="<s:text name='enterJump'/>" />
-									<s:text name="page" />
-								</div>
+								</s:else>
+								<s:if test="currentPage>=totalPage">
+									<li class="disabled"><a href="javascript:void(0)"
+										aria-label="Next"><span
+											class="glyphicon glyphicon-arrow-right"></span> </a></li>
+								</s:if>
+								<s:else>
+									<li><a href="javascript:void(0)" aria-label="Next"
+										paging-data="${currentPage+1}" data-toggle="tooltip"
+										data-placement="top" title="下一页"
+										style="margin-right:20px"><span
+											class="glyphicon glyphicon-arrow-right"></span></a></li>
+								</s:else>
+							</ul>
+							<div class="selectPage">
+								跳转至<input type="text" maxlength="5" value="${currentPage }"
+									id="goto" data-toggle="tooltip" data-placement="top"
+									title="回车跳转" />页
+							</div>
 							</div></th>
 					</tr>
 				</tfoot>
@@ -687,7 +422,7 @@ li {
 								<input name="keywords" class="form-control" type="text"
 									source-data="${keywords}" style="width:300px;"
 									value="${keywords }" id="inputKeywords"
-									placeholder='<s:text name="inputKeywordsSearch"></s:text>' />
+									placeholder='输入关键字搜索' />
 									<span class="input-group-addon" id="keywords-submit" style="max-width:40px;cursor:pointer;"><span class="glyphicon glyphicon-search"></span></span>
 							</div>
 						</div>
@@ -696,27 +431,24 @@ li {
 					<tr role="row">
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="Rendering engine: activate to sort column ascending"><s:text
-								name="sequence" /></th>
+							aria-label="Rendering engine: activate to sort column ascending">序号</th>
 						<th class="sorting_desc" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
 							aria-label="Browser: activate to sort column ascending"
-							aria-sort="descending"><s:text name="jurisdiction" /></th>
+							aria-sort="descending">权限名</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="Platform(s): activate to sort column ascending"><s:text
-								name="sequence" /></th>
+							aria-label="Platform(s): activate to sort column ascending">序号</th>
 						<th class="sorting" tabindex="0" aria-controls="example2"
 							rowspan="1" colspan="1"
-							aria-label="CSS grade: activate to sort column ascending"><s:text
-								name="jurisdiction" /></th>
+							aria-label="CSS grade: activate to sort column ascending">权限名</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="permissionList">
 						<s:iterator value="#request.list" status="s">
 							<td>${s.count}</td>
-							<td><s:text name="%{getText(name)}" /></td>
+							<td>${name}</td>
 							<s:if test="#s.count%2==0">
 					</tr>
 					<tr>
@@ -727,38 +459,47 @@ li {
 					<tr>
 						<th colspan="7"><div class="paging" style="margin:0 auto;">
 								<p class="pagingP1">
-									<s:text name="totalRecord" />
-									<span>&nbsp;${totalNum}&nbsp;</span>
-									<s:text name="item" />
-								</p>
-								<p class="pagingP2">
-									<s:text name="the" />
-									<span>&nbsp;${currentPage}&nbsp;</span>
-									<s:text name="page" />
-									/
-									<s:text name="total" />
-									<span>&nbsp;${totalPage}&nbsp;</span>
-									<s:text name="page" />
-								</p>
-								<ul class="pagination">
-									<s:if test="currentPage<2">
-										<li class="disabled"><a href="javascript:void(0)"
-											aria-label="Previous"> <span
-												class="glyphicon glyphicon-arrow-left"></span>
-										</a></li>
-									</s:if>
-									<s:else>
-										<li><a href="javascript:void(0)" aria-label="Previous"
-											paging-data="${currentPage-1 }" data-toggle="tooltip"
-											data-placement="top" title="<s:text name='previousPage'/>">
-												<span class="glyphicon glyphicon-arrow-left"></span>
-										</a></li>
-									</s:else>
-									<s:if test="totalPage==0">
-										<li class="disabled"><a href="javascript:void(0)">0</a></li>
-									</s:if>
-									<s:elseif test="totalPage<11">
-										<s:iterator begin="1" end="totalPage" status="s">
+								总记录
+								<span>&nbsp;${totalNum}&nbsp;</span>
+								条
+							</p>
+							<p class="pagingP2">
+								第<span>&nbsp;${currentPage}&nbsp;</span>页
+								/
+								总<span>&nbsp;${totalPage}&nbsp;</span>页
+							</p>
+							<ul class="pagination">
+								<s:if test="currentPage<2">
+									<li class="disabled"><a href="javascript:void(0)"
+										aria-label="Previous"> <span
+											class="glyphicon glyphicon-arrow-left"></span>
+									</a></li>
+								</s:if>
+								<s:else>
+									<li><a href="javascript:void(0)" aria-label="Previous"
+										paging-data="${currentPage-1 }" data-toggle="tooltip"
+										data-placement="top" title="上一页">
+											<span class="glyphicon glyphicon-arrow-left"></span>
+									</a></li>
+								</s:else>
+								<s:if test="totalPage==0">
+									<li class="disabled"><a href="javascript:void(0)">0</a></li>
+								</s:if>
+								<s:elseif test="totalPage<11">
+									<s:iterator begin="1" end="totalPage" status="s">
+										<s:if test="#s.count==currentPage">
+											<li class="active"><a href="javascript:void(0)"
+												paging-data="${s.count}">${s.count}</a></li>
+										</s:if>
+										<s:else>
+											<li><a href="javascript:void(0)"
+												paging-data="${s.count}">${s.count}</a></li>
+										</s:else>
+									</s:iterator>
+								</s:elseif>
+								<s:else>
+									<s:if test="currentPage<6">
+										<s:iterator begin="1" end="10" status="s">
 											<s:if test="#s.count==currentPage">
 												<li class="active"><a href="javascript:void(0)"
 													paging-data="${s.count}">${s.count}</a></li>
@@ -768,54 +509,41 @@ li {
 													paging-data="${s.count}">${s.count}</a></li>
 											</s:else>
 										</s:iterator>
-									</s:elseif>
-									<s:else>
-										<s:if test="currentPage<6">
-											<s:iterator begin="1" end="10" status="s">
-												<s:if test="#s.count==currentPage">
-													<li class="active"><a href="javascript:void(0)"
-														paging-data="${s.count}">${s.count}</a></li>
-												</s:if>
-												<s:else>
-													<li><a href="javascript:void(0)"
-														paging-data="${s.count}">${s.count}</a></li>
-												</s:else>
-											</s:iterator>
-										</s:if>
-										<s:else>
-											<s:iterator begin="currentPage-5"
-												end="currentPage+5>totalPage?totalPage:currentPage+5"
-												status="s" var="cur">
-												<s:if test="#cur==currentPage">
-													<li class="active"><a href="javascript:void(0)"
-														paging-data="${cur}">${cur }</a></li>
-												</s:if>
-												<s:else>
-													<li><a href="javascript:void(0)" paging-data="${cur}">${cur}</a></li>
-												</s:else>
-											</s:iterator>
-										</s:else>
-									</s:else>
-									<s:if test="currentPage>=totalPage">
-										<li class="disabled"><a href="javascript:void(0)"
-											aria-label="Next"><span
-												class="glyphicon glyphicon-arrow-right"></span> </a></li>
 									</s:if>
 									<s:else>
-										<li><a href="javascript:void(0)" aria-label="Next"
-											paging-data="${currentPage+1}" data-toggle="tooltip"
-											data-placement="top" title="<s:text name='nextPage'/>"
-											style="margin-right:20px"><span
-												class="glyphicon glyphicon-arrow-right"></span></a></li>
+										<s:iterator begin="currentPage-5"
+											end="currentPage+5>totalPage?totalPage:currentPage+5"
+											status="s" var="cur">
+											<s:if test="#cur==currentPage">
+												<li class="active"><a href="javascript:void(0)"
+													paging-data="${cur}">${cur }</a></li>
+											</s:if>
+											<s:else>
+												<li><a href="javascript:void(0)" paging-data="${cur}">${cur}</a></li>
+											</s:else>
+										</s:iterator>
 									</s:else>
-								</ul>
-								<div class="selectPage">
-									<s:text name="jumpTo" />
-									<input type="text" maxlength="5" value="${currentPage }"
-										id="goto" data-toggle="tooltip" data-placement="top"
-										title="<s:text name='enterJump'/>" />
-									<s:text name="page" />
-								</div>
+								</s:else>
+								<s:if test="currentPage>=totalPage">
+									<li class="disabled"><a href="javascript:void(0)"
+										aria-label="Next"><span
+											class="glyphicon glyphicon-arrow-right"></span> </a></li>
+								</s:if>
+								<s:else>
+									<li><a href="javascript:void(0)" aria-label="Next"
+										paging-data="${currentPage+1}" data-toggle="tooltip"
+										data-placement="top" title="下一页"
+										style="margin-right:20px"><span
+											class="glyphicon glyphicon-arrow-right"></span></a></li>
+								</s:else>
+							</ul>
+							<div class="selectPage">
+								跳转至
+								<input type="text" maxlength="5" value="${currentPage }"
+									id="goto" data-toggle="tooltip" data-placement="top"
+									title="回车跳转" />
+								页
+							</div>
 							</div></th>
 					</tr>
 				</tfoot>
@@ -834,11 +562,7 @@ li {
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">
-							<s:text name="updateUserInformation" />
-							(
-							<s:text name="followingMayChangeFields" />
-							)
+						<h4 class="modal-title">更新用户信息(以下为可修改字段)
 						</h4>
 					</div>
 					<div class="modal-body">
@@ -846,44 +570,41 @@ li {
 							<tbody>
 								<tr>
 									<td><div class="input-group">
-											<span class="input-group-addon"><s:text
-													name="username" />：</span> <input id="update.username"
+											<span class="input-group-addon">用户名：</span> <input id="update.username"
 												type="text" class="form-control" data-placement="top"
-												data-content="<s:text name='usernameFormatError'/>"
-												placeholder="<s:text name="inputUsername"/>">
+												data-content="用户名格式错误"
+												placeholder="填写用户名">
 										</div></td>
 								</tr>
 								<tr>
 									<td><div class="input-group">
-											<span class="input-group-addon"><s:text name="email" />：</span>
+											<span class="input-group-addon">邮箱：</span>
 											<input id="update.email" type="text" class="form-control"
 												data-placement="top"
-												data-content="<s:text name='emailFormatError'/>"
-												placeholder="<s:text name='inputEmail'/>">
+												data-content="邮箱地址格式错误"
+												placeholder="填写邮箱">
 										</div></td>
 								</tr>
 								<tr>
 									<td><div class="input-group">
-											<span class="input-group-addon"><s:text name="phone" />：</span>
+											<span class="input-group-addon">手机号：</span>
 											<input id="update.phone" type="text" class="form-control"
 												data-placement="top"
-												data-content="<s:text name='phoneFormatError'/>"
-												placeholder="<s:text name="inputPhone"/>">
+												data-content="手机号码格式错误"
+												placeholder="填写手机号">
 										</div></td>
 								</tr>
 								<tr>
 									<td><div class="input-group">
-											<span class="input-group-addon"><s:text
-													name="nickname" />：</span> <input id="update.nickname"
+											<span class="input-group-addon">昵称：</span> <input id="update.nickname"
 												type="text" class="form-control" data-placement="top"
-												data-content="<s:text name='nicknameFormatError'/>"
-												placeholder="<s:text name='inputNickname'/>">
+												data-content="昵称格式错误"
+												placeholder="填写用户昵称">
 										</div></td>
 								</tr>
 								<tr>
 									<td><div class="input-group" id="update-role">
-											<span class="input-group-addon"><s:text
-													name="roleName" />：</span>
+											<span class="input-group-addon">角色名：</span>
 											<div style="margin-left:10px;">
 												<s:iterator value="#session.allRoles">
 													<label class="radio-inline"> <input type="radio"
@@ -895,33 +616,27 @@ li {
 										</div></td>
 								</tr>
 								<tr>
-									<td><s:text name="changeWarningItems" />
+									<td>修改注意事项：以上信息都必需保证其唯一性；
 										<button type="button"
-											class="btn btn-primary btn-md changeNormButton">
-											<s:text name="readChangeNorm" />
-										</button> <input type="hidden" id="update.id"></td>
+											class="btn btn-primary btn-md changeNormButton">阅读修改规范</button> <input type="hidden" id="update.id"></td>
 								</tr>
 								<tr>
 									<td class="changeNorm">
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="username" />！</strong>
-											<s:text name="usernameNorm" />
+											<strong>用户名！</strong>
+											长度需在5-20位,由字母数字组成,不能含有特殊字符,且必须以字母开头
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="email" />！</strong>
-											<s:text name="emailNorm" />
+											<strong>邮箱！</strong>保证其有效性
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="phone" />！</strong>
-											<s:text name="emailNorm" />
+											<strong>手机号！</strong>保证其有效性
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="nickname" />！</strong>
-											<s:text name="nicknameNorm" />
+											<strong>昵称！</strong>长度在1-20位,可由任意字符组成,不能以空格开头
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="warning" />！</strong>
-											<s:text name="normWarning" />
+											<strong>注意！</strong>以上信息不是必需的,用户名、邮箱、手机号必须有其一
 										</div>
 									</td>
 								</tr>
@@ -929,14 +644,10 @@ li {
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							<s:text name="close" />
-						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary" id="update_submit"
 							data-placement="left"
-							data-content="<s:text name='formErrorPleaseReadNorm'/>">
-							<s:text name="updateInformation" />
-						</button>
+							data-content="信息填写有误，请阅读修改规范">更新信息</button>
 					</div>
 				</div>
 			</div>
@@ -950,9 +661,7 @@ li {
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">
-							<s:text name="userMoreInformation" />
-						</h4>
+						<h4 class="modal-title">用户更多信息</h4>
 					</div>
 					<div class="modal-body" id="printContext">
 						<table class="table">
@@ -961,12 +670,8 @@ li {
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							<s:text name="close" />
-						</button>
-						<button type="button" class="btn btn-primary" id="printUser">
-							<s:text name="print" />
-						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" id="printUser">打印</button>
 					</div>
 				</div>
 			</div>
@@ -981,9 +686,7 @@ li {
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">
-							<s:text name="addManager" />
-						</h4>
+						<h4 class="modal-title">添加管理员</h4>
 					</div>
 					<div class="modal-body">
 						<table class="table">
@@ -991,26 +694,20 @@ li {
 								<tr>
 									<td><div class="input-group" id="add-user"
 											data-toggle="popover" data-placement="top"
-											data-content="<s:text name='mustChooseOneUser'/>！">
-											<span class="input-group-addon"><s:text name="user" />：</span>
+											data-content="必须至少选择一位用户！">
+											<span class="input-group-addon">用户：</span>
 											<div class="add_username">
 												<div>
 													<!-- 多加一个div是为了适应bootstrap -->
 													<ul id="add_username_ul">
 														<li id="add_username_input_li"><input
 															id="add_username_input" type="text" source-data=""
-															placeholder="<s:text name="inputKeywordsSearch"/>"></li>
+															placeholder="输入关键字搜索"></li>
 													</ul>
 												</div>
 												<div class="list-group autoComplate"
 													id="autoComplateContext">
-													<p>
-														<s:text name="selectResult" />
-														：
-														<s:text name="total" />
-														&nbsp;<strong><span id="searcRresult">0</span></strong>&nbsp;
-														<s:text name="itemRecord" />
-													</p>
+													<p>查询结果：总&nbsp;<strong><span id="searcRresult">0</span></strong>&nbsp;条记录</p>
 												</div>
 											</div>
 											<span class="input-group-addon" id="add-user-linkman"
@@ -1022,9 +719,8 @@ li {
 								<tr>
 									<td><div class="input-group" id="add-role"
 											data-toggle="popover" data-placement="top"
-											data-content="<s:text name='chooseGiveRole'/>！">
-											<span class="input-group-addon" style="width:50px"><s:text
-													name="role" />：</span>
+											data-content="选择赋予的角色 ！">
+											<span class="input-group-addon" style="width:50px">角色：</span>
 											<div style="margin-left:10px;">
 												<s:iterator var="s" value="#session.allRoles">
 													<label class="radio-inline"> <input type="radio"
@@ -1039,14 +735,10 @@ li {
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							<s:text name="close" />
-						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary" id="suerAddManager"
 							data-toggle="popover" data-placement="left"
-							data-content="<s:text name='addManagerLoseCause'/>">
-							<s:text name="add" />
-						</button>
+							data-content="添加管理员失败">添加</button>
 					</div>
 				</div>
 			</div>
@@ -1059,18 +751,16 @@ li {
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title">
-								<s:text name="chooseUser" />
-							</h4>
+							<h4 class="modal-title">选择用户</h4>
 						</div>
 						<div class="modal-body">
 							<table class="table">
 								<thead>
 									<tr>
-										<th><s:text name="sequence" /></th>
-										<th><s:text name="username" /></th>
-										<th><s:text name="email" /></th>
-										<th><s:text name="phone" /></th>
+										<th>序号</th>
+										<th>用户名</th>
+										<th>邮箱</th>
+										<th>手机号</th>
 									</tr>
 								</thead>
 							</table>
@@ -1085,26 +775,21 @@ li {
 						</div>
 						<div class="modal-footer">
 							<div class="col-lg-12">
-								<span class="input-group-addon"><s:text
-										name="selectResult" />：<s:text name="total" />&nbsp;<strong><span
-										class="showTotalNum">0</span></strong>&nbsp;<s:text name="item" /> </span>
+								<span class="input-group-addon">查询结果：总&nbsp;<strong><span
+										class="showTotalNum">0</span></strong>&nbsp;条 </span>
 								<div class="input-group selectUserSearchInput"
 									style="width:350px">
 									<input type="text" class="form-control"
 										id="selectUserSearchContext"
-										placeholder="<s:text name="inputKeywordsSearch"/>"> <span
+										placeholder="输入关键字搜索"> <span
 										class="input-group-addon" id="selectUserListSearch"
 										style="width:50px"> <span
 										class="glyphicon glyphicon-search"></span>
 									</span>
 									<!-- /input-group -->
 								</div>
-								<button type="button" class="btn btn-default addLinManClose">
-									<s:text name="close" />
-								</button>
-								<button type="button" class="btn btn-primary addLinManClose">
-									<s:text name="sure" />
-								</button>
+								<button type="button" class="btn btn-default addLinManClose">关闭</button>
+								<button type="button" class="btn btn-primary addLinManClose">确定</button>
 							</div>
 						</div>
 						<!-- /.row -->
@@ -1124,20 +809,17 @@ li {
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">
-							<s:text name="addRole" />
-						</h4>
+						<h4 class="modal-title">添加角色</h4>
 					</div>
 					<div class="modal-body">
 						<table class="table">
 							<tbody>
 								<tr>
 									<td><div class="input-group has-feedback" id="add_role">
-											<span class="input-group-addon"><s:text
-													name="roleName" />：</span> <input type="text"
+											<span class="input-group-addon">角色名：</span> <input type="text"
 												class="form-control" id="addRole_input" data-placement="top"
-												data-content="<s:text name='roleNameFormatError'/>"
-												placeholder="<s:text name='inputRoleName'/>"> <span
+												data-content="角色名格式错误"
+												placeholder="填写角色名"> <span
 												id="add_role_icon" class="form-control-feedback"
 												aria-hidden="true"></span> <span id="inputError2Status"
 												class="sr-only">(error)</span>
@@ -1146,9 +828,8 @@ li {
 								<tr>
 									<td><div class="input-group" id="add_permission"
 											data-placement="top"
-											data-content="<s:text name='jurisdictionExplain'/>！">
-											<span class="input-group-addon"><s:text
-													name="jurisdictionName" />：</span>
+											data-content="必须至少选择一项！">
+											<span class="input-group-addon">权限名：</span>
 											<div class="add_role_permissions">
 												<s:iterator var="s" value="#session.allPermissions">
 													<label class="checkbox-inline"><input
@@ -1162,8 +843,7 @@ li {
 								<tr>
 									<td>
 										<div class="input-group has-feedback" id="role_level">
-											<span class="input-group-addon"><s:text
-													name="controlLevel" />：</span>
+											<span class="input-group-addon">控制级别：</span>
 											<div class="level">
 												<p class="level-control" data-toggle="tooltip"
 													data-placement="top" title="150" id="level-control"></p>
@@ -1173,29 +853,23 @@ li {
 								</tr>
 
 								<tr>
-									<td><s:text name="addRoleWarningItems" />：
+									<td>添加角色注意事项：
 										<button type="button"
-											class="btn btn-primary btn-md changeNormButton">
-											<s:text name="readChangeNorm" />
-										</button></td>
+											class="btn btn-primary btn-md changeNormButton">阅读修改规范</button></td>
 								</tr>
 								<tr>
 									<td class="changeNorm">
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="username" />！</strong>
-											<s:text name="usernameNorm" />
+											<strong>角色名！</strong>长度需在5-20位,由字母数字组成,不能含有特殊字符,且必须以字母开头
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="jurisdiction" />！</strong>
-											<s:text name="emailNorm" />
+											<strong>权限！</strong>必须选择一项，不能赋予当前角色没有的权限
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="controlLevel" />！</strong>
-											<s:text name="updateRoleControlLevelWarning" />
+											<strong>控制级别！</strong>最终控制级别会在当前操作角色级别加上设置的控制级别,0表示与当前操作角色控制级别一样
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="warning" />！</strong>
-											<s:text name="controlLevelExplain1" />
+											<strong>注意！</strong> 控制级别低的不能操作控制级别高的
 										</div>
 									</td>
 								</tr>
@@ -1203,14 +877,10 @@ li {
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							<s:text name="close" />
-						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary" id="suerAddRole"
 							data-placement="left"
-							data-content="<s:text name='addLose'/>！<s:text name='pleaseReadChangeNorm'/>...">
-							<s:text name="add" />
-						</button>
+							data-content="添加失败！请阅读修改规则...">添加</button>
 					</div>
 				</div>
 			</div>
@@ -1224,8 +894,7 @@ li {
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">
-							<s:text name="updateRole" />
+						<h4 class="modal-title">更新角色
 						</h4>
 					</div>
 					<div class="modal-body">
@@ -1233,17 +902,15 @@ li {
 							<tbody>
 								<tr>
 									<td><div class="input-group has-feedback" id="update_role">
-											<span class="input-group-addon"><s:text
-													name="roleName" />：</span> <input type="text"
+											<span class="input-group-addon">角色名：</span> <input type="text"
 												class="form-control" id="updateRole_input" disabled>
 										</div></td>
 								</tr>
 								<tr>
 									<td><div class="input-group" id="update_permission"
 											data-placement="top"
-											data-content="<s:text name="jurisdictionExplain"/>！">
-											<span class="input-group-addon"><s:text
-													name="jurisdictionExplain" />：</span>
+											data-content="必须至少选择一项！">
+											<span class="input-group-addon">权限名：</span>
 											<div class="add_role_permissions">
 												<s:iterator var="s" value="#session.allPermissions">
 													<label class="checkbox-inline"><input
@@ -1257,8 +924,7 @@ li {
 								<tr>
 									<td>
 										<div class="input-group has-feedback" id="update_role_level">
-											<span class="input-group-addon"><s:text
-													name="controlLevel" />：</span>
+											<span class="input-group-addon">控制级别：</span>
 											<div class="level">
 												<p class="level-control" data-toggle="tooltip"
 													data-placement="top" title="150" id="update_level_control"></p>
@@ -1268,25 +934,20 @@ li {
 								</tr>
 
 								<tr>
-									<td><s:text name="changeRoleWarningItems" />：
+									<td>修改角色注意事项：
 										<button type="button"
-											class="btn btn-primary btn-md changeNormButton">
-											<s:text name="readChangeNorm" />
-										</button></td>
+											class="btn btn-primary btn-md changeNormButton">阅读修改规范</button></td>
 								</tr>
 								<tr>
 									<td class="changeNorm">
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="jurisdiction" />！</strong>
-											<s:text name="jurisdictionExplain" />
+											<strong>权限！</strong>必须至少选择一项
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="control" />！</strong>
-											<s:text name="controlLevelExplain" />
+											<strong>控制级别！</strong>最终控制级别会在当前操作角色级别加上设置的控制级别,0表示与当前操作角色控制级别一样
 										</div>
 										<div class="alert alert-success" role="alert">
-											<strong><s:text name="warning" />！</strong>
-											<s:text name="controlLevelExplain1" />
+											<strong>注意！</strong>控制级别低的不能操作控制级别高的
 										</div>
 									</td>
 								</tr>
@@ -1294,14 +955,10 @@ li {
 						</table>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							<s:text name="close" />
-						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary" id="suerUpdateRole"
 							data-placement="left"
-							data-content="<s:text name='chanageLose'/>！<s:text name='pleaseReadChangeNorm'/>...">
-							<s:text name="update" />
-						</button>
+							data-content="更新失败！请阅读修改规则...">更新</button>
 					</div>
 				</div>
 			</div>

@@ -1,21 +1,18 @@
 package cn.hua.action;
 
-import cn.hua.formBean.Paging;
-import cn.hua.service.Service;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
+import java.util.Map;
+
 import org.apache.struts2.interceptor.SessionAware;
 
-import java.util.Map;
+import cn.hua.formBean.Paging;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
 
 public class ScopeSearchAction extends ActionSupport implements ModelDriven<Paging>,SessionAware{
 	private static final long serialVersionUID = 1L;
-	private Service service;
 	private Paging paging;
 	private Map<String,Object> session;
-	public void setService(Service service) {
-		this.service = service;
-	}
 	/**
 	 * 先从session里查找user，如等于空则不获取数据*/
 	public String execute(){

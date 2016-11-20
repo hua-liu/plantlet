@@ -131,7 +131,7 @@ body {
 	});
 </script>
 <!-- //smooth-scrolling-of-move-up -->
-<script src="js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="bodyLoader" style="width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,0.4);z-index:1500"><div class="loader-inner square-spin" style="top:48%;left:48%;position:absolute;"><div style="border:none;background:#32CD32"></div></div></div>
@@ -198,7 +198,7 @@ body {
 							style="width:30px;height:150px;text-align:center;padding:0;">
 							<span class="badge" id="cart-item-num"> <s:property
 									value="#session.orderForms.size"></s:property>
-							</span><br />我<br />的<br />购<br />物<br />车
+							</span><br/><s:text name="my"/><br/><s:text name="de"/><br/><s:text name="gou"/><br/><s:text name="wu"/><br/><s:text name="che"/></button>
 						</button>
 					</div>
 				</s:if>
@@ -238,21 +238,21 @@ body {
 											<li id="st-trigger-effects" class="column"><a
 												href="javascript:" data-effect="st-effect-13"
 												class="st-effect"><s:text name="toViewTheShoppingCart"/></a></li>
-											<li><a href="javascript:alert('程序员正在加紧实现')"><s:text name="emptyTheShoppingCart"/></a></li>
+											<li class="clearCart"><a href="javascript:"><s:text name="emptyTheShoppingCart"/></a></li>
 										</ul></li>
 								</s:if>
 								<li class="dropdown head-dpdn linkService"><a
 									href="javascript:void(0)" class="dropdown-toggle"><i
 										class="fa  fa-smile-o" aria-hidden="true"></i><s:text name="contactCustomerService"/></a></li>
-									<li class="dropdown head-dpdn"><a href="javascript:void(0)"
-										class="dropdown-toggle" data-toggle="dropdown"><i
-											class="fa fa-eye" aria-hidden="true"></i> <s:text name="language"/><span
-											class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li id="st-trigger-effects" class="column"><a
-												href="index?request_locale=zh_CN"><s:text name="chinese"/></a></li>
-											<li><a href="index?request_locale=en_US"><s:text name="enlish"/></a></li>
-										</ul></li>
+								<li class="dropdown head-dpdn"><a href="javascript:void(0)"
+									class="dropdown-toggle" data-toggle="dropdown"><i
+										class="fa fa-eye" aria-hidden="true"></i> <s:text name="language"/><span
+										class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li id="st-trigger-effects" class="column"><a
+											href="index?request_locale=zh_CN"><s:text name="chinese"/></a></li>
+										<li><a href="index?request_locale=en_US"><s:text name="english"/></a></li>
+								</ul></li>
 							</ul>
 						</div>
 						<div class="clearfix"></div>
@@ -261,7 +261,7 @@ body {
 					<div class="chatWinBox" onmouseover="move(this)">
 						<div class="chatWin">
 							<div class="head">
-								<span>小苗基地客服&ensp;<span class="serverName">系统</span>&ensp;为您服务--<span
+								<span><s:text name='LiuhuaService'/>&ensp;<span class="serverName"><s:text name='system'/></span>&ensp;<s:text name='forYouService'/>--<span
 									class="state"></span></span>
 								<p class="winClose">
 									<i class="glyphicon glyphicon-remove"></i>
@@ -282,7 +282,7 @@ body {
 										</select>
 									</div>
 									<div class="fontSize">
-										<span>字体大小</span>
+										<span><s:text name='fontSize'/></span>
 										<div class="input-group has-feedback" id="role_level">
 											<div class="level">
 												<p class="level-control" data-toggle="tooltip"
@@ -291,7 +291,7 @@ body {
 										</div>
 									</div>
 									<div class="fontColor">
-										<span style="margin-right:10px;line-height:30px;">字体颜色</span>
+										<span style="margin-right:10px;line-height:30px;"><s:text name='fontColor'/></span>
 										<div class="input-group myColorpicker colorpicker-element"
 											style="margin-top:5px;border:1px solid #CCC">
 											<input type="hidden" class="form-control">
@@ -301,12 +301,12 @@ body {
 									</div>
 								</div>
 								<ul class="myTool">
-									<li class="fontSetButton" title="设置字体"><i
+									<li class="fontSetButton" title="<s:text name='setFont'/>"><i
 										class="fa fa-font"></i></li>
-									<li title="表情" class="emotion"><i class="fa fa-smile-o"></i></li>
-									<li title="发送图片" class="sendPicture"><i class="fa fa-picture-o"></i></li>
+									<li title="<s:text name='face'/>" class="emotion"><i class="fa fa-smile-o"></i></li>
+									<li title="<s:text name='sendPic'/>" class="sendPicture"><i class="fa fa-picture-o"></i></li>
 									<li style="clear:both;"></li>
-									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i>消息记录<i class="fa fa-caret-down"></i></li>
+									<li class="recordSwitch"><i class="glyphicon glyphicon-time"></i><s:text name='messageRecord'/><i class="fa fa-caret-down"></i></li>
 								</ul>
 								<textarea class="form-control textarea-control myInput" rows="3" id="myInput" name="myInput"></textarea>
 								<div class="fileBox" style="display:none">
@@ -315,11 +315,11 @@ body {
 								</div>
 							</div>
 							<div class="foot">
-								<button class="btn btn-primary winClose">关闭</button>
+								<button class="btn btn-primary winClose"><s:text name='close'/></button>
 								<div class="sendGroup btn-group dropup">
-									<button type="button" class="btn btn-primary send">发送</button>
+									<button type="button" class="btn btn-primary send"><s:text name='send'/></button>
 									<button type="button" class="btn btn-primary dropdown-toggle"
-										data-toggle="dropdown" title="设置发送快捷键">
+										data-toggle="dropdown" title="<s:text name='sendKey'/>">
 										<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu selectSendMenu" role="menu">
@@ -332,7 +332,7 @@ body {
 						</div>
 						<div class="messageRecord">
 							<div class="head">
-								<span>消息记录</span>
+								<span><s:text name='messageRecord'/></span>
 								<p class="winCloseRecord">
 									<i class="glyphicon glyphicon-remove"></i>
 								</p>
@@ -353,39 +353,6 @@ body {
 						</div>
 					</div>
 					<!--/客服聊天  -->
-					<!-- <div class="header-two">
-			header-two
-			<div class="container">
-				<div class="header-search">
-					<form action="#" method="post">
-						<input type="search" name="Search" placeholder="输入商品关键字搜索"
-							required="">
-						<button type="submit" class="btn btn-default"
-							aria-label="Left Align">
-							<i class="fa fa-search" aria-hidden="true"> </i>
-						</button>
-					</form>
-				</div>
-				<div class="header-cart">
-					<div class="my-account">
-						<a href="contact.html"><i class="fa fa-map-marker"
-							aria-hidden="true"></i> CONTACT US</a>
-					</div>
-					<div class="cart">
-						<form action="#" method="post" class="last">
-							<input type="hidden" name="cmd" value="_cart" /> <input
-								type="hidden" name="display" value="1" />
-							<button class="w3view-cart" type="submit" name="submit" value="">
-								<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-							</button>
-						</form>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		//header-two -->
 					<!-- coming soon -->
 					<div class="soon">
 						<div class="container">
@@ -670,7 +637,7 @@ body {
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="showPictureLabel">查看大图</h4>
+	        <h4 class="modal-title" id="showPictureLabel"><s:text name="selectBigPic"/></h4>
 	      </div>
 	      <div class="modal-body">
 	      	<img alt="pic" src="img/loading.gif" class="showPictrueMore">
@@ -681,6 +648,20 @@ body {
 	    </div>
 	  </div>
 	</div>
+	<!--i18n  -->
+	<script src="js/admin/map.js"></script>
+	<script type="text/javascript">
+		try{
+			var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
+			var i18n = new Map();
+			for ( var key in i18nConfig) {
+				i18n.put(key, i18nConfig[key]);
+			}
+		}catch(e){
+			alert(e);
+		}
+	</script>
+	<!--/i18n  -->
 	<!-- countdown.js -->
 	<script src="js/jquery.knob.js"></script>
 	<script src="js/jquery.throttle.js"></script>
@@ -743,7 +724,6 @@ body {
 	<script src="js/sidebar/classie.js"></script>
 	<script src="js/sidebar/modernizr.custom.js"></script>
 	<script src="js/sidebar/sidebarEffects.js"></script>
-	<script src="js/index.js" type="text/javascript"></script>
 	<script src="js/admin/levelControl.js" type="text/javascript"></script>
 	<!-- 表情 -->
 	<script src="js/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
