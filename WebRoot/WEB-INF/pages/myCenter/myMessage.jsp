@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="left">
 <div class="menu_th">
     <p class="selectCase allCase"><i class="glyphicon glyphicon-ok"></i></p>
-    <button class="deleteMany"><s:text name='checkMarkAsRead'/></button><button class="signMany"><s:text name="checkMarkAsRead"/></button>
+    <button class="deleteMany"><s:text name='deleteTheSelected'/></button><button class="signMany"><s:text name="checkMarkAsRead"/></button>
 </div>
 <table class="mytable">
 	<s:iterator value="#request.messages">

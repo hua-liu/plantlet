@@ -53,7 +53,6 @@ public class MyCenterAction{
 			}
 		}
 		//js国际化文件
-		if(ActionContext.getContext().getSession().get("i18n")!=null)
 		new GetI18nConfig(ActionContext.getContext()).start();
 		return "success";
 	}

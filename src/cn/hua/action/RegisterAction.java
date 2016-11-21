@@ -1,6 +1,7 @@
 package cn.hua.action;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
@@ -61,7 +62,8 @@ public class RegisterAction extends ActionSupport implements ModelDriven<UserReg
 				message.setSendName(properties.getProperty("username"));
 				message.setId(UUID.randomUUID().toString());
 				message.setReceiveID(user.getId());
-				new ThreadHandler(MessageOperation.class, "sendFirstMessage", message).start();
+				//MessageOperation.save(message);
+				//new ThreadHandler(MessageOperation.class, "sendFirstMessage", message).start();
 				return SUCCESS;
 			}
 		}

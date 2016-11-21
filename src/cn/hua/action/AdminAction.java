@@ -13,6 +13,7 @@ import cn.hua.model.User;
 import cn.hua.service.Service;
 import cn.hua.utils.CacheData;
 import cn.hua.utils.Encryption;
+import cn.hua.utils.GetI18nConfig;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -99,6 +100,9 @@ public class AdminAction extends ActionSupport implements ServletRequestAware,
 		//获取i18n配置
 		
 		ActionContext.getContext().getValueStack().push(paging);
+		
+		//js国际化文件
+		new GetI18nConfig(ActionContext.getContext()).start();
 		/*if(paging.getClassify()==4){//当分类为权限管理
 			if(paging.getFunction()==1){	//当功能为用户维护时获取所有角色，为用户添加角色，更改用户时需要
 					roles = service.getAllRoles();

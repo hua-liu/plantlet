@@ -200,6 +200,7 @@ function createSystemMessage(val,time){
 	$(".chatContent").append($('<div class="direct-chat-msg"><div class="direct-chat-info clearfix"><span class="direct-chat-name">'+systemServer+'</span>'
 			+'<span class="direct-chat-timestamp">'+time+'</span></div><img class="direct-chat-img" src="img/duola1.png">'
 			+'<div class="direct-chat-text">'+replace_em(val)+'</div></div>'));
+	$(".myInput").val("");
 	setAllFont();
 	setScrollatBottom();
 }

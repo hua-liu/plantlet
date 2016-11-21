@@ -670,6 +670,20 @@ espond.js IE8 support of HTML5 elements and media queries -->
 	 		<source src="sound/msn.wav" type="audio/wav" class="source">
 		</audio>
 	<!-- ./wrapper -->
+	 <!--i18n  -->
+	<script src="js/admin/map.js"></script>
+	<script type="text/javascript">
+		try{
+		var i18nConfig = eval("(" + "${sessionScope.i18nConfig}" + ")");
+		var i18n = new Map();
+		for ( var key in i18nConfig) {
+			i18n.put(key, i18nConfig[key]);
+		}
+	}catch(e){
+		alert(e);
+	}
+	</script>
+	<!--/i18n  -->
 	<script src="js/jquery/jquery.min.js"></script>
 	<script src="js/admin/admin.js"></script>
 	<!-- Bootstrap 3.3.6 -->

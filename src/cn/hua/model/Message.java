@@ -63,5 +63,12 @@ public class Message implements Serializable,Comparable<Message>{
 		}else
 		return -1;
 	}
+	@Override
+	public String toString() {
+		return "Message [sendDate=" + sendDate + ", isNew=" + isNew
+				+ ", sendID=" + sendID + ", sendName=" + sendName
+				+ ", receiveID=" + receiveID + ", content=" + content + ", id="
+				+ id + "]";
+	}
 	
 }
