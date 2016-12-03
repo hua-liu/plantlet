@@ -6,10 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import java.io.Serializable;
 
 @Entity
+@Table(name="takedelivery")
 public class Takedelivery implements Serializable {
 	/**
 	 * 收货地址

@@ -95,7 +95,7 @@ a {
 					<!--header-one-->
 					<div class="w3ls-header-left">
 						<p>
-							<a href="#"><img src="img/logo.png" class="logo" /></a>
+							<a href="index"><img src="img/logo.png" class="logo" /></a>
 						</p>
 					</div>
 					<div class="w3ls-header-right">
@@ -639,12 +639,17 @@ a {
 	<script src="css/face/js/jquery.qqFace.js"></script>
 	<script src="js/fileUpload/ajaxfileupload.js"></script>
 	<script type="text/javascript">
-				var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		var webSocketUri="<%=serverPath%>chatServer.server?user=${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
 		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		var photoID = "${user.photo!=null?user.photo.id:''}";
 		$(function(){
 		$(".bodyLoader").remove();
 			//显示聊天窗口
 			$(".linkService").click(function(){
+				if(currentUserName==''){
+					window.location.href="loginUi?url="+window.location.href.substr(7);
+					return;
+				}
 				$(".chatWinBox").show();
 				//连接聊天服务器
 				openWebSocket();

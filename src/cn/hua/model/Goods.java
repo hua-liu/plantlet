@@ -8,15 +8,18 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Table(name="goods")
 public class Goods implements Serializable {
 	/**
 	 * 商品：名字，商品数量，是否抢购，销售数量，状态，商店，说明，访问日志
@@ -237,7 +240,7 @@ public class Goods implements Serializable {
 		this.breviaryPicture = breviaryPicture;
 	}
 
-	@OneToMany(mappedBy = "goods", cascade = { CascadeType.REMOVE })
+	@OneToMany(mappedBy = "goods", cascade = { CascadeType.REMOVE },fetch=FetchType.EAGER)
 	public Set<GoodsPicture> getGoodsPicture() {
 		return goodsPicture;
 	}

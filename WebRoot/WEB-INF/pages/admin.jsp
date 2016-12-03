@@ -94,7 +94,7 @@ espond.js IE8 support of HTML5 elements and media queries -->
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
 				<!-- Messages: style can be found in dropdown.less-->
-				<li class="dropdown messages-menu">
+				<%-- <li class="dropdown messages-menu">
 					<!-- Menu toggle button --> <a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"> <i class="fa fa-envelope-o"></i> <span
 						class="label label-success">4</span>
@@ -124,11 +124,11 @@ espond.js IE8 support of HTML5 elements and media queries -->
 						</li>
 						<li class="footer"><a href="#">See All Messages</a></li>
 					</ul>
-				</li>
+				</li> --%>
 				<!-- /.messages-menu -->
 
 				<!-- Notifications Menu -->
-				<li class="dropdown notifications-menu">
+				<%-- <li class="dropdown notifications-menu">
 					<!-- Menu toggle button --> <a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"> <i class="fa fa-bell-o"></i> <span
 						class="label label-warning">10</span>
@@ -148,7 +148,7 @@ espond.js IE8 support of HTML5 elements and media queries -->
 						</li>
 						<li class="footer"><a href="#">View all</a></li>
 					</ul>
-				</li>
+				</li> --%>
 				<!-- Tasks Menu -->
 				<li class="dropdown tasks-menu">
 					<!-- Menu Toggle Button --> <a class="dropdown-toggle"
@@ -701,6 +701,7 @@ espond.js IE8 support of HTML5 elements and media queries -->
 	<script type="text/javascript">
 		var webSocketUri="<%=serverPath%>chatServer.server?userType=system&user=${user.username}";
 		var currentUserName="${user.nickname!=null?user.nickname:user.username!=null?user.username:user.phone}";
+		var photoID = "${user.photo!=null?user.photo.id:''}";
 		$(function(){
 			//显示聊天窗口
 			$(".linkService").click(function(){

@@ -92,7 +92,7 @@ public class OtherDaoImpl implements OtherDao<Classify, State> {
 			query = session.createQuery("select new OrderForm(ofm.id, ofm.state,ofm.goods,ofm.user,ofm.buyNum,ofm.leaveMessage) from OrderForm ofm where "+ (paging.getFunction() == 0 ? " ": "ofm.state.id=" + paging.getFunction()
 					+ " and")+ " ofm.id like :key order by ofm.buytime desc");
 			}
-			totalSql = "select count(*) from OrderForm where "+ (paging.getFunction() == 0 ? " ": "state_id=" + paging.getFunction()+" and")+ " id like :key";
+			totalSql = "select count(*) from orderform where "+ (paging.getFunction() == 0 ? " ": "state_id=" + paging.getFunction()+" and")+ " id like :key";
 		} else if(paging.getClassify()==4){
 			if (paging.getFunction() == 1) {	//权限管理--用户维护
 				query = session.createQuery("from User where role.id!=null and (username like :key or nickname like :key or"

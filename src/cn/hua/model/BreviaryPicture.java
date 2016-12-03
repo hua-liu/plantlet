@@ -3,8 +3,10 @@ package cn.hua.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 @Entity
+@Table(name="breviarypicture")
 public class BreviaryPicture implements Serializable{
 	/**
 	 * 

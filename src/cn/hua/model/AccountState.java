@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 
 @Entity
+@Table(name="accountstate")
 public class AccountState implements Serializable{
 	/**
 	 * 账号状态：手机状态，邮箱状态，身份状态

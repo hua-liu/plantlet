@@ -6,9 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 
 @Entity
+@Table(name="goodspicture")
 public class GoodsPicture implements Serializable {
 	/**
 	 * 商品照片：照片地址，商品

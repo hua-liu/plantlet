@@ -67,6 +67,9 @@ public class LoggingInterceptor extends MethodFilterInterceptor{
 					Logging.save("login", log);
 				}
 			}
+		}else if("index".equals(methodName)){
+			result = action.invoke();
+			Logging.saveVisit(getIpAddr(ServletActionContext.getRequest()));
 		}else{
 			result = action.invoke();
 		}

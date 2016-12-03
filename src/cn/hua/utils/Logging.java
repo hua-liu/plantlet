@@ -8,7 +8,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -94,5 +96,37 @@ public class Logging {
 				}
 		}
 		return list;
+	}
+	//保存访问日志
+	public static void saveVisit(String ipAddr) {
+		String path = properties.getProperty("logging");
+		FileOutputStream out=null;
+		if(path==null){
+			path="D:/DATA/SKJS/log";
+		}
+		File dir = new File(path);
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		try {
+			out = new FileOutputStream(dir+"/visitLog.txt",true);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd HH:mm:dd");
+			String content = "time:"+sdf.format(new Date())+"-----ip"+ipAddr+"\r\n";
+			out.write(content.getBytes());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			if(out!=null)
+				try {
+					out.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 	}
 }

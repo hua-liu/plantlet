@@ -1,9 +1,11 @@
 package cn.hua.model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 
 @Entity
+@Table(name="myset")
 public class MySet implements Serializable {
 	/**
 	 * 设置：页面显示数量，显示视图，时间

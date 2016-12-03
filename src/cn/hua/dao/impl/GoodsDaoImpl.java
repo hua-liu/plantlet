@@ -95,7 +95,6 @@ public class GoodsDaoImpl implements GoodsDao {
 			Session session = hibernateTemplate.getSessionFactory()
 					.getCurrentSession();
 			Query<Goods> query = null; //
-			System.out.println(paging);
 			if(paging.getScene()!=null&&"new".equals(paging.getScene())){
 				query = session.createNativeQuery("select id,name,simpleDescript,price,sellsum,breviaryPicture_id from goods where state_id=7 order by shelfTime desc");
 				//query = session.createQuery("select new Goods(g.goodsId,g.name,g.simpleDescript,g.price,g.sellsum,g.breviaryPicture,g.state) from Goods g where state_id=7 order by shelfTime desc");
@@ -134,20 +133,19 @@ public class GoodsDaoImpl implements GoodsDao {
 				}else
 					likes += "color like '%"+colors[i]+"%' or ";
 			}
-			System.out.println(likes);
 		}
 		
 		Session session = hibernateTemplate.getSessionFactory().getCurrentSession();
 		String sql = "select new Goods(g.id,g.name,g.price,g.isSale,g.salePrice,g.sellsum,g.breviaryPicture,g.inventory) "
 				+ "from Goods g where "+(paging.getGoodsKind()==0?"":"g.goodsKind.id="+paging.getGoodsKind()+" and ")
-				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+"and")
+				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+" and ")
 				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)"+likes)
 				+(paging.getFunction()==0?"":paging.getFunction()==1?"order by price":paging.getFunction()==2?"order by price desc":
 					paging.getFunction()==3?"order by sellsum desc":"");
 		Query query = session.createQuery(sql).setParameter("key","%" + paging.getKeywords() + "%");
 		//这里用来查询总数
-		sql = "select count(*) from Goods where "+(paging.getGoodsKind()==0?"":"goodsKind_id="+paging.getGoodsKind()+" and ")
-				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+"and")
+		sql = "select count(*) from goods where "+(paging.getGoodsKind()==0?"":"goodsKind_id="+paging.getGoodsKind()+" and ")
+				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+" and ")
 				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)"+likes);
 		Object obj = session.createNativeQuery(sql).setParameter("key","%" + paging.getKeywords() + "%").getSingleResult();
 		paging.setTotalNum(Long.parseLong(obj.toString()));

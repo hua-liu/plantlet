@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -34,6 +35,7 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import cn.hua.utils.Conversion;
+import cn.hua.utils.MessageOperation;
 /*
  * 状态：5，表示没有客服需等待
  * 	   1，有客服，正在呼叫客服，等待
@@ -48,12 +50,21 @@ import cn.hua.utils.Conversion;
  */
 @ServerEndpoint("/chatServer.server")
 public class ChatServlet {
+	private static Properties properties = new Properties();
 	//存储在线客服
 	private static final Map<String,Session> onlineServer = new HashMap<String,Session>();
 	//存储等待用户
 	private static final Map<String,Session> consultUser = new HashMap<String,Session>();
 	//存储一对一关系
 	private static Map<String,String> oneToOneChat= new HashMap<String,String>();
+	static{
+		try {
+			properties.load(MessageOperation.class.getClassLoader().getResourceAsStream("path.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@OnOpen
 	public void onOpen(Session session){
 		Map<String,List<String>> parameters = session.getRequestParameterMap();
@@ -316,7 +327,7 @@ public class ChatServlet {
     	Document doc;
 		try {
 			//读取文件
-			doc = reader.read("D:/DATA/SKJS/message/offline.xml");
+			doc = reader.read(properties.getProperty("message")+"/offline.xml");
 			//获取user节点
 			Element my = (Element) doc.getRootElement().selectSingleNode(user);
 			if(my==null)return null;
@@ -339,7 +350,7 @@ public class ChatServlet {
     	Map<String,String> messages = null;
     	Document doc;
 		try {
-			doc = reader.read("D:/DATA/SKJS/message/serverOffline.xml");
+			doc = reader.read(properties.getProperty("message")+"/serverOffline.xml");
 			Element my = (Element)doc.getRootElement().selectSingleNode(user);
 			if(my==null)return null;
 			Element se = (Element) my.selectSingleNode(server);
@@ -369,7 +380,7 @@ public class ChatServlet {
     	SAXReader reader = new SAXReader();
     	Document doc;
 		try {
-			doc = reader.read("D:/DATA/SKJS/message/record.xml");
+			doc = reader.read(properties.getProperty("message")+"/record.xml");
 			Element my = (Element)doc.getRootElement().selectSingleNode(isSystem?user:getUser(myself));
 			if(my==null)return;
 			my = (Element) my.selectSingleNode(isSystem?getUser(myself):user);
@@ -414,7 +425,7 @@ public class ChatServlet {
     	SAXReader reader = new SAXReader();
     	Document doc;
 		try {
-			doc = reader.read("D:/DATA/SKJS/message/offline.xml");
+			doc = reader.read(properties.getProperty("message")+"/offline.xml");
 			Element root = doc.getRootElement();
 			Element node = (Element) root.selectSingleNode("//"+user);
 			if(node==null){
@@ -438,7 +449,7 @@ public class ChatServlet {
     	SAXReader reader = new SAXReader();
     	Document doc;
 		try {
-			doc = reader.read("D:/DATA/SKJS/message/serverOffline.xml");
+			doc = reader.read(properties.getProperty("message")+"/serverOffline.xml");
 			Element root = doc.getRootElement();
 			Element my = (Element) root.selectSingleNode(user);
 			if(my==null){
@@ -470,7 +481,7 @@ public class ChatServlet {
     	SAXReader reader = new SAXReader();
     	Document doc;
 		try {
-			doc = reader.read("D:/DATA/SKJS/message/record.xml");
+			doc = reader.read(properties.getProperty("message")+"/record.xml");
 			Element root = doc.getRootElement();
 			Element my = (Element) root.selectSingleNode(myself);
 			if(my==null){
@@ -505,7 +516,7 @@ public class ChatServlet {
 		 OutputFormat outputFormat = OutputFormat.createPrettyPrint();  
 	     outputFormat.setLineSeparator("\r\n");//这是为了换行操作  
 		try {
-			 Writer writer = new FileWriter("D:/DATA/SKJS/message/"+file);
+			 Writer writer = new FileWriter(properties.getProperty("message")+file);
 			XMLWriter output = new XMLWriter(writer,outputFormat);  
 			output.write(doc);
 			output.close();
@@ -531,7 +542,7 @@ public class ChatServlet {
     }
     //保存聊天图片
     public void savePicture(byte[] picture,boolean bool){
-    	File file = new File("D:/DATA/SKJS/message/picture",UUID.randomUUID().toString());
+    	File file = new File(properties.getProperty("chatPicture"),UUID.randomUUID().toString());
     	try {
 			FileOutputStream out = new FileOutputStream(file);
 			out.write(picture);

@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 
 @Entity
+@Table(name="goodskind")
 public class GoodsKind implements Serializable,Comparable<GoodsKind> {
 	/**
 	 * 商品分类：名字，描述，商品分类

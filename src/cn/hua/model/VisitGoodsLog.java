@@ -1,9 +1,11 @@
 package cn.hua.model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Date;
 @Entity
+@Table(name="visitgoodslog")
 public class VisitGoodsLog implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;

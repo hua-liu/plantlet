@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 @Entity
+@Table(name="orderform")
 public class OrderForm implements Serializable {
 	/**
 	 * 订单：订单时间，付款时间，发货时间，收货时间，留言，状态，商品，

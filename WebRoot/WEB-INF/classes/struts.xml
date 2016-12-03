@@ -25,7 +25,8 @@
 		<exception-mapping exception="java.lang.Exception" result="error"/> 
 	</global-exception-mappings> -->
 			
-		<action name="index" class="cn.hua.action.IndexAction">
+		<action name="index" class="cn.hua.action.IndexAction" method="index">
+			<interceptor-ref name="loggingInterceptor" />
 			<interceptor-ref name="loginInterceptor"/>
 			<interceptor-ref name="defaultStack"/>
 			<result>/WEB-INF/pages/index.jsp</result>

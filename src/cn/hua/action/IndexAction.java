@@ -18,7 +18,7 @@ public class IndexAction extends ActionSupport implements RequestAware{
 	private static final long serialVersionUID = 1L;
 	private Service service;
 	private Map<String,Object> request;
-	public void setService(Service service) {
+	public void setService(Service service){
 		this.service = service;
 	}
 	/*public String execute(){
@@ -26,7 +26,7 @@ public class IndexAction extends ActionSupport implements RequestAware{
 		request.put("goodsKindRoot",service.getGoodsKindRoot());
 		return SUCCESS;
 	}*/
-	public String execute(){
+	public String index(){
 		Paging paging = new Paging();
 		paging.setSize(15);
 		paging.setScene("new");

@@ -3,9 +3,12 @@ package cn.hua.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 
 @Entity
+@Table(name="classify")
 public class Classify implements Serializable{
 	/**
 	 * 分类：名字

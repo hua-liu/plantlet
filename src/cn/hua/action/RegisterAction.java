@@ -63,7 +63,7 @@ public class RegisterAction extends ActionSupport implements ModelDriven<UserReg
 				message.setId(UUID.randomUUID().toString());
 				message.setReceiveID(user.getId());
 				//MessageOperation.save(message);
-				//new ThreadHandler(MessageOperation.class, "sendFirstMessage", message).start();
+				new ThreadHandler(MessageOperation.class, "sendFirstMessage", message).start();
 				return SUCCESS;
 			}
 		}

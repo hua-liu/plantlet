@@ -75,6 +75,10 @@ $(function(){
 	//文件选择后监听
 	// 图片上传监听
 	$(".fileBox").bind("change",function() {
+		if(!isConnection){
+			alert("未连接，不能发送图片！");
+			return;
+		}
 		createPictureMessage("chatContent",null);
 		$.ajaxFileUpload({
 			url : "json/uploadChatPic_file",// 用于文件上传的服务器端请求地址
@@ -152,7 +156,7 @@ function replace_em(str){
 //创建一个图片消息
 function createPictureMessage(className,imgID){
 	var newNode = $('<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-name pull-right">'+currentUserName+'</span>'
-		+'<span class="direct-chat-timestamp pull-right">'+new Date().Format("yyyy-MM-dd hh:mm:ss")+'</span></div><img class="direct-chat-img" src="img/duola1.png">'
+		+'<span class="direct-chat-timestamp pull-right">'+new Date().Format("yyyy-MM-dd hh:mm:ss")+'</span></div><img class="direct-chat-img" src="'+(photoID!=null?'json/download_file?isBreviary=2&id='+photoID+'':'img/myCenter/noPhoto.png')+'">'
 		+'<div class="direct-chat-text"><img src="'+(imgID!=null?"json/downloadChatPic_file?id="+imgID:"img/loading.gif")+'" class="chatPic"/></div></div>');
 	$("."+className).append(newNode);
 	last=$(newNode).find(".direct-chat-text");
@@ -184,9 +188,9 @@ function createSystemPictureMessage(className,id){
 }
 //创建当前消息
 function createMessage(val){
-	if(val=='')return;
+	if(val==''||!isConnection)return;
 	var newNode = $('<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-name pull-right">'+currentUserName+'</span>'
-		+'<span class="direct-chat-timestamp pull-right">'+new Date().Format("yyyy-MM-dd hh:mm:ss")+'</span></div><img class="direct-chat-img" src="img/duola1.png">'
+		+'<span class="direct-chat-timestamp pull-right">'+new Date().Format("yyyy-MM-dd hh:mm:ss")+'</span></div><img class="direct-chat-img" src="'+(photoID!=null?'json/download_file?isBreviary=2&id='+photoID+'':'img/myCenter/noPhoto.png')+'">'
 		+'<div class="direct-chat-text">'+replace_em(val)+'</div></div>');
 	$(".chatContent").append(newNode);
 	last=$(newNode).find(".direct-chat-text");
@@ -228,6 +232,7 @@ function setScrollatBottom(){
 }
 /*websocket服务*/
 var webSocket = null;
+var isConnection=true;
 function openWebSocket(){
 	 if ('WebSocket' in window)  
 		 webSocket = new WebSocket(webSocketUri);  
@@ -279,6 +284,9 @@ function openWebSocket(){
 				 }
 				 createRecord(data.message,data.time,data.isSystem=='1'?true:false)
 				 
+			 }else if(data.type==8){
+				 alert(data.type)
+				 isConnection=false;
 			 }
 		 }
 		 /*crateSystemMessage(evt.data);*/
@@ -286,11 +294,12 @@ function openWebSocket(){
 	 };
 	 webSocket.onclose = function(evt){
 		 if(evt.reason!=''){
+			 isConnection=false;
 			 alert(evt.reason)
 		 }
 		 console.info(evt);
 	 };
-	 webSocket.onopen = function(evt){
+	 webSocket.onopen = function(evt){	
 		 console.info(evt);
 	 };
 }
@@ -298,11 +307,17 @@ function closeWebSocket(){
 	webSocket.close();
 }
 function sendMessage(message){
-	if(message==''){
-		$("#myInput").focus();
+	if(!isConnection){
+		alert("未连接，不能进行通信！");
+		$(".chatWinBox").hide();
 		return;
+	}else{
+		if(message==''){
+			$("#myInput").focus();
+			return;
+		}
+		webSocket.send(message);
 	}
-	webSocket.send(message);
 }
 //对日期扩展
 Date.prototype.Format = function (fmt) { //author: meizz 

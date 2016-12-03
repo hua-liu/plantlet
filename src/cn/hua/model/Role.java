@@ -3,12 +3,14 @@ package cn.hua.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity
+@Table(name="role")
 public class Role implements Serializable {
 	/**
 	 * 角色：拥有那些权限 
