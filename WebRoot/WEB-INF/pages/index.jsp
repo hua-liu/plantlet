@@ -46,14 +46,18 @@ body {
 
 .thumbnail {
 	width: 220px;
-	height: 270px;
+	height: 250px;
 	text-align: center;
 	vertical-align: middle;
 	cursor: pointer;
 	float: left;
 	margin: 2px;
 }
-
+.thumbnail:hover{
+ -webkit-box-shadow: 0 0 5px #000;
+    -moz-box-shadow: 0 0 5px #000;
+    box-shadow: 0 0 5px #000;
+}
 .thumbnail .pimg {
 	width: 100%;
 	height: 100%;
@@ -64,7 +68,9 @@ body {
 	height: 200px;
 	margin: 0 auto;
 }
-
+.thumbnail .caption{
+	margin-top:10px;
+}
 .thumbnail .caption h4 {
 	margin-top: 0;
 }
@@ -407,7 +413,7 @@ body {
 												</div>
 												<div class="caption" style="position:relative;">
 													<p
-														style="font-size:10px;position:absolute;top:-3px;right:0;">
+														style="font-size:10px;position:absolute;top:-10px;right:0;">
 														<s:text name="clinchADeal"/> <span style="color:#f50;padding:0;">${sellsum}<s:text name="fund"/></span>
 													</p>
 													<span><b><a href="single?goodsId=${goodsId }">${name}<strong
@@ -418,9 +424,9 @@ body {
 																</s:text>
 															</s:i18n>
 																</strong></a></b></span><br />
-													<div style="height:35px;overflow:hidden;">
+													<%-- <div style="height:35px;overflow:hidden;">
 														<small>${simpleDescript}</small>
-													</div>
+													</div> --%>
 												</div>
 											</div>
 										</s:iterator>
@@ -437,7 +443,7 @@ body {
 												</div>
 												<div class="caption" style="position:relative">
 													<p
-														style="font-size:10px;position:absolute;top:-3px;right:0;">
+														style="font-size:10px;position:absolute;top:-10px;right:0;">
 														<s:text name="clinchADeal"/> <span style="color:#f50;padding:0;">${sellsum}<s:text name="fund"/></span>
 													</p>
 													<b><a href="single?goodsId=${goodsId }">${name}<strong
@@ -448,9 +454,9 @@ body {
 																</s:text>
 															</s:i18n>
 															</strong></a></b><br />
-													<div style="height:35px;overflow:hidden;">
+													<%-- <div style="height:35px;overflow:hidden;">
 														<small>${simpleDescript}</small>
-													</div>
+													</div> --%>
 												</div>
 											</div>
 										</s:iterator>

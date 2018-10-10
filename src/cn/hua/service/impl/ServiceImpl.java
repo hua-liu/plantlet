@@ -7,12 +7,16 @@ import cn.hua.model.*;
 import cn.hua.service.Service;
 
 import org.apache.commons.beanutils.PropertyUtilsBean;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -84,15 +88,32 @@ public class ServiceImpl implements Service {
 
 	@Override
 	public boolean UserIsExist(String type, String name,String id) {
-		return userDao.isExist(type, name,id);
+		String sql = "";
+		int count = 0;
+		if(id==null||id!=null&&"".equals(id)){
+			sql = "select count(*) from User where "+type+"=?";
+			count = userDao.isExist(sql,name);
+		}else{
+			sql = "select count(*) from User where id!=? and "+type+"=?";
+			count = userDao.isExist(sql,id,name);
+		}
+		if (count > 0) {
+			return true;
+		}
+		return false;
 	}
 	@Override
 	public boolean UserIsExist(String type, String name) {
-		return userDao.isExist(type, name,null);
+		String sql = "select count(*) from User where "+type+"=?";
+		if(userDao.isExist(sql,name)>0){
+			return true;
+		}
+		return false;
 	}
 	@Override
 	public User findAccount(String value) {
-		return userDao.findAccount(value);
+		String sql = "from User where phone=:key or username=:key or email=:key or nickname=:key";
+		return userDao.findAccount(sql,value);
 	}
 
 	@Override
@@ -105,8 +126,75 @@ public class ServiceImpl implements Service {
 		return this.otherDao.getStates();
 	}
 	@Override
-	public List<?> getPagingData(Paging paging, String id) {
-		return otherDao.getPagingData(paging, id);
+	public List<OrderForm> getPagingData(Paging paging, String id) {
+		if(paging.getSize()<=1){
+			MySet myset = getSet(id);
+			if (myset != null) {
+				paging.setSize(myset.getPageRowNum());
+			}
+		}
+		String totalSql="";//用于查询总数
+		String sql = "";
+		if (paging.getClassify() == 1) {
+			 sql = "select new User(u.id,u.username,u.nickname,u.phone,u.email,u.state) from User u where " + (paging.getState() == 0 ? " ": ("state.id="
+					+ paging.getState()+" and "))+ (paging.getRole().equals("0")? " ": ("role.id='"+ paging.getRole()+
+					"' and "))+ " (username like :key or nickname like :key or phone like :key or email like :key)";
+			totalSql = "select count(*) from kjuser where " + (paging.getState() == 0 ? " ": ("state_id="
+					+ paging.getState()+" and "))+ (paging.getRole().equals("0")? " ": ("role_id='"+ paging.getRole()+
+					"' and "))+ " (username like :key or nickname like :key or phone like :key or email like :key)";
+		} else if (paging.getClassify() == 2) {
+			if(paging.getFunction()==1){
+				sql  = "from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+						+ paging.getGoodsKind() + " and ")+ " inventory=0 and g.name like :key";
+				totalSql = "select count(*) from goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind_id="
+						+ paging.getGoodsKind() + " and ")+ " inventory=0 and name like :key";
+			}else if(paging.getFunction()==2){
+				sql  = "from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+						+ paging.getGoodsKind() + " and ")+ " g.name like :key order by sellsum desc";
+				totalSql = "select count(*) from goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind_id="
+						+ paging.getGoodsKind() + " and ")+ " name like :key";
+			}else if(paging.getFunction()==3){
+				sql  = "from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+						+ paging.getGoodsKind() + " and ")+ " g.name like :key order by sellsum desc";
+				totalSql = "select count(*) from goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind_id="
+						+ paging.getGoodsKind() + " and ")+ " name like :key";
+			}else{
+				sql = "from Goods g where "+ (paging.getGoodsKind() == 0 ? " " : "g.goodsKind.id="
+						+ paging.getGoodsKind() + " and ")+ " g.name like :key ";
+				totalSql = "select count(*) from goods where "+ (paging.getGoodsKind() == 0 ? " " : "goodsKind_id="
+						+ paging.getGoodsKind() + " and ")+ " name like :key";
+			}
+		} else if (paging.getClassify() == 3) {
+			if(paging.getFunction()==9){
+				sql = "select new OrderForm(ofm.id, ofm.state,ofm.goods,ofm.user,ofm.buyNum,ofm.leaveMessage) from OrderForm ofm where ofm.state.id=9 order by isNew desc,buytime";
+			}else{
+			sql = "select new OrderForm(ofm.id, ofm.state,ofm.goods,ofm.user,ofm.buyNum,ofm.leaveMessage) from OrderForm ofm "+ (paging.getFunction() == 0 ? "": "where ofm.state.id=" + paging.getFunction())+ " order by ofm.buytime desc";
+			}
+			totalSql = "select count(*) from orderform "+ (paging.getFunction() == 0 ? " ": "where state_id=" + paging.getFunction());
+		} else if(paging.getClassify()==4){
+			if (paging.getFunction() == 1) {	//权限管理--用户维护
+				sql = "from User where role.id!=null and (username like :key or nickname like :key or"
+										+ " phone like :key or email like :key or role.name like :key)";
+			}else if(paging.getFunction() == 2){	//权限管理--角色维护
+				sql = "from Role where name like :key";
+			}else{
+				sql = "from Permission where name like :key";
+			}
+		}
+		int total = otherDao.getTotalSize(totalSql,paging.getKeywords());
+		paging.setTotalNum(total);
+		if(total==0){//如果没有数据则后面查询不用了
+			return null;
+		}
+		List<OrderForm> list = otherDao.getPagingData(sql,paging);
+		//查询已付款订单时进行更新处理
+		if(paging.getClassify()==4){
+			paging.setTotalNum(list.size());
+		}
+		if(paging.getClassify()==3&&paging.getFunction()==9){
+			otherDao.setReaded(list);
+		}
+		return list;
 	}
 
 	@Override
@@ -159,7 +247,16 @@ public class ServiceImpl implements Service {
 
 	@Override
 	public Map<Integer, String> getPermissions(Role role) {
-		return roleDao.getPermissions(role);
+		role =  roleDao.getPermissions(role);
+		Map<Integer,String> map = new HashMap<Integer,String>();
+		if(role!=null){
+			Iterator<Permission> iterator = role.getPermissions().iterator();
+			while(iterator.hasNext()){
+				Permission p = iterator.next();
+				map.put(p.getId(), p.getName());
+			}
+		}
+		return map;
 	}
 	@Override
 	public List<Role> getAllRoles() {
@@ -269,7 +366,21 @@ public class ServiceImpl implements Service {
 	}
 	@Override
 	public List<Goods> getGoodsPaging(Paging paging) {
-		return goodsDao.getGoodsPaging(paging);
+		String sql = "";
+		if(paging.getScene()!=null&&"new".equals(paging.getScene())){
+			sql = "select id,name,simpleDescript,price,sellsum,breviaryPicture_id from goods where state_id=7 order by shelfTime desc";
+		}else if(paging.getScene()!=null&&"recommend".equals(paging.getScene())){
+			sql = "select id,name,simpleDescript,price,sellsum,breviaryPicture_id from goods where state_id=7 order by sellsum desc";
+		}
+		List list = goodsDao.getGoodsPaging(sql,paging.getCurrentRow(),paging.getSize());
+		List<Goods> goodsList = new ArrayList<Goods>();
+		for(Object obj : list){
+			Object[] objArray = (Object[]) obj;
+			Goods goods = new Goods(objArray[0].toString(),objArray[1].toString(),objArray[2].toString(),Float.parseFloat(objArray[3].toString()),
+					Long.parseLong(objArray[4].toString()),objArray[5]==null?null:new BreviaryPicture(objArray[5].toString(), null));
+			goodsList.add(goods);
+		}
+		return goodsList;
 	}
 	@Override
 	public BreviaryPicture getGoodsBreviaryPicture(String id) {
@@ -333,7 +444,33 @@ public class ServiceImpl implements Service {
 	}
 	@Override
 	public List<Goods> getGoodsRewardPaging(GoodsPaging paging) {
-		return goodsDao.getGoodsRewardPaging(paging);
+		String likes = "";
+		if(paging.getColor()!=null){
+			String[] colors = paging.getColor().split(",");
+			for(int i=0;i<colors.length;i++){
+				if(i==0){
+					likes += " and (";
+				}
+				if(i==colors.length-1){
+					likes += "color like '%"+colors[i]+"%')";
+				}else
+					likes += "color like '%"+colors[i]+"%' or ";
+			}
+		}
+		//这里用来查询总数
+		String sql = "select count(*) from goods where "+(paging.getGoodsKind()==0?"":"goodsKind_id="+paging.getGoodsKind()+" and ")
+				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+" and ")
+				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)"+likes);
+		int total =otherDao.getTotalSize(sql,paging.getKeywords());
+		paging.setTotalNum(total);
+		if(total<1)return null;
+		sql = "select new Goods(g.id,g.name,g.price,g.isSale,g.salePrice,g.sellsum,g.breviaryPicture,g.inventory) "
+				+ "from Goods g where "+(paging.getGoodsKind()==0?"":"g.goodsKind.id="+paging.getGoodsKind()+" and ")
+				+ (paging.getMaxPrice()==0?"":"price>"+paging.getMinPrice()+" and price<"+paging.getMaxPrice()+" and ")
+				+("(name like :key or otherName like :key or otherValue like :key or simpleDescript like :key)"+likes)
+				+(paging.getFunction()==0?"":paging.getFunction()==1?"order by price":paging.getFunction()==2?"order by price desc":
+					paging.getFunction()==3?"order by sellsum desc":"");
+		return goodsDao.getGoodsRewardPaging(sql,paging);
 	}
 	@Override
 	public void updateUserNickname(String id, String nickname) {

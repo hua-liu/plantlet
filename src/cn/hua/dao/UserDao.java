@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface UserDao extends Dao<User>{
 	User findById(String id);
-	boolean isExist(String type,String name,String id);
-	User findAccount(String value);
+	int isExist(String sql,String ... param);
+	User findAccount(String sql,String key);
 	/**
 	 * 根据条件获取所有不是管理员的用户<br/>
 	 * 参数1：String	指定模糊查找

@@ -19,17 +19,8 @@ public class RoleDaoImpl implements RoleDao{
 		this.hibernateTemplate = hibernateTemplate;
 	}
 	@Override
-	public Map<Integer, String> getPermissions(Role role) {
-		Role role1 = hibernateTemplate.get(Role.class, role.getId());
-		Map<Integer,String> map = new HashMap<Integer,String>();
-		if(role1!=null){
-			Iterator<Permission> iterator = role1.getPermissions().iterator();
-			while(iterator.hasNext()){
-				Permission p = iterator.next();
-				map.put(p.getId(), p.getName());
-			}
-		}
-		return map;
+	public Role getPermissions(Role role) {
+		return hibernateTemplate.get(Role.class, role.getId());
 	}
 	@Override
 	public void save(Role t) {

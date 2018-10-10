@@ -12,9 +12,15 @@ import cn.hua.utils.FileOperation;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageProducer;
 import java.io.*;
 import java.util.Iterator;
 import java.util.Properties;
@@ -24,6 +30,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import javax.servlet.jsp.JspPage;
 
 public class FileAction extends ActionSupport {
 	/**
@@ -371,9 +378,23 @@ public class FileAction extends ActionSupport {
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
 				InputStream input = new BufferedInputStream(
 						new FileInputStream(path));
-				byte[] bt = new byte[1024];
-				while (input.read(bt) > 0) {
-					bos.write(bt);
+				if(isBreviary==1){
+					//对这类图片进行缩小处理
+					Image srcImg  = ImageIO.read(input);//取源图
+			        int  width  =  200; //假设要缩小到200点像素
+			        int  height =  srcImg.getHeight(null)*200/srcImg.getWidth(null);//按比例，将高度缩减
+			        Image image =srcImg.getScaledInstance(width, height, Image.SCALE_SMOOTH);//缩小
+			        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+			        Graphics2D g2 = bufferedImage.createGraphics();
+			        g2.drawImage(image, 0, 0, width, height, Color.WHITE, null);
+			        g2.dispose();
+			        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(bos);
+			        encoder.encode(bufferedImage);
+				}else{
+					byte[] bt = new byte[1024];
+					while (input.read(bt) > 0) {
+						bos.write(bt);
+					}
 				}
 				this.inputStream = new ByteArrayInputStream(bos.toByteArray());
 				bos.close();

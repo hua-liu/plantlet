@@ -193,7 +193,7 @@ body {
 			<div class="st-content" style="background: none">
 			<!-- 购物车图标 -->
 			<s:if test="#session.user!=null">
-			<div class="cartButton" id="st-trigger-effects">
+			<div class="cartButton" id="st-trigger-effects" style="z-index:1">
 				<button data-effect="st-effect-13" class="btn btn-danger st-effect" style="width:30px;height:150px;text-align:center;padding:0;"><span class="badge" id="cart-item-num">
 				<s:property value="#session.orderForms.size"></s:property>
 				</span><br/><s:text name="my"/><br/><s:text name="de"/><br/><s:text name="gou"/><br/><s:text name="wu"/><br/><s:text name="che"/></button>

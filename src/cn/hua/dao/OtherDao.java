@@ -7,13 +7,14 @@ import cn.hua.formBean.Paging;
 import cn.hua.model.Area;
 import cn.hua.model.Explain;
 import cn.hua.model.MySet;
+import cn.hua.model.OrderForm;
 import cn.hua.model.Photo;
 import cn.hua.model.Role;
 
 public interface OtherDao <T,K>{
 	List<T> getAll();
 	List<K> getStates();
-	List<?> getPagingData(Paging paging, String id);
+	List<OrderForm> getPagingData(String sql,Paging paging);
 	void saveSet(MySet mySset);
 	MySet getSet(String id);
 	Map<String,Object> findUserMoreData(String id);
@@ -24,4 +25,6 @@ public interface OtherDao <T,K>{
 	Explain loadGoodsExplain(String id);
 	List<Area> getAreas(int id);
 	List<String> getNewOrderFormNum();
+	int getTotalSize(String sql,Object ... obj);
+	void setReaded(List<OrderForm> list);
 }

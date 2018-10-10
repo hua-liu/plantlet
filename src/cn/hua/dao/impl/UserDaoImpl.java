@@ -6,12 +6,14 @@ import cn.hua.model.Safe;
 import cn.hua.model.User;
 
 import org.hibernate.Session;
+import org.hibernate.query.ParameterMetadata;
 import org.hibernate.query.Query;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -45,25 +47,26 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean isExist(String type, String name,String id) {
-		System.out.println(id);
+	public int isExist(String sql,String ... param) {
 		Session session = hibernateTemplate.getSessionFactory().getCurrentSession();
-		Long userCount=0L;
-		if(id==null||id.equals(""))
-			userCount = (Long) session.createQuery("select count(*) from User where "+type+"=?").setParameter(0, name).uniqueResult();
-		else
-			userCount = (Long) session.createQuery("select count(*) from User where id!=? and "+type+"=?").setParameter(0, id).setParameter(1, name).uniqueResult();
-		if (userCount > 0) {
-			return true;
+		Query query = session.createQuery(sql);
+		ParameterMetadata pm = query.getParameterMetadata();
+		for(int i=0;i<pm.getPositionalParameterCount();i++){
+			query.setParameter(i, param[i]);
 		}
-		return false;
+		return Integer.parseInt(query.getSingleResult().toString());
 	}
 
 	@Override
-	public User findAccount(String value) {
-		@SuppressWarnings("unchecked")
-		List<User> list = (List<User>) hibernateTemplate.find("from User where phone='" + value
-				+ "' or username='" + value + "' or email='" + value + "' or nickname='"+value+"'");
+	public User findAccount(String sql,String key) {
+		Query query = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(sql);
+		ParameterMetadata pm = query.getParameterMetadata();
+		Iterator<String> it = pm.getNamedParameterNames().iterator();
+		while(it.hasNext()){
+			query.setParameter(it.next(), key);
+			break;
+		}
+		List<User> list =query.getResultList();
 		if (list != null && list.size() > 0) {
 			User user = list.get(0);
 			user.getSafe().getId();

@@ -10,7 +10,6 @@
 .cartButton{
 	position:fixed;
 	right:20px;top:48%;
-	z-index:2000;
 }
 .mini-cart-items-list li:hover{
 	cursor:pointer;

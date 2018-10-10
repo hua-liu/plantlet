@@ -26,7 +26,6 @@ var mousewheel = document.all ? "mousewheel" : "DOMMouseScroll";
 	}
 
 	function init() {
-
 		var container = document.getElementById( 'st-container' ),
 	            	reset = document.getElementById( 'closeMenu' ),
 			buttons = Array.prototype.slice.call( document.querySelectorAll( '#st-trigger-effects .st-effect' ) ),
@@ -51,7 +50,6 @@ var mousewheel = document.all ? "mousewheel" : "DOMMouseScroll";
 
 		buttons.forEach( function( el, i ) {
 			var effect = el.getAttribute( 'data-effect' );
-
 			el.addEventListener( eventtype, function( ev ) {
 				ev.stopPropagation();
 				ev.preventDefault();
